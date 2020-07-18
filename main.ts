@@ -5,7 +5,33 @@ import * as url from 'url';
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
+  let loadingScreen;
+  function createLoadingScreen() {
+    /// create a browser window
+    loadingScreen = new BrowserWindow(
+      Object.assign({
+        /// define width and height for the window
+        width: 500,
+        height: 500,
+        /// remove the window frame, so it will become a frameless window
+        frame: false,
+        
+        /// and set the transparency, to remove any window background color
+         transparent: true
+      })
+    );
+    loadingScreen.setResizable(false);
+    require('electron-reload')(__dirname, {
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
+    loadingScreen.loadURL(`${__dirname}/src/loading.html`);
+    
 
+    loadingScreen.on('closed', () => (loadingScreen = null));
+    loadingScreen.webContents.on('did-finish-load', () => {
+      loadingScreen.show();
+    });
+  };
 function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
@@ -15,12 +41,17 @@ function createWindow(): BrowserWindow {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height,
+    minWidth:482,
+    minHeight:539,
+    width: 640,
+    height: 634,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
+
     },
+    frame:false,
+    show: false,
   });
 
   if (serve) {
@@ -47,6 +78,13 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+  win.webContents.on('did-finish-load', () => {
+    /// then close the loading screen window and show the main window
+    if (loadingScreen) {
+      loadingScreen.close();
+    }
+    win.show();
+  });
 
   return win;
 }
@@ -59,8 +97,13 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
-  app.on('ready', () => setTimeout(createWindow, 400));
-
+  app.on('ready', () => {
+    createLoadingScreen();
+    /// add a little bit of delay for tutorial purposes, remove when not needed
+    setTimeout(() => {
+      createWindow();
+    }, 1000);
+  });
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {
     // On OS X it is common for applications and their menu bar

@@ -1,7 +1,32 @@
 <div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+   <app-auth-heather></app-auth-heather>
+  <div class="background"></div>
+<div class="loginbox animated-500 fadeInDown aero">
+  <div class="title">
+     <div class="logo"> <img src="../../assets/others/logo.png" alt=""> Rcode</div>
+     <div class='info'>thank you to use Rcode</div>
+  </div>
+  <div class="form">
+     
+           <div class="formmain">
+              <input type="text" name="" id="email_log" placeholder="your email pl*">
+              <input type="password" name="" id="password_log" placeholder="Password">
+           </div>
+     
 
-  <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
+        <div class="actions">
+              <label>
+               <input type="checkbox" class="checkbox" name="rememberPassword" id='rm' style="display: none;" />
+               <i></i>
+               <span>Remember me</span>
+              </label>
+           <a href="javascript:void(0);" class="forget-password">Forget Password</a>
+           <br />
+           <button class="button b2" onclick="loginUser('email_log', 'password_log', 'status1')">Login</button>
+        </div>
+
+        <div class="msg" id="status1"></div>
+        <div class="gologin"><a nohref >have no account <i routerLink="/detail">register</i></a></div> 
+  </div>
 </div>
+<app-common-footer></app-common-footer>
