@@ -1,0 +1,40 @@
+<div class="container">
+  <app-auth-heather></app-auth-heather>
+  <div class="upercontainer">
+  </div>
+  <div class="float_in_front">
+    <div class="loginbox animated-500 fadeInDown aero">
+      <div class="title">
+        <div class="logo"> <img src="../../assets/others/logo.png" alt=""> Rcode</div>
+      </div>
+      <form #loginForm=ngForm (ngSubmit)="onsubmit()">
+        <div class="form">
+          <div class="form_content_left">
+            <div class="formmain">
+              <input type="text" name="first_name" placeholder="First Name*" [(ngModel)]="Form.first_name" required>
+              <input type="text" name="last_name" placeholder="Last Name*" [(ngModel)]="Form.last_name" required>
+              <input type="text" name="username" placeholder="Username Name*" [(ngModel)]="Form.username" required>
+              <input type="email" name="email" placeholder="Email*" [(ngModel)]="Form.email" required>
+              <input type="password" name="password" placeholder="Password" [(ngModel)]="Form.password" required>
+              <input type="password" name="password_confirmation" placeholder="Confirm password"
+                [(ngModel)]="Form.password_confirmation" required>
+
+
+            </div>
+
+          </div>
+
+
+          <div class="actions">
+            <button class="button b2" type="submit" [disabled]="!loginForm.valid">Register</button>
+          </div>
+
+          <div class="msg"></div>
+          <div class="gologin"><a routerLink="/login">have account <i>Login</i></a></div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="lowercontainer"></div>
+</div>

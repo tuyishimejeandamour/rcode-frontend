@@ -4,6 +4,10 @@ import { PageNotFoundComponent } from './shared/components';
 
 import { HomeRoutingModule } from './home/home-routing.module';
 import { DetailRoutingModule } from './detail/detail-routing.module';
+import { LoginRoutingModule } from './components/login/login-routing.module';
+import { RegisterRoutingModule } from './components/register/register-routing.module';
+import { ProfileRoutingModule } from './dashboard/profile/profile-routing.module';
+import { ResetPasswordRoutingModule } from './components/reset-password/reset-password-routing.module';
 
 const routes: Routes = [
   {
@@ -21,7 +25,11 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     HomeRoutingModule,
-    DetailRoutingModule
+    DetailRoutingModule,
+    LoginRoutingModule,
+    RegisterRoutingModule,
+    ProfileRoutingModule,
+    ResetPasswordRoutingModule
   ],
   exports: [RouterModule]
 })

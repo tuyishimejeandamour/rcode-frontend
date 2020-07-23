@@ -1,0 +1,39 @@
+<div class="container">
+   <app-auth-heather></app-auth-heather>
+<div class="upercontainer">
+</div>
+<div class="float_in_front">
+    <div class="loginbox animated-500 fadeInDown aero">
+      <div class="title">
+         <div class="logo"> <img src="../../assets/others/logo.png" alt=""> Rcode</div>
+         <div class='info'>thank you to use Rcode</div>
+      </div>
+      <form #loginForm=ngForm (ngSubmit)="onsubmit()" >
+      <div class="form">
+
+               <div class="formmain">
+                  <input type="text" name="email" id="email_log" placeholder="your email pl*" [(ngModel)]="Form.email" required>
+                  <input type="password" name="password" id="password_log" placeholder="Password" [(ngModel)]="Form.password" required>
+               </div>
+
+
+            <div class="actions">
+                  <label>
+                   <input type="checkbox" class="checkbox" name="rememberPassword" id='rm' style="display: none;" />
+                   <i></i>
+                   <span>Remember me</span>
+                  </label>
+               <a nohref routerLink="/resetPassword" class="forget-password">Forget Password</a>
+               <br />
+               <button class="button b2" type="submit" [disabled]="!loginForm.valid">Login</button>
+            </div>
+
+            <div class="msg"  [hidden]="!Error" >{{Error}}</div>
+            <div class="gologin"><a nohref >have no account <i routerLink="/register">register</i></a></div>
+      </div>
+   </form>
+    </div>
+</div>
+<div class="lowercontainer"></div>
+</div>
+

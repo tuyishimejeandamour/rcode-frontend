@@ -18,6 +18,18 @@ import { HomeModule } from './home/home.module';
 import { DetailModule } from './detail/detail.module';
 
 import { AppComponent } from './app.component';
+import { LoginModule } from './components/login/login.module';
+import { RegisterModule } from './components/register/register.module';
+import { JerwisService } from './Service/jerwis.service';
+import { TokenService } from './Service/token.service';
+import { FilExplorerComponent } from './dashboard/fil-explorer/fil-explorer.component';
+import { ProfileComponent } from './dashboard/profile/profile.component';
+import { ProfileModule } from './dashboard/profile/profile.module';
+import { AuthService } from './Service/auth.service';
+import { BeforeLoginService } from './Service/before-login.service';
+import { AfterLoginService } from './Service/after-login.service';
+import { ResetPasswordModule } from './components/reset-password/reset-password.module';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -25,7 +37,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilExplorerComponent, ProfileComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -34,7 +46,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     SharedModule,
     HomeModule,
     DetailModule,
+    LoginModule,
+    RegisterModule,
     AppRoutingModule,
+    ProfileModule,
+    ResetPasswordModule,
+    SnotifyModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,7 +60,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       }
     })
   ],
-  providers: [],
+  providers: [
+    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

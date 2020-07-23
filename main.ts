@@ -52,6 +52,7 @@ function createWindow(): BrowserWindow {
     },
     frame:false,
     show: false,
+    
   });
 
   if (serve) {

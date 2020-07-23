@@ -1,32 +1,44 @@
 <div class="container">
-   <app-auth-heather></app-auth-heather>
-  <div class="background"></div>
-<div class="loginbox animated-500 fadeInDown aero">
-  <div class="title">
-     <div class="logo"> <img src="../../assets/others/logo.png" alt=""> Rcode</div>
-     <div class='info'>thank you to use Rcode</div>
-  </div>
-  <div class="form">
-     
-           <div class="formmain">
-              <input type="text" name="" id="email_log" placeholder="your email pl*">
-              <input type="password" name="" id="password_log" placeholder="Password">
-           </div>
-     
+    <app-auth-heather></app-auth-heather>
+ <div class="upercontainer">
+ </div>
+ <div class="float_in_front">
+     <div class="header">
+         <span class="welcome_header">Welcome back</span>
+     </div>
+     <div class="uperflo">
+         <button class="sign_in" routerLink="/login">sign in</button>
+         <span class="dontHaveaccount">don't have account<a routerLink="/register">register</a></span>
+     </div>
+     <div class="lowerflo">
+        <div class="assignment_div">
+            <div class="img_assign img_challenge">
+                <img src="../assets/profile_picture/31592671453.png" alt="">
+            </div>
+            <div class="footer_assign">
+                
 
-        <div class="actions">
-              <label>
-               <input type="checkbox" class="checkbox" name="rememberPassword" id='rm' style="display: none;" />
-               <i></i>
-               <span>Remember me</span>
-              </label>
-           <a href="javascript:void(0);" class="forget-password">Forget Password</a>
-           <br />
-           <button class="button b2" onclick="loginUser('email_log', 'password_log', 'status1')">Login</button>
+            </div>
         </div>
-
-        <div class="msg" id="status1"></div>
-        <div class="gologin"><a nohref >have no account <i routerLink="/detail">register</i></a></div> 
-  </div>
+        <div class="assignment_div">
+            <div class="img_assign img_challenge">
+                <img src="../assets/profile_picture/11594486894.png" alt="">
+            </div>
+            <div class="footer_assign">
+                
+            </div>
+        </div>
+        <div class="assignment_div">
+            <div class="img_assign">
+            <img src="../assets/profile_picture/61593707094.png" alt="">
+            </div>
+            <div class="footer_assign">
+               
+            </div>
+        </div>
+        
+     </div>
+ </div>
+ <div class="lowercontainer"></div>
 </div>
-<app-common-footer></app-common-footer>
+
