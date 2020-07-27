@@ -5,8 +5,8 @@
 <div class="float_in_front">
     <div class="loginbox animated-500 fadeInDown aero">
       <div class="title">
-         <div class="logo"> <img src="../../assets/others/logo.png" alt=""> Rcode</div>
-         <div class='info'>thank you to use Rcode</div>
+         <div class="logo"> <img src="../../assets/others/logo.png" alt=""><span routerLink="/home">Rcode</span></div>
+         <div class='info'>Welcome again to Rcode</div>
       </div>
       <form #loginForm=ngForm (ngSubmit)="onsubmit()" >
       <div class="form">
@@ -23,7 +23,7 @@
                    <i></i>
                    <span>Remember me</span>
                   </label>
-               <a nohref routerLink="/resetPassword" class="forget-password">Forget Password</a>
+               <a nohref routerLink="/new-password" class="forget-password">Forget Password</a>
                <br />
                <button class="button b2" type="submit" [disabled]="!loginForm.valid">Login</button>
             </div>

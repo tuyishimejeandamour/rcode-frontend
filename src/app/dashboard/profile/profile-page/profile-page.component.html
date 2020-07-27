@@ -1,0 +1,32 @@
+<div class="projectlister">
+  <div class="projectTitle">
+      your marks
+  </div>
+
+</div>
+<div class="projectlister">
+  <div class="profile_img_container">
+      <div class="quote_container">
+          <div class="quote_text_continer">
+              <p class="my-inspiration"><q>
+                      Imagination in better than knowledge</q> </p>
+          </div>
+          <div class="writers_name">
+              <span><i>Albert Einstein </i></span>
+          </div>
+          <img src="../../../../assets/others/insipier.png" class="creater_image">
+
+      </div>
+  </div>
+  <div class="float-pro">
+    <a [routerLink]="'pro-info'"  routerLinkActive="active">profile</a>
+
+    <a [routerLink]="'assignments'" routerLinkActive="active">Assignments</a>
+
+    <a [routerLink]="'challenges'" routerLinkActive="active">Challenges</a>
+  </div>
+</div>
+<div class="directory_marks">
+<router-outlet></router-outlet>
+</div>
+

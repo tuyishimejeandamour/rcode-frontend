@@ -89,6 +89,8 @@
       width: 100%;
       height: calc(100% - 40%);
       background: #F5F6F8;
+      background: linear-gradient(rgb(255, 255, 255) 10%, #fdfdfd 85%,#fcfcfc 87%, #F5F6F8 90%);
+      // background: linear-gradient(180deg,#fdfdfd,#F5F6F8);
       z-index: 1;
       padding-top: 40px;
       overflow: auto;

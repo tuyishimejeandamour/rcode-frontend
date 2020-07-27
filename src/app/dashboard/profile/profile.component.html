@@ -1,1 +1,20 @@
 <app-dash-header></app-dash-header>
+<nav class="nav_around" id="nav_around">
+          <div class="float-17">
+          <a routerLink="/profile/filexplorer" routerLinkActive="active">Explorer</a>
+
+          <a routerLink="/profile/upload" routerLinkActive="active">Upload</a>
+
+          <a routerLink="/profile/markspage" routerLinkActive="active"> Marks</a>
+
+          <a routerLink="/profile/profile-page" routerLinkActive="active">Profile</a>
+
+          <a routerLink="/profile/activities" routerLinkActive="active">Activities</a>
+        </div>
+</nav>
+<div class="content">
+<router-outlet> </router-outlet>
+</div>
+<app-footer-menu></app-footer-menu>
+<app-common-footer></app-common-footer>
+

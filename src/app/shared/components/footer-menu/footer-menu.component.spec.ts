@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilExplorerComponent } from './fil-explorer.component';
+import { FooterMenuComponent } from './footer-menu.component';
 
-describe('FilExplorerComponent', () => {
-  let component: FilExplorerComponent;
-  let fixture: ComponentFixture<FilExplorerComponent>;
+describe('FooterMenuComponent', () => {
+  let component: FooterMenuComponent;
+  let fixture: ComponentFixture<FooterMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilExplorerComponent ]
+      declarations: [ FooterMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilExplorerComponent);
+    fixture = TestBed.createComponent(FooterMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

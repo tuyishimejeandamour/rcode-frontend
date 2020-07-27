@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components';
-
 import { HomeRoutingModule } from './home/home-routing.module';
 import { DetailRoutingModule } from './detail/detail-routing.module';
 import { LoginRoutingModule } from './components/login/login-routing.module';
 import { RegisterRoutingModule } from './components/register/register-routing.module';
 import { ProfileRoutingModule } from './dashboard/profile/profile-routing.module';
 import { ResetPasswordRoutingModule } from './components/reset-password/reset-password-routing.module';
+import { NewPasswordRoutingModule } from './components/new-password/new-password-routing.module';
 
 const routes: Routes = [
   {
@@ -17,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: PageNotFoundComponent
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 ];
 
@@ -29,7 +29,8 @@ const routes: Routes = [
     LoginRoutingModule,
     RegisterRoutingModule,
     ProfileRoutingModule,
-    ResetPasswordRoutingModule
+    ResetPasswordRoutingModule,
+    NewPasswordRoutingModule
   ],
   exports: [RouterModule]
 })

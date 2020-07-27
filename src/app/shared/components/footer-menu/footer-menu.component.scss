@@ -1,0 +1,15 @@
+.footermenu{
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 35px;
+  background: rgb(51, 103, 214);
+}
+
+@media screen and (max-width: 908px) {
+  .footermenu{
+    display: block;
+  }
+
+  }

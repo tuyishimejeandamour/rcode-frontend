@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,5 +19,9 @@ export class JerwisService {
   }
   reset(data){
     return this.http.post(`${this.baseurl}/resetPasswordEmail`,data);
+
+  }
+  newpasswordIn(data){
+    return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
   }
 }

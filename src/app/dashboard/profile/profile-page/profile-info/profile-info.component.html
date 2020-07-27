@@ -1,0 +1,180 @@
+<div class="directory_profile" id="Profile">
+  <div class="directory_header" style="height: 40px">
+      <div class="sort_challenge" onclick="showHide('sort_selection')"><img
+              src="images/explorer/icons8_identification_documents_50px.png" alt=""></div>
+      <div style="display:inline-block;margin-left:40%"><span
+              style="position: absolute;top:10px;font-size:14px;font-weight:600">Your profile</span></div>
+  </div>
+  <div class="directory_show">
+      <div class="side_bar_left_with_img">
+          <div class="profile_in_title" onclick="showHide('edit-profile_info_div')">
+              <i class="fa fa-pencil-square" style="font-size: 20px;position:absolute;left:10px;top:10px"></i>
+              <span style="position: absolute;top:12px;left:30%">view & edit profile info</span>
+              <i class="fa fa-gears" style="font-size: 20px;position:absolute;right:10px;top:10px"></i>
+          </div>
+          <img class="profile_picture" id="profile_picture_id"
+              src="../../../../../assets/profile_picture/31592671453.png" alt="">
+
+          <div class="username_display">
+              <span class="username_display-show"> jaylove</span>
+              <span class="username_status">currently I am busy studying</span>
+              <span class="username_class">class1</span>
+          </div>
+          <div class="profile_menu_show">
+              <div class="floatleft-profile_menu ap_pr1">
+                  <img src="images/others/icons8_trophy_30px.png" alt="">
+              </div>
+              <div class="floatright-profile_menu ">
+                  <span class="top_number">123</span>
+                  <span class="bottom-discription">trophies</span>
+              </div>
+          </div>
+          <div class="profile_menu_show">
+              <div class="floatleft-profile_menu ap_pr2">
+                  <img src="images/others/icons8_following_30px.png" alt="">
+              </div>
+              <div class="floatright-profile_menu">
+                  <span class="top_number">123</span>
+                  <span class="bottom-discription">following
+                  </span>
+              </div>
+          </div>
+          <div class="profile_menu_show">
+              <div class="floatleft-profile_menu ap_pr3">
+                  <img src="images/others/icons8_query_30px_1.png" alt="">
+              </div>
+              <div class="floatright-profile_menu">
+                  <span class="top_number">12</span>
+                  <span class="bottom-discription">
+                      unsolved
+                  </span>
+              </div>
+          </div>
+      </div>
+      <div class="profile_content_right">
+          <div class="performance_od-workings">
+              <div class="header_content_workings">
+                  <div class="dispcribe_left">
+                      <span class="pro_emergency">Emergency acts</span>
+                      <button type="button" class="pro_button_emergeny bte1 ">class1</button>
+                      <button type="button" class="pro_button_emergeny bte2 default_btn_pro">class2</button>
+                      <button type="button" class="pro_button_emergeny bte3">class3</button>
+                  </div>
+                  <div class="dispcribe_right">
+                      <span class="pro_emergency">Lethargies</span>
+                      <button class="sort-lethargies-btn" onclick="showHide('sort_lethergies')">
+                          <i class="fa fa-list"></i>
+                      </button>
+                      <div class="sort_lethergies" id="sort_lethergies"></div>
+                  </div>
+              </div>
+              <div class="content_content_workings">
+                  <div class="content_content_workings_left"></div>
+                  <div class="content_content_workings_rigth">
+                      <div class="Lethargies_menu_show">
+                          <div class="floatleft-Lethargies_menu ap_pr1">
+                              <img src="profile_picture/<?php echo $_SESSION['PROFILE']; ?>" alt="">
+                          </div>
+                          <div class="floatright-Lethargies_menu">
+                              <span class="top_number">Tuyishime jeand'amour</span>
+                              <span class="bottom-discription">trophies</span>
+                              <span class="left_percentage-discription">45% <i class="fa fa-arrow-right"
+                                      style="margin-left: 10px;"></i></span>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="botomm_content_show">
+              <div class="dispcribe_left">
+                  <span class="pro_emergency" style="margin-left: 5%;">Message</span>
+                  <button type="button" class="pro_button_emergeny bte1 "><i
+                          class="fa fa-arrow-right"></i></button>
+                  <button type="button" class="pro_button_emergeny bte2 default_btn_pro">1</button>
+                  <button type="button" class="pro_button_emergeny bte3"><i
+                          class="fa fa-arrow-left"></i></button>
+              </div>
+              <div class="main_container_bottom">
+
+                  <div class="message_div_sent">
+                      <div class="floatleft-Lethargies_menu ">
+                          <img style="width:35px; height:35px;margin-left:3px;margin-top:1px"
+                              src="profile_picture/<?php echo $_SESSION['PROFILE']; ?>" alt="">
+                      </div>
+                      <div class="floatright-Lethargies_menu">
+                          <span class="top_number">Tuyishime jeand'amour</span>
+                          <span class="bottom-discription">help me to to this...</span>
+                          <span class="left_percentage-discription"><i class="fa fa-check"
+                                  style="margin-left: 10px;"></i></span>
+                      </div>
+                  </div>
+
+
+              </div>
+          </div>
+          <button class="saveAndEdit_profile"><i class="fa fa-plus" style="font-size: 20px;"></i></button>
+      </div>
+      <div class="edit-profile_info_div animated zoomIn" id="edit-profile_info_div">
+          <div class="performance_od-workings">
+              <div class="header_content_workings">
+                  <div class="dispcribe_left">
+                      <span class="pro_emergency">Personal info</span>
+                  </div>
+                  <div class="dispcribe_right">
+                      <span class="pro_emergency">Quote</span>
+                      <button class="sort-lethargies-btn" onclick="hideanimate('edit-profile_info_div')">
+                          <i class="fa fa-arrow-right"></i>
+                      </button>
+                  </div>
+              </div>
+              <div class="content_content_workings">
+                  <div class="content_content_workings_left">
+                      <div class="personal_information_edit">
+                          <label for="creator name" style="display: inline-block;">First name</label>
+                          <input type="text" placeholder="First name"
+                              value="<?php echo $_SESSION['FIRSTNAME']; ?>">
+                          <label for="creator name" style="display: inline-block;">Last name</label>
+                          <input type="text" placeholder="Last name"
+                              value="<?php echo $_SESSION['LASTNAME']; ?>">
+                          <label for="creator name">Email</label>
+                          <input type="text" placeholder="Email" value="<?php echo $_SESSION['EMAIL']; ?>">
+                          <label for="creator name" style="margin-left: 47%;cursor:pointer">More <i
+                                  class="fa fa-sort-down"></i></label>
+                      </div>
+                      <img ondblclick="showHide('update_profile_photo')"
+                          onmouseover="showHide('profile_hover')" onmouseout="hide('profile_hover')"
+                          class="update_image" id="update_image"
+                          src="profile_picture/<?php echo $_SESSION['PROFILE']; ?>" alt="">
+                      <div title="edit profile image" class="profile_img_hover animated fadeIn"
+                          id="profile_hover" onmouseover="showHide('profile_hover')"
+                          onmouseout="hide('profile_hover')">
+                          <img onclick="uploadinput()" style="width: 30px;height: 30px;margin-left:45%"
+                              src="images/explorer/icons8_edit_image_50px_1.png" alt="">
+                          <input type="file" name="profile-image" id="profile_image"
+                              style="visibility: hidden;">
+                      </div>
+                  </div>
+                  <div class="content_content_workings_rigth" style=" padding-left: 15px;">
+                      <label for="quote">your quote</label>
+                      <textarea id="quote_content"></textarea>
+                      <label for="creator name">name of creator</label>
+                      <input type="text" name="" id="creator_name">
+                      <label for="quote">creator image</label>
+                      <input type="file" name="" id="creator_image">
+                      <label for="creator name" style="margin-left: 40%;cursor:pointer">advanced <i
+                              class="fa fa-sort-down"></i></label>
+                  </div>
+              </div>
+
+          </div>
+          <div class="botomm_content_show">
+              <div class="main_container_bottom"></div>
+          </div>
+          <button class="saveAndEdit_profile">Update</button>
+
+      </div>
+  </div>
+</div>

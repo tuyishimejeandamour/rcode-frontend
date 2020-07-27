@@ -1,6 +1,6 @@
 .common-footer {
     color: #eee;
-    height: 26px;
+    height: 24px;
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -9,8 +9,13 @@
     background: rgb(51, 103, 214);
     padding-top: 5px;
  }
- 
+
  .common-footer a:hover {
     color: #fff;
  }
- 
+ @media screen and (max-width: 908px) {
+  .common-footer{
+    display: none;
+  }
+
+  }

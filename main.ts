@@ -15,7 +15,7 @@ const args = process.argv.slice(1),
         height: 500,
         /// remove the window frame, so it will become a frameless window
         frame: false,
-        
+
         /// and set the transparency, to remove any window background color
          transparent: true
       })
@@ -25,7 +25,7 @@ const args = process.argv.slice(1),
       electron: require(`${__dirname}/node_modules/electron`)
     });
     loadingScreen.loadURL(`${__dirname}/src/loading.html`);
-    
+
 
     loadingScreen.on('closed', () => (loadingScreen = null));
     loadingScreen.webContents.on('did-finish-load', () => {
@@ -52,7 +52,7 @@ function createWindow(): BrowserWindow {
     },
     frame:false,
     show: false,
-    
+
   });
 
   if (serve) {
@@ -121,6 +121,7 @@ try {
       createWindow();
     }
   });
+
 
 } catch (e) {
   // Catch Error

@@ -1,7 +1,35 @@
-<div class="winow_menu_nav">
-  <ul>
-    <li>mini</li>
-    <li>max</li>
-    <li>close</li>
-  </ul>
+<div class="header_nav" >
+  <div class="titlebardrag"></div>
+  <div class="logo_img">
+      <a href="../welcome"><img class="logo"
+              src="../../../assets/others/logo.png" alt=""></a>
+      <span class="logoname">Rcode</span>
+  </div>
+  <div class="dive_into_location">
+      <a><i class="fa fa-th-large" style="font-size: 16px;margin-right:5px"></i>Dashboard</a>
+      <a onclick='window.open("workspace/")'><i class="fa fa-code"
+              style="font-size: 16px;margin-right:5px"></i>Editor</a>
+
+      <a onclick='window.location="editor/"' style="border-right:1px solid #dde"><i class="fa fa-check"
+              style="font-size: 16px;margin-right:5px"></i>Mark</a>
+
+
+  </div>
+
+  <div class="notification">
+      <ul>
+
+          <li onclick="myFunction('myDropdown')"><img class="btngogo" id="header_profile_picture"
+                  style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
+                  src="../../../assets/profile_picture/11594486894.png" alt="">
+
+          </li>
+          <li (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
+          <li (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
+          <li (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
+          <li (click)= "closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
+
+      </ul>
+
+  </div>
 </div>
