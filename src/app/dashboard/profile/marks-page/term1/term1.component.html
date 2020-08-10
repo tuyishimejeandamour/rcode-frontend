@@ -1,20 +1,40 @@
 <div class="directory_header">
   <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
-      src="images/explorer/icons8_report_card_100px.png" alt="">
+      src="../../../../../assets/others/term.png" alt="">
   <span style="position: absolute;top:10px;left:50%;font-size:14px;font-weight:600">Term 1</span>
 </div>
 <div class="directory_show">
-  <table>
-      <thead>
-          <tr>
-              <th>Marks</th>
-              <th>Lesson</th>
-              <th>Test</th>
-              <th>Term</th>
-              <th>Class</th>
-              <th>comments</th>
-          </tr>
-        </thead>
-          <tbody></tbody>
-  </table>
+  <div class="mat-elevation-z1" >
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position" >
+        <mat-header-cell  *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+
+    <mat-paginator color="primary" [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

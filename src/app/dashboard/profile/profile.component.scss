@@ -6,13 +6,15 @@
   background-image: url(../../../assets/others/texture.png);
   z-index: 0;
   margin-top: 2px;
- .float-17 {
+
+  .float-17 {
     position: absolute;
     top: 30px;
     margin-left: 17%;
-  a{
+
+    a {
+      position: relative;
       line-height: 1.8;
-      text-align: center;
       padding-top: 3px;
       display: inline-block;
       width: 100px;
@@ -23,6 +25,16 @@
       z-index: 300;
       text-decoration: none;
       color: rgb(115, 115, 115);
+
+      span {
+        position: absolute;
+        text-transform: capitalize;
+        top: 18%;
+        margin-left: 5px;
+      }
+      mat-icon{
+        margin-left: 5px;
+      }
       &:hover {
 
         cursor: pointer;
@@ -46,7 +58,8 @@
   }
 
 }
-.content{
+
+.content {
   position: absolute;
   width: 100%;
   height: calc(100% - 125px);
@@ -55,18 +68,27 @@
 @media screen and (max-width: 700px) {
   .nav_around {
     height: 30px;
-   .float-17{
-    top: 0px;
+    .float-17 {
+      top: 0px;
       margin-left: 50px;
+
       a {
+        text-align: center;
         width: 70px;
+        span{
+          display: none;
+        }
       }
 
     }
   }
- .content{
-  width: calc(100%);
-  height: calc(100% - 35px - 35px - 30px);
- }
-}
 
+  .content {
+    width: calc(100%);
+    height: calc(100% - 35px - 35px - 30px);
+  }
+}
+mat-progress-bar{
+position: absolute;
+
+}

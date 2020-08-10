@@ -6,12 +6,9 @@
       <span class="logoname">Rcode</span>
   </div>
   <div class="dive_into_location">
-      <a><i class="fa fa-th-large" style="font-size: 16px;margin-right:5px"></i>Dashboard</a>
-      <a onclick='window.open("workspace/")'><i class="fa fa-code"
-              style="font-size: 16px;margin-right:5px"></i>Editor</a>
-
-      <a onclick='window.location="editor/"' style="border-right:1px solid #dde"><i class="fa fa-check"
-              style="font-size: 16px;margin-right:5px"></i>Mark</a>
+     <a nohref (click)="gohome('/home')" class="dashboard"><mat-icon>dashboard</mat-icon><span>Dashboard</span></a>
+     <a nohref (click)="gohome('/editor')"class="editor"><mat-icon>editor</mat-icon><span>Editor</span></a>
+     <a nohref (click)="gohome('/marktask')"class="mark"><mat-icon>check</mat-icon> <span>Mark</span></a>
 
 
   </div>
@@ -19,7 +16,7 @@
   <div class="notification">
       <ul>
 
-          <li onclick="myFunction('myDropdown')"><img class="btngogo" id="header_profile_picture"
+          <li [matMenuTriggerFor]="menu"><img class="btngogo" id="header_profile_picture"
                   style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
                   src="../../../assets/profile_picture/11594486894.png" alt="">
 
@@ -30,6 +27,19 @@
           <li (click)= "closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
 
       </ul>
-
+      <mat-menu #menu="matMenu" >
+        <button mat-menu-item>
+          <mat-icon>dialpad</mat-icon>
+          <span>Redial</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>voicemail</mat-icon>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
   </div>
 </div>

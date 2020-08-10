@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'app/core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dash-header',
@@ -9,9 +10,15 @@ import { ElectronService } from 'app/core/services';
 })
 export class DashHeaderComponent implements OnInit {
 
-  constructor(private electron: ElectronService) { }
+  constructor(
+    private electron: ElectronService,
+    private link: Router
+ ) { }
 
   ngOnInit(): void {
+  }
+  gohome(value: string): void{
+    this.link.navigateByUrl(value)
   }
   closewindow(): void{
     this.electron.window.close();

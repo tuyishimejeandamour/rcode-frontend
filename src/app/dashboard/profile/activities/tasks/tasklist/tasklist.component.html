@@ -1,0 +1,90 @@
+<div class="mat-elevation-z1">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{(dataSource.data.indexOf(element)+1)}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Task </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.taskname}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="classname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Classname </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.classname}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="starting_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> starting_date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.starting_date }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="submittion_deadline">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> submittion_deadline </mat-header-cell>
+      <mat-cell ng-co="onContextMenu($event, element)" *matCellDef="let element"> {{element.ending_date }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="action-link">
+        <button mat-icon-button (click)="onContextMenu($event, element)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-cell>
+
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+  <context-menu>
+    <ng-template contextMenuItem (execute)="openDialog($event.item)">
+      edit
+    </ng-template>
+    <ng-template contextMenuItem (execute)="getcontent($event.item.id)">
+      mark test
+    </ng-template>
+    <ng-template contextMenuItem (execute)="getcontent($event.item.id)">
+      show to student
+    </ng-template>
+    <ng-template contextMenuItem let-item
+      (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+      show content
+    </ng-template>
+  </context-menu>
+</div>
+<div class="preview_assignment" [hidden]="!showtaskcontent">
+  <div class="preview_assignment_header assignment_fullscreen">
+    <div class="sort_challenge" (click)="changeappeareanceofeditor(false)" style="margin-top: -1px"><img
+        src="../../../../../assets/others/left.png" alt=""></div>
+    <div style="display:inline-block;margin-left:40%"><span
+        style="position: absolute;top:10px;font-size:14px;font-weight:600" id="title_name"></span>
+    </div>
+    <img onclick="PrintElem('assignment_info')"
+      style="position:absolute;right:180px; width: 30px; height: 30px;margin-top:3px "
+      src="../../../../../assets/others/icon.png" alt="">
+    <img onclick="PrintElem('assignment_info')"
+      style="position:absolute;right:80px; width: 30px; height: 30px;margin-top:3px "
+      src="../../../../../assets/others/icon.png" alt="">
+    <img style="position:absolute;right:130px; width: 30px; height: 30px;margin-top:3px "
+      src="../../../../../assets/others/icon.png" alt="">
+    <img class="edit_img" onclick="makefullScreen('assignment_show')" id="fullscreens"
+      src="../../../../../assets/others/icon.png" alt="">
+    <img class="edit_img" onclick="exitfullScreen('assignment_show')" style="display: none;" id="normalcreens"
+      src="../../../../../assets/others/icon.png" alt="">
+  </div>
+  <div class="show_assignment_info">
+    <div class="shordiscription" id="displayshortdiscription">
+
+    </div>
+    <div class="show_content" id="displaycontent">
+
+    </div>
+  </div>
+
+</div>

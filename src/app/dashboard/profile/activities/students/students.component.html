@@ -1,0 +1,86 @@
+<div class="directory_header" style="height: 40px">
+  <div class="sort_challenge" onclick="show('sort_selection')"><img
+      style="width: 30px;height:30px;margin-left:20px;margin-top:5px" src="../../../../../assets/others/students.png"
+      alt=""></div>
+  <div style="display:inline-block;margin-left:40%"><span
+      style="position: absolute;top:10px;font-size:14px;font-weight:600">your student and their corresponding
+      class</span></div>
+</div>
+<div class="directory_show">
+  <div class="side_bar_left_with_img">
+    <div class="profile_in_title">
+      <button mat-raised-button (click)="openDialog()" color="accent"
+        aria-label="Example icon button with a plus one icon">
+        <mat-icon>add</mat-icon>
+        <span>Add Student</span>
+      </button>
+    </div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Filter student</mat-label>
+      <input matInput (keyup)="doFilter($event.target.value)" value="" placeholder="enter name">
+    </mat-form-field>
+  </div>
+  <div class="profile_content_right">
+    <div class="mat-elevation-z1">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="example-side-menu-std">
+                <div class="example-element-diagram">
+                  <img src="../../../../../assets/profile_picture/41594424503.png" alt="">
+                </div>
+                <button mat-raised-button class="full-show-buttom" matBadgeColor="warn" matBadge="7"
+                  [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
+                  <mat-icon>assignment_late</mat-icon>
+                  <span> unsubmitted</span>
+                </button>
+                <button mat-raised-button class="full-show-buttom" >
+                  <mat-icon>insert_chart</mat-icon>
+                   <span> performance</span>
+                </button>
+              </div>
+
+              <div class="example-element-description">
+                <table>
+                  <thead>
+                      <tr>
+                          <th style="height: 35px">number</th>
+                          <th style="height: 35px">marks</th>
+                          <th style="height: 35px">task</th>
+                          <th style="height: 35px">lesson</th>
+                          <th style="height: 35px">term</th>
+                      </tr>
+
+                  </thead>
+
+                  <tr *ngFor="let item of element.description">
+                    <td>{{item.position}}</td>
+                    <td> {{item.name}}</td>
+                    <td>{{item.weight}}</td>
+                    <td>{{item.symbol}}</td>
+                    <td>{{item.position}}</td>
+                    </tr>
+                    </table>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </mat-row>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

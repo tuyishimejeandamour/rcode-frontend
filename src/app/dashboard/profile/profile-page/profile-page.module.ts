@@ -6,13 +6,15 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { ChallengesComponent } from './challenges/challenges.component';
+import { MaterialModule } from 'app/material/material.module';
 
 
 @NgModule({
   declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent],
   imports: [
     CommonModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    MaterialModule
   ]
 })
 export class ProfilePageModule { }

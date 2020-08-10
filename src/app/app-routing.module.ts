@@ -7,6 +7,8 @@ import { RegisterRoutingModule } from './components/register/register-routing.mo
 import { ProfileRoutingModule } from './dashboard/profile/profile-routing.module';
 import { ResetPasswordRoutingModule } from './components/reset-password/reset-password-routing.module';
 import { NewPasswordRoutingModule } from './components/new-password/new-password-routing.module';
+import { EditorRoutingModule } from './editor/editor-routing.module';
+import { MarktaskRoutingModule } from './marktask/marktask-routing.module';
 
 const routes: Routes = [
   {
@@ -30,7 +32,9 @@ const routes: Routes = [
     RegisterRoutingModule,
     ProfileRoutingModule,
     ResetPasswordRoutingModule,
-    NewPasswordRoutingModule
+    NewPasswordRoutingModule,
+    EditorRoutingModule,
+    MarktaskRoutingModule
   ],
   exports: [RouterModule]
 })

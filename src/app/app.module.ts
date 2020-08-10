@@ -29,6 +29,12 @@ import { AfterLoginService } from './Service/after-login.service';
 import { ResetPasswordModule } from './components/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NewPasswordModule } from './components/new-password/new-password.module';
+import { MaterialModule } from './material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CommonfunctionService } from './Service/commonfunction.service';
+import { EditorModule } from './editor/editor.module';
+import { MarktaskModule } from './marktask/marktask.module';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -52,6 +58,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ResetPasswordModule,
     SnotifyModule,
     NewPasswordModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    EditorModule,
+    MarktaskModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -61,7 +71,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,
+    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],

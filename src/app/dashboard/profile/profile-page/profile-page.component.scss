@@ -27,7 +27,12 @@
       transition-duration: 0.4s;
       overflow: hidden;
       cursor: pointer;
-
+      span {
+        position: absolute;
+        text-transform: capitalize;
+        top: 25%;
+        margin-left: 20px;
+      }
     }
 
     a:after {
@@ -38,7 +43,7 @@
       position: absolute;
       padding-left: 300%;
       padding-top: 350%;
-      margin-top: -20px !important;
+      margin-top: -40px !important;
       margin-left: -120%;
       opacity: 0;
       transition: all 0.8s
@@ -114,8 +119,9 @@
       bottom: 10%;
       background: white;
       box-shadow: 1px 1px 8px rgba(221, 221, 238, 0.377);
-
+      text-align: center;
       i {
+
         line-height: 2.1;
         font-style: italic;
       }

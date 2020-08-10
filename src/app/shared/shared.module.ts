@@ -11,10 +11,13 @@ import { CommonFooterComponent } from './components/common-footer/common-footer.
 import { DashHeaderComponent } from './components/dash-header/dash-header.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { FooterMenuComponent } from './components/footer-menu/footer-menu.component';
+import { MaterialModule } from 'app/material/material.module';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent],
-  imports: [CommonModule, TranslateModule, FormsModule],
+  imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , RouterModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent]
 })
 export class SharedModule {}

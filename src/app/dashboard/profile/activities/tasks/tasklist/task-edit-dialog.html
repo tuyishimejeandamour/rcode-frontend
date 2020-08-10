@@ -1,0 +1,50 @@
+<style>
+  mat-form-field{
+    width: 80%;
+  }
+</style>
+<h1 mat-dialog-title><mat-icon>edit</mat-icon><span>Edit task</span></h1>
+<div mat-dialog-content style="text-align: center;">
+  <mat-form-field appearance="fill">
+    <mat-label>update task name</mat-label>
+    <input matInput name="taskname" [(ngModel)]="data.taskname" required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>update class</mat-label>
+    <mat-select name="classname" [(ngModel)]="data.classname" required>
+      <mat-option value="option">Option</mat-option>
+      <mat-option value="option1">Option1</mat-option>
+      <mat-option value="option2">Option2</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label >update lesson</mat-label>
+    <mat-select name="lesson" [(ngModel)]="data.lesson" required>
+      <mat-option value="option">Option</mat-option>
+      <mat-option value="option1">Option1</mat-option>
+      <mat-option value="option2">Option2</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>enter starting time</mat-label>
+    <input matInput [owlDateTimeTrigger]="dt14" [owlDateTime]="dt14"
+    [(ngModel)]="data.starting_date"
+    name="starting_date"
+   >
+    <owl-date-time #dt14></owl-date-time>
+  </mat-form-field><br>
+  <mat-form-field appearance="fill">
+    <mat-label>enter submittion deadline</mat-label>
+    <input matInput [owlDateTimeTrigger]="dt15" [owlDateTime]="dt15"
+    [(ngModel)]="data.ending_date"
+    name="ending_date"
+    >
+<owl-date-time #dt15></owl-date-time>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
+  <button mat-button (click)="doAction()" cdkFocusInitial color="primary"><mat-icon>update</mat-icon> update</button>
+</div>

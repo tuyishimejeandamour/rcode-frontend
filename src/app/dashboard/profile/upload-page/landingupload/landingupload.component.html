@@ -1,0 +1,89 @@
+<div class="directory_header">
+  <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
+      src="../../../../../assets/others/term.png" alt="">
+  <span style="position: absolute;top:10px;left:50%;font-size:14px;font-weight:600">Term 2</span>
+</div>
+
+<div class="commmoncontainer">
+   <div class="recentupload">
+     <span class="title" style="margin-left:0%;">task in this week</span>
+     <div class="assinment_div">
+     <div class="filecontainer">
+      <div class="file-image">
+        <div class='image'>
+
+        </div>
+      </div>
+      <div class="file-semidetails">
+            <span class="foldername">studentfolder</span>
+            <span>studentfolder</span>
+            <span>studentfolder</span>
+            <button mat-icon-button (click)="onContextMenu($event,'ol')" >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+    </div>
+  </div>
+   </div>
+   <div class="recentmarked">
+ <div class="upperflowdiv">
+  <span class="title">unsubmitted tasks</span>
+  <div class="inside_flows">
+    <div class="filecontainer">
+      <div class="file-image">
+        <div class='image'>
+
+        </div>
+      </div>
+      <div class="file-semidetails">
+            <span class="foldername">studentfolder</span>
+            <span>studentfolder</span>
+            <span>studentfolder</span>
+            <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+    </div>
+</div>
+ </div>
+ <div class="lowflowdiv">
+  <span class="title">task in other week</span>
+<div class="inside_flows">
+  <div class="filecontainer">
+    <div class="file-image">
+      <div class='image'>
+
+      </div>
+    </div>
+    <div class="file-semidetails">
+          <span class="foldername">studentfolder</span>
+          <span>studentfolder</span>
+          <span>studentfolder</span>
+          <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+  </div>
+</div>
+ </div>
+
+   </div>
+   <context-menu>
+    <ng-template contextMenuItem >
+      <mat-icon>cloud_download</mat-icon>
+      download
+    </ng-template>
+    <ng-template contextMenuItem >
+      <mat-icon>edit</mat-icon>
+      set reminder
+    </ng-template>
+    <ng-template contextMenuItem >
+      <mat-icon>assignment_sent</mat-icon>
+      submitt
+    </ng-template>
+    <ng-template contextMenuItem >
+      <mat-icon>note</mat-icon>
+      show content
+    </ng-template>
+  </context-menu>
+</div>

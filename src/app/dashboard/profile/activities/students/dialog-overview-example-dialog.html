@@ -1,0 +1,25 @@
+<style>
+  mat-form-field{
+    width: 80%;
+  }
+</style>
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content style="text-align: center;">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter student email</mat-label>
+    <input matInput type="email" name="taskname" [(ngModel)]="data.name" required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>select class</mat-label>
+    <mat-select name="classname" [(ngModel)]="data.animal" required>
+      <mat-option value="option">Option</mat-option>
+      <mat-option value="option1">Option1</mat-option>
+      <mat-option value="option2">Option2</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
+  <button mat-button  cdkFocusInitial color="primary"><mat-icon>person</mat-icon> save</button>
+</div>

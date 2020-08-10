@@ -1,0 +1,24 @@
+
+<div class="directory_header" style="height:40px;margin-bottom:15px">
+  <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
+      src="../../../../../assets/others/tasklist.png" alt="">
+  <span style="position: absolute;top:10px;left:40%;font-size:14px;font-weight:600">prepare task or save
+      for future set</span>
+</div>
+  <div class="directory_show">
+      <div class="side_bar_left_with_img">
+        <div class="profile_in_title" >
+          <button mat-raised-button [routerLink]="'newtask'" color="primary" aria-label="Example icon button with a plus one icon">
+            <mat-icon>add</mat-icon>
+            <span> Add Task</span>
+          </button>
+      </div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Filter tasks</mat-label>
+        <input matInput (keyup)="firstComponentFunction($event.target.value)" value="" placeholder="enter key word">
+      </mat-form-field>
+      </div>
+      <div class="profile_content_right">
+        <router-outlet></router-outlet>
+      </div>
+    </div>

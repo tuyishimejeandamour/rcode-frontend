@@ -1,0 +1,130 @@
+.directory_header {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
+  z-index: 200;
+  box-shadow: 1px 2px 3px #dde;
+  background-color: rgb(255, 255, 255);
+}
+
+.commmoncontainer {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  display: flex;
+
+  .recentupload {
+    position: relative;
+    width:50%;
+    height: 100%;
+    .assinment_div{
+      width:98%;
+    }
+  }
+
+  .recentmarked {
+    width:50%;
+    height: 100%;
+
+    .upperflowdiv,
+    .lowflowdiv {
+      position: relative;
+      width: 100%;
+      height: 50%;
+      overflow: auto;
+
+      .inside_flows {
+        width: 98%;
+        height:calc(100% - 45px);
+        margin-left: 2%;
+
+      }
+    }
+  }
+
+  .title {
+    position: sticky;
+    top: 0px;
+    background-color: rgb(255, 255, 255);
+    line-height: 3;
+    display: block;
+    width: 98%;
+    margin-left: 2%;
+    height: 45px;
+    text-align: center;
+    font-weight: 700;
+    box-shadow: 1px 2px 3px #dde;
+  }
+
+  .filecontainer {
+    position: relative;
+    border-radius: 5px;
+    display: flex;
+    width: 100%;
+    height: 50px;
+
+    &:hover {
+      border-radius: 5px;
+      cursor: pointer;
+      background: rgb(225, 236, 243);
+
+      .file-semidetails {
+        .foldername {
+          color: rgb(35, 63, 187);
+        }
+
+        button {
+          display: block;
+        }
+      }
+
+    }
+
+    .file-image {
+      width: 80px;
+      height: 50px;
+
+      .image {
+        margin: 5px 10px;
+        width: 60px;
+        height: 40px;
+        background-image: url(../../../../../assets/others/term1.png);
+        background-position: 50% 50%;
+        background-size: cover;
+      }
+    }
+
+    .file-semidetails {
+
+      flex: 1;
+      height: 50px;
+      overflow: hidden;
+      padding-right: 4px;
+
+      span {
+        line-height: 2;
+        color: rgb(99, 99, 99)
+      }
+
+      .foldername {
+        display: block;
+        width: 100%;
+        line-height: 2;
+        height: 20px;
+        font-weight: 700;
+        font-size: 15px;
+        color: black;
+      }
+
+      button {
+        display: none;
+        position: absolute;
+        top: 6px;
+        right: 3px;
+
+      }
+    }
+  }
+}

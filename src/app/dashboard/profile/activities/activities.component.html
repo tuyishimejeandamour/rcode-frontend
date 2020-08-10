@@ -1,1 +1,13 @@
-<p>activities works!</p>
+<div class="projectlister">
+  <div class="projectTitle">
+      prepare and manage student
+  </div>
+  <div class="float-pro">
+    <a [routerLink]="'preparetask'"  routerLinkActive="active"><mat-icon>assignment</mat-icon> <span>Tasks</span></a>
+
+    <a [routerLink]="'student'" routerLinkActive="active"><mat-icon>people</mat-icon><span>Your student</span></a>
+  </div>
+</div>
+<div class="directory_marks">
+<router-outlet></router-outlet>
+</div>

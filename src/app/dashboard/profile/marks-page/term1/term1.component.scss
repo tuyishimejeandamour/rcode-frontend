@@ -3,7 +3,6 @@
   top: 0px;
   width: 100%;
   height:40px;
-  margin-bottom:10px;
   border-radius: 3px;
   z-index: 200;
   box-shadow: 1px 2px 3px #dde;
@@ -24,116 +23,7 @@ table{
   border:none !important;
   border-collapse: collapse;
 }
-table tr{
-  cursor: pointer;
-}
-table tr th,table tr td{
-  width: 16.66%;
-  border:none !important;
-}
-table tr td{
-text-align: center;
-  border: none;
-  color: rgb(206, 206, 206);
-  outline: none;
-}
-table tr td input[type="text"]{
-background: none;
-width: 100%;
-border: none;
-outline: none;
-padding: 5px;
-
-}
-table tr td input[type="text"]:focus{
-  outline: 1px solid #dde;
-  background: white;
-}
-table tr:nth-child(odd){
-background: rgb(49, 49, 49);
-}
-th,td{
-height: 30px;
-}
-th{
-position: sticky;
-  top: 0px;
-  border-bottom: 1px solid rgb(37, 37, 201);
-}
-td input[type="button"]{
-  margin-top: 0px;
-  margin-left:0px ;
- width: 100%;
-  height: 100%;
-
-
-}
-td input[type="datetime-local"]{
-  background: none;
-  border: none;
-  cursor: text;
-  width: 100%;
-  height: 26px;
-}
-td input[type="datetime-local"]:focus{
-outline: 1px solid #1b4be7;
-background: white;
-
-}
-table tr:hover{
-background: rgb(102, 101, 101);
-
-}
-td input[type="button"]:hover{
-  background: rgb(102, 101, 101);
-  cursor: pointer;
-
-}
-.contactus{
-  position: relative;
-  left: 45px;
-}
-table tr td {
-  color: rgb(36, 35, 35);
-}
-
-table tr:nth-child(odd) {
-  background: rgba(207, 209, 211, 0.212);
-}
-
-th {
-  background:white;
-  position: sticky;
-  top:0px;
-  cursor: pointer;
-  border-right: 1px solid #eee;
-  font-size: 1.0em;
-  color: #448;
-  z-index:200;
-
-}
-th:hover{
+mat-row:hover{
   background: rgb(229, 243, 255);
-}
-td input[type="button"] {
-  background-color: transparent;
-  border: 1px solid rgba(150, 147, 147, 0.678);
-  outline: none;
-}
-table thead{
-  background: #dde;
-}
-
-table tr:hover {
-  background: rgb(229, 243, 255);
-}
-
-td input[type="button"]:hover {
-  box-shadow: 0px 1px 6px rgba(73, 72, 72, 0.288),
-  inset 0 0 5px rgb(39, 80, 168);
-  background: rgb(51, 103, 214);
-  border: none;
-  color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0px 6px 8px #dde;
+  cursor: pointer;
 }

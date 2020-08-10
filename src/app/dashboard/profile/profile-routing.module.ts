@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { FileExplorerComponent } from './file-explorer/file-explorer.component';
-import { ActivitiesComponent } from './activities/activities.component';
-import { UploadPageComponent } from './upload-page/upload-page.component';
-
 
 const routes: Routes = [
   {
@@ -20,18 +17,16 @@ const routes: Routes = [
 
       { path: 'markspage', loadChildren: () => import('./marks-page/marks-page.module').then(m => m.MarksPageModule) }
       ,
-      {
-        path: 'activities', component: ActivitiesComponent
-      }
+      { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) }
       ,
-      {
-        path: 'upload', component: UploadPageComponent
-      },
+      { path: 'upload', loadChildren: () => import('./upload-page/upload-page.module').then(m => m.UploadPageModule) }
+      ,
       { path: 'profile-page', loadChildren: () => import('./profile-page/profile-page.module').then(m => m.ProfilePageModule) }
 
 
     ]
   }
+
 
 
 ]
