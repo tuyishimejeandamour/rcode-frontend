@@ -18,7 +18,6 @@
 .side_bar_left_with_img {
   position: absolute;
   float: left;
-  text-align: center;
   top: 40px;
   width: 22%;
   height: calc(100% - 40px);
@@ -31,7 +30,51 @@
     top: 0%;
     right: 0px;
   }
-
+ 
+ .sort_arrengement{
+   position:absolute;
+   top:20%;
+   width:100%;
+   height:80%;
+   overflow:auto;
+   .header_sort{
+    display:block;
+    text-align:center;
+    width:100%;
+    height:25px;
+    font-size: 18px;
+    font-weight:700;
+    color:rgb(180, 180, 197);
+ 
+   }
+   ul{
+    list-style-type: none;
+    margin-left:4%;
+    li{
+      position:relative;
+      width:100%;
+      height:25px;
+      mat-icon{
+        font-size:16px;
+      }
+      span{
+        position:absolute;
+        top:0px; 
+        font-size:14px;
+      }
+    }
+  }
+   .filters{
+    width:100%;
+    height:30%;
+   
+   }
+   .label{
+     width:100%;
+     height:70%;
+     
+   }
+ }
 }
 
 .profile_content_right {
@@ -76,7 +119,7 @@
         margin: 5px 10px;
         width:60px;
         height: 40px;
-        background-image:url(../../../../../assets/others/term1.png);
+        background-image:url(../../../../../assets/others/icons8_folder_96px.png);
          background-position: 50% 50%;
          background-size:cover;
       }

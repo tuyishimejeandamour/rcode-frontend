@@ -11,20 +11,22 @@
   font-size: larger;
   box-shadow: 1px 2px 5px rgba(45, 45, 146, 0.514);
   z-index: 2000;
-  
-  .draging_header_region {
+  .darregion{
     -webkit-app-region: drag;
+    position:absolute;
+    width:100%;
+    height:40px;
+  }
+  .draging_header_region {
+    -webkit-app-region: no-drag;
     z-index: -1;
-    flex: 1;
-
     img {
       margin-left: 10px;
       margin-top: 5px;
       width: 30px;
     }
 
-    span {
-      // position: absolute;
+    a{
       margin-left: 5px;
       font-size: 20px;
       font-weight: 700;
@@ -39,7 +41,7 @@
     margin: 0;
     padding: 0;
     width: 160px;
-
+    -webkit-app-region: no-drag;
     #restore {
       display: none;
     }

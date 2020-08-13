@@ -17,6 +17,27 @@
         <mat-label>Filter tasks</mat-label>
         <input matInput (keyup)="firstComponentFunction($event.target.value)" value="" placeholder="enter key word">
       </mat-form-field>
+      <div class='sort_arrengement'>
+        <div class="filters">
+          <span class="header_sort">filter</span>
+          <ul>
+            <li><mat-icon>menu</mat-icon><span> all</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+          </ul>
+        </div>
+        <div class="label">
+          <span class="header_sort">labeled</span>
+          <ul>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+          </ul>
+        </div>
+        </div>
       </div>
       <div class="profile_content_right">
         <router-outlet></router-outlet>

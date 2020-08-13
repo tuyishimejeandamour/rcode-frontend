@@ -28,7 +28,7 @@ export class StudentsComponent implements OnInit {
     this.hidden = !this.hidden;
   }
   expandedElement: string;
-  displayedColumns: string[] = ['name', 'weight', 'symbol', 'position'];
+  displayedColumns: string[] = ['No.', 'names', 'username', 'class'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -66,151 +66,71 @@ export class StudentsComponent implements OnInit {
 
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  names: string;
+  username: string;
+  class: string;
   description: marksofstudent[];
 }
 export interface marksofstudent{
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  taskname: string;
+  marks: string;
+  lesson: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
-    position: 1,
-    name: 'Hydrogen',
-    weight: 1.0079,
-    symbol: 'H',
+    names: 'tuyishime jeandamour',
+    username: 'jaylove',
+    class: 'class1',
     description:[
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 2,
-    name: 'Helium',
-    weight: 4.0026,
-    symbol: 'He',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 3,
-    name: 'Lithium',
-    weight: 6.941,
-    symbol: 'Li',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 4,
-    name: 'Beryllium',
-    weight: 9.0122,
-    symbol: 'Be',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 5,
-    name: 'Boron',
-    weight: 10.811,
-    symbol: 'B',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 6,
-    name: 'Carbon',
-    weight: 12.0107,
-    symbol: 'C',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 7,
-    name: 'Nitrogen',
-    weight: 14.0067,
-    symbol: 'N',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+       {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 8,
-    name: 'Oxygen',
-    weight: 15.9994,
-    symbol: 'O',
-    description:[
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
       {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
       }
     ]
-  }, {
-    position: 9,
-    name: 'Fluorine',
-    weight: 18.9984,
-    symbol: 'F',
-    description:[
-      {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  }, {
-    position: 10,
-    name: 'Neon',
-    weight: 20.1797,
-    symbol: 'Ne',
-    description:[
-      {
-        position:1,
-        name: 'Carbon',
-        weight: 12.0107,
-        symbol: 'C',
-      }
-    ]
-  },
+  }, 
+ 
 ];
 @Component({
   selector: 'dialog-overview-example-dialog',

@@ -19,12 +19,33 @@
       <mat-label>Filter student</mat-label>
       <input matInput (keyup)="doFilter($event.target.value)" value="" placeholder="enter name">
     </mat-form-field>
+    <div class='sort_arrengement'>
+      <div class="filters">
+        <span class="header_sort">filter</span>
+        <ul>
+          <li><mat-icon>menu</mat-icon><span> all</span></li>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+        </ul>
+      </div>
+      <div class="label">
+        <span class="header_sort">labeled</span>
+        <ul>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+        </ul>
+      </div>
+      </div>
   </div>
   <div class="profile_content_right">
     <div class="mat-elevation-z1">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
         <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-          <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+          <mat-header-cell  *matHeaderCellDef> {{column}} </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
         </ng-container>
 
@@ -51,21 +72,21 @@
                 <table>
                   <thead>
                       <tr>
-                          <th style="height: 35px">number</th>
-                          <th style="height: 35px">marks</th>
+                          <th style="height: 35px">no.</th>
                           <th style="height: 35px">task</th>
+                          <th style="height: 35px">marks</th>
                           <th style="height: 35px">lesson</th>
-                          <th style="height: 35px">term</th>
+                         
                       </tr>
 
                   </thead>
 
                   <tr *ngFor="let item of element.description">
-                    <td>{{item.position}}</td>
-                    <td> {{item.name}}</td>
-                    <td>{{item.weight}}</td>
-                    <td>{{item.symbol}}</td>
-                    <td>{{item.position}}</td>
+                    <td>{{1}}</td>
+                    <td> {{item.taskname}}</td>
+                    <td>{{item.marks}}</td>
+                    <td>{{item.lesson}}</td>
+                    
                     </tr>
                     </table>
               </div>

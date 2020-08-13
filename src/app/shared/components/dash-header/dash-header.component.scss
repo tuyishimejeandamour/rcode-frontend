@@ -20,9 +20,11 @@
       left: 17%;
       top: 0px;
       display: inline-block;
+      .mark{
+        border-right: 1px solid rgba(255, 255, 255, 0.548);
+      }
       a{
         position: relative;
-        // text-align: center;
         line-height: 2;
         display: inline-block;
         color: rgb(250, 250, 250);
@@ -30,8 +32,8 @@
         font-size: 12px;
         width: 100px;
         height: 35px;
-        // background: rgba(255, 255, 255, 0.089);
-        border-left: 1px solid rgba(128, 128, 128, 0.548);
+        background: rgb(55, 106, 216);
+        border-left: 1px solid rgba(255, 255, 255, 0.548);
         outline: none;
         margin-left: 0px;
        cursor: pointer;

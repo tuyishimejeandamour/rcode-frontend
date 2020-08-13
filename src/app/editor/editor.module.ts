@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from 'app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     EditorRoutingModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class EditorModule { }

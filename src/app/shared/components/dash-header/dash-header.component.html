@@ -1,45 +1,86 @@
-<div class="header_nav" >
+<div class="header_nav">
   <div class="titlebardrag"></div>
   <div class="logo_img">
-      <a href="../welcome"><img class="logo"
-              src="../../../assets/others/logo.png" alt=""></a>
-      <span class="logoname">Rcode</span>
+    <a href="../welcome"><img class="logo" src="../../../assets/others/logo.png" alt=""></a>
+    <span class="logoname">Rcode</span>
   </div>
   <div class="dive_into_location">
-     <a nohref (click)="gohome('/home')" class="dashboard"><mat-icon>dashboard</mat-icon><span>Dashboard</span></a>
-     <a nohref (click)="gohome('/editor')"class="editor"><mat-icon>editor</mat-icon><span>Editor</span></a>
-     <a nohref (click)="gohome('/marktask')"class="mark"><mat-icon>check</mat-icon> <span>Mark</span></a>
-
-
+    <a nohref (click)="gohome('/profile')" class="dashboard">
+      <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+    </a>
+    <a nohref (click)="gohome('/editor')" class="editor">
+      <mat-icon>editor</mat-icon><span>Editor</span>
+    </a>
+    <a nohref (click)="gohome('/marktask')" class="mark">
+      <mat-icon>check</mat-icon> <span>Mark</span>
+    </a>
   </div>
 
   <div class="notification">
-      <ul>
+    <ul>
 
-          <li [matMenuTriggerFor]="menu"><img class="btngogo" id="header_profile_picture"
-                  style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
-                  src="../../../assets/profile_picture/11594486894.png" alt="">
+      <li [matMenuTriggerFor]="menu"><img class="btngogo" id="header_profile_picture"
+          style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
+          src="../../../assets/profile_picture/11594486894.png" alt="">
 
-          </li>
-          <li (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
-          <li (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
-          <li (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
-          <li (click)= "closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
+      </li>
+      <li (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
+      <li (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
+      <li (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
+      <li (click)="closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
 
-      </ul>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voice mail</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
-        </button>
-      </mat-menu>
+    </ul>
+    <mat-menu #menu="matMenu">
+      <div class="user_menu_image">
+        <div class="header_show_main">
+          <div class="image_container">
+            <img id="dropdown_iimage" src="../../../../assets/profile_picture/41594424503.png" alt="">
+          </div>
+          <span>tuyishimejeand88@gmail.com</span>
+        </div>
+        <div class="important_you_needtoknow">
+          <div class="impo_1">
+
+          </div>
+          <div class="impo_2">
+
+          </div>
+          <div class="impo_3">
+
+          </div>
+        </div>
+      </div>
+      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
+      </div>
+      <a nohref>
+        <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
+        Downloads</a>
+      <a nohref>
+        <i class="fa fa-plus" style="font-size: 16px;margin-right:10px"></i>
+        Projects</a>
+      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
+      </div>
+      <a nohref>
+
+        white theme
+
+      </a>
+      <a nohref onclick="togglefullscreen()">
+        <i class="fa fa-expand" style="font-size: 16px;margin-right:10px"></i>
+        Fullscreen</a>
+      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);"></div>
+      <a nohref
+        onclick="showHide('setting_help');toggleAroundHelp('helpb','help_rcode','togglebtnlog','content_toggle','help_menu_active')">
+        <i class="fa fa-question" style="font-size: 16px;margin-right:10px"></i>
+        Help</a>
+      <a nohref>
+        <i class="fa fa-info-circle" style="font-size: 16px;margin-right:10px"></i>
+        about</a>
+      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
+      </div>
+      <a href="logout.php">
+        <i class="fa fa-sign-out" style="font-size: 16px;margin-right:10px"></i>
+        Log out</a>
+    </mat-menu>
   </div>
 </div>

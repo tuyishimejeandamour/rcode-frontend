@@ -6,6 +6,33 @@
 </div>
   <div class="directory_show">
       <div class="side_bar_left_with_img">
+        <mat-nav-list>
+        <mat-form-field class="example-full-width">
+          <mat-label>search any task </mat-label>
+          <input matInput   >
+        </mat-form-field>
+        <div class='sort_arrengement'>
+        <div class="filters">
+          <span class="header_sort">filter</span>
+          <ul>
+            <li><mat-icon>menu</mat-icon><span> all</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+          </ul>
+        </div>
+        <div class="label">
+          <span class="header_sort">labeled</span>
+          <ul>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+
+          </ul>
+        </div>
+        </div>
+      </mat-nav-list>
       </div>
       <div class="profile_content_right">
         <div class="filefolder_container">
@@ -74,16 +101,23 @@
           </div>
           <context-menu>
             <ng-template contextMenuItem >
-              edit
+              <mat-icon>open</mat-icon>open
             </ng-template>
             <ng-template contextMenuItem >
-              mark test
+              <mat-icon>bookmark</mat-icon>
+              label task
             </ng-template>
             <ng-template contextMenuItem >
-              show to student
+              <mat-icon>share</mat-icon>
+              share
             </ng-template>
             <ng-template contextMenuItem >
-              show content
+              <mat-icon>cloud_download</mat-icon>
+              download
+            </ng-template>
+            <ng-template contextMenuItem >
+              <mat-icon>graph</mat-icon>
+              performance
             </ng-template>
           </context-menu>
         </div>
