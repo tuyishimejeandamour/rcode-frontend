@@ -1,3 +1,29 @@
 <app-dash-header></app-dash-header>
-<p>editor works!</p>
-
+<div class="content">
+<div class="rectangle" [ngStyle]="style" mwlResizable [validateResize]="validate" [enableGhostResize]="true"
+   (resizeEnd)="onResizeEnd($event)">
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ex accusamus? Amet quis accusamus reprehenderit exercitationem, numquam animi mollitia consequatur, asperiores quae ad pariatur deleniti, ipsam magnam! Amet, porro voluptates!
+       </p>
+  <div class="resize-handle-right" mwlResizeHandle [resizeEdges]="{ right: true }"></div>
+</div>
+<div class="rectangle2" [ngStyle]="style1" mwlResizable [resizeEdges]="{ right: true }"  [enableGhostResize]="true"
+   (resizeEnd)="onResizeEnd1($event)">
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ex accusamus? Amet quis accusamus reprehenderit exercitationem, numquam animi mollitia consequatur, asperiores quae ad pariatur deleniti, ipsam magnam! Amet, porro voluptates!
+  Suscipit magni soluta dolores placeat dolor! Consequuntur dignissimos itaque nisi illo repellat inventore incidunt quis quae adipisci, tenetur recusandae dicta asperiores aut nulla eius provident, ut doloremque iste doloribus rem!
+  Rerum vel, voluptate, eos maxime voluptatem ad officiis iste culpa odio aspernatur commodi reprehenderit ullam in illo quod possimus suscipit nostrum. Tempore incidunt tempora commodi architecto temporibus quas voluptas consequatur?
+  Natus dolorum consequuntur ex totam, voluptatem ab libero quo iste voluptatibus. Fugit vel aperiam omnis dolor ut fugiat ipsum, sunt accusamus ratione enim ullam velit placeat non unde quod accusantium.
+  Ullam quisquam commodi culpa officia ut. Nisi porro ex officiis tenetur voluptates optio dolores id natus dolore voluptate, veniam mollitia, cum veritatis libero recusandae ipsum adipisci dolorum aliquid laudantium eius!
+  Sint, tenetur! Officia suscipit, perferendis obcaecati vitae voluptatum vel sint eius quia ipsum quasi iure voluptate mollitia, ullam eligendi magnam nam libero enim quidem. Rerum labore cupiditate perferendis quis repudiandae.
+  </p>
+</div>
+<div class="rectangle3" [ngStyle]="style2" mwlResizable  [enableGhostResize]="true"
+   (resizeEnd)="onResizeEnd2($event)">
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ex accusamus? Amet quis accusamus reprehenderit exercitationem, numquam animi mollitia consequatur, asperiores quae ad pariatur deleniti, ipsam magnam! Amet, porro voluptates!
+    Suscipit magni soluta dolores placeat dolor! Consequuntur dignissimos itaque nisi illo repellat inventore incidunt quis quae adipisci, tenetur recusandae dicta asperiores aut nulla eius provident, ut doloremque iste doloribus rem!
+    Rerum vel, voluptate, eos maxime voluptatem ad officiis iste culpa odio aspernatur commodi reprehenderit ullam in illo quod possimus suscipit nostrum. Tempore incidunt tempora commodi architecto temporibus quas voluptas consequatur?
+    Natus dolorum consequuntur ex totam, voluptatem ab libero quo iste voluptatibus. Fugit vel aperiam omnis dolor ut fugiat ipsum, sunt accusamus ratione enim ullam velit placeat non unde quod accusantium.
+    Ullam quisquam commodi culpa officia ut. Nisi porro ex officiis tenetur voluptates optio dolores id natus dolore voluptate, veniam mollitia, cum veritatis libero recusandae ipsum adipisci dolorum aliquid laudantium eius!
+    Sint, tenetur! Officia suscipit, perferendis obcaecati vitae voluptatum vel sint eius quia ipsum quasi iure voluptate mollitia, ullam eligendi magnam nam libero enim quidem. Rerum labore cupiditate perferendis quis repudiandae.
+    </p>
+</div>
+</div>

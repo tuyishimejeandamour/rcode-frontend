@@ -9,7 +9,7 @@
       <mat-icon>dashboard</mat-icon><span>Dashboard</span>
     </a>
     <a nohref (click)="gohome('/editor')" class="editor">
-      <mat-icon>editor</mat-icon><span>Editor</span>
+      <mat-icon>code</mat-icon><span>Editor</span>
     </a>
     <a nohref (click)="gohome('/marktask')" class="mark">
       <mat-icon>check</mat-icon> <span>Mark</span>
@@ -19,7 +19,7 @@
   <div class="notification">
     <ul>
 
-      <li [matMenuTriggerFor]="menu"><img class="btngogo" id="header_profile_picture"
+      <li [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"(mouseover)="menuTrigger.openMenu()"><img class="btngogo" id="header_profile_picture"
           style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
           src="../../../assets/profile_picture/11594486894.png" alt="">
 
@@ -30,57 +30,50 @@
       <li (click)="closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
 
     </ul>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+     <div >
       <div class="user_menu_image">
         <div class="header_show_main">
           <div class="image_container">
-            <img id="dropdown_iimage" src="../../../../assets/profile_picture/41594424503.png" alt="">
+            <img id="dropdown_iimage" [src]="data.profile_image" alt="">
           </div>
-          <span>tuyishimejeand88@gmail.com</span>
+          <span>{{data.email}}</span>
         </div>
-        <div class="important_you_needtoknow">
-          <div class="impo_1">
 
-          </div>
-          <div class="impo_2">
-
-          </div>
-          <div class="impo_3">
-
-          </div>
-        </div>
       </div>
-      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
-      </div>
+      <mat-divider></mat-divider>
       <a nohref>
         <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
         Downloads</a>
-      <a nohref>
+      <a nohref mat-menu-item [matMenuTriggerFor]="fish">
         <i class="fa fa-plus" style="font-size: 16px;margin-right:10px"></i>
-        Projects</a>
-      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
-      </div>
-      <a nohref>
-
+        set your status</a>
+        <mat-menu #fish="matMenu">
+          <button mat-menu-item>{{data.user_id}}</button>
+          <button mat-menu-item>{{data.firstname}}</button>
+          <button mat-menu-item>{{data.lastname}}</button>
+          <button mat-menu-item>{{data.email}}</button>
+          <button mat-menu-item>{{data.username}}</button>
+        </mat-menu>
+        <mat-divider></mat-divider>
+      <a nohref mat-menu-item>
+        <mat-icon aria-hidden="true">format_color_fill</mat-icon>
         white theme
 
       </a>
-      <a nohref onclick="togglefullscreen()">
-        <i class="fa fa-expand" style="font-size: 16px;margin-right:10px"></i>
-        Fullscreen</a>
-      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);"></div>
-      <a nohref
-        onclick="showHide('setting_help');toggleAroundHelp('helpb','help_rcode','togglebtnlog','content_toggle','help_menu_active')">
-        <i class="fa fa-question" style="font-size: 16px;margin-right:10px"></i>
+      <mat-divider></mat-divider>
+      <a nohref mat-menu-item >
+       <mat-icon>live_help</mat-icon>
         Help</a>
-      <a nohref>
-        <i class="fa fa-info-circle" style="font-size: 16px;margin-right:10px"></i>
-        about</a>
-      <div style="height: 1px; background: rgba(177, 176, 176, 0.221);">
-      </div>
-      <a href="logout.php">
-        <i class="fa fa-sign-out" style="font-size: 16px;margin-right:10px"></i>
+      <a nohref mat-menu-item >
+ <mat-icon>contact_mail</mat-icon>     
+   about</a>
+   <mat-divider></mat-divider>
+    
+      <a noref mat-menu-item >
+        <mat-icon>exit_to_app</mat-icon>
         Log out</a>
+      </div>
     </mat-menu>
   </div>
 </div>

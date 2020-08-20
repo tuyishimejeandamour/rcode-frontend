@@ -1,0 +1,22 @@
+<style>
+    mat-form-field{
+      width: 80%;
+    }
+    h1{
+      margin-left:10%;
+    }
+  </style>
+  <h1 mat-dialog-title>Add folder or file</h1>
+  <div mat-dialog-content style="text-align: center;">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter student email</mat-label>
+      <input matInput type=text" name="filename"  required>
+    </mat-form-field>
+    <br>
+    
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button   color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
+    <button mat-button  cdkFocusInitial color="primary"><mat-icon>person</mat-icon> save</button>
+  </div>
+  

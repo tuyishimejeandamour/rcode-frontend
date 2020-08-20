@@ -9,6 +9,7 @@ import { ResetPasswordRoutingModule } from './components/reset-password/reset-pa
 import { NewPasswordRoutingModule } from './components/new-password/new-password-routing.module';
 import { EditorRoutingModule } from './editor/editor-routing.module';
 import { MarktaskRoutingModule } from './marktask/marktask-routing.module';
+import { PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -25,7 +26,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{
+      preloadingStrategy: PreloadAllModules
+    }),
     HomeRoutingModule,
     DetailRoutingModule,
     LoginRoutingModule,

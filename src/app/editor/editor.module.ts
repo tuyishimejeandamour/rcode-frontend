@@ -5,6 +5,7 @@ import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
+import { ResizableModule } from 'angular-resizable-element';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { SharedModule } from 'app/shared/shared.module';
     CommonModule,
     EditorRoutingModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    ResizableModule
   ]
 })
 export class EditorModule { }

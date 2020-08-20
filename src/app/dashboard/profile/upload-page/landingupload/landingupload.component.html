@@ -73,10 +73,22 @@
       <mat-icon>cloud_download</mat-icon>
       download
     </ng-template>
-    <ng-template contextMenuItem >
+
+    <ng-template contextMenuItem [subMenu]="saySubMenu">
       <mat-icon>edit</mat-icon>
       set reminder
     </ng-template>
+    <context-menu #saySubMenu>
+      <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+        ...hi!
+      </ng-template>
+      <ng-template contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
+        ...hola!
+      </ng-template>
+      <ng-template contextMenuItem (execute)="showMessage('Salut, ' + $event.item.name)">
+        ...salut!
+      </ng-template>
+      </context-menu>
     <ng-template contextMenuItem >
       <mat-icon>assignment_sent</mat-icon>
       submitt

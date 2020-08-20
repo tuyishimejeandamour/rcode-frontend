@@ -34,6 +34,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CommonfunctionService } from './Service/commonfunction.service';
 import { EditorModule } from './editor/editor.module';
 import { MarktaskModule } from './marktask/marktask.module';
+import { FileservicesService } from './Service/fileservices.service';
 
 
 // AoT requires an exported function for factories
@@ -71,7 +72,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService,
+    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService, FileservicesService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],

@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'app/core/services';
 import { Router } from '@angular/router';
+import { JerwisService, User } from 'app/Service/jerwis.service';
 
 @Component({
   selector: 'app-dash-header',
@@ -10,12 +11,15 @@ import { Router } from '@angular/router';
 })
 export class DashHeaderComponent implements OnInit {
 
+  public data: User;
   constructor(
     private electron: ElectronService,
-    private link: Router
- ) { }
+    private link: Router,
+    private jewris: JerwisService
+  ) { }
 
   ngOnInit(): void {
+    this.data = this.jewris.getUser();
   }
   gohome(value: string): void{
     this.link.navigateByUrl(value)

@@ -8,6 +8,15 @@ import { TokenService } from './token.service';
 })
 export class JerwisService {
   private baseurl="http://127.0.0.1:8000/api";
+  private userdetails : User;
+  private defaultuser: User={
+    user_id: 1,
+    username: 'jaylove',
+    firstname: 'tuyishime',
+    lastname: 'jeandamour',
+    profile_image: '../../../../assets/profile_picture/11594486894.png',
+    email: 'tuyishimejeand88@gmail.com'
+  }
   constructor(
     private http: HttpClient,
     private token: TokenService
@@ -43,7 +52,7 @@ export class JerwisService {
     );
   }
   responsehandler(data): void{
-    console.log(data)
+    this.setuser(data);
   }
   errorhandler(error): void{
     console.log(error)
@@ -54,10 +63,27 @@ export class JerwisService {
   updatetask(values,id:number){
     return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
   }
+  setuser(value: User) : void{
+    this.userdetails = value;
+  }
+  getUser(): User{
+    return this.userdetails;
+  }
+  initfuntion(): void{
+    this.setuser(this.defaultuser);
+  }
 }
 
 export interface ContentShow{
   taskname: string,
   short_desc: string,
   long_desc: string
+}
+export interface User{
+  user_id: number,
+  username: string,
+  firstname: string,
+  lastname: string,
+  profile_image: string,
+  email: string
 }
