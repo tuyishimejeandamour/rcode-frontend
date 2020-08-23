@@ -19,6 +19,7 @@ export class DashHeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.jewris.initfuntion();
     this.data = this.jewris.getUser();
   }
   gohome(value: string): void{

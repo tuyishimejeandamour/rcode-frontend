@@ -1,2 +1,29 @@
 <app-dash-header></app-dash-header>
-<p>marktask works!</p>
+<div class="container">
+  <div>
+    <as-split class="split-example ex-percent" unit="percent" [direction]="direction" (dragEnd)="dragEnd($event)">
+      <as-split-area size="20">
+        <h5>Initial size: <b>30%</b></h5>
+        <h5>Current size: <b>{{ sizes.percent.area1 | number:'2.1-2' }}%</b></h5>
+        <p>Lorem ipsum ... nulla pariatur.</p>
+      </as-split-area>
+      <as-split-area size="40">
+        <ngx-monaco-editor
+        [options]="editorOptions"
+        [(ngModel)]="code"
+        (init)="editorInit($event)"
+      ></ngx-monaco-editor>      </as-split-area>
+      <as-split-area size="40">
+        <h5>Initial size: <b>70%</b></h5>
+
+        <
+      </as-split-area>
+    </as-split>
+  </div>
+ 
+</div>
+<footer>
+
+</footer>
+<app-footer-menu></app-footer-menu>
+<app-common-footer></app-common-footer>

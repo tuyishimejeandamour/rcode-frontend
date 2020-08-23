@@ -37,6 +37,7 @@ import { MarktaskModule } from './marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
 
 
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     EditorModule,
     MarktaskModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

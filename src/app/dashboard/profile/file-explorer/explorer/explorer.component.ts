@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { Component,  ViewChild, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { MatDialog } from '@angular/material/dialog';
 import { FileElement } from 'app/Service/fileservices.service';
@@ -72,6 +72,7 @@ export class ExplorerComponent implements OnChanges {
     });
   }
 
+  
 
   onContextMenu($event: any, item: FileElement): void {
     this.contextMenuService.show.next({

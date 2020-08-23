@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>) { }
+  folderName:string;
 
   ngOnInit(): void {
   }
