@@ -33,6 +33,7 @@ export class FileExplorerComponent implements OnInit {
   }
 
   removeElement(element: FileElement):void {
+    console.log(element);
     this.fileService.delete(element.id);
     this.updateFileElementQuery();
   }
@@ -62,7 +63,7 @@ export class FileExplorerComponent implements OnInit {
   }
 
   renameElement(element: FileElement):void {
-    console.log(element);
+    
     this.fileService.update(element.id, { name: element.name });
     this.updateFileElementQuery();
   }

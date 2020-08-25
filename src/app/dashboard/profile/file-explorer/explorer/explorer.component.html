@@ -3,11 +3,9 @@
     <div class="wrapper">
       <section class="header">
         <div class="logo-and-nav-wrap">
-
           <div class="logo-wrap">
             <a href="#/global"> <mat-icon>home</mat-icon></a>
           </div>
-
           <div class="site-nav-wrap">
             <nav class="nav">
               <div class="breadcrumb-wrap">
@@ -81,7 +79,7 @@
           new folder
         </ng-template>
         <ng-template contextMenuItem (execute)="openNewFolderDialog()">
-          <mat-icon>note</mat-icon>
+          <mat-icon>note_add</mat-icon>
           new file
         </ng-template>
 
@@ -121,22 +119,22 @@
         </ng-template>
       </context-menu>
 
-      <ng-template contextMenuItem (execute)="openRenameDialog(item)">
+      <ng-template contextMenuItem (execute)="openRenameDialog($event.item)">
         <mat-icon>edit</mat-icon>
         rename
       </ng-template>
-      <ng-template contextMenuItem (execute)="deleteElement(item)">
+      <ng-template contextMenuItem (execute)="deleteElement($event.item)">
         <mat-icon>delete</mat-icon>
         delete
       </ng-template>
 
     </context-menu>
-    <div class="showdetails">
+    <div class="showdetails" [hidden]="showdetail">
       <div class="clicked_file_show"></div>
       <div class='clicked_file_detail'>
         <div class="file_1">
           <span class="file_desc_span_header">name</span>
-          <span>nameless.png</span>
+          <span>{{discdetail.name}}</span>
         </div>
         <div class="file_2">
           <span class="file_desc_span_header">size</span>

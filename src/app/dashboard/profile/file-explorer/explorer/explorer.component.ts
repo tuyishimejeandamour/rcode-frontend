@@ -10,7 +10,12 @@ import { ModalComponent } from './modal/modal.component';
   styleUrls: ['./explorer.component.scss']
 })
 export class ExplorerComponent implements OnChanges {
-  public discdetail:FileElement;
+  public showdetail = true;
+  public discdetail:FileElement ={
+    name: 'Folder A',
+    isFolder: true,
+    parent: 'root'
+  };
 
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
   
@@ -95,8 +100,10 @@ export class ExplorerComponent implements OnChanges {
     this.showdetails(item)
   }
   showdetails(element:FileElement):void{
+    this.showdetail=false;
     this.discdetail= element;
 
   }
+
 }
 
