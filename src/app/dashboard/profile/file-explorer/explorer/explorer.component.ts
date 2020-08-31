@@ -3,6 +3,7 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { MatDialog } from '@angular/material/dialog';
 import { FileElement } from 'app/Service/fileservices.service';
 import { ModalComponent } from './modal/modal.component';
+import { Breadcrumb } from 'app/Service/path.service';
 
 @Component({
   selector: 'app-explorer',
@@ -29,12 +30,13 @@ export class ExplorerComponent implements OnChanges {
 
   @Input() fileElements: FileElement[];
   @Input() canNavigateUp: string;
-  @Input() path: string;
+  @Input() path: Breadcrumb[];
 
   @Output() folderAdded = new EventEmitter<{ name: string }>();
   @Output() elementRemoved = new EventEmitter<FileElement>();
   @Output() elementRenamed = new EventEmitter<FileElement>();
   @Output() navigatedDown = new EventEmitter<FileElement>();
+  @Output() navigateFromNav = new EventEmitter<Breadcrumb>();
   @Output() elementMoved = new EventEmitter<{ element: FileElement; moveTo: FileElement }>();
   @Output() navigatedUp = new EventEmitter();
 
@@ -53,6 +55,9 @@ export class ExplorerComponent implements OnChanges {
   navigateUp():void {
     this.navigatedUp.emit();
   }
+  navigateFrom(element: Breadcrumb):void{
+    this.navigateFromNav.emit(element)
+  } 
 
   moveElement(element: FileElement, moveTo: FileElement):void {
     this.elementMoved.emit({ element: element, moveTo: moveTo });
@@ -79,7 +84,7 @@ export class ExplorerComponent implements OnChanges {
 
   
 
-  onContextMenu($event: any, item: FileElement): void {
+  onContextMenu($event, item: FileElement): void {
     this.contextMenuService.show.next({
       contextMenu: this.basicMenu,
       event: $event,

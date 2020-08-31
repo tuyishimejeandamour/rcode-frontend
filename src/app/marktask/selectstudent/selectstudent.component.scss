@@ -1,0 +1,31 @@
+.example-form{
+    background-color: #4b4b4b;
+    border: none;
+    color: white;
+    width: 100%;
+    position: relative;
+    height: 28px;
+    overflow: hidden;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    outline:none;
+    input{
+      position:absolute;
+      outline:none;
+      border:none;
+      background:transparent;
+      top:0px;
+      margin-left:2%;
+      width:96%;
+      height: 28px;
+      color:white;
+      font-weight: bold;
+     
+    }
+}
+.example-full-width {
+  width: calc(100% - 20px);
+}

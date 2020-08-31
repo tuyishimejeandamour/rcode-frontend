@@ -1,51 +1,81 @@
 <div class="projectlister">
   <div class="projectTitle">
-    <button mat-raised-button  color="accent"
-    aria-label="Example icon button with a plus one icon">
-    <mat-icon>create_new_folder</mat-icon>
-    <span>  Add file</span>
-  </button>
-  
+    <button mat-raised-button color="accent" aria-label="Example icon button with a plus one icon"
+      (click)="addnewFolder()">
+      <mat-icon>create_new_folder</mat-icon>
+      <span> Add file</span>
+    </button>
+
   </div>
   <div class="float-pro">
     <div class='sort_arrengement'>
       <div class="filters">
         <span class="header_sort">Base</span>
         <ul>
-          <li><mat-icon>menu</mat-icon><span> all</span></li>
-          <li><mat-icon>snippet_folder</mat-icon><span>recent file</span></li>
-          <li><mat-icon>folder_special</mat-icon><span>important</span></li>
-          <li><mat-icon>delete</mat-icon><span>projects</span></li>
+          <li>
+            <mat-icon>menu</mat-icon><span> all</span>
+          </li>
+          <li>
+            <mat-icon>folder_open</mat-icon><span>recent file</span>
+          </li>
+          <li>
+            <mat-icon>folder_special</mat-icon><span>important</span>
+          </li>
+          <li>
+            <mat-icon>recent_actors</mat-icon><span>projects</span>
+          </li>
         </ul>
       </div>
       <div class="label">
         <span class="header_sort">File library</span>
         <ul>
-          <li><mat-icon>star</mat-icon><span>favorite</span></li>
-          <li><mat-icon>frule_folder  </mat-icon><span>answer files</span></li>
-          <li><mat-icon>folder_shared</mat-icon><span>shared files</span></li>
-          <li><mat-icon>archive</mat-icon><span>ziped files</span></li>
+          <li>
+            <mat-icon>star</mat-icon><span>favorite</span>
+          </li>
+          <li>
+            <mat-icon>drafts</mat-icon><span>answer files</span>
+          </li>
+          <li>
+            <mat-icon>folder_shared</mat-icon><span>shared files</span>
+          </li>
+          <li>
+            <mat-icon>archive</mat-icon><span>ziped files</span>
+          </li>
 
         </ul>
       </div>
-      </div>
+    </div>
   </div>
-  </div>
+</div>
 <div class="directory_marks">
   <div class="directory_header" style="height: 40px">
-      <div class="search-container">
-        <mat-icon>search</mat-icon>
-        <input type="search" placeholder="search files">
-      </div>
-      <div class="header_symbols">
-      <button mat-icon-button><mat-icon>cloud_upload</mat-icon></button>
-      <button mat-icon-button><mat-icon>create_new_folder</mat-icon></button>
-      <button mat-icon-button><mat-icon>share</mat-icon></button>
-      <button mat-icon-button><mat-icon>delete</mat-icon></button>
+    <div class="search-container">
+      <mat-icon>search</mat-icon>
+      <input type="search" placeholder="search files">
+    </div>
+    <div class="header_symbols">
+      <button mat-icon-button>
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+      <button mat-icon-button (click)="addnewFolder()">
+        <mat-icon>create_new_folder</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>share</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
 
     </div>
   </div>
-   <app-explorer [fileElements]="fileElements | async" [path]="currentPath" [canNavigateUp]="canNavigateUp" (folderAdded)="addFolder($event)"
-   (elementRemoved)="removeElement($event)" (navigatedDown)="navigateToFolder($event)" (navigatedUp)="navigateUp()" (elementRenamed)="renameElement($event)"
-   (elementMoved)="moveElement($event)"></app-explorer>
+  <app-explorer [fileElements]="fileElements | async" [path]="currentPath" 
+    [canNavigateUp]="canNavigateUp"
+    (folderAdded)="addFolder($event)" 
+    (elementRemoved)="removeElement($event)"
+    (navigatedDown)="navigateToFolder($event)"
+    (navigateFromNav)="navigateFromNav($event)"
+    (navigatedUp)="navigateUp()" 
+    (elementRenamed)="renameElement($event)"
+    (elementMoved)="moveElement($event)"></app-explorer>
 </div>

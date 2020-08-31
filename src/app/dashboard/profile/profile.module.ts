@@ -11,6 +11,7 @@ import { ExplorerComponent } from './file-explorer/explorer/explorer.component';
 import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
 
 
+
 @NgModule({
   declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent, ModalComponent],
   imports: [

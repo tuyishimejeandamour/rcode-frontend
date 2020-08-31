@@ -60,7 +60,7 @@ export class FileservicesService implements IFileService {
     return this.map.get(id);
   }
 
-  clone(element: FileElement): any {
+  clone(element: FileElement):any {
     return JSON.parse(JSON.stringify(element));
   }
 }

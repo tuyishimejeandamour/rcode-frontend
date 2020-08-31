@@ -5,11 +5,14 @@ import { MarktaskRoutingModule } from './marktask-routing.module';
 import { MarktaskComponent } from './marktask.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { AngularSplitModule } from 'angular-split';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { MaterialModule } from 'app/material/material.module';
+import { SelectstudentComponent } from './selectstudent/selectstudent.component';
 @NgModule({
   
-  declarations: [MarktaskComponent],
+  declarations: [MarktaskComponent, SelectstudentComponent],
   imports: [
     CommonModule,
     MarktaskRoutingModule,
@@ -17,6 +20,9 @@ import { BrowserModule } from '@angular/platform-browser';
     AngularSplitModule,
     BrowserModule,
     FormsModule,
+    MonacoEditorModule,
+    MaterialModule,
+    ReactiveFormsModule
   ],
  
 

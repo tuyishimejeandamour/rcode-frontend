@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileElement, FileservicesService } from 'app/Service/fileservices.service';
+import { PathService, Breadcrumb } from 'app/Service/path.service';
+import { ExplorerComponent } from './explorer/explorer.component';
+import { map } from 'rxjs/operators';
+import { v4 } from 'uuid';
+
 
 @Component({
   selector: 'app-file-explorer',
@@ -10,18 +15,23 @@ import { FileElement, FileservicesService } from 'app/Service/fileservices.servi
 export class FileExplorerComponent implements OnInit {
 
   public fileElements: Observable<FileElement[]>;
+  @ViewChild(ExplorerComponent) private explorer:ExplorerComponent;
 
-  constructor(public fileService: FileservicesService) {}
+  constructor(
+    public fileService: FileservicesService,
+    private pathservise:PathService
+  ) {}
 
   currentRoot: FileElement;
-  currentPath: string;
+  currentPath: Breadcrumb[]=[];
+  pathdel:Breadcrumb;
   canNavigateUp = false;
 
   ngOnInit():void {
     const folderA = this.fileService.add({ name: 'Folder A', isFolder: true, parent: 'root' });
     this.fileService.add({ name: 'Folder B', isFolder: true, parent: 'root' });
-    this.fileService.add({ name: 'Folder C', isFolder: true, parent: folderA.id });
-    this.fileService.add({ name: 'File A', isFolder: false, parent: 'root' });
+    const folderb = this.fileService.add({ name: 'Folder C', isFolder: true, parent: folderA.id });
+    this.fileService.add({ name: 'File t', isFolder: true, parent: folderb.id });
     this.fileService.add({ name: 'File B', isFolder: false, parent: 'root' });
 
     this.updateFileElementQuery();
@@ -33,7 +43,6 @@ export class FileExplorerComponent implements OnInit {
   }
 
   removeElement(element: FileElement):void {
-    console.log(element);
     this.fileService.delete(element.id);
     this.updateFileElementQuery();
   }
@@ -41,10 +50,14 @@ export class FileExplorerComponent implements OnInit {
   navigateToFolder(element: FileElement):void {
     this.currentRoot = element;
     this.updateFileElementQuery();
-    this.currentPath = this.pushToPath(this.currentPath, element.name);
+    this.pushToPath(element);
     this.canNavigateUp = true;
   }
-
+  navigateFromNav(element:Breadcrumb):void{
+    this.currentRoot = element.element;
+    this.updateFileElementQuery();
+    this.findindexpath(element)
+  }
   navigateUp() :void{
     if (this.currentRoot && this.currentRoot.parent === 'root') {
       this.currentRoot = null;
@@ -54,7 +67,7 @@ export class FileExplorerComponent implements OnInit {
       this.currentRoot = this.fileService.get(this.currentRoot.parent);
       this.updateFileElementQuery();
     }
-    this.currentPath = this.popFromPath(this.currentPath);
+    // this.currentPath = this.popFromPath(this.currentPath);
   }
 
   moveElement(event: { element: FileElement; moveTo: FileElement }):void {
@@ -72,17 +85,35 @@ export class FileExplorerComponent implements OnInit {
     this.fileElements = this.fileService.queryInFolder(this.currentRoot ? this.currentRoot.id : 'root');
   }
 
-  pushToPath(path: string, folderName: string):string {
-    let p = path ? path : '';
-    p += `${folderName}/`;
-    return p;
+  pushToPath(element:FileElement):void{
+    this.addnavpath({element: element });
+    
+  }
+  addnewFolder():void{
+    this.explorer.openNewFolderDialog();
+  }
+  addnavpath(nav:Breadcrumb ):void
+  {
+    nav.id= v4();
+    this.currentPath.push(nav);
+  } 
+
+  findindexpath(element:Breadcrumb):void{
+    const removeIndex = this.currentPath.map(function(item) { return item.id; }).indexOf(element.id);
+    this.deletepath(removeIndex)
   }
 
-  popFromPath(path: string):string {
-    let p = path ? path : '';
-    const split = p.split('/');
-    split.splice(split.length - 2, 1);
-    p = split.join('/');
-    return p;
+  deletepath(id:number):void{
+    console.log(`id=${id}`);
+    console.log(`idx${this.currentPath.length}`);
+    for(let i=this.currentPath.length;i>id+1;i--){
+      console.log(i)
+      this.currentPath.splice(this.currentPath.length-1,1);
+      console.log(`idx${this.currentPath.length}`)
+    }
+  }
+  deletepathbyId(index: number):void {     
+   
+
   }
 }

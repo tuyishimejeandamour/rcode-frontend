@@ -186,3 +186,14 @@ border: none !important;
    }
   }
 }
+.editor-container{
+  position:absolute !important;
+}
+.as-split-gutter{
+    flex-basis: 2px !important;
+    background:rgb(30,30,30) !important;
+}
+.mat-autocomplete-panel{
+  // position:relative;
+  // max-height:60% !important;
+}

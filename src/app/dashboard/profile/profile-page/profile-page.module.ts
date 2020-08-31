@@ -7,14 +7,16 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { ChallengesComponent } from './challenges/challenges.component';
 import { MaterialModule } from 'app/material/material.module';
+import { DialogComponent } from './profile-info/dialog/dialog.component';
 
 
 @NgModule({
-  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent],
+  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
     MaterialModule
-  ]
+  ],
+  entryComponents: [DialogComponent]
 })
 export class ProfilePageModule { }

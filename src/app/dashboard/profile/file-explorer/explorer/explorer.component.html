@@ -4,44 +4,22 @@
       <section class="header">
         <div class="logo-and-nav-wrap">
           <div class="logo-wrap">
-            <a href="#/global"> <mat-icon>home</mat-icon></a>
+             <button mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button mat-icon-button><mat-icon>keyboard_arrow_right</mat-icon></button> 
+            <button mat-icon-button> <mat-icon>home</mat-icon></button>
           </div>
           <div class="site-nav-wrap">
             <nav class="nav">
-              <div class="breadcrumb-wrap">
+              <div class="breadcrumb-wrap" *ngFor="let item of path" (click)="navigateFrom(item)">
                 <span class="sep">
                   <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a href="#">Universe</a></span>
-              </div>
-              <div class="breadcrumb-wrap">
-                <span class="sep">
-                  <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a href="#">Milky Way</a></span>
-              </div>
-              <div class="breadcrumb-wrap">
-                <span class="sep">
-                  <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a href="#">Solar System</a></span>
-              </div>
-              <div class="breadcrumb-wrap">
-                <span class="sep">
-                  <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a href="#">Earth</a></span>
-              </div>
-              <div class="breadcrumb-wrap">
-                <span class="sep">
-                  <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a href="#">Internet</a></span>
+                </span> <span class="breadcrumb"><a nohref>{{item.element.name|| 'Files'}}</a></span>
               </div>
             </nav>
           </div>
         </div>
       </section>
     </div>
-    <!-- <mat-icon *ngIf="canNavigateUp" class="pointer" (click)="navigateUp()">arrow_back</mat-icon>
-  <span style="margin-left: 8px">{{path || 'Files'}}</span>
-  <span class="spacer"></span> -->
-
   </div>
   <div class="filediv">
     <div class="filefolder_container">
@@ -67,7 +45,7 @@
     </div>
     <context-menu>
       <ng-template contextMenuItem>
-        <mat-icon>open</mat-icon>open
+        <mat-icon>open_in_new</mat-icon>open
       </ng-template>
       <ng-template contextMenuItem [subMenu]="createMenu">
         <mat-icon>add</mat-icon>
@@ -84,18 +62,20 @@
         </ng-template>
 
       </context-menu>
+      <mat-divider></mat-divider>
       <ng-template contextMenuItem>
         <mat-icon>bookmark</mat-icon>
         cut
       </ng-template>
       <ng-template contextMenuItem>
-        <mat-icon>bookmark</mat-icon>
+        <mat-icon>copy</mat-icon>
         copy
       </ng-template>
       <ng-template contextMenuItem>
         <mat-icon>bookmark</mat-icon>
         paste
       </ng-template>
+      <mat-divider></mat-divider>
       <ng-template contextMenuItem [subMenu]="moreMenu">
         <mat-icon>more_vert</mat-icon>
         more
