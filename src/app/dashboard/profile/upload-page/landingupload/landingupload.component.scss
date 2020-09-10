@@ -33,12 +33,12 @@
       position: relative;
       width: 100%;
       height: 50%;
-      overflow: auto;
-
       .inside_flows {
         width: 98%;
         height:calc(100% - 45px);
         margin-left: 2%;
+        overflow: auto;
+
 
       }
     }
@@ -52,7 +52,7 @@
     display: block;
     width: 98%;
     margin-left: 2%;
-    height: 45px;
+    height: 44px;
     text-align: center;
     font-weight: 700;
     border-bottom:1px solid #dde;
@@ -63,7 +63,8 @@
     border-radius: 5px;
     display: flex;
     width: 100%;
-    height: 50px;
+    height: 55px;
+    margin-top:5px;
 
     &:hover {
       border-radius: 5px;
@@ -87,12 +88,23 @@
       height: 50px;
 
       .image {
-        margin: 5px 10px;
-        width: 60px;
-        height: 40px;
-        background-image: url(../../../../../assets/others/term1.png);
-        background-position: 50% 50%;
-        background-size: cover;
+        display:flex;
+       justify-content: center;
+       align-items: center;
+        margin: 0 20px;
+        width: 50px;
+        height: 50px;
+        background: rgb(53, 53, 236);
+        border-radius: 50%;
+        text-align: center;
+        border:2px solid white;
+        box-shadow: 1px 1px 5px #dde ;
+        span{
+          font-size: 20px;
+          color: white;
+          font-weight: 900;
+
+        }
       }
     }
 
@@ -105,6 +117,7 @@
 
       span {
         line-height: 2;
+        font-size:13px;
         color: rgb(99, 99, 99)
       }
 

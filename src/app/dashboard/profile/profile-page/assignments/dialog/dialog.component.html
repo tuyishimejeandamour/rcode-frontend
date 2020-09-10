@@ -1,0 +1,22 @@
+
+  <div class="container">
+    <div>
+      <as-split class="split-example ex-percent" unit="percent" [direction]="direction" (dragEnd)="dragEnd($event)">
+        <as-split-area size="55">
+            <div class="directory_header">
+                <button mat-mini-fab color="primary" class="mat-button-editor" style="margin: 2px 10px 0 10px;"><mat-icon>save</mat-icon></button>
+                <button mat-mini-fab color="primary" class="mat-button-editor" ><mat-icon>settings</mat-icon></button>
+
+                <button class="runbutton" ><mat-icon>play_arrow</mat-icon></button>
+            </div>
+            <div class="codediveditor">
+              <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+            </div>
+        </as-split-area>
+        <as-split-area size="45">
+          <div class="directory_header">
+          </div>
+        </as-split-area>
+      </as-split>
+    </div>
+  </div>

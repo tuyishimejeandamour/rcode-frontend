@@ -12,15 +12,25 @@ import { JerwisService, User } from 'app/Service/jerwis.service';
 export class DashHeaderComponent implements OnInit {
 
   public data: User;
+  public isinbrowser= false;
   constructor(
     private electron: ElectronService,
     private link: Router,
     private jewris: JerwisService
-  ) { }
+  ) {
+
+    
+  }
 
   ngOnInit(): void {
     this.jewris.initfuntion();
     this.data = this.jewris.getUser();
+    if(!this.electron.isElectron){
+      this.isinbrowser = true;
+      document.getElementById("profile-header-image").style.position="absolute";
+      document.getElementById("profile-header-image").style.right="30px";
+
+    }
   }
   gohome(value: string): void{
     this.link.navigateByUrl(value)

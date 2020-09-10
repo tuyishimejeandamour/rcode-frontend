@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TasksComponent } from './tasks.component';
 import { NewtaskComponent } from './newtask/newtask.component';
@@ -27,6 +26,7 @@ export const MY_NATIVE_FORMATS = {
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+
     QuillModule.forRoot(),
     ContextMenuModule.forRoot()
   ],

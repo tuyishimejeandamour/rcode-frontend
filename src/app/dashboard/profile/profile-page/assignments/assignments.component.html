@@ -1,59 +1,36 @@
-<div class="directory_header" style="height: 40px">
+
   <div class="directory_header" style="height: 40px">
-      <div class="sort_challenge"><button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-        <mat-icon>more_vert</mat-icon>
-      </button><span
-              class="span_img">Filter</span></div>
+    <div class="sort-header-inheader"  [@openClose]="!isOpen ? 'open' : 'closed'">
+        <div class="closefilter" (click)="toggle()"><mat-icon>menu</mat-icon></div>
+      </div>
+      <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+        <div class="closefilters" (click)="toggle()"><mat-icon>menu</mat-icon></div>
+        </div>
       <div style="display:inline-block;margin-left:40%"><span
-              style="position: absolute;top:10px;font-size:14px;font-weight:600">Assignment</span></div>
-      <img style="position:absolute;right:10px; width: 30px; height: 30px;margin-top:5px "
-          src="../../../../../assets/others/icon.png" alt="">
+              style="position: absolute;top:10px;font-size:14px;font-weight:600">Your profile</span></div>
   </div>
-</div>
-<div class="directory_show">
-  <div id="assignents" class="challenge">
-    <div class="assignment_div">
-      <div class="img_assign img_challenge">
-
-      </div>
-      <div class="footer_assign">
-          <div class="mini_img_div">
-              <img class="mini_img" src="../../../../../assets/profile_picture/31592671453.png" alt="">
+  <div class="directory_show">
+    <div class="side_bar_left_with_img"[@openClose]="!isOpen ? 'open' : 'closed'">
+      
+    </div>
+    <div class="profile_content_right">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img  mat-card-avatar src="../../../../../assets/profile_picture/31592671453.png" alt="Photo of a Shiba Inu">
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ipsum magnam, numquam quos beatae amet nostrum ad quod laudantium cum nesciunt fugit sequi, doloremque facere ab aperiam quidem libero saepe!</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ngx-monaco-editor class="inlineeditor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button><mat-icon>favorite</mat-icon></button>
+          <button mat-icon-button><mat-icon>share</mat-icon></button>
+          <div class="floatright">
+            <button mat-raised-button (click)="openanswerboard()">answer</button>
           </div>
-          <div class="subtmisiondetails">
-            <span>this work was:<b>submitted</b></span><br>
-            <span>you got:<b>45/100 </b></span>
-          </div>
-
-      </div>
-  </div>
+        </mat-card-actions>
+      </mat-card>
 
   </div>
-
-
-  <div class="preview_assignment" id="assignment_show">
-      <div class="preview_assignment_header assignment_fullscreen">
-          <div class="sort_challenge" onclick="hide('assignment_show')" style="margin-top: -1px"><img
-                  src="../../../../../assets/others/icon.png" alt=""></div>
-          <div style="display:inline-block;margin-left:40%"><span
-                  style="position: absolute;top:10px;font-size:14px;font-weight:600" id="title_name">Php
-                  assignment</span>
-          </div>
-          <img onclick="PrintElem('assignment_info')"
-              style="position:absolute;right:180px; width: 30px; height: 30px;margin-top:3px "
-              src="../../../../../assets/others/icon.png" alt="">
-          <img onclick="PrintElem('assignment_info')"
-              style="position:absolute;right:80px; width: 30px; height: 30px;margin-top:3px "
-              src="../../../../../assets/others/icon.png" alt="">
-          <img style="position:absolute;right:130px; width: 30px; height: 30px;margin-top:3px "
-              src="../../../../../assets/others/icon.png" alt="">
-          <img class="edit_img" onclick="makefullScreen('assignment_show')" id="fullscreens"
-              src="../../../../../assets/others/icon.png" alt="">
-          <img class="edit_img" onclick="exitfullScreen('assignment_show')" style="display: none;"
-              id="normalcreens" src="../../../../../assets/others/icon.png" alt="">
-      </div>
-      <div class="show_assignment_info" id="assignment_info"></div>
-
-  </div>
-
 </div>

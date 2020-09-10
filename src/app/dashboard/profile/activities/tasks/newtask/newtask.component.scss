@@ -62,7 +62,7 @@ mat-panel-title{
   width: 83%;
   left: 17%;
   height: calc(100% - 40px - 26px);
-  z-index: 2;
+  z-index: 2000;
   background-color: rgb(158, 70, 70);
   .preview_assignment_header{
     position: sticky;

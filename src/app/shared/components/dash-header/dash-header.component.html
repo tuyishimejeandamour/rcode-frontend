@@ -19,16 +19,17 @@
   <div class="notification">
     <ul>
 
-      <li [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"(click)="menuTrigger.openMenu()"><img class="btngogo" id="header_profile_picture"
+      <li id="profile-header-image" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"(click)="menuTrigger.openMenu()"><img class="btngogo" id="header_profile_picture"
           style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
           src="../../../assets/profile_picture/11594486894.png" alt="">
 
       </li>
-      <li (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
-      <li (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
-      <li (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
-      <li (click)="closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
-
+      
+      <li [hidden]="isinbrowser"  (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
+      <li [hidden]="isinbrowser"  (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
+      <li [hidden]="isinbrowser"  (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
+      <li [hidden]="isinbrowser"  (click)="closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
+     
     </ul>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
      <div >

@@ -1,14 +1,19 @@
 
-<div class="directory_header" style="height:40px;margin-bottom:15px">
-  <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
-      src="../../../../../assets/others/tasklist.png" alt="">
-  <span style="position: absolute;top:10px;left:40%;font-size:14px;font-weight:600">prepare task or save
-      for future set</span>
+<div class="directory_header">
+  <div class="sort-header-inheader"  [@openClose]="!isOpen ? 'open' : 'closed'">
+    <div class="closefilter" (click)="toggle()"><mat-icon>tune</mat-icon></div>
+  </div>
+  <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+  <div class="closefilters" (click)="toggle()"><mat-icon>tune</mat-icon></div>
+  </div>
+  <button mat-mini-fab color="primary"[@openClose]="addOpen ? 'open' : 'closed'"><mat-icon>add</mat-icon></button>
+  <div class="titleinheader"><span>prepare task or save for future set</span></div>
+
 </div>
   <div class="directory_show">
-      <div class="side_bar_left_with_img">
+      <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">
         <div class="profile_in_title" >
-          <button mat-raised-button [routerLink]="'newtask'" color="primary" aria-label="Example icon button with a plus one icon">
+          <button mat-raised-button [routerLink]="'newtask'" (click)="!isOpen?isOpen = !isOpen:isOpen;addOpen?addOpen = !addOpen:addOpen" color="primary" aria-label="Example icon button with a plus one icon">
             <mat-icon>add_task</mat-icon>
             <span> Add Task</span>
           </button>
@@ -22,18 +27,18 @@
           <span class="header_sort">filter</span>
           <ul>
             <li><mat-icon>menu</mat-icon><span> all</span></li>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>this week</span></li>
+            <li><mat-icon>menu</mat-icon><span>last weeks</span></li>
 
           </ul>
         </div>
         <div class="label">
           <span class="header_sort">labeled</span>
           <ul>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
-            <li><mat-icon>menu</mat-icon><span>first list</span></li>
+            <li><mat-icon>menu</mat-icon><span>unmarked</span></li>
+            <li><mat-icon>menu</mat-icon><span>best performed</span></li>
+            <li><mat-icon>menu</mat-icon><span>less performed</span></li>
+            <li><mat-icon>menu</mat-icon><span>many undone</span></li>
 
           </ul>
         </div>

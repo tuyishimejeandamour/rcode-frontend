@@ -24,7 +24,11 @@ const args = process.argv.slice(1),
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
-    loadingScreen.loadURL(`${__dirname}/src/loading.html`);
+    loadingScreen.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist/loading.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
 
 
     loadingScreen.on('closed', () => (loadingScreen = null));

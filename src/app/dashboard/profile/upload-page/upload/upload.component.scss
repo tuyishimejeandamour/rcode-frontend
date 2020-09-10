@@ -1,0 +1,92 @@
+// *{
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   font-size: 100%;
+//   font: inherit;
+//   vertical-align: baseline;
+// }
+
+.directory_header {
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    z-index: 200;
+    box-shadow: 1px 2px 3px #dde;
+    background-color: rgb(255, 255, 255);
+  }
+  .directory_show{
+    display:flex;
+  .side_bar_left_with_img {
+    position: relative;
+    width: 30%;
+    height: calc(100%);
+    background:rgb(255, 255, 255);
+    .header{
+      max-height:calc(100% - 55px);
+      h4{
+        text-align: center;
+        font-size:18px;
+        margin-top:10px;
+        margin-bottom: 5px;
+        color: rgb(209, 212, 212)
+      }
+     ol,ul{
+       margin-left: 10px;
+     }
+
+    }
+    .content_header{
+      position:absolute;
+      width:100%;
+      bottom: 50px;
+      text-align:center;
+    }
+    
+  }
+  .profile_content_right{
+    flex:1;
+    height: calc(100%);
+    overflow-y: auto;
+    .example-card{
+      margin:2%;
+      
+      .insideuploader{
+        position:relative;
+        width:100%;
+        height:200px;
+        margin-top:20px;
+        margin-bottom:10px;
+        background: #8e28ee48;
+        background-image: url(../../../../../assets/others/texture.png);
+        padding-top:10%;
+        box-shadow:inset 0px 0px 3px #9528ee91;
+        .intro{
+          font-size: 14px;
+          line-height: 23px;
+          text-align: center;
+          width: 100%;
+          max-width: 220px;
+          position: absolute;
+          margin:0 auto;
+          left:35%;
+          h4{
+            margin-bottom: 8px;
+            color: var(--grey-dark);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 20px;
+          }
+          button{
+            background:#5628ee;
+            color:white;
+          }
+        }
+      }
+    }
+    
+  }
+  
+  }

@@ -32,6 +32,7 @@
       font-weight: 700;
       margin-top: 10px;
       color: #eee;
+      outline:none;
     }
 
   }
@@ -41,12 +42,12 @@
     margin: 0;
     padding: 0;
     width: 160px;
-    -webkit-app-region: no-drag;
     #restore {
       display: none;
     }
 
     li {
+      -webkit-app-region: no-drag;
       position: absolute;
       float: left;
       width: 50px;

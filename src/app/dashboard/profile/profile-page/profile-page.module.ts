@@ -8,15 +8,22 @@ import { AssignmentsComponent } from './assignments/assignments.component';
 import { ChallengesComponent } from './challenges/challenges.component';
 import { MaterialModule } from 'app/material/material.module';
 import { DialogComponent } from './profile-info/dialog/dialog.component';
+import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
+import { FormsModule } from '@angular/forms';
+import { DialogAssignComponent } from './assignments/dialog/dialog.component';
+import { AngularSplitModule } from 'angular-split';
 
 
 @NgModule({
-  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent],
+  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
-    MaterialModule
+    MaterialModule,
+    MonacoEditorModule,
+    FormsModule,
+    AngularSplitModule
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent,DialogAssignComponent]
 })
 export class ProfilePageModule { }

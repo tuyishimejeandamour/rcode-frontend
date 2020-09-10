@@ -1,15 +1,18 @@
-<div class="directory_header" style="height:40px;margin-bottom:15px">
-  <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
-      src="../../../../../assets/others/tasklist.png" alt="">
-  <span style="position: absolute;top:10px;left:40%;font-size:14px;font-weight:600">prepare task or save
-      for future set</span>
+<div class="directory_header">
+  <div class="sort-header-inheader"  [@openClose]="!isOpen ? 'open' : 'closed'">
+    <div class="closefilter" (click)="toggle()"><mat-icon>tune</mat-icon></div>
+  </div>
+  <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+    <div class="closefilters" (click)="toggle()"><mat-icon>tune</mat-icon></div>
+    </div>
+    <div class="titleinheader"><span >prepare task or save for future set</span></div>
 </div>
   <div class="directory_show">
-      <div class="side_bar_left_with_img">
+      <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">
         <mat-nav-list>
         <mat-form-field class="example-full-width">
           <mat-label>search any task </mat-label>
-          <input matInput   >
+          <input matInput>
         </mat-form-field>
         <div class='sort_arrengement'>
         <div class="filters">
@@ -36,68 +39,21 @@
       </div>
       <div class="profile_content_right">
         <div class="filefolder_container">
-          <div class="filecontainer">
+          <div class="filecontainer" *ngFor="let marked of markedtask">
             <div class="file-image">
               <div class='image'>
 
               </div>
             </div>
             <div class="file-semidetails">
-                  <span class="foldername">studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
+                  <span class="foldername">{{marked.taskname}}</span>
+                  <span>{{marked.marks}}</span>
+                  <span style="margin-left: 5px;">{{marked.givenat}}</span>
+                  <span style="margin-left: 5px;">{{marked.submittedat}}</span>
                   <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>
-          </div>
-          <div class="filecontainer">
-            <div class="file-image">
-              <div class='image'>
-
-              </div>
-            </div>
-            <div class="file-semidetails">
-                  <span class="foldername">studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </div>
-          </div>
-          <div class="filecontainer">
-            <div class="file-image">
-              <div class='image'>
-
-              </div>
-            </div>
-            <div class="file-semidetails">
-                  <span class="foldername">studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </div>
-          </div>
-          <div class="filecontainer">
-            <div class="file-image">
-              <div class='image'>
-
-              </div>
-            </div>
-            <div class="file-semidetails">
-                  <span class="foldername">studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <span>studentfolder</span>
-                  <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-            </div>
           </div>
           <context-menu>
             <ng-template contextMenuItem >
@@ -116,7 +72,7 @@
               download
             </ng-template>
             <ng-template contextMenuItem >
-              <mat-icon>graph</mat-icon>
+              <mat-icon>insert_chart_outlined</mat-icon>
               performance
             </ng-template>
           </context-menu>
@@ -124,10 +80,6 @@
         <div class="showdetails">
          <div class="clicked_file_show"></div>
          <div class='clicked_file_detail'>
-        <div class="file_1">
-          <span class="file_desc_span_header">short discription</span>
-          <span>Lorem ipsum dolor sit amet consectetur </span>
-        </div>
         <div class="file_2">
           <span class="file_desc_span_header">given at</span>
           <span>30, apirl, 2020</span>

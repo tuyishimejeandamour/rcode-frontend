@@ -1,0 +1,73 @@
+.directory_header{
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    height:40px;
+    border-radius: 3px;
+    z-index: 200;
+    box-shadow: 1px 2px 3px rgb(0, 0, 0);
+    background-color: rgb(30,30, 30);
+    .runbutton{
+        margin-top:5px;
+        height:30px;
+        width:60px;
+        border-radius: 3px;
+        border:none;
+        float:right;
+        margin-right: 40px;
+        color:white;
+        background: rgb(23, 202, 38);
+        cursor: pointer;
+        box-shadow: 1px 2px 3px rgb(0, 0, 0);
+
+    }
+    .mat-button-editor{
+        width: 35px;
+        height:35px;
+        mat-icon{
+            position: absolute;
+            margin: 0 auto;
+            width:19px;
+            height:19px;
+            font-size:19px;
+            top: 8px;
+            left: 9px;
+            
+        }
+    }
+  }
+.container{
+    position: relative;
+    width:100%;
+    height: 100%;
+}
+.split-example-page {
+    display: block;
+    width: 100%;  
+}
+
+.split-example {
+    position: absolute;
+    width:100%;
+    height: calc(100%);
+    background:rgb(30,30,30);
+    
+}
+.codediveditor{
+    // box-sizing: border-box;
+    position:relative;
+    width:100%;
+    height:calc(100% - 40px);
+    background:rgb(30,30,30);
+}
+.example-card{
+    .inlineeditor{
+      position:relative;
+      width:100%;
+      height: 200px;
+      max-height: 300px;
+    }
+    .floatright{
+      float:right;
+    }
+  }

@@ -1,13 +1,21 @@
 <div class="directory_header" style="height: 40px">
-  <div class="sort_challenge" onclick="show('sort_selection')"><img
-      style="width: 30px;height:30px;margin-left:20px;margin-top:5px" src="../../../../../assets/others/students.png"
-      alt=""></div>
-  <div style="display:inline-block;margin-left:40%"><span
-      style="position: absolute;top:10px;font-size:14px;font-weight:600">your student and their corresponding
-      class</span></div>
+  <div class="sort-header-inheader" [@openClose]="!isOpen ? 'open' : 'closed'">
+    <div class="closefilter" (click)="toggle()">
+      <mat-icon>tune</mat-icon>
+    </div>
+  </div>
+  <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+    <div class="closefilters" (click)="toggle()">
+      <mat-icon>tune</mat-icon>
+    </div>
+  </div>
+  <button mat-mini-fab (click)="openDialog()" [@openClose]="isOpen ? 'open' : 'closed'">
+    <mat-icon>add</mat-icon>
+  </button>
+  <div class="titleinheader"><span>your student and their corresponding class</span></div>
 </div>
 <div class="directory_show">
-  <div class="side_bar_left_with_img">
+  <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">
     <div class="profile_in_title">
       <button mat-raised-button (click)="openDialog()" color="accent"
         aria-label="Example icon button with a plus one icon">
@@ -23,33 +31,63 @@
       <div class="filters">
         <span class="header_sort">filter</span>
         <ul>
-          <li><mat-icon>menu</mat-icon><span> all</span></li>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li>
+            <mat-icon>menu</mat-icon><span> all</span>
+          </li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
 
         </ul>
       </div>
       <div class="label">
         <span class="header_sort">labeled</span>
         <ul>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
-          <li><mat-icon>menu</mat-icon><span>first list</span></li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
+          <li>
+            <mat-icon>menu</mat-icon><span>first list</span>
+          </li>
 
         </ul>
       </div>
-      </div>
+    </div>
   </div>
   <div class="profile_content_right">
     <div class="mat-elevation-z1">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
-        <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-          <mat-header-cell  *matHeaderCellDef> {{column}} </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        <ng-container matColumnDef="Number">
+          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{dataSource.data.indexOf(element)+1}} </mat-cell>
         </ng-container>
 
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <!-- Name Column -->
+        <ng-container matColumnDef="names">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.names}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef> username </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="class">
+          <mat-header-cell *matHeaderCellDef> class </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.class}} </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
             <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
@@ -62,33 +100,33 @@
                   <mat-icon>assignment_late</mat-icon>
                   <span> unsubmitted</span>
                 </button>
-                <button mat-raised-button class="full-show-buttom" >
+                <button mat-raised-button class="full-show-buttom">
                   <mat-icon>insert_chart</mat-icon>
-                   <span> performance</span>
+                  <span> performance</span>
                 </button>
               </div>
 
               <div class="example-element-description">
                 <table>
                   <thead>
-                      <tr>
-                          <th style="height: 35px">no.</th>
-                          <th style="height: 35px">task</th>
-                          <th style="height: 35px">marks</th>
-                          <th style="height: 35px">lesson</th>
-                         
-                      </tr>
+                    <tr>
+                      <th style="height: 35px">no.</th>
+                      <th style="height: 35px">task</th>
+                      <th style="height: 35px">marks</th>
+                      <th style="height: 35px">lesson</th>
+
+                    </tr>
 
                   </thead>
 
-                  <tr *ngFor="let item of element.description">
-                    <td>{{1}}</td>
+                  <tr *ngFor="let item of element.description;let i=index">
+                    <td>{{i+1}}</td>
                     <td> {{item.taskname}}</td>
                     <td>{{item.marks}}</td>
                     <td>{{item.lesson}}</td>
-                    
-                    </tr>
-                    </table>
+
+                  </tr>
+                </table>
               </div>
             </div>
           </td>

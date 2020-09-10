@@ -22,6 +22,11 @@ export class NewtaskComponent implements OnInit {
     ending_date:null,
   }
   public showTextEditor = false;
+  firstcontent={
+    title:null,
+    content:null,
+
+  }
   constructor(
     private jerwis: JerwisService,
     public datepipe: DatePipe,
@@ -48,7 +53,7 @@ export class NewtaskComponent implements OnInit {
   prevStep():void {
     this.step--;
   }
-  csvInputChange(fileInputEvent: any):void {
+  csvInputChange(fileInputEvent:any ):void {
     this.filename= fileInputEvent.target.files[0].name;
   }
   gettaskFunction():void{
@@ -64,5 +69,31 @@ export class NewtaskComponent implements OnInit {
       error=>console.log(error)
     )
 
+  }
+  viewhelp(id:number):void{
+    if(id==1){
+      this.firstcontent={
+        title:'task name',
+        content:'write briefly what name of you task'
+      }
+    }else if(id==2){
+      this.firstcontent={
+        title:'select class or classes',
+        content:'select classname or many class or select all option to give to all class'
+      }
+    }else if(id==3){
+      this.firstcontent={
+        title:'select lesson',
+        content:'select lesson if you give many lesson for futher classification of task'
+      }
+    }else if(id==4){
+
+    }else if(id==5){
+
+    }else if(id==6){
+
+    }else if(id==7){
+
+    }
   }
 }

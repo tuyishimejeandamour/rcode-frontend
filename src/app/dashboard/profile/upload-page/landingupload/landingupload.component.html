@@ -8,17 +8,17 @@
    <div class="recentupload">
      <span class="title" style="margin-left:0%;">task in this week</span>
      <div class="assinment_div">
-     <div class="filecontainer">
+     <div class="filecontainer" *ngFor="let task of taskInThisWeek" (contextmenu)="onContextMenu($event,task)">
       <div class="file-image">
         <div class='image'>
-
+          <span>{{task.lesson}}</span>
         </div>
       </div>
       <div class="file-semidetails">
-            <span class="foldername">studentfolder</span>
-            <span>studentfolder</span>
-            <span>studentfolder</span>
-            <button mat-icon-button (click)="onContextMenu($event,'ol')" >
+            <span class="foldername">{{task.taskname}}</span>
+            <span>{{task.remainingdate}}</span>
+            <span style="margin-left:10px">{{task.submittiondate}}</span>
+            <button mat-icon-button (click)="onContextMenu($event,task)" >
               <mat-icon>more_vert</mat-icon>
             </button>
           </div>
@@ -29,37 +29,37 @@
  <div class="upperflowdiv">
   <span class="title">unsubmitted tasks</span>
   <div class="inside_flows">
-    <div class="filecontainer">
+    <div class="filecontainer" *ngFor="let task1 of tasklatesubmits" (contextmenu)="onContextMenu($event,task1)">
       <div class="file-image">
         <div class='image'>
-
+          <span>{{task1.lesson}}</span>
         </div>
       </div>
       <div class="file-semidetails">
-            <span class="foldername">studentfolder</span>
-            <span>studentfolder</span>
-            <span>studentfolder</span>
-            <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
+            <span class="foldername">{{task1.taskname}}</span>
+            <span>{{task1.remainingdate}}</span>
+            <span style="margin-left:10px">{{task1.submittiondate}}</span>
+            <button mat-icon-button (click)="onContextMenu($event,task1)" >
               <mat-icon>more_vert</mat-icon>
             </button>
           </div>
     </div>
 </div>
  </div>
- <div class="lowflowdiv">
+ <div class="lowflowdiv" *ngIf="taskInotherweek.length>0">
   <span class="title">task in other week</span>
 <div class="inside_flows">
-  <div class="filecontainer">
+  <div class="filecontainer" *ngFor="let task3 of taskInotherweek" (contextmenu)="onContextMenu($event,task3)">
     <div class="file-image">
       <div class='image'>
-
+        <span>{{task3.lesson}}</span>
       </div>
     </div>
     <div class="file-semidetails">
-          <span class="foldername">studentfolder</span>
-          <span>studentfolder</span>
-          <span>studentfolder</span>
-          <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
+          <span class="foldername">{{task3.taskname}}</span>
+          <span>{{task3.remainingdate}}</span>
+          <span style="margin-left:10px">{{task3.submittiondate}}</span>
+          <button mat-icon-button (click)="onContextMenu($event,task3)" >
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>
@@ -93,7 +93,7 @@
       <mat-icon>assignment_sent</mat-icon>
       submitt
     </ng-template>
-    <ng-template contextMenuItem >
+    <ng-template contextMenuItem (execute)="showQuestion()">
       <mat-icon>note</mat-icon>
       show content
     </ng-template>

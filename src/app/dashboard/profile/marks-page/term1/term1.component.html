@@ -10,7 +10,7 @@
       <!-- Position Column -->
       <ng-container matColumnDef="position" >
         <mat-header-cell  *matHeaderCellDef> No. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{dataSource.data.indexOf(element)+1}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
@@ -20,21 +20,21 @@
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      <ng-container matColumnDef="marks">
+        <mat-header-cell *matHeaderCellDef> marks </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.marks}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      <ng-container matColumnDef="review">
+        <mat-header-cell *matHeaderCellDef> review </mat-header-cell>
+        <mat-cell *matCellDef="let element"><button (click)="viewtaskremarks(element.review)"mat-raised-button>review</button></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </table>
 
-    <mat-paginator color="primary" [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+    <mat-paginator color="primary" [pageSizeOptions]="[5,9,20]" showFirstLastButtons></mat-paginator>
   </div>
 </div>

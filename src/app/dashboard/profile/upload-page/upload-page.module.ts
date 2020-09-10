@@ -8,15 +8,21 @@ import { UploadedComponent } from './uploaded/uploaded.component';
 import { MaterialModule } from 'app/material/material.module';
 import { LandinguploadComponent } from './landingupload/landingupload.component';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { DialogComponent } from './dialog/dialog.component';
+import { QuillModule } from 'ngx-quill';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent],
+  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent, DialogComponent],
   imports: [
     CommonModule,
     UploadPageRoutingModule,
     MaterialModule,
-    ContextMenuModule.forRoot()
-  ]
+    ContextMenuModule.forRoot(),
+    QuillModule.forRoot(),
+    FormsModule,
+  ],
+  entryComponents: [ DialogComponent ]
 })
 export class UploadPageModule { }

@@ -1,23 +1,20 @@
-<div class="directory_header" style="height: 40px">
-  <div class="sort_challenge" onclick="myFunction('sort_selection')">
-    <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <span class="span_img">Filter</span></div>
-  <div style="display:inline-block;margin-left:40%"><span
-      style="position: absolute;top:10px;font-size:14px;font-weight:600">Challenges</span></div>
-  <div class="search_input" id="search_chl_input">
-    <img class="search_img" style=" width: 25px; height: 25px; margin-left: 5px"
-      src="../../../../../assets/others/icon.png" alt="">
-    <input (onfocus)="show('search_result')" class="search_chl" type="search" name="" id="">
+
+  <div class="directory_header" style="height: 40px">
+    <div class="sort-header-inheader"  [@openClose]="!isOpen ? 'open' : 'closed'">
+        <div class="closefilter" (click)="toggle()"><mat-icon>menu</mat-icon></div>
+      </div>
+      <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+        <div class="closefilters" (click)="toggle()"><mat-icon>menu</mat-icon></div>
+        </div>
+      <div style="display:inline-block;margin-left:40%"><span
+              style="position: absolute;top:10px;font-size:14px;font-weight:600">Your profile</span></div>
   </div>
-  <img (onclick)="show('search_chl_input')"
-    style="position:absolute;right:10px; width: 30px; height: 30px;margin-top:5px "
-    src="../../../../../assets/others/icon.png" alt="">
-</div>
-<div class="directory_show">
-  <div class="sort_div animated fast slideInDown " id="sort_selection"></div>
-  <div class="challenge_container">
+  <div class="directory_show">
+    <div class="side_bar_left_with_img"[@openClose]="!isOpen ? 'open' : 'closed'">
+      
+    </div>
+    <div class="profile_content_right">
+<div class="challenge_container">
     <div class="sidebar_diplay" id="show_whole_content_challenge" [hidden]="!open">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     </div>
@@ -37,8 +34,39 @@
 
         </div>
       </div>
+      <div class="assignment_div">
+        <div class="img_assign img_challenge" (click)="openNav()">
+
+        </div>
+        <div class="footer_assign">
+          <div class="mini_img_div">
+            <img class="mini_img" src="../../../../../assets/profile_picture/31592671453.png" alt="">
+          </div>
+          <div class="subtmisiondetails">
+            <span>this work was:<b>submitted</b></span><br>
+            <span>you got:<b>45/100 </b></span>
+          </div>
+
+        </div>
+      </div>
+      <div class="assignment_div">
+        <div class="img_assign img_challenge" (click)="openNav()">
+
+        </div>
+        <div class="footer_assign">
+          <div class="mini_img_div">
+            <img class="mini_img" src="../../../../../assets/profile_picture/31592671453.png" alt="">
+          </div>
+          <div class="subtmisiondetails">
+            <span>this work was:<b>submitted</b></span><br>
+            <span>you got:<b>45/100 </b></span>
+          </div>
+
+        </div>
+      </div>
 
     </div>
 
   </div>
+</div>
 </div>

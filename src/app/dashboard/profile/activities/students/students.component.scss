@@ -1,22 +1,77 @@
 .directory_header {
+  display: flex;
   position: sticky;
   top: 0px;
   width: 100%;
   height: 40px;
-  margin-bottom: 5px;
   border-radius: 3px;
   z-index: 200;
   box-shadow: 1px 2px 3px #dde;
   background-color: rgb(255, 255, 255);
-}
+  .sort-header-inheader{
+    width:22%;
+    background:rgb(255, 64, 129);
+    height:40px;
+    z-index: 200;
+    .closefilter{
+      width:50px;
+      height:40px;
+      background:rgb(175, 36, 82);
+      float:right;
+      color:white;
+      cursor:pointer;
+      mat-icon{
+        display: block;
+        margin:0 auto;
+        margin-top:8px;
+        
+      }
+    }
 
+  }
+  .cancledsidebar{
+    width:22%;
+    height:40px;
+    .closefilters{
+      width:50px;
+      height:40px;
+      background:rgb(175, 36, 82);
+      float:left;
+      color:white;
+      cursor:pointer;
+      mat-icon{
+        display: block;
+        margin:0 auto;
+        margin-top:8px;
+        
+      }
+    }
+  }
+  button{
+    position:absolute;
+    right:70px;
+    top:15px;
+  }
+  .titleinheader{
+    flex: 1;
+    padding-top:5px;
+    text-align: center;
+    span{
+     
+      flex-shrink: 100;
+      line-height: 24px;
+    }
+  }
+}
+.directory_show{
+  display:flex;
 .side_bar_left_with_img {
-  position: absolute;
-  float: left;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   text-align: center;
-  top: 40px;
   width: 22%;
-  height: calc(100% - 40px);
+  height: calc(100%);
   &::before{
     content: '';
     position: absolute;
@@ -39,11 +94,12 @@
   }
  
     .sort_arrengement {
+      display: flex;
+      flex-direction: column;
+      flex:1;
       margin-left:10%;
-      position: absolute;
-      top: 20%;
+      position: relative;
       width: 100%;
-      height: 80%;
       overflow: auto;
       .header_sort {
         display: block;
@@ -82,22 +138,19 @@
       }
       .filters {
         width: 100%;
-        height: 35%;
+        
       }
       .label {
         width: 100%;
-        height: 65%;
+     
       }
     }
   
 
 }
 .profile_content_right {
-  top: 40px;
-  position: absolute;
-  left: 22%;
-  width: 78%;
-  height: calc(100% - 40px);
+  flex:1;
+  height: calc(100%);
   background: rgb(244, 245, 248);
   overflow-y: auto;
   table {
@@ -191,11 +244,11 @@
           background: rgb(229, 243, 255);
         }
       }
-      &:nth-child(odd){
-        background: rgba(207, 209, 211, 0.212);
+        &:nth-child(odd){
+        background: rgba(255, 64, 128, 0.048);
         }
         &:hover {
-          background: rgb(229, 243, 255);
+          background:  rgba(207, 207, 207, 0.692);
         }
     }
 
@@ -213,6 +266,30 @@
     top: 0px;
     box-shadow: 1px 2px 3px #dde;
 
+  }
+
+}
+}
+@media screen and (max-width: 900px) {
+  .directory_show{
+    position:relative;
+  .side_bar_left_with_img {
+    position: absolute;
+    width: 220px;
+    background:white;
+    box-shadow:1px 0px 12px rgb(46, 46, 48);
+    z-index:999;
+  }
+  
+  }
+  .directory_header {
+    .sort-header-inheader{
+      position:absolute;
+      width:220px;  
+      background-origin: shadow 4px;
+      box-shadow:2px 2px 10px rgb(46, 46, 48);
+
+    }    
   }
 
 }

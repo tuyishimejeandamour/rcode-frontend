@@ -19,16 +19,32 @@ export interface DialogData {
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
+    trigger('openClose', [
+      state('open', style({
+        display: 'block',
+      })),
+      state('closed', style({
+        display: 'none',
+      })),
+      transition('open <=> closed', [
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ]),
+
+    ]),
   ],
 })
 export class StudentsComponent implements OnInit {
   hidden = false;
-
+  isOpen = false;
+  
+  toggle(): void {
+    this.isOpen = !this.isOpen;
+  }
   toggleBadgeVisibility():void {
     this.hidden = !this.hidden;
   }
   expandedElement: string;
-  displayedColumns: string[] = ['No.', 'names', 'username', 'class'];
+  displayedColumns: string[] = ['Number', 'names', 'username', 'class'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -113,7 +129,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         marks: '20/40',
         lesson: 'C',
       },
-       {
+      {
         taskname: 'userfunction',
         marks: '20/40',
         lesson: 'C',
@@ -130,7 +146,58 @@ const ELEMENT_DATA: PeriodicElement[] = [
       }
     ]
   }, 
- 
+  {
+    names: 'tuyishime jeandamour',
+    username: 'jaylove',
+    class: 'class1',
+    description:[
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      },
+      {
+        taskname: 'userfunction',
+        marks: '20/40',
+        lesson: 'C',
+      }
+    ]
+  }, 
 ];
 @Component({
   selector: 'dialog-overview-example-dialog',

@@ -1,177 +1,183 @@
 <form #createTaskForm=ngForm (ngSubmit)="onsubmit()">
 
-<div class="newtask_header">
-  <button mat-icon-button color="primary" [routerLink]="'../'"><mat-icon>arrow_back</mat-icon></button>
-  <button mat-raised-button [disabled]="!createTaskForm.valid" class='savebutton' color="primary" type="submit"><span>save </span><mat-icon>send</mat-icon></button>
-</div>
-<div class="margin-space">
-  <mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Set task essentials
-        </mat-panel-title>
-        <mat-panel-description>
-          Type your task name,class and lesson
-          <mat-icon>assignment</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="example-container">
-        <mat-form-field appearance="fill">
-          <mat-label>Enter task name</mat-label>
-          <input matInput name="taskname" [(ngModel)]="Form.taskname" required>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Select class</mat-label>
-          <mat-select name="classname" [(ngModel)]="Form.classname" required>
-            <mat-option value="option">Option</mat-option>
-            <mat-option value="option1">Option1</mat-option>
-            <mat-option value="option2">Option2</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label >Select lesson</mat-label>
-          <mat-select name="lesson" [(ngModel)]="Form.lesson" required>
-            <mat-option value="option">Option</mat-option>
-            <mat-option value="option1">Option1</mat-option>
-            <mat-option value="option2">Option2</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="float-right-help">
-      <mat-card >
-        <mat-card-header>
-          <div mat-card-avatar><mat-icon>live_help</mat-icon></div>
-          <mat-card-title>title</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          content
-        </mat-card-content>
-
-      </mat-card>
-    </div>
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Describe task
-        </mat-panel-title>
-        <mat-panel-description>
-          Type the short discription and long description
-          <mat-icon>description</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="example-container">
-      <mat-form-field appearance="fill">
-        <mat-label>Enter short discription</mat-label>
-        <textarea matInput name="short_desc" [(ngModel)]="Form.short_desc" required></textarea>
-      </mat-form-field>
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>click to write content</mat-label>
-        <textarea matInput name="long_desc" (click)="changeappeareanceofeditor(true)"></textarea>
-      </mat-form-field>
-      </div>
-      <div class="float-right-help">
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar>avatar</div>
-            <mat-card-title>title</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            content
-          </mat-card-content>
-          <mat-card-actions>
-            <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="csvInputChange($event)" accept="images/*"/>
-   <button mat-flat-button color="primary" (click)="csvInput.click()"><mat-icon>{{iconname}}</mat-icon><span> {{filename}}</span></button>
-            </mat-card-actions>
-        </mat-card>
-      </div>
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Timing of task
-        </mat-panel-title>
-        <mat-panel-description>
-          Set time details for our task
-          <mat-icon>date_range</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="example-container">
+  <div class="newtask_header">
+    <button mat-icon-button color="primary" [routerLink]="'../'">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-raised-button [disabled]="!createTaskForm.valid" class='savebutton' color="primary"
+      type="submit"><span>save </span></button>
+  </div>
+  <div class="margin-space">
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Set task essentials
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your task name,class and lesson
+            <mat-icon>assignment</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>Enter starting time or double click to select</mat-label>
-            <input matInput [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12"
-            [(ngModel)]="Form.starting_date"
-            name="starting_date"
-           >
-            <owl-date-time #dt12></owl-date-time>
-          </mat-form-field><br>
-          <mat-form-field appearance="fill">
-            <mat-label>Enter submittion deadline or double click to select</mat-label>
-            <input matInput [owlDateTimeTrigger]="dt13" [owlDateTime]="dt13"
-            [(ngModel)]="Form.ending_date"
-            name="ending_date"
-            >
-     <owl-date-time #dt13></owl-date-time>
+            <mat-label>Enter task name</mat-label>
+            <input matInput name="taskname" (focus)="viewhelp(1)" [(ngModel)]="Form.taskname" required>
           </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Select class</mat-label>
+            <mat-select name="classname" (focus)="viewhelp(2)" [(ngModel)]="Form.classname" required>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option1">Option1</mat-option>
+              <mat-option value="option2">Option2</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Select lesson</mat-label>
+            <mat-select name="lesson" (focus)="viewhelp(3)" [(ngModel)]="Form.lesson" required>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option1">Option1</mat-option>
+              <mat-option value="option2">Option2</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="float-right-help" [hidden]="firstcontent.title ==null">
+          <mat-card >
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon>live_help</mat-icon>
+              </div>
+              <mat-card-title>{{firstcontent.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{firstcontent.content}}
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Describe task
+          </mat-panel-title>
+          <mat-panel-description>
+            Type the short discription and long description
+            <mat-icon>description</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Enter short discription</mat-label>
+            <textarea style="min-height:106px" matInput name="short_desc" [(ngModel)]="Form.short_desc" required></textarea>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>click to write content</mat-label>
+            <textarea  matInput name="long_desc" (focus)="changeappeareanceofeditor(true)"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="float-right-help">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>avatar</div>
+              <mat-card-title>title</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              content
+            </mat-card-content>
+            <mat-card-actions>
+              <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="csvInputChange($event)"
+                accept="images/*" />
+              <button mat-flat-button color="primary" (click)="csvInput.click()">
+                <mat-icon>{{iconname}}</mat-icon><span> {{filename}}</span>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Timing of task
+          </mat-panel-title>
+          <mat-panel-description>
+            Set time details for our task
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="example-container">
+          <div class="example-container">
+            <mat-form-field appearance="fill">
+              <mat-label>Enter starting time or double click to select</mat-label>
+              <input matInput [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [(ngModel)]="Form.starting_date"
+                name="starting_date">
+              <owl-date-time #dt12></owl-date-time>
+            </mat-form-field><br>
+            <mat-form-field appearance="fill">
+              <mat-label>Enter submittion deadline or double click to select</mat-label>
+              <input matInput [owlDateTimeTrigger]="dt13" [owlDateTime]="dt13" [(ngModel)]="Form.ending_date"
+                name="ending_date">
+              <owl-date-time #dt13></owl-date-time>
+            </mat-form-field>
           </div>
-      </div>
-      <div class="float-right-help">
-        <mat-card>
-          <mat-card-header>
-            <div mat-card-avatar>avatar</div>
-            <mat-card-title>title</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            content
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-icon-button color="primary" [disabled]="!createTaskForm.valid" type="submit"><mat-icon>send</mat-icon></button>
-      </mat-action-row>
-    </mat-expansion-panel>
+        </div>
+        <div class="float-right-help">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>avatar</div>
+              <mat-card-title>title</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              content
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-icon-button color="primary" [disabled]="!createTaskForm.valid" type="submit">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
 
-  </mat-accordion>
-</div>
-<div class="preview_assignment" id="assignment_show" [hidden]="!showTextEditor">
-  <div class="preview_assignment_header assignment_fullscreen">
+    </mat-accordion>
+  </div>
+  <div class="preview_assignment" id="assignment_show" [hidden]="!showTextEditor">
+    <div class="preview_assignment_header assignment_fullscreen">
       <div class="sort_challenge" (click)="changeappeareanceofeditor(false)" style="margin-top: -1px"><img
-              src="../../../../../assets/others/left.png" alt=""></div>
+          src="../../../../../assets/others/left.png" alt=""></div>
       <div style="display:inline-block;margin-left:40%"><span
-              style="position: absolute;top:10px;font-size:14px;font-weight:600" id="title_name">Php
-              assignment</span>
+          style="position: absolute;top:10px;font-size:14px;font-weight:600" id="title_name">Php
+          assignment</span>
       </div>
       <img onclick="PrintElem('assignment_info')"
-          style="position:absolute;right:180px; width: 30px; height: 30px;margin-top:3px "
-          src="../../../../../assets/others/icon.png" alt="">
+        style="position:absolute;right:180px; width: 30px; height: 30px;margin-top:3px "
+        src="../../../../../assets/others/icon.png" alt="">
       <img onclick="PrintElem('assignment_info')"
-          style="position:absolute;right:80px; width: 30px; height: 30px;margin-top:3px "
-          src="../../../../../assets/others/icon.png" alt="">
+        style="position:absolute;right:80px; width: 30px; height: 30px;margin-top:3px "
+        src="../../../../../assets/others/icon.png" alt="">
       <img style="position:absolute;right:130px; width: 30px; height: 30px;margin-top:3px "
-          src="../../../../../assets/others/icon.png" alt="">
+        src="../../../../../assets/others/icon.png" alt="">
       <img class="edit_img" onclick="makefullScreen('assignment_show')" id="fullscreens"
-          src="../../../../../assets/others/icon.png" alt="">
-      <img class="edit_img" onclick="exitfullScreen('assignment_show')" style="display: none;"
-          id="normalcreens" src="../../../../../assets/others/icon.png" alt="">
-  </div>
-  <div class="show_assignment_info" id="assignment_info">
-    <quill-editor [(ngModel)]="Form.long_desc" name="long_desc" [styles]="{height: '88%'}"></quill-editor>
-  </div>
+        src="../../../../../assets/others/icon.png" alt="">
+      <img class="edit_img" onclick="exitfullScreen('assignment_show')" style="display: none;" id="normalcreens"
+        src="../../../../../assets/others/icon.png" alt="">
+    </div>
+    <div class="show_assignment_info" id="assignment_info">
+      <quill-editor [(ngModel)]="Form.long_desc" name="long_desc" [styles]="{height: '88%'}"></quill-editor>
+    </div>
 
-</div>
+  </div>
 </form>

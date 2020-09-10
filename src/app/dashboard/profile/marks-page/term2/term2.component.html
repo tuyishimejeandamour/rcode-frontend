@@ -4,37 +4,37 @@
   <span style="position: absolute;top:10px;left:50%;font-size:14px;font-weight:600">Term 2</span>
 </div>
 <div class="directory_show">
-<div class="mat-elevation-z1">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <div class="mat-elevation-z1" >
+    <table mat-table [dataSource]="dataSource">
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-    </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="position" >
+        <mat-header-cell  *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{dataSource.data.indexOf(element)+1}} </mat-cell>
+      </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-    </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="marks">
+        <mat-header-cell *matHeaderCellDef> marks </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.marks}} </mat-cell>
+      </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-    </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="review">
+        <mat-header-cell *matHeaderCellDef> review </mat-header-cell>
+        <mat-cell *matCellDef="let element"><button (click)="viewtaskremarks(element.review)"mat-raised-button>review</button></mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
+    <mat-paginator color="primary" [pageSizeOptions]="[5,9,20]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
