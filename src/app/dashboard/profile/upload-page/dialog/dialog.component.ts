@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Message, StudentTaskService } from 'app/Service/student-task.service';
 
 @Component({
   selector: 'app-dialog',
@@ -7,8 +8,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<DialogComponent>) { }
+  public talks: Message[];
+  newMessage: string;
+  constructor(
+    public dialogRef: MatDialogRef<DialogComponent>,
+    public message:StudentTaskService
+  ) {}
   taskreviewcontent=
   {
     questions:`
@@ -101,6 +106,42 @@ export class DialogComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.getChat();
+  }
+  getChat():void{
+    if(this.talks){
+      this.talks.length = 2;
+    }   
+    this.talks = this.message.getTalk();      
+
   }
 
+  sendMessage($event:any):void {       
+    if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
+      if(this.talks){ 
+        this.talks.push(
+          {
+            image:'../../../assets/tuy.png', 
+            author:'Emilio Verdines', 
+            authorStatus:'online', 
+            text:this.newMessage,
+            date:new Date(), 
+            relys:[],
+            relyOpen:false,
+          }
+        )
+        this.newMessage = '';
+        
+      }
+    }
+  }
+
+  ngOnDestroy():void{
+    if(this.talks)
+      this.talks.length = 2;
+  }
+
+
 }
+
+

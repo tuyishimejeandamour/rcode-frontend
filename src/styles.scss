@@ -9,7 +9,7 @@
  }
  ::-webkit-scrollbar {
     background-color: transparent;
-    width: 8px
+    width: 10px
   }
 
   /* background of the scrollbar except button or resizer */
@@ -18,13 +18,13 @@
   }
 
   ::-webkit-scrollbar-track:hover {
-    background-color: #f4f4f400
+    background-color: #ebf5ffe3
   }
 
   /* scrollbar itself */
   ::-webkit-scrollbar-thumb {
     background-color: #babac0b7;
-    border-radius: 8px;
+    border-radius: 0px;
     /* border:5px solid #fff */
   }
 
@@ -46,10 +46,14 @@
   z-index: 20;
   box-shadow: 1px 2px 3px #dde !important;
 }
-.example-small-box  .ql-toolbar{
+.example-small-box  .ql-toolbar,.mail-body .ql-toolbar{
 display:none;
 }
-.ql-toolbar.ql-snow {
+.example-small-box-dialog  .ql-toolbar{
+ border-bottom-left-radius: 10px;
+ border-bottom-right-radius: 10px;
+  }
+.preview_assignment .ql-toolbar.ql-snow {
   position: sticky;
   top:0px;
   z-index: 199;
@@ -57,10 +61,14 @@ display:none;
   border: none !important;
   box-shadow: 1px 2px 5px rgb(162, 162, 175) !important;
 }
-.ql-toolbar.ql-snow + .ql-container.ql-snow {
+.giveanswer .ql-container.ql-snow {
+  height: 147px !important;
+  overflow:auto;
+}
+.preview_assignment .ql-toolbar.ql-snow + .ql-container.ql-snow {
   border-top: 0px;
 }
-.ql-editor{
+.preview_assignment .ql-editor{
   position: absolute;
   height: auto !important;
   min-height: calc(100% - 10px);
@@ -69,10 +77,11 @@ display:none;
   margin: 10px 40px 0 40px;
   z-index: 0;
 }
-.ql-container.ql-snow {
+.preview_assignment .ql-container.ql-snow,.example-small-box .ql-container.ql-snow,.mail-body .ql-container.ql-snow{
 border: none !important;
 }
-.ql-container {
+
+.preview_assignment .ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -203,4 +212,10 @@ border: none !important;
 }
 .ql-tooltip{
   left:0 !important;
+}
+.footer_assign .mat-list-base {
+  padding-top: 0px !important;
+}
+.footer_assign .mat-list-base .mat-list-item.mat-list-item-with-avatar {
+  height: 60px !important;
 }

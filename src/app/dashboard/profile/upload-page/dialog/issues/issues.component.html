@@ -1,0 +1,47 @@
+<div id="mainDiv" *ngFor="let comment of talks">
+    <mat-list  class="p-0" >
+                    <mat-list-item  class="talk-item">
+                        <img matListAvatar [src]="comment.image">
+                        <p matLine class="message">
+                            <span>{{comment.text}}</span>
+                        </p>                             
+                        <p matLine class="message-date">
+                            <small>{{comment.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
+                        <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
+                            <mat-icon>favorite</mat-icon>
+                        </p> 
+                    </mat-list-item>
+                </mat-list>
+    <div *ngIf="comment.relyOpen " class="writerelydiv">
+        <quill-editor customToolbarPosition="bottom" [(ngModel)]="text" name="message"  [style]="{width:'100%'}">
+            <div quill-editor-toolbar>
+              <span class="ql-formats">
+                <button class="ql-bold" [title]="'Bold'"></button>
+                <button class="ql-italic" [title]="'Italic'"></button>
+                <button class="ql-underline" [title]="'Underline'"></button>
+                <button class="ql-strike" [title]="'Strike'"></button>
+              </span>
+              <span class="ql-formats">
+                <select class="ql-align" [title]="'Aligment'">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+              </span>
+              <span class="ql-formats">
+              <button type="button" class="ql-list" value="ordered"></button>
+              <button type="button" class="ql-list" value="bullet"></button>
+              <button type="button" class="ql-script" value="sub"></button>
+              </span>
+              <span class="ql-formats">
+              <button type="button" class="ql-image"></button>
+              <button type="button" class="ql-video"></button>
+            </span>
+            </div>
+          </quill-editor>
+      <button (click)="addComment(comment)" mat-raised-button color="primary" class="savebutton">reply</button>
+    </div>
+    <app-issues [talks]="comment.relys">    
+    </app-issues>
+  </div>

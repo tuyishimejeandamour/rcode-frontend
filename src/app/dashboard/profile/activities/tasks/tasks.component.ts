@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonfunctionService } from 'app/Service/commonfunction.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
@@ -22,20 +22,27 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class TasksComponent implements OnInit,OnChanges {
+export class TasksComponent implements OnInit{
   sidebar:number = window.innerHeight;
   isOpen = false;
   addOpen = false;
-  window:Window["onresize"] = (window)=>{
+  @HostListener('window:resize')
+  public onWindowResize():void {
     if(this.sidebar<700){
       if(!this.isOpen)this.isOpen = !this.isOpen;
-      alert(window);
+     
     }
   }
+  
   constructor(
     private eventemitterService: CommonfunctionService,
     private router:Router
   ) { 
+    
+  }
+
+
+  ngOnInit(): void {
     if(this.sidebar<700){
       if(!this.isOpen)this.isOpen = !this.isOpen;
       if(!this.addOpen)this.addOpen = !this.addOpen;
@@ -44,13 +51,6 @@ export class TasksComponent implements OnInit,OnChanges {
     }
   }
 
-
-  ngOnInit(): void {
-    
-  }
-  ngOnChanges(): void {
-  
-  }
 
   firstComponentFunction(value: string): void {
     this.eventemitterService.onFirstComponentButtonClick(value);

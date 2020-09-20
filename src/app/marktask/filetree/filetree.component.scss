@@ -1,0 +1,21 @@
+ul,
+li {
+  list-style-type: none;
+  margin: 0;
+}
+
+ul { padding-left: 1em; }
+
+.mat-tree-node {
+  display: unset;
+}
+
+.mat-icon-button {
+    width:  unset;
+    height: unset;
+    line-height: unset;
+}
+.mat-tree {
+    background:transparent;
+    
+}

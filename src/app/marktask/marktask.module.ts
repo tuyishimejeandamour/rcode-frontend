@@ -10,9 +10,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { MaterialModule } from 'app/material/material.module';
 import { SelectstudentComponent } from './selectstudent/selectstudent.component';
+import { FiletreeComponent } from './filetree/filetree.component';
 @NgModule({
   
-  declarations: [MarktaskComponent, SelectstudentComponent],
+  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent],
   imports: [
     CommonModule,
     MarktaskRoutingModule,

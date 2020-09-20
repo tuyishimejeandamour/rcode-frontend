@@ -12,18 +12,21 @@ import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { FormsModule } from '@angular/forms';
 import { DialogAssignComponent } from './assignments/dialog/dialog.component';
 import { AngularSplitModule } from 'angular-split';
+import { CdialogComponent } from './challenges/cdialog/cdialog.component';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
-  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent],
+  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent, CdialogComponent],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
     MaterialModule,
     MonacoEditorModule,
     FormsModule,
-    AngularSplitModule
+    AngularSplitModule,
+    QuillModule.forRoot()
   ],
-  entryComponents: [DialogComponent,DialogAssignComponent]
+  entryComponents: [DialogComponent,DialogAssignComponent,CdialogComponent]
 })
 export class ProfilePageModule { }

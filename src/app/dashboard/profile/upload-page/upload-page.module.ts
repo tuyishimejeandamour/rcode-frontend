@@ -11,10 +11,11 @@ import { ContextMenuModule } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
+import { IssuesComponent } from './dialog/issues/issues.component';
 
 
 @NgModule({
-  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent, DialogComponent],
+  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent, DialogComponent, IssuesComponent],
   imports: [
     CommonModule,
     UploadPageRoutingModule,

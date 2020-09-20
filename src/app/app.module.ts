@@ -35,6 +35,8 @@ import { CommonfunctionService } from './Service/commonfunction.service';
 import { EditorModule } from './editor/editor.module';
 import { MarktaskModule } from './marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
+import { QuickhelpService } from './Service/quickhelp.service';
+import { StudentTaskService } from './Service/student-task.service';
 
 
 
@@ -74,7 +76,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService, FileservicesService,
+    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService, FileservicesService,QuickhelpService,StudentTaskService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],

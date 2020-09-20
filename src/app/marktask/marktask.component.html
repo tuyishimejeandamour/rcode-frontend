@@ -54,41 +54,32 @@
               <p>Explorer</p>
             </div>
             <app-selectstudent></app-selectstudent>
+            <app-filetree [nestedDataSource]=treeData ></app-filetree>
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
               <p>Upload</p>
             </div>
-           
           </div>
-
           <div id="sidebar-3" class="tabcontent">
             <div class="sidebar-top-title">
               <p>Feature List</p>
             </div>
-
           </div>
-
           <div id="sidebar-4" class="tabcontent">
             <div class="sidebar-top-title">
               <p>Setting</p>
             </div>
-
           </div>
         </div>
       </as-split-area>
       <as-split-area size="{{sizes.percent.area2}}">
         <div class="directory_header">
+          <button class="runbutton" ><mat-icon>play_arrow</mat-icon></button>
         </div>
         <div class="codediveditor">
           <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
         </div>
-      </as-split-area>
-      <as-split-area size="{{sizes.percent.area3}}">
-        <div class="directory_header">
-        </div>
-        <h5>Initial size: <b>70%</b></h5>
-
       </as-split-area>
     </as-split>
   </div>

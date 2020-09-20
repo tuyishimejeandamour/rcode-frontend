@@ -20,7 +20,8 @@ import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
     SharedModule,
     MaterialModule,
     MatIconModule,
-    ContextMenuModule.forRoot()
+    ContextMenuModule.forRoot(),
+    
   ],
   entryComponents: [ModalComponent]
 })

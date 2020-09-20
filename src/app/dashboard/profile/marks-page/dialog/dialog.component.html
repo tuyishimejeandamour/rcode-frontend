@@ -11,7 +11,45 @@
     </mat-tab>
     <mat-tab label="feedback">
       <div class="example-small-box">
-        Large content
+        <div class="example-small-box">
+          <div class="messages">
+            <div class="chat-content"  [class.actions-visible]="talks" perfectScrollbar>
+                <mat-list *ngIf="talks" class="p-0" >
+                    <mat-list-item *ngFor="let talk of talks" class="talk-item">
+                        <img matListAvatar [src]="talk.image">
+                        <p matLine class="message">
+                            <span>{{talk.text}}</span>
+                        </p>                             
+                        <p matLine class="message-date">
+                            <small>{{talk.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
+                          
+                        </p> 
+                    </mat-list-item>
+                </mat-list>
+                <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                    <mat-icon>chat</mat-icon>            
+                    <p>no issue with this task yet</p>
+                </div> 
+            </div>
+            <mat-divider></mat-divider>
+            <div *ngIf="talks" class="chat-actions"> 
+                <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
+                  <img class="writecommentimage" src="../../../../../assets/tuy.png">
+                    <mat-form-field class="w-100" style="width:60%">
+                        <input matInput placeholder="ask any problem about task" (keyup)="sendMessage($event)" [(ngModel)]="newMessage">
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-icon-button type="button">
+                            <mat-icon>attach_file</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </div>
+                    </div>
+           </div>
+        </div>
+        </div>
       </div>
       
     </mat-tab>

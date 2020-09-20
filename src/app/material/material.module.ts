@@ -37,7 +37,7 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { MomentModule } from 'ngx-moment';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import { MatTreeModule } from '@angular/material/tree';
 const materialModules = [
   MatCheckboxModule,
   MatCheckboxModule,
@@ -73,6 +73,7 @@ const materialModules = [
   MatDividerModule,
   MatNativeDateModule,
   MatBadgeModule,
+  MatTreeModule,
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,
   NgxMatNativeDateModule,

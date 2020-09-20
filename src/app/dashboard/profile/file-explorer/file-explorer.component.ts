@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileElement, FileservicesService } from 'app/Service/fileservices.service';
-import { PathService, Breadcrumb } from 'app/Service/path.service';
+import {  Breadcrumb } from 'app/Service/path.service';
 import { ExplorerComponent } from './explorer/explorer.component';
-import { map } from 'rxjs/operators';
 import { v4 } from 'uuid';
+import { SnotifyService } from 'ng-snotify';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class FileExplorerComponent implements OnInit {
 
   constructor(
     public fileService: FileservicesService,
-    private pathservise:PathService
+    private notify:SnotifyService
   ) {}
 
   currentRoot: FileElement;
@@ -28,6 +28,7 @@ export class FileExplorerComponent implements OnInit {
   canNavigateUp = false;
 
   ngOnInit():void {
+    this.notify.error("ok enought");
     const folderA = this.fileService.add({ name: 'Folder A', isFolder: true, parent: 'root' });
     this.fileService.add({ name: 'Folder B', isFolder: true, parent: 'root' });
     const folderb = this.fileService.add({ name: 'Folder C', isFolder: true, parent: folderA.id });
@@ -104,16 +105,9 @@ export class FileExplorerComponent implements OnInit {
   }
 
   deletepath(id:number):void{
-    console.log(`id=${id}`);
-    console.log(`idx${this.currentPath.length}`);
     for(let i=this.currentPath.length;i>id+1;i--){
-      console.log(i)
       this.currentPath.splice(this.currentPath.length-1,1);
-      console.log(`idx${this.currentPath.length}`)
     }
   }
-  deletepathbyId(index: number):void {     
-   
 
-  }
 }

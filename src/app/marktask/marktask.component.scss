@@ -27,6 +27,22 @@
     z-index: 200;
     box-shadow: 1px 2px 3px #0f0f0f;
     background-color: rgb(47, 47, 47);
+    .runbutton{
+      margin-top:5px;
+      position:absolute;
+      right:10px;
+      height:25px;
+      width:50px;
+      border-radius: 3px;
+      border:none;
+      float:right;
+      margin-right: 40px;
+      color:white;
+      background: rgb(23, 202, 38);
+      cursor: pointer;
+      box-shadow: 1px 2px 3px rgb(0, 0, 0);
+
+  }
 }
 .codediveditor{
     // box-sizing: border-box;

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
+import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { SplitComponent, SplitAreaDirective } from 'angular-split';
   styleUrls: ['./marktask.component.scss']
 })
 export class MarktaskComponent implements OnInit {
-  
+  treeData: TreeData[];
   editorOptions = {theme: 'vs-dark', language: 'javascript'};
   code = 'function x() {\nconsole.log("Hello world!");\n}';
   
@@ -16,30 +17,26 @@ export class MarktaskComponent implements OnInit {
   leftSidebarSelected = "";
   leftSidebarSelect = "";
 
-  constructor() {
-  
+  constructor(private treedata:FiletreeService) {
+    this.treeData = treedata.getTreeData1();
   }
   
 
   split: SplitComponent;
   area1: SplitAreaDirective;
   area2: SplitAreaDirective;
-  area3: SplitAreaDirective;
   
   direction = 'horizontal'
   sizes = {
     percent: {
       area1: 3.7,
-      area2: 66.3,
-      area3: 30,
+      area2: 96.3,
     }
   } 
   dragEnd({sizes}):void {
     
     this.sizes.percent.area1 = sizes[0];
-    this.sizes.percent.area2 = sizes[1];
-    this.sizes.percent.area3 = sizes[2];
-    
+    this.sizes.percent.area2 = sizes[1];    
   }
 
 
@@ -63,8 +60,7 @@ export class MarktaskComponent implements OnInit {
       selectedIcon.style.transform = "";
     }
   }
-  clickLeftNav(evt, sidebarName:string):void {
-    // 选择对应tab的内容
+  clickLeftNav(evt:any, sidebarName:string):void {
     let i;
     const tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -95,13 +91,12 @@ export class MarktaskComponent implements OnInit {
 
   openLeftSideBar():void {
     document.getElementById("left-sidebar").style.width = "calc(100% - 50px)";
-   
     const conta = document.getElementsByClassName("container");
     for (let i = 0; i < conta.length; i++) {
       (conta[i] as HTMLElement).style.left = "300px";
     }
     this.sizes.percent.area1 = 20;
-    this.sizes.percent.area2 = 50;
+    this.sizes.percent.area2 = 80;
   }
 
   closeLeftSideBar():void {
@@ -111,8 +106,8 @@ export class MarktaskComponent implements OnInit {
     for (let i = 0; i < conta.length; i++) {
       (conta[i] as HTMLElement).style.left = "50px";
     }
-    this.sizes.percent.area1 = 3.5;
-    this.sizes.percent.area2 = 66.5;
+    this.sizes.percent.area1 = 3.7;
+    this.sizes.percent.area2 = 96.3;
     let tablinks;
     // eslint-disable-next-line prefer-const
     tablinks = document.getElementsByClassName("left-nav-button");
