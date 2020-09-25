@@ -8,33 +8,38 @@
   //  box-sizing:border-box;
  }
  ::-webkit-scrollbar {
-    background-color: transparent;
-    width: 10px
-  }
-
-  /* background of the scrollbar except button or resizer */
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  ::-webkit-scrollbar-track:hover {
-    background-color: #ebf5ffe3
-  }
-
-  /* scrollbar itself */
-  ::-webkit-scrollbar-thumb {
-    background-color: #babac0b7;
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0px none #ffffff;
     border-radius: 0px;
-    /* border:5px solid #fff */
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    transition: 0.5 ease-in;
-    background-color: rgb(51, 103, 214);
-    border: 1px solid #f4f4f400;
-    background-image: -webkit-linear-gradient(172deg, rgb(21, 57, 175), rgb(54, 166, 241));
-
-  }
+    &:hover{
+        background: #cccccc;
+    }
+    &:active{
+        background: #888888; 
+    }
+}
+::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+    &:hover{
+        background: #666666;
+    }
+    &:active{
+        background: #333333; 
+    }
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
 .directory_show{
   width: 100%;
   overflow-y: auto;

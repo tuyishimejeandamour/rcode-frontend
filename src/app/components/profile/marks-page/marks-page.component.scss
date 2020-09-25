@@ -1,0 +1,122 @@
+.projectlister {
+  position: absolute;
+  display: inline-block;
+  width: 17%;
+  height: calc(100% - 22px);
+  font-size: 14px;
+  z-index: 200;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+  color: rgb(32, 32, 32);
+  background: rgb(246, 245, 250);
+  background-image: url(../../../../assets/others/texture.png);
+
+  .float-pro {
+    margin-left: 10px;
+
+    a {
+      position: relative;
+      text-decoration: none;
+      color: rgb(115, 115, 115);
+      display: block;
+      height: 30px;
+      padding-left: 20px;
+      padding-top: 5px;
+      margin-top: 5px;
+      overflow: hidden;
+      cursor: pointer;
+
+      span {
+        position: absolute;
+        text-transform: capitalize;
+        top: 25%;
+        margin-left: 20px;
+      }
+    }
+
+    a:after {
+      content: "";
+      background: rgb(51, 103, 214);
+      border-radius: 20px;
+      display: block;
+      position: absolute;
+      padding-left: 300%;
+      padding-top: 350%;
+      margin-top: -40px !important;
+      margin-left: -120%;
+      opacity: 0;
+      transition: all 0.8s
+    }
+
+    a:active:after {
+      padding: 0;
+      margin: 0;
+      opacity: 1;
+      transition: 0s
+    }
+
+    .active {
+      color: rgb(68, 68, 68);
+      border-left: 4px solid rgb(51, 103, 214);
+      background-color: rgb(255, 255, 255);
+      box-shadow: 1px 1px 6px #dde;
+      line-height: 1.6;
+      border-radius: 1px;
+      cursor: pointer;
+    }
+  }
+
+  .projectTitle {
+    margin-bottom: 80px;
+    text-align: center;
+    padding-left: 10px;
+    font-weight: bolder;
+    font-size: 16px;
+  }
+}
+
+.directory_marks {
+  position: absolute;
+  left: 17%;
+  width: calc(100% - 17%);
+  height: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .projectlister {
+    width: 50px;
+
+    .float-pro {
+      margin-left: 0px;
+      margin-top: 50px;
+
+      a {
+        padding-left: 5px;
+        padding-top: 5px;
+        margin-top: 5px;
+
+        mat-icon {
+          margin-left: 8px;
+        }
+      }
+
+      .active {
+        border-left: none;
+        border-left: 4px solid rgb(51, 103, 214);
+      }
+    }
+
+    .projectTitle {
+      display: none;
+    }
+  }
+
+  .directory_marks {
+    position: absolute;
+    left: 50px;
+    width: calc(100% - 50px);
+    height: 100%;
+  }
+
+}

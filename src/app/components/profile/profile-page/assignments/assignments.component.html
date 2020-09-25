@@ -1,0 +1,292 @@
+<div class="directory_header" style="height: 40px">
+  <div class="sort-header-inheader" [@openClose]="!isOpen ? 'open' : 'closed'">
+    <div class="closefilter" (click)="toggle()">
+      <mat-icon>menu</mat-icon>
+    </div>
+  </div>
+  <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
+    <div class="closefilters" (click)="toggle()">
+      <mat-icon>menu</mat-icon>
+    </div>
+  </div>
+  <div class="titleinheader">
+    <span>quick help</span>
+    <div class="header-sort" *ngIf="mail && !compose">
+      <button mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>bookmark</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>star</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="directory_show">
+  <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">
+    <div class="profile_in_title">
+      <button mat-raised-button (click)="composeM()" class="create_new"
+        aria-label="Example icon button with a plus one icon">
+        <mat-icon>add</mat-icon>
+        <span>Ask help</span>
+      </button>
+      <mat-form-field class="example-full-width">
+        <mat-label>search asked</mat-label>
+        <input matInput value="" placeholder="enter keyword">
+      </mat-form-field>
+      <button class="sort_button" mat-icon-button [matMenuTriggerFor]="menus" #menuTrigger="matMenuTrigger"
+        (click)="menuTrigger.openMenu()">
+        <mat-icon>sort</mat-icon>
+      </button>
+      <mat-menu #menus="matMenu" [overlapTrigger]="false">
+        <a nohref mat-menu-item>
+          white theme
+        </a>
+        <a nohref mat-menu-item>
+          Help
+        </a>
+        <a nohref mat-menu-item>
+          about
+        </a>
+        <a noref mat-menu-item>
+          Log out
+        </a>
+
+      </mat-menu>
+    </div>
+    <div class='sort_arrengement'>
+      <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
+        <div *ngFor="let mail of mails " (click)="viewDetail(mail)">
+          <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+            <img *ngIf="mail.senderPhoto" matListAvatar [src]="mail.senderPhoto">
+            <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../../../assets/profile_picture/31592671453.png">
+            <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
+              <h4 class="text-truncate sender">{{mail.sender}}</h4>
+              <small>{{mail.date}}</small>
+            </div>
+            <p matLine class="text-truncate subject">{{mail.subject}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-nav-list>
+    </div>
+  </div>
+  <div class="profile_content_right">
+
+    <div class="mailbox-content" perfectScrollbar>
+      <div *ngIf="message">
+        <div *ngIf="mail" style="padding:10px">
+          <mat-list class="p-0">
+            <mat-list-item class="h-100 py-3">
+              <div matLine fxLayout="row" fxLayoutAlign="space-between center">
+                <h2 class="subject">{{mail.subject}}</h2>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="h-100 py-3">
+              <img *ngIf="mail.senderPhoto" matListAvatar [src]="mail.senderPhoto">
+              <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../assets/tuy.png">
+              <h6 matLine fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                  <strong class="text-truncate">{{mail.sender}}</strong>
+                  <!-- <span *ngIf="mail.senderMail" class="email">&lt;{{mail.senderMail}}&gt;</span> -->
+                </span>
+                <span style="float: right;">{{mail.date}}</span>
+              </h6>
+              <span matLine>to me</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+          <div class="mail-body" *ngIf="mail.body">
+            <quill-editor [(ngModel)]="mail.body" [disabled]="true" name="message" class="editortext"></quill-editor>
+          </div>
+          <div class="code-body questioncode">
+            <mat-divider></mat-divider>
+            <div class="container">
+              <div *ngIf="!answer">
+                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+              </div>
+              <div *ngIf="answer">
+                <as-split class="split-example ex-percent" unit="percent" [direction]="direction"
+                  (dragEnd)="dragEnd($event)">
+                  <as-split-area size="55">
+                    <div class="directory_header">
+                      <button mat-mini-fab color="primary" class="mat-button-editor" style="margin: 2px 10px 0 10px;">
+                        <mat-icon>save</mat-icon>
+                      </button>
+                      <button mat-mini-fab color="primary" class="mat-button-editor" [matMenuTriggerFor]="menu"
+                        #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()">
+                        <mat-icon>settings</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                        <div>
+                          <a nohref>
+                            <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
+                            Downloads</a>
+
+                          <a nohref mat-menu-item>
+                            <mat-icon aria-hidden="true">format_color_fill</mat-icon>
+                            white theme
+
+                          </a>
+                          <mat-divider></mat-divider>
+                          <a nohref mat-menu-item>
+                            <mat-icon>live_help</mat-icon>
+                            Help
+                          </a>
+                          <a nohref mat-menu-item>
+                            <mat-icon>contact_mail</mat-icon>
+                            about
+                          </a>
+                          <mat-divider></mat-divider>
+
+                          <a noref mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Log out
+                          </a>
+                        </div>
+                      </mat-menu>
+
+                      <button class="runbutton">
+                        <mat-icon>play_arrow</mat-icon>
+                      </button>
+                    </div>
+                    <div class="codediveditor">
+                      <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+                    </div>
+                  </as-split-area>
+                  <as-split-area size="45">
+                    <div class="directory_header">
+                    </div>
+                  </as-split-area>
+                </as-split>
+              </div>
+              <button mat-mini-fab color="primary" (click)="answer=true" class="answer-question">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!mail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+          <div>
+            <mat-icon>mail_outline</mat-icon>
+            <p>Select a mail to read</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="compose" style="height:96%">
+        <form #createChallengeForm=ngForm (ngSubmit)="onSubmit()" class="mail-body1">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="To" [(ngModel)]="Form.to" name="to">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Subject" [(ngModel)]="Form.Subject" name="Subject">
+          </mat-form-field>
+          <quill-editor [(ngModel)]="Form.message" name="message" class="editortext"></quill-editor>
+          <div class="codeforchallenge" *ngIf="snippet">
+            <div class="directory_header">
+              <button mat-mini-fab color="primary" class="mat-button-editor" [matMenuTriggerFor]="menu"
+                #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()">
+                <mat-icon>settings</mat-icon>
+              </button>
+              <select class="md-select" aria-labelledby="searchExplanation">
+                <option>select language</option>
+                <option>javascript</option>
+                <option>php</option>
+                <option>html/css</option>
+                <option>java</option>
+              </select>
+              <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                <div>
+                  <a nohref>
+                    <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
+                    Downloads</a>
+
+                  <a nohref mat-menu-item>
+                    <mat-icon aria-hidden="true">format_color_fill</mat-icon>
+                    white theme
+
+                  </a>
+                  <mat-divider></mat-divider>
+                  <a nohref mat-menu-item>
+                    <mat-icon>live_help</mat-icon>
+                    Help
+                  </a>
+                  <a nohref mat-menu-item>
+                    <mat-icon>contact_mail</mat-icon>
+                    about
+                  </a>
+                  <mat-divider></mat-divider>
+
+                  <a noref mat-menu-item>
+                    <mat-icon>exit_to_app</mat-icon>
+                    Log out
+                  </a>
+                </div>
+              </mat-menu>
+            </div>
+            <div class="codediveditor">
+              <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="bottom">
+            <button mat-raised-button (click)="compose = false;message=true;" type="button">Back</button>
+            <button mat-raised-button color="primary" type="submit">Send</button>
+            <button mat-raised-button color="primary" type="button" (click)="snippet=!snippet"
+              style="float: right;">snippet</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="message && mail" class="answer-question-given" [@expandmessage]="expand ? 'expanded' : 'collapsed'">
+      <div class="chat-actions">
+        <span class="minimize" *ngIf="expand" (click)="expand=false">
+          <span class="mat-expansion-indicator ng-trigger ng-trigger-indicatorRotate ng-star-inserted"
+            style="transform:rotate(0deg)"></span>
+        </span>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message giveanswer">
+          <img class="writecommentimage" src="../../../../../assets/tuy.png" style="margin-right:10px">
+          <mat-form-field *ngIf="!expand" class="w-100" style="width:80%">
+            <input matInput placeholder="answer this question" (focus)="expand = true">
+          </mat-form-field>
+          <quill-editor customToolbarPosition="bottom" *ngIf="expand" [(ngModel)]="mail.body" name="message"
+          (onContentChanged)="scrollbottom($event)" style="width: 80%;max-height:200px;margin-top:5px">
+            <div quill-editor-toolbar>
+              <span class="ql-formats">
+                <button class="ql-bold" [title]="'Bold'"></button>
+                <button class="ql-italic" [title]="'Italic'"></button>
+                <button class="ql-underline" [title]="'Underline'"></button>
+                <button class="ql-strike" [title]="'Strike'"></button>
+              </span>
+              <span class="ql-formats">
+                <select class="ql-align" [title]="'Aligment'">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+              </span>
+              <span class="ql-formats">
+                <button type="button" class="ql-list" value="ordered"></button>
+                <button type="button" class="ql-list" value="bullet"></button>
+                <button type="button" class="ql-script" value="sub"></button>
+              </span>
+              <span class="ql-formats">
+                <button type="button" class="ql-image"></button>
+                <button type="button" class="ql-video"></button>
+              </span>
+            </div>
+          </quill-editor>
+          <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:10px">
+            <button mat-mini-fab color="primary" type="button">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

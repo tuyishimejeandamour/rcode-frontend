@@ -8,10 +8,14 @@ import { ElectronService } from '../../../core/services/electron/electron.servic
   styleUrls: ['./auth-heather.component.scss']
 })
 export class AuthHeatherComponent implements OnInit {
+  isinbrowser: boolean;
 
   constructor(private electron: ElectronService) { }
 
   ngOnInit(): void {
+    if(!this.electron.isElectron){
+      this.isinbrowser = true;
+    }
   }
   closewindow(): void{
     this.electron.window.close();

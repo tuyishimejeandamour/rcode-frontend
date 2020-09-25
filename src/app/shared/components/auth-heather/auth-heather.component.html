@@ -4,7 +4,7 @@
      <img src="../../assets/others/logo.png" alt="">
      <span > <a routerLink="/">Rcode</a></span>
     </div>
-       <ul>
+       <ul *ngIf="!isinbrowser">
           <li (click)="minimizewindow()"><img src="../../assets/others/minimize.png" alt=""></li>
           <li (click)="maximizewindow()" id="maximize"><img src="../../assets/others/maximize_button.png" alt=""></li>
           <li (click)="restorewindow()" id="restore"><img src="../../assets/others/restore_down.png" alt=""></li>

@@ -2,19 +2,16 @@
   "name": "rcode",
   "version": "8.0.0",
   "description": "de",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "homepage": "https://rcode.rw",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Tuyishime jeand'amour",
+    "email": "tuyishimejeand88@gmail.com"
   },
   "keywords": [
-    "angular",
-    "angular 10",
-    "electron",
-    "typescript",
-    "eslint",
-    "spectron",
-    "sass"
+    "rcode",
+    "e-learning",
+    "CAT-management",
+    "easy marking"
   ],
   "main": "main.js",
   "private": true,

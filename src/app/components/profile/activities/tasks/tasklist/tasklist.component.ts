@@ -1,0 +1,160 @@
+import { Component, OnInit, ViewChild, Inject} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { CommonfunctionService } from 'app/Service/commonfunction.service';
+import { JerwisService, ContentShow } from 'app/core/services';
+import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+
+
+@Component({
+  selector: 'app-tasklist',
+  templateUrl: './tasklist.component.html',
+  styleUrls: ['./tasklist.component.scss']
+})
+
+export class TasklistComponent implements OnInit {
+  public content:ContentShow;
+  public showtaskcontent = false;
+  displayedColumns: string[] = ['position', 'name', 'classname', 'starting_date', 'submittion_deadline', 'action'];
+  dataSource = new MatTableDataSource<TasksDetails>();
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
+  constructor(
+    private eventEmitterService: CommonfunctionService,
+    private jerwis:JerwisService,
+    private contextMenuService: ContextMenuService,
+    private dialog:  MatDialog
+
+  ){
+
+  }
+
+  ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    if (this.eventEmitterService.subsVar==undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.
+        invokeFirstComponentFunction.subscribe((name:string) => {
+          this.doFilter(name);
+        });
+
+    }
+    if(this.eventEmitterService.subsVar2 ==undefined){
+      this.eventEmitterService.subsVar2 = this.eventEmitterService.
+        invokegettaskfunction.subscribe(() => {
+          this.getalltsk();
+        });
+    }
+    this.getalltsk();
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+  doFilter (value: string): void{
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+  getalltsk():void{
+    this.jerwis.getask(1).subscribe(
+      (data)=> this.responsehandler(data),
+      error=> this.errorhandler(error)
+    )
+  }
+  changeappeareanceofeditor(value: boolean): void{
+    this.showtaskcontent = value;
+  }
+  responsehandler(data): void{
+    this.dataSource.data = data as TasksDetails[];
+    console.log(data)
+  }
+  errorhandler(error): void{
+    console.log(error)
+  }
+  getcontent(value: number):void{
+    this.jerwis.getaskcontent(value).subscribe(
+      (data)=> this.handleresponsec(data) ,
+      error=> this.errorhandler(error)
+    )
+  }
+
+  handleresponsec(data):void{
+    this.content = data;
+    document.getElementById("displaycontent").innerHTML= this.content[0].long_desc;
+    document.getElementById("displayshortdiscription").innerHTML= this.content[0].short_desc;
+    this.showtaskcontent = true;
+  }
+  onContextMenu($event: MouseEvent, item: any): void {
+    this.contextMenuService.show.next({
+      contextMenu: this.basicMenu,
+      event: $event,
+      item: item
+
+    });
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  openDialog(obj): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '450px',
+      hasBackdrop: false,
+      data: obj
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateRowData(result.data);
+
+    });
+  }
+  updateRowData(obj):void{
+    this.jerwis.updatetask(obj,obj.id).subscribe(
+      (data)=> {console.log(data)},
+      (error)=>this.errorhandler(error)
+    )
+  }
+}
+
+export interface TasksDetails {
+  id: number;
+  taskname: string;
+  lesson:string;
+  classname: string;
+  starting_date: string;
+  ending_date: string;
+}
+export interface ContentDetails {
+  taskname: string;
+  classname: string;
+  starting_date: string;
+  ending_date: string;
+}
+export interface DialogData {
+  id: number;
+  taskname: string;
+  lesson:string;
+  classname: string;
+  starting_date: string;
+  ending_date: string;
+}
+@Component({
+  selector: 'task-edit-dialog',
+  templateUrl: 'task-edit-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+  local_data:any;
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    this.local_data = {...data};
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  doAction(): void{
+    this.dialogRef.close({data:this.local_data})
+  }
+}
+

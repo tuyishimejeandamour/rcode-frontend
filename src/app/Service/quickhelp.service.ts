@@ -101,4 +101,7 @@ export class QuickhelpService {
   public getMail(id: number | string):Mail {
     return Mails.find(mail => mail.id === +id);
   }
+  public insertMail(mail:Mail):void {
+    Mails.push(mail);
+  }
 }

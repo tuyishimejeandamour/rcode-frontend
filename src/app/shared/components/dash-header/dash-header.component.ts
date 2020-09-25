@@ -2,7 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from 'app/core/services';
 import { Router } from '@angular/router';
-import { JerwisService, User } from 'app/Service/jerwis.service';
+import { JerwisService, User } from 'app/core/services';
+
 
 @Component({
   selector: 'app-dash-header',

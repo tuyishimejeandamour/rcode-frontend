@@ -1,0 +1,138 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0);
+
+  .upercontainer {
+    background-color: #377af5;
+    height: 50%;
+
+  }
+
+  .lowercontainer {
+    background-color: #F5F6F8;
+    height: 50%;
+
+  }
+
+  .float_in_front {
+    position: absolute;
+    width: 90%;
+    height: 80%;
+    top: 10%;
+    left: 5%;
+    z-index: 200;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.295);
+
+    .header {
+      text-align: center;
+      width: 100%;
+      height: 40px;
+
+      .welcome_header {
+        line-height: 3;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 700;
+        color: #fbb300;
+        font-family: sans-serif;
+      }
+    }
+
+    .uperflo {
+
+      position: absolute;
+      width: 100%;
+      height: calc(100% - 60% - 20px);
+      background: #377af5;
+      background-image: url(../../../assets/others/download.png);
+      background-size: cover;
+      background-position: 100% 50%;
+      z-index: 30;
+
+      .sign_in {
+        position: absolute;
+        left: 35%;
+        top: 45%;
+        width: 30%;
+        height: 35px;
+        border: 0;
+        outline: 0;
+        color: white;
+        font-size: 18px;
+        font-weight: 300;
+        position: relative;
+        z-index: 3;
+        letter-spacing: 2px;
+        font-family: poppins;
+        cursor: pointer;
+        background: rgb(255, 204, 64);
+        box-shadow: 1px 1px 5px rgba(42, 42, 172, 0.397);
+      }
+      .dontHaveaccount{
+        position: absolute;
+        bottom: 4%;
+        right: 3%;
+        color: white;
+        a{
+        margin-left: 20px;
+        text-transform: capitalize;
+        text-decoration: none;
+        color: rgb(255, 204, 64);
+        }
+      }
+    }
+
+    .lowerflo {
+      position: absolute;
+      top: calc(100% - 60% - 20px);
+      width: 100%;
+      height: calc(100% - 40%);
+      background: #F5F6F8;
+      background: linear-gradient(rgb(255, 255, 255) 10%, #fdfdfd 85%,#fcfcfc 87%, #F5F6F8 90%);
+      // background: linear-gradient(180deg,#fdfdfd,#F5F6F8);
+      z-index: 1;
+      padding-top: 40px;
+      overflow: auto;
+
+      .assignment_div {
+        border-radius: 6px;
+        display: inline-block;
+        margin: 10px;
+        width: 130px;
+        background: rgb(255, 255, 255);
+        box-shadow: 1px 1px 10px #dde;
+        height: 180px;
+
+        .img_assign {
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
+          width: 100%;
+          height: 100px;
+          border-bottom: 1px solid #dde;
+
+          img {
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            width: 100%;
+            height: 100%;
+
+          }
+        }
+
+        .footer_assign {
+          overflow-x: auto;
+          width: 100%;
+          height: 50px;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+
+
+    }
+
+  }
+}

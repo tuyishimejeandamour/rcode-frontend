@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeRoutingModule } from './home/home-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
-import { LoginRoutingModule } from './components/login/login-routing.module';
-import { RegisterRoutingModule } from './components/register/register-routing.module';
-import { ProfileRoutingModule } from './dashboard/profile/profile-routing.module';
-import { ResetPasswordRoutingModule } from './components/reset-password/reset-password-routing.module';
-import { NewPasswordRoutingModule } from './components/new-password/new-password-routing.module';
-import { EditorRoutingModule } from './editor/editor-routing.module';
-import { MarktaskRoutingModule } from './marktask/marktask-routing.module';
-import { PreloadAllModules } from '@angular/router';
+import { HomeRoutingModule } from './components/home/home-routing.module';
+import { LoginRoutingModule } from './components/auth/login/login-routing.module';
+import { RegisterRoutingModule } from './components/auth/register/register-routing.module';
+import { ProfileRoutingModule } from './components/profile/profile-routing.module';
+import { ResetPasswordRoutingModule } from './components/auth/reset-password/reset-password-routing.module';
+import { NewPasswordRoutingModule } from './components/auth/new-password/new-password-routing.module';
+import { EditorRoutingModule } from './components/cateditor/editor-routing.module';
+import { MarktaskRoutingModule } from './components/marktask/marktask-routing.module';
 
 const routes: Routes = [
   {
@@ -28,7 +26,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     HomeRoutingModule,
-    DetailRoutingModule,
     LoginRoutingModule,
     RegisterRoutingModule,
     ProfileRoutingModule,

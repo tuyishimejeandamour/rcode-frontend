@@ -14,26 +14,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { HomeModule } from './home/home.module';
-import { DetailModule } from './detail/detail.module';
-
+import { HomeModule } from './components/home/home.module';
 import { AppComponent } from './app.component';
-import { LoginModule } from './components/login/login.module';
-import { RegisterModule } from './components/register/register.module';
-import { JerwisService } from './Service/jerwis.service';
-import { TokenService } from './Service/token.service';
-import { ProfileModule } from './dashboard/profile/profile.module';
-import { AuthService } from './Service/auth.service';
-import { BeforeLoginService } from './Service/before-login.service';
-import { AfterLoginService } from './Service/after-login.service';
-import { ResetPasswordModule } from './components/reset-password/reset-password.module';
+import { LoginModule } from './components/auth/login/login.module';
+import { RegisterModule } from './components/auth/register/register.module';
+import { ProfileModule } from './components/profile/profile.module';
+import { 
+  JerwisService,
+  TokenService,
+  AuthService,
+  BeforeLoginService, 
+  AfterLoginService } from './core/services';
+import { ResetPasswordModule } from './components/auth/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
-import { NewPasswordModule } from './components/new-password/new-password.module';
+import { NewPasswordModule } from './components/auth/new-password/new-password.module';
 import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CommonfunctionService } from './Service/commonfunction.service';
-import { EditorModule } from './editor/editor.module';
-import { MarktaskModule } from './marktask/marktask.module';
+import { EditorModule } from './components/cateditor/editor.module';
+import { MarktaskModule } from './components/marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
 import { QuickhelpService } from './Service/quickhelp.service';
 import { StudentTaskService } from './Service/student-task.service';
@@ -54,7 +53,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     HomeModule,
-    DetailModule,
     LoginModule,
     RegisterModule,
     AppRoutingModule,
@@ -76,7 +74,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    JerwisService,TokenService,AuthService,BeforeLoginService,AfterLoginService,CommonfunctionService, FileservicesService,QuickhelpService,StudentTaskService,
+    JerwisService,
+    TokenService,
+    AuthService,
+    BeforeLoginService,
+    AfterLoginService,
+    CommonfunctionService, 
+    FileservicesService,
+    QuickhelpService,
+    StudentTaskService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],
