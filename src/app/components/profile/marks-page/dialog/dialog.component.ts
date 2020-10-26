@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StudentTaskService, Message } from 'app/Service/student-task.service';
 export interface taskFeedback{
@@ -15,7 +15,7 @@ export interface taskReview{
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit{
   public talks: Message[];
   newMessage: string;
   constructor(
@@ -25,24 +25,16 @@ export class DialogComponent implements OnInit {
   taskreviewcontent=
   {
     questions:`
-      <div quill-editor-element="" class="ql-container ql-snow" style="height: 88%;"><div class="ql-editor" data-gramm="false" contenteditable="true" data-placeholder="Insert text here ..."><p>Q 1&nbsp;- What is the output of the following program?</p><pre class="ql-syntax" spellcheck="false">#include&lt;iostream&gt;
+      <div quill-editor-element="" class="ql-container ql-snow" style="height: 88%;"><div class="ql-editor" data-gramm="false" contenteditable="true" data-placeholder="Insert text here ..."><p>Q 1&nbsp;- What is the output of the following program?</p><pre class="ql-syntax prettyprint linenums"  spellcheck="false">
     
-    using namespace std;
-    class abc { 
-       public: 
-          static int x; 
-          int i; 
-    
-          abc() {
-             i = ++x;
-          }
-       };
-    int abc::x;
-    
-    main() { 
-       abc m, n, p;
-       
-       cout&lt;&lt;m.x&lt;&lt;" "&lt;&lt;m.i&lt;&lt;endl;
+      .app{
+        ...
+        &.purple{
+            @import "skins/purple";        
+            @include angular-material-theme($purple-theme);
+            @include theme-reset($purple-theme);
+        }
+        ...
     }
     </pre><p>A&nbsp;- 3 1</p><p>B&nbsp;- 3 3</p><p>C&nbsp;- 1 1</p><p>D&nbsp;- 1 3</p><h3>Answer : A</h3><h3>Explaination</h3><p>The static member variable ‘x’ shares common memory among all the objects created for the class.</p><pre class="ql-syntax" spellcheck="false">#include&lt;iostream&gt;
     
@@ -123,7 +115,13 @@ export class DialogComponent implements OnInit {
     this.talks = this.message.getTalk();      
 
   }
-
+  addclassquill():void{
+   
+    const editors = document.getElementsByClassName("ql-syntax");
+    for(let i=0;i<editors.length;i++){
+      editors[i].className += " prettyprint linenums";
+    }
+  }
   sendMessage($event:any):void {       
     if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
       if(this.talks){ 

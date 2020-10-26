@@ -2,7 +2,7 @@
 <div class="container">
   <div>
     <as-split class="split-example ex-percent" unit="percent" [direction]="direction" (dragEnd)="dragEnd($event)">
-      <as-split-area size="{{sizes.percent.area1}}">
+      <as-split-area [size]="sizes.percent.area1" style="min-width:50px">
         <div id="left-nav">
           <div role=button class="left-nav-button" id="left-nav-button-1" (click)="clickLeftNav($event, 'sidebar-1')">
             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="file-alt"
@@ -53,8 +53,8 @@
             <div class="sidebar-top-title">
               <p>Explorer</p>
             </div>
-            <app-selectstudent></app-selectstudent>
-            <app-filetree [nestedDataSource]=treeData ></app-filetree>
+            <app-selectstudent (filtertreedata)="filterTree($event)"></app-selectstudent>
+            <app-filetree [nestedDataSource]=treeData (elementadd)="addFile($event)" ></app-filetree>
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
@@ -73,20 +73,67 @@
           </div>
         </div>
       </as-split-area>
-      <as-split-area size="{{sizes.percent.area2}}">
-        <div class="directory_header">
-          <button class="runbutton" ><mat-icon>play_arrow</mat-icon></button>
+      <as-split-area [size]="sizes.percent.area2">
+        <as-split class="split-examplecode" unit="percent" direction="vertical" (dragEnd)="drag2End($event)">
+          <as-split-area [size]="sizes.percent2.area1" [visible]="!play">
+          <div class="directory_header">
+            <div class="tabsmarks">
+              <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index" [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }" (click)="activeindex=i"
+                class="tab close-button-right sizing-fit has-icon dirty active" aria-label="marktask.component.html"
+                aria-description=""
+                title="~/Desktop/homeworks/Rcode/src/app/components/marktask/marktask.component.html"
+                data-resource-name="marktask.component.html" aria-selected="true"
+                style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
+                <div class="tab-border-top-container"></div>
+                <div
+                  class="monaco-icon-label"
+                  title="~/Desktop/homeworks/Rcode/src/app/components/marktask/marktask.component.html">
+                  <div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a
+                        class="label-name">{{item.name}}</a></span><span
+                      class="monaco-icon-description-container"></span></div>
+                </div>
+                <div class="tab-close" (click)="closetab(i)">
+                  <div class="monaco-action-bar animated">
+                    <ul class="actions-container" role="toolbar" aria-label="Tab actions">
+                      <li class="action-item" role="presentation"><a class="action-label codicon codicon-close"
+                          role="button" tabindex="0" title="Close (Ctrl+W)"></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tab-border-bottom-container"></div>
+              </div>
+            </div>
+            <div class="tabactions">
+          <button class="runbutton" (click)="play=true"><mat-icon>play_arrow</mat-icon></button>
+          <button class="runbutton" (click)="terminal=true" [hidden]="play"><mat-icon>code</mat-icon></button>
         </div>
-        <div class="codediveditor">
-          <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
         </div>
+        <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
+          <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.language}" [(ngModel)]="item.code"></ngx-monaco-editor>
+        </div>
+      </as-split-area>
+      <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal" >
+        <div class="directory_header-terminal">
+      </div>
+      <div class="codediveditor">
+      </div>
+    </as-split-area>
+    <as-split-area size="100" [visible]="play">
+      <div class="directory_header">
+        <button class="runbutton " style="background: rgb(60,60,60);" (click)="play=false"><mat-icon>code</mat-icon></button>
+
+    </div>
+    <div class="codediveditor">
+    </div>
+  </as-split-area>
+      </as-split>
       </as-split-area>
     </as-split>
   </div>
 
 </div>
-<footer>
-
-</footer>
 <app-footer-menu></app-footer-menu>
-<app-common-footer></app-common-footer>
+<div class="common-footer aero">
+       
+</div>
+

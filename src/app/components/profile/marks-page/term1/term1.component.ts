@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpmarksService, Marks } from 'app/core/services';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-term1',
@@ -11,18 +13,22 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./term1.component.scss']
 })
 export class Term1Component implements OnInit {
-
+  firstmarks:Marks[]=[];
   displayedColumns: string[] = ['position', 'name', 'marks', 'review'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
+  dataSource = new MatTableDataSource<Marks>(this.firstmarks);
+  
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private dialog:MatDialog){
+  constructor(private dialog:MatDialog,
+              private markser:HttpmarksService,
+              private notify:SnotifyService
+  ){
      
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.getmarks(1);
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -30,6 +36,7 @@ export class Term1Component implements OnInit {
   viewtaskremarks(taskid:number):void {
     const dialogRef = this.dialog.open(DialogComponent,{
       width:'80%',
+      data:{task:taskid}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -37,14 +44,11 @@ export class Term1Component implements OnInit {
       }
     });
   }
+  getmarks(t:number):void{
+    this.markser.getmarks(t).subscribe(
+      data=> this.dataSource.data=data,
+      error=> this.notify.error(error.error.error)
+    )
+  }
 }
 
-export interface PeriodicElement {
-  name: string;
-  marks: string;
-  review: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'db cat1', marks: '30/40', review: 1},
-];

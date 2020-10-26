@@ -61,7 +61,7 @@ export class ChallengesComponent implements OnInit {
   split: SplitComponent;
   area1: SplitAreaDirective;
   area2: SplitAreaDirective;  
-  direction = 'horizontal'
+  direction = 'horizontal';
   sizes = {
     percent: {
       area1: 70,
@@ -83,7 +83,14 @@ export class ChallengesComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
+    if(window.innerWidth <= 992) {
+      this.sidenavOpen = false;
+      this.direction = 'vertical';       
+    }else{
+      this.sidenavOpen = true;
+      this.direction = 'horizontal';
+    }
+
   }
 
   public getMails():void{

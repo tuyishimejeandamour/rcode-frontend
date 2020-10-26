@@ -4,8 +4,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
-
+import { Marks, HttpmarksService } from 'app/core/services';
+import { SnotifyService } from 'ng-snotify';
 /**
  * @title Table with pagination
  */
@@ -17,17 +17,22 @@ import { MatDialog } from '@angular/material/dialog';
 export class Term3Component implements OnInit {
 
   
+  firstmarks:Marks[]=[];
   displayedColumns: string[] = ['position', 'name', 'marks', 'review'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
+  dataSource = new MatTableDataSource<Marks>(this.firstmarks);
+  
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private dialog:MatDialog){
+  constructor(private dialog:MatDialog,
+              private markser:HttpmarksService,
+              private notify:SnotifyService
+  ){
      
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.getmarks(1);
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -35,6 +40,7 @@ export class Term3Component implements OnInit {
   viewtaskremarks(taskid:number):void {
     const dialogRef = this.dialog.open(DialogComponent,{
       width:'80%',
+      data:{task:taskid}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -42,23 +48,11 @@ export class Term3Component implements OnInit {
       }
     });
   }
+  getmarks(t:number):void{
+    this.markser.getmarks(t).subscribe(
+      data=> this.dataSource.data=data,
+      error=> this.notify.error(error.error.error)
+    )
+  }
 }
 
-export interface PeriodicElement {
-  name: string;
-  marks: string;
-  review: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-  { name: 'db cat1', marks: '30/40', review: 1},
-
-];

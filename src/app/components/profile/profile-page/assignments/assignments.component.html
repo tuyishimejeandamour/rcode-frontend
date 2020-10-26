@@ -11,19 +11,35 @@
   </div>
   <div class="titleinheader">
     <span>quick help</span>
-    <div class="header-sort" *ngIf="mail && !compose">
-      <button mat-icon-button>
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>bookmark</mat-icon>
-      </button>
-      <button mat-icon-button>
-        <mat-icon>star</mat-icon>
-      </button>
-    </div>
   </div>
-
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button *ngIf="mail && type !='trash' && !compose" mat-icon-button matTooltip="Reply" matTooltipPosition="above">
+        <mat-icon>reply</mat-icon>
+    </button>
+    <button *ngIf="mail && type !='trash' && !compose" mat-icon-button (click)="changeStarStatus()" matTooltip="Mark as inportant" matTooltipPosition="above" fxShow="false" fxShow.gt-xs>
+        <mat-icon *ngIf="mail.starred">star</mat-icon>
+        <mat-icon *ngIf="!mail.starred">star_border</mat-icon>
+    </button> 
+    <button *ngIf="mail && type=='trash' && !compose" mat-icon-button (click)="restore()" matTooltip="Restore" matTooltipPosition="above">
+        <mat-icon>undo</mat-icon>
+    </button> 
+    <button *ngIf="mail" mat-icon-button matTooltip="Report problem" matTooltipPosition="above" fxShow="false" fxShow.gt-xs>
+        <mat-icon>error</mat-icon>
+    </button> 
+    <button *ngIf="mail && type !='trash' && !compose" mat-icon-button (click)="delete()" matTooltip="Move to trash" matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger" [style.display]="(mail && !compose) ? 'inline-block' : 'none'">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #moreMenu="matMenu" xPosition="before">
+        <span (mouseleave)="moreMenuTrigger.closeMenu()">
+            <button mat-menu-item (click)="setAsRead()">Mark as read</button>
+            <button mat-menu-item (click)="setAsUnRead()">Mark as unread</button>
+            <button mat-menu-item (click)="delete()">Delete</button>
+        </span>
+    </mat-menu>
+  </div>
 </div>
 <div class="directory_show">
   <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">

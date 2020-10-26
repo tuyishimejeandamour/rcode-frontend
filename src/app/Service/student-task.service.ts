@@ -35,6 +35,7 @@ const talks:Message[] = [
     
   }
 ]
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,4 +45,5 @@ export class StudentTaskService {
   getTalk():Message[] {
     return talks;
   }
+ 
 }

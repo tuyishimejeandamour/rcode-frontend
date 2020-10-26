@@ -85,7 +85,7 @@
 
   .content {
     width: calc(100%);
-    height: calc(100% - 35px - 35px - 30px);
+    height: calc(100% - 35px - 35px - 35px);
   }
 }
 @media screen and (max-width: 1000px) {
@@ -96,7 +96,9 @@
       margin-left: 50px;
     }
   }
-
+  .content {
+    height: calc(100% - 35px - 35px - 23px);
+  }
 }
 mat-progress-bar{
 position: absolute;

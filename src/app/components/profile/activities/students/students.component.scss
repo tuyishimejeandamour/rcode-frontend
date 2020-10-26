@@ -10,13 +10,13 @@
   background-color: rgb(255, 255, 255);
   .sort-header-inheader{
     width:22%;
-    background:rgb(255, 64, 129);
+    background:rgb(51, 103, 214);
     height:40px;
     z-index: 200;
     .closefilter{
       width:50px;
       height:40px;
-      background:rgb(175, 36, 82);
+      background:rgb(28, 66, 148);
       float:right;
       color:white;
       cursor:pointer;
@@ -35,7 +35,7 @@
     .closefilters{
       width:50px;
       height:40px;
-      background:rgb(175, 36, 82);
+      background:rgb(28, 66, 148);
       float:left;
       color:white;
       cursor:pointer;
@@ -245,7 +245,7 @@
         }
       }
         &:nth-child(odd){
-        background: rgba(255, 64, 128, 0.048);
+        background: rgba(51, 103, 214, 0.048);
         }
         &:hover {
           background:  rgba(207, 207, 207, 0.692);

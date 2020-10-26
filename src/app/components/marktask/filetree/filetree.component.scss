@@ -1,21 +1,175 @@
-ul,
-li {
-  list-style-type: none;
-  margin: 0;
+*{
+  box-sizing: border-box;
 }
 
-ul { padding-left: 1em; }
 
 .mat-tree-node {
-  display: unset;
+  display: block;
 }
 
-.mat-icon-button {
-    width:  unset;
-    height: unset;
-    line-height: unset;
-}
 .mat-tree {
+  color:white;
     background:transparent;
-    
+}
+
+.monaco-tl-indent{
+  padding-left:8px;
+}
+.mat-tree-node {
+  min-height: 20px;
+}
+.monaco-list-row {
+  cursor: pointer;
+  touch-action: none;
+  height:22px;
+  &.activefile{
+  background:rgba(79, 79, 80, 0.164);
+  }
+}
+.monaco-list-row {
+  padding-left: 4px;
+}
+.monaco-list-row{
+  position:relative;
+  display:block;
+  overflow: hidden;
+  width: 100%;
+}
+.monaco-tl-row {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  position: relative;
+}
+.monaco-tl-indent {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 16px;
+  pointer-events: none;
+}
+.indent-guide {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 100%;
+  border-left: 1px solid transparent;
+  transition: border-color .1s linear;
+}
+.codicon[class*=codicon-] {
+  font-size: 16px;
+}
+.codicon {
+  color: #c5c5c5;
+}
+.codicon[class*=codicon-] {
+  font: normal normal normal 16px/1 codicon;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  color:rgba(224, 224, 224, 0.781);
+}
+.monaco-tl-twistie {
+  font-size: 10px;
+  text-align: right;
+  padding-right: 6px;
+  flex-shrink: 0;
+  width: 16px;
+  display: flex!important;
+  align-items: center;
+  justify-content: center;
+  color: inherit!important;
+  transform: translateX(3px);
+}
+.codicon-tree-item-expanded:before {
+  content: '\eab4';
+  margin-right: 15px;
+  color:rgba(224, 224, 224, 0.781);
+}
+.monaco-tl-twistie.collapsed:before {
+  transform: rotate(-90deg);
+}
+.monaco-tl-contents, .monaco-tl-twistie {
+  height: 100%;
+}
+.monaco-tl-contents {
+  flex: 1;
+  overflow: hidden;
+}
+.explorer-item{
+  flex: 1;
+}
+.explorer-item {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.explorer-item {
+  height: 22px;
+  line-height: 22px;
+}
+.monaco-decoration-itemColor-b2t86r {
+  color: rgb(248, 128, 112);
+}
+.monaco-icon-label {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.monaco-tl-contents, .monaco-tl-twistie {
+  height: 100%;
+}
+.monaco-tl-contents .components-name-folder-icon.folder-icon::before{
+  content: ' ';
+  background-image: url(../../../../assets/icons/favicon.png);
+}
+ .file-icon::before {
+  content: ' ';
+  background-image: url(../../../../assets/icons/favicon.png);
+}
+.monaco-icon-label>.monaco-icon-label-container {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  color:rgba(224, 224, 224, 0.781);
+}
+.monaco-decoration-bubbleBadge-3x6jkt::after {
+  content: "";
+  color: rgb(226, 192, 141);
+  font-family: codicon;
+  font-size: 13px;
+  padding-right: 14px;
+  opacity: 0.4;
+}
+.monaco-icon-label:after {
+  opacity: .75;
+  font-size: 90%;
+  font-weight: 600;
+  padding: 0 16px 0 5px;
+  text-align: center;
+}
+.monaco-icon-label:before {
+  background-size: 16px;
+  background-position: 0;
+  background-repeat: no-repeat;
+  padding-right: 6px;
+  width: 16px;
+  height: 22px;
+  line-height: inherit!important;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.nodecontainertree{
+  position:absolute;
+  width:0.5px;
+  height:100%;
+  background:rgba(128, 128, 128, 0.664);
 }

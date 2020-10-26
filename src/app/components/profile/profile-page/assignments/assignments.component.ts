@@ -95,7 +95,14 @@ export class AssignmentsComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth <= 992) ? this.isOpen = true : this.isOpen = false;
+    if(window.innerWidth <= 992) {
+      this.sidenavOpen = false;
+      this.direction = 'vertical';       
+    }else{
+      this.sidenavOpen = true;
+      this.direction = 'horizontal';
+    }
+
   }
 
   public getMails():void{
@@ -161,6 +168,34 @@ export class AssignmentsComponent implements OnInit {
     this.message = false;
     this.compose = true;
     
+  }
+  setAsRead():void{
+    this.mail.unread = false;
+  }
+
+  setAsUnRead():void{
+    this.mail.unread = true;
+  }
+
+  delete():void {
+    this.mail.trash = true;
+    this.mail.sent = false;
+    this.mail.draft = false; 
+    this.mail.starred = false; 
+    this.getMails();
+    this.mail = null;
+  }
+
+  changeStarStatus():void {       
+    this.mail.starred = !this.mail.starred;
+    this.getMails(); 
+  }
+
+  restore():void{
+    this.mail.trash = false;
+    this.type = 'all';
+    this.getMails();
+    this.mail = null; 
   }
   scrollbottom($event:ContentChange):void{
     if ($event.editor.keyboard.bindings[13]) {

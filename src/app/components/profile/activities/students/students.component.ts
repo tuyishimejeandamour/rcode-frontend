@@ -63,7 +63,7 @@ export class StudentsComponent implements OnInit {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
   animal: string;
-  name: string;
+  name="wowe";
 
   constructor(public dialog: MatDialog) {}
 

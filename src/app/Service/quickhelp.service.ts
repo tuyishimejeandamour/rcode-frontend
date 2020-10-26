@@ -52,6 +52,24 @@ const Mails = [
     selected:false 
   },
   {
+    id:4,
+    sender:'Josiah Fromdahl',
+    senderPhoto:'../../../assets/tuy.png',
+    subject:'Useful tool for those who are involved in SEO',
+    date:'9:47 AM',
+    body:'<p>Hi, I want to introduce the Website Reviewer is an incredibly useful tool for those who are involved in SEO and web designing. '+
+    'This particular tool will provide you with quick website review and SEO audit of the websites you’ve created so '+
+    'you will be able to determine if and where any changes should be made so you can make it as effective '+
+    'as possible when it comes to getting visitors and keeping them interested. '+
+    'Unlike many similar tools, website reviewer is completely free.</p>',
+    unread:true,
+    sent:false,
+    starred:true,
+    draft:false,
+    trash:false,
+    selected:false 
+  },
+  {
     id:3,
     sender:'Google Cloud Platform',
     senderPhoto:'../../../assets/tuy.png',

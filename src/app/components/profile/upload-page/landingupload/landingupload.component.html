@@ -17,7 +17,7 @@
       <div class="file-semidetails">
             <span class="foldername">{{task.taskname}}</span>
             <span>{{task.remainingdate}}</span>
-            <span style="margin-left:10px">{{task.submittiondate}}</span>
+            <span style="margin-left:10px">{{task.submittiondate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
             <button mat-icon-button (click)="onContextMenu($event,task)" >
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -38,7 +38,7 @@
       <div class="file-semidetails">
             <span class="foldername">{{task1.taskname}}</span>
             <span>{{task1.remainingdate}}</span>
-            <span style="margin-left:10px">{{task1.submittiondate}}</span>
+            <span style="margin-left:10px">{{task1.submittiondate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
             <button mat-icon-button (click)="onContextMenu($event,task1)" >
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -58,7 +58,7 @@
     <div class="file-semidetails">
           <span class="foldername">{{task3.taskname}}</span>
           <span>{{task3.remainingdate}}</span>
-          <span style="margin-left:10px">{{task3.submittiondate}}</span>
+          <span style="margin-left:10px">{{task3.submittiondate | date:"dd MMMM, yyyy 'at' HH:mm"}}</span>
           <button mat-icon-button (click)="onContextMenu($event,task3)" >
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -74,26 +74,15 @@
       download
     </ng-template>
 
-    <ng-template contextMenuItem [subMenu]="saySubMenu">
-      <mat-icon>edit</mat-icon>
+    <ng-template contextMenuItem (execute)="setRemainder($event.item.taskid)">
+      <mat-icon>date_range</mat-icon>
       set reminder
     </ng-template>
-    <context-menu #saySubMenu>
-      <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
-        ...hi!
-      </ng-template>
-      <ng-template contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
-        ...hola!
-      </ng-template>
-      <ng-template contextMenuItem (execute)="showMessage('Salut, ' + $event.item.name)">
-        ...salut!
-      </ng-template>
-      </context-menu>
-    <ng-template contextMenuItem >
+    <ng-template contextMenuItem (execute)="routesubmitt($event.item.taskid)">
       <mat-icon>assignment_sent</mat-icon>
       submitt
     </ng-template>
-    <ng-template contextMenuItem (execute)="showQuestion()">
+    <ng-template contextMenuItem (execute)="showQuestion($event.item.taskid)">
       <mat-icon>note</mat-icon>
       show content
     </ng-template>

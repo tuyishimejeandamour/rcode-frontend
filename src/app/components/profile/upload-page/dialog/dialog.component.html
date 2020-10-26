@@ -1,11 +1,14 @@
 <div style="position:relative">
 <div class="download-button">
-  <button mat-mini-fab color="primary"><mat-icon>file_download</mat-icon></button>
+  <button mat-icon-button color="primary"><mat-icon>share</mat-icon></button>
+  <button mat-icon-button color="primary"><mat-icon>file_download</mat-icon></button>
+  <button mat-icon-button color="warn" (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+
 </div>
 <mat-tab-group  mat-align-tabs="center">
     <mat-tab label="questions">
       <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.questions" name="long_desc" [styles]="{height: '100%'}"></quill-editor>
+        <quill-editor [(ngModel)]="taskreviewcontent.questions" name="long_desc" [styles]="{height: '100%'}" [disabled]="true"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="issues">

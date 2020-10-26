@@ -1,3 +1,14 @@
 <ng-snotify></ng-snotify>
 <router-outlet></router-outlet>
+<div class="loading" [hidden]="finished">
+    <div id="loadingMask" class="blackMask" style="visibility: visible" onContextMenu="return false">
+        <div class="popupVCenter">
+            <div class="popup ">
+                <div class="spinner">
+                    <img width="130px" height="130px" src="../assets/others/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

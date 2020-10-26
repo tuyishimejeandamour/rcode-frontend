@@ -1,6 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
+import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
+import { filter, take } from 'rxjs/operators';
 
 
 @Component({
@@ -10,33 +12,51 @@ import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 })
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
-  editorOptions = {theme: 'vs-dark', language: 'javascript'};
-  code = 'function x() {\nconsole.log("Hello world!");\n}';
-  
+  reserved:TreeData[];
+  // @HostListener('window:beforeunload',['$event'])
+  // public onWindowBeforeunload(event):void {
+  //   event.preventDefault();
+  //   event.returnValue = true;
+  // }
+  public editor;
   leftSidebarStatus = "c";
   leftSidebarSelected = "";
   leftSidebarSelect = "";
-
-  constructor(private treedata:FiletreeService) {
-    this.treeData = treedata.getTreeData1();
-  }
+  fileCounter = 1;
+  constructor( treedata:FiletreeService,
+               private monacoLoaderService: MonacoEditorLoaderService) {
   
-
+    this.treeData = treedata.getTreeData1();
+    this.reserved = this.treeData;
+  }
+  filterTree(name:string):void{
+    this.treeData = this.reserved.filter(data => data.name == name);
+  }
   split: SplitComponent;
   area1: SplitAreaDirective;
   area2: SplitAreaDirective;
   
-  direction = 'horizontal'
+  direction = 'horizontal';
+  play=false;
+  terminal=false;
   sizes = {
     percent: {
       area1: 3.7,
       area2: 96.3,
+    },
+    percent2: {
+      area1: 50,
+      area2: 50,
     }
   } 
   dragEnd({sizes}):void {
     
     this.sizes.percent.area1 = sizes[0];
     this.sizes.percent.area2 = sizes[1];    
+  }
+  drag2End({sizes}):void {    
+    this.sizes.percent2.area1 = sizes[0];
+    this.sizes.percent2.area2 = sizes[1];    
   }
 
 
@@ -115,6 +135,53 @@ export class MarktaskComponent implements OnInit {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
+  }
+  /**
+   * editor functions
+   * @type rcode editor
+   */
+  filearrays:TreeData[]=[];
+  activeindex:number;
+  
+  setcode(data:TreeData):boolean{
+    const num=this.filearrays.indexOf(data,1)
+    if(num <0){
+      this.filearrays.push(data);
+      return true;
+    }else{
+      return false
+    }
+  }
+    
+  addFile(data:TreeData):void{
+    if(this.setcode(data)){
+      this.activeindex=this.filearrays.indexOf(data,1);
+    }
+    if(this.filearrays.length==0){
+      this.activeindex = 0;
+    }
+  }
+  switchtab(index:number,data:TreeData):void{
+    this.monacoLoaderService.isMonacoLoaded$.pipe(
+      filter(isLoaded => isLoaded),
+      take(1),
+    ).subscribe(() => {
+      monaco.editor.setModelLanguage(monaco.editor.getModels()[index-1],data.language);
+            
+    });
+  }
+  closetab(index:number):void{
+    this.filearrays.splice(index,1);
+    if(index == this.activeindex){
+      if(index==0){
+        this.activeindex = index;
+      }else{
+        this.activeindex = index -1;
+
+      }
+    }else if(index<this.activeindex){
+      this.activeindex -=1;
+    }
   }
 
 }

@@ -20,7 +20,7 @@ const routes: Routes = [{ path: '', component: UploadPageComponent,children:[
     component: UploadedComponent
   },
   {
-    path:"upload",
+    path:"upload/:id",
     component: UploadComponent
   }
 ] }];

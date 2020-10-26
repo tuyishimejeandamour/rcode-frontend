@@ -16,7 +16,8 @@ import { ElectronService } from 'app/core/services';
 export class ProfileComponent implements OnInit {
 
   public loading = false;
-
+  public autoLogoutMins=1;
+  public autoLogoutTimer = 0;
   constructor(
     private router: Router,
     private electron: ElectronService
@@ -48,5 +49,9 @@ export class ProfileComponent implements OnInit {
 
     }
   }
-
+  get(a:string):HTMLElement{
+    return document.getElementById(a)
+  }
+  
+   
 }

@@ -37,7 +37,7 @@
 
     a:after {
       content: "";
-      background: rgb(51, 103, 214);
+      background: rgb(23, 202, 38);
       border-radius: 20px;
       display: block;
       position: absolute;
@@ -58,7 +58,7 @@
 
     .active {
       color: rgb(68, 68, 68);
-      border-left: 4px solid rgb(51, 103, 214);
+      border-left: 4px solid rgb(23, 202, 38);
       background-color: rgb(255, 255, 255);
       box-shadow: 1px 1px 6px #dde;
       line-height: 1.6;
@@ -103,7 +103,7 @@
 
       .active {
         border-left: none;
-        border-left: 4px solid rgb(51, 103, 214);
+        border-left: 4px solid rgb(23, 202, 38);
       }
     }
 

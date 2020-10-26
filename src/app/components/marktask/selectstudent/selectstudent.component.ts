@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 
 @Component({
   selector: 'app-selectstudent',
@@ -9,22 +10,18 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./selectstudent.component.scss']
 })
 export class SelectstudentComponent implements OnInit {
-
-  constructor() { }
+  data:TreeData[];
+  @Output() filtertreedata = new EventEmitter<string>();
+  constructor(private treedata:FiletreeService) {
+    this.data = treedata.getTreeData1();
+    this.getindex(this.data);
+  }
 
   myControl = new FormControl();
-  options: string[] = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-    'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-    'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
+  options: string[]=[];
   filteredOptions: Observable<string[]>;
 
-  ngOnInit() {
+  ngOnInit():void {
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -34,8 +31,16 @@ export class SelectstudentComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
- 
+  private getindex(data:TreeData[]):void{
+    const datawchild = data.filter(option => option.children != null && option.children.length > 0);
+    datawchild.forEach( data=>{
+      this.options.push(data.name)
+    })
+
+  }
+  filtertree(name:string):void{
+    this.filtertreedata.emit(name);
+  }
 }

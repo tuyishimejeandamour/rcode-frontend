@@ -24,7 +24,8 @@ import {
   TokenService,
   AuthService,
   BeforeLoginService, 
-  AfterLoginService } from './core/services';
+  AfterLoginService, 
+  GettasksService} from './core/services';
 import { ResetPasswordModule } from './components/auth/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NewPasswordModule } from './components/auth/new-password/new-password.module';
@@ -36,6 +37,7 @@ import { MarktaskModule } from './components/marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
 import { QuickhelpService } from './Service/quickhelp.service';
 import { StudentTaskService } from './Service/student-task.service';
+import { HttptaskService } from './core/services/tasks/httptask.service';
 
 
 

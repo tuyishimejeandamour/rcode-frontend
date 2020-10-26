@@ -1,12 +1,12 @@
 <mat-tab-group  mat-align-tabs="center">
     <mat-tab label="questions">
       <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.questions" name="long_desc" [styles]="{height: '100%'}"></quill-editor>
+        <quill-editor [(ngModel)]="taskreviewcontent.questions" name="long_desc" [styles]="{height: '100%'}" [disabled]="true" (onEditorCreated)="addclassquill()"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="Answers">
       <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.answers" name="long_desc" [styles]="{height: '100%'}"></quill-editor>
+        <quill-editor [(ngModel)]="taskreviewcontent.answers" name="long_desc" [styles]="{height: '100%'}" [disabled]="true"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="feedback">

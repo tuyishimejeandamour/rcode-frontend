@@ -60,20 +60,20 @@
 
   .filecontainer {
     position: relative;
-    border-radius: 5px;
     display: flex;
-    width: 100%;
+    width: calc(100% - 10px);
     height: 55px;
+    margin-left:10px;
     margin-top:5px;
 
     &:hover {
       border-radius: 5px;
       cursor: pointer;
-      background: rgb(225, 236, 243);
+      background: rgb(208, 236, 211);
 
       .file-semidetails {
         .foldername {
-          color: rgb(35, 63, 187);
+          color: rgb(18, 18, 19);
         }
 
         button {
@@ -84,17 +84,17 @@
     }
 
     .file-image {
-      width: 80px;
+      width: 65px;
       height: 50px;
 
       .image {
         display:flex;
        justify-content: center;
        align-items: center;
-        margin: 0 20px;
-        width: 50px;
-        height: 50px;
-        background: rgb(53, 53, 236);
+        margin: 5px 3px 0 2px;
+        width: 45px;
+        height: 45px;
+        background: rgb(23, 202, 38);
         border-radius: 50%;
         text-align: center;
         span{
@@ -107,7 +107,6 @@
     }
 
     .file-semidetails {
-
       flex: 1;
       height: 50px;
       overflow: hidden;
@@ -126,7 +125,7 @@
         height: 20px;
         font-weight: 700;
         font-size: 15px;
-        color: black;
+        color: rgb(41, 40, 40);
       }
 
       button {

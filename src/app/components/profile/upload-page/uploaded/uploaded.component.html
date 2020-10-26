@@ -38,8 +38,10 @@
       </mat-nav-list>
       </div>
       <div class="profile_content_right">
-        <div class="filefolder_container">
-          <div class="filecontainer" *ngFor="let marked of markedtask">
+        <div class="filefolder_container" [ngStyle]="{'padding-top.px': !fileopened?20:0}">
+          <div class="submitedbreadcom" *ngIf="fileopened"></div>
+          <div class="taskfo" *ngIf="!fileopened">
+          <div class="filecontainer" *ngFor="let marked of markedtask" (contextmenu)="onContextMenu($event,marked)" (dblclick)="getsubmittedfiles(marked)">
             <div class="file-image">
               <div class='image'>
 
@@ -48,13 +50,31 @@
             <div class="file-semidetails">
                   <span class="foldername">{{marked.taskname}}</span>
                   <span>{{marked.marks}}</span>
-                  <span style="margin-left: 5px;">{{marked.givenat}}</span>
-                  <span style="margin-left: 5px;">{{marked.submittedat}}</span>
-                  <button mat-icon-button (click)="onContextMenu($event,'ol')" aria-label="Example icon button with a vertical three dot icon">
+                  <span style="margin-left: 5px;">{{marked.giveat | date:"dd MMMM',' yyyy"}}</span>
+                  <span style="margin-left: 5px;">{{marked.submitted | date:"dd MMMM',' yyyy"}}</span>
+                  <button mat-icon-button (click)="onContextMenu($event,marked)" aria-label="Example icon button with a vertical three dot icon">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>
           </div>
+        </div>
+        <div class="taskfofile" *ngIf="fileopened">
+          <div class="filecontainer" *ngFor="let file of files">
+            <div class="file-image">
+              <div class='image'>
+
+              </div>
+            </div>
+            <div class="file-semidetails">
+                  <span class="foldername">{{file.name}}</span>
+                  <span *ngIf="file.subfiles != null">
+                  <span>files</span>
+                  <span style="margin-left: 5px;">{{file.subfiles.length}}</span>
+                  <span style="margin-left: 5px;">in this folder</span>
+                </span>
+                </div>
+          </div>
+        </div>
           <context-menu>
             <ng-template contextMenuItem >
               <mat-icon>open_in_new</mat-icon>open

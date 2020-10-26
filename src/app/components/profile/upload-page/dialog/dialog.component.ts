@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Message, StudentTaskService } from 'app/Service/student-task.service';
+import { DialogData } from '../../activities/students/students.component';
 
 @Component({
   selector: 'app-dialog',
@@ -12,7 +13,8 @@ export class DialogComponent implements OnInit {
   newMessage: string;
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    public message:StudentTaskService
+    public message:StudentTaskService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
   taskreviewcontent=
   {
