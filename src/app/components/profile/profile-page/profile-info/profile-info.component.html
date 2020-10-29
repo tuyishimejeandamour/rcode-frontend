@@ -7,14 +7,31 @@
   </div>
   <div class="titleinheader"><span>challenges</span></div>
 </div>
+<div class="view-profile-over" [@openClose]="isviewOpen ? 'open' : 'closed'"></div>
 <div class="directory_show">
   <div class="profile_content_right">
-    <mat-card class="example-card" style="box-shadow: none;background: transparent;">
+    <mat-card class="example-card" style="box-shadow:none;background:transparent;">
 
       <div class="profileimage">
         <img src="../.././../../../assets/profile_picture/41594424503.png" alt="">
+        <div class="conent-info-profile">
+           <span class="username">tuyishime jeandamour</span>
+           <button mat-button  (click)="isviewOpen = !isviewOpen" >View profile</button>
+        </div>
       </div>
-      <div class="profile-namedetail"></div>
+      <div class="profile-namedetail">
+        <div class="profiledetails">
+
+        </div>
+        <div class="performcechart">
+          <highcharts-chart 
+          [Highcharts]="Highcharts"
+          [options]="chartOptions"
+          style="width: 100%; height: 200px; display: block;"
+        ></highcharts-chart>
+        </div>
+
+      </div>
     </mat-card>
     <mat-card class="example-card" style="box-shadow: none;background: transparent;">
       <mat-card class="example-card1">

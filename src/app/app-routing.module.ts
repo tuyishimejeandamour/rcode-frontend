@@ -6,7 +6,6 @@ import { RegisterRoutingModule } from './components/auth/register/register-routi
 import { ProfileRoutingModule } from './components/profile/profile-routing.module';
 import { ResetPasswordRoutingModule } from './components/auth/reset-password/reset-password-routing.module';
 import { NewPasswordRoutingModule } from './components/auth/new-password/new-password-routing.module';
-import { EditorRoutingModule } from './components/cateditor/editor-routing.module';
 import { MarktaskRoutingModule } from './components/marktask/marktask-routing.module';
 
 const routes: Routes = [
@@ -31,7 +30,6 @@ const routes: Routes = [
     ProfileRoutingModule,
     ResetPasswordRoutingModule,
     NewPasswordRoutingModule,
-    EditorRoutingModule,
     MarktaskRoutingModule
   ],
   exports: [RouterModule]

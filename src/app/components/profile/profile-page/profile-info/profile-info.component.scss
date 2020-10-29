@@ -44,6 +44,14 @@
     }
   }
 }
+.view-profile-over{
+  display: flex;
+  position:absolute;
+  width: 100%;
+  border-radius: 3px;
+  z-index: 200;
+  background-color: rgba(84, 27, 117, 0.336);
+}
 .directory_show{
   display:flex;
 .side_bar_left_with_img {
@@ -71,24 +79,66 @@
     display: flex;
     justify-content: space-between;
     margin:1%;
-    padding:8px;
+    padding:5px;
     .profileimage{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       width: 220px;
       height:200px;
       img{
-        border: 6px solid white;
-        width: calc(100% - 20px);
-        height: 100%;
+        border: 3px solid white;
+        width: calc(50%);
+        height: calc(50% + 20px);
         border-radius: 50%;
-        box-shadow: 1px 3px 10px #dde;
+        box-shadow: 0.5px 1.5px 5px #dde;
 
+      }
+      .conent-info-profile{
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        flex-direction: column;
+        flex:1;
+        width:100%;
+        .username{
+          text-align:center;
+          width:100%;
+          margin-top: 10px;
+          display:block;
+          font-size: 14px;
+          font-weight: 700;
+          color: rgb(148, 148, 151);
+        }
+        button{
+          width:110px;
+          margin-top: 20px;
+         background: rgb(84, 27, 117);
+         color:white;
+        }
       }
     }
    
     .profile-namedetail{
       flex: 1;
+      display:flex;
       height:200px;
-      background: rgb(59, 59, 187);
+      background: rgb(255, 255, 255);
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      padding:5px;
+      box-shadow: 0 0px 1px -2px rgba(0,0,0,.2), 0 0px 2px 0 rgba(0,0,0,.14), 0 -1px 5px 0 rgba(0,0,0,.12);
+      .profiledetails{
+       width:50%;
+       height: 200px;
+     
+      }
+      .performcechart{
+        width:50%;
+        height:200px;
+      
+      }
 
     }
     .example-card1{

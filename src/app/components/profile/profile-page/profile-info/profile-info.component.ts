@@ -1,13 +1,31 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
 import { Chat, ChatService } from 'app/Service/chat.service';
+import * as Highcharts from 'highcharts';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
   styleUrls: ['./profile-info.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        display: 'block',
+        height: 'calc(100% - 40px)',
+      })),
+      state('closed', style({
+        display: 'none',
+      })),
+      transition('open <=> closed', [
+        animate('1000ms ease-in')
+      ]),
+
+    ]),
+  ],
+  
 
 })
 export class ProfileInfoComponent implements OnInit {
@@ -26,6 +44,7 @@ export class ProfileInfoComponent implements OnInit {
     }    
   }
   isOpen = false;
+  isviewOpen=false;
   public mails: Array<Mail>;
   public mail: Mail;
   public showSearch = false;
@@ -130,4 +149,67 @@ export class ProfileInfoComponent implements OnInit {
       }
     });
   }
+
+  /**
+    * charts
+    */
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {
+    chart: {
+      type: 'areaspline'
+    },
+    title: {
+      text: 'Performance'
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'left',
+      verticalAlign: 'top',
+      x: 150,
+      y: 100,
+      floating: true,
+      borderWidth: 1,
+      backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
+    },
+    xAxis: {
+      categories: [
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thur',
+        'Fri',
+        'Sat',
+        'Sun'
+      ],
+      plotBands: [{ // visualize the weekend
+        from: 4.5,
+        to: 6.5,
+        color: 'rgba(68, 170, 213, .2)'
+      }]
+    },
+    yAxis: {
+      title: {
+        text: 'marks%'
+      }
+    },
+    tooltip: {
+      shared: true,
+      valueSuffix: ' units'
+    },
+    credits: {
+      enabled: false
+    },
+    plotOptions: {
+      areaspline: {
+        fillOpacity: 0.5
+      }
+    },
+    series: [{
+      name: 'John',
+      type: 'areaspline',
+      data: [3, 4, 3, 5, 4, 10, 12]
+    }]
+  };
 }
+

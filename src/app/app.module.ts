@@ -32,7 +32,6 @@ import { NewPasswordModule } from './components/auth/new-password/new-password.m
 import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CommonfunctionService } from './Service/commonfunction.service';
-import { EditorModule } from './components/cateditor/editor.module';
 import { MarktaskModule } from './components/marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
 import { QuickhelpService } from './Service/quickhelp.service';
@@ -64,7 +63,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NewPasswordModule,
     MaterialModule,
     BrowserAnimationsModule,
-    EditorModule,
+    
     MarktaskModule,
     
     TranslateModule.forRoot({

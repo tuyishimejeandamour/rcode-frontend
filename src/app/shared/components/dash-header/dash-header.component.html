@@ -1,15 +1,12 @@
 <div class="header_nav">
   <div class="titlebardrag"></div>
-  <div class="logo_img">
-    <a href="../welcome"><img class="logo" src="../../../assets/others/logo.png" alt=""></a>
-    <span class="logoname">Rcode</span>
+  <div class="logo_img" (click)="gohome('/home')">
+    <a (click)="gohome('/home')"><img class="logo" src="../../../assets/others/logo.png" alt=""></a>
+    <span class="logoname" (click)="gohome('/home')">Rcode</span>
   </div>
   <div class="dive_into_location">
     <a nohref (click)="gohome('/profile')" class="dashboard">
       <mat-icon>dashboard</mat-icon><span>Dashboard</span>
-    </a>
-    <a nohref (click)="gohome('/editor')" class="editor">
-      <mat-icon>code</mat-icon><span>Editor</span>
     </a>
     <a nohref (click)="gohome('/marktask')" class="mark">
       <mat-icon>check</mat-icon> <span>Mark</span>
@@ -63,7 +60,7 @@
 
       </a>
       <mat-divider></mat-divider>
-      <a nohref mat-menu-item >
+      <a href='/home' mat-menu-item (click)="gohome('/home')" >
        <mat-icon>live_help</mat-icon>
         Help</a>
       <a nohref mat-menu-item >

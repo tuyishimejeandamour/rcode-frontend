@@ -14,17 +14,19 @@ import { DialogAssignComponent } from './assignments/dialog/dialog.component';
 import { AngularSplitModule } from 'angular-split';
 import { CdialogComponent } from './challenges/cdialog/cdialog.component';
 import { QuillModule } from 'ngx-quill';
-
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
-  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent, CdialogComponent],
+  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent, CdialogComponent ],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
+    
     MaterialModule,
     MonacoEditorModule,
     FormsModule,
     AngularSplitModule,
+    HighchartsChartModule,
     QuillModule.forRoot()
   ],
   entryComponents: [DialogComponent,DialogAssignComponent,CdialogComponent]
