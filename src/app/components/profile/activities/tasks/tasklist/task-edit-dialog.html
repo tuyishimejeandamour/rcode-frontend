@@ -12,7 +12,7 @@
   <br>
   <mat-form-field appearance="fill">
     <mat-label>update class</mat-label>
-    <mat-select name="classname" [(ngModel)]="data.classname" required>
+    <mat-select name="classname" [(ngModel)]="data.class" required>
       <mat-option value="option">Option</mat-option>
       <mat-option value="option1">Option1</mat-option>
       <mat-option value="option2">Option2</mat-option>
@@ -30,16 +30,16 @@
   <mat-form-field appearance="fill">
     <mat-label>enter starting time</mat-label>
     <input matInput [owlDateTimeTrigger]="dt14" [owlDateTime]="dt14"
-    [(ngModel)]="data.starting_date"
-    name="starting_date"
+    [(ngModel)]="data.givenat"
+    name="givenat"
    >
     <owl-date-time #dt14></owl-date-time>
   </mat-form-field><br>
   <mat-form-field appearance="fill">
     <mat-label>enter submittion deadline</mat-label>
     <input matInput [owlDateTimeTrigger]="dt15" [owlDateTime]="dt15"
-    [(ngModel)]="data.ending_date"
-    name="ending_date"
+    [(ngModel)]="data.endat"
+    name="endat"
     >
 <owl-date-time #dt15></owl-date-time>
   </mat-form-field>

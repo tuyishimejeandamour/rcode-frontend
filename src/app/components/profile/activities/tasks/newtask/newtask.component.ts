@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JerwisService } from 'app/core/services';
+import { HttpactivitiesService, JerwisService } from 'app/core/services';
 import { DatePipe } from '@angular/common';
 import { CommonfunctionService } from 'app/Service/commonfunction.service';
 
@@ -12,14 +12,14 @@ export class NewtaskComponent implements OnInit {
   filename = "upload file";
   iconname = "cloud_upload";
   public Form ={
-    instructor_id: null,
+    user_id: null,
     taskname:null,
-    classname:null,
+    class:null,
     lesson:null,
-    short_desc:null,
-    long_desc:null,
-    starting_date:null,
-    ending_date:null,
+    short:null,
+    long:null,
+    givenat:null,
+    endat:null,
   }
   public showTextEditor = false;
   firstcontent={
@@ -28,7 +28,8 @@ export class NewtaskComponent implements OnInit {
 
   }
   constructor(
-    private jerwis: JerwisService,
+    private jerwis: HttpactivitiesService,
+    private user:JerwisService,
     public datepipe: DatePipe,
     private eventemitterService: CommonfunctionService
   ) { }
@@ -60,9 +61,9 @@ export class NewtaskComponent implements OnInit {
     this.eventemitterService.onsubmittask();
   }
   onsubmit(): void{
-    this.Form.instructor_id = "1";
-    this.Form.starting_date = this.datepipe.transform(this.Form.starting_date, 'yyyy-MM-dd hh:mm:ss')
-    this.Form.ending_date = this.datepipe.transform(this.Form.starting_date, 'yyyy-MM-dd hh:mm:ss')
+    this.Form.user_id = this.user.getUser().id;
+    this.Form.givenat = this.datepipe.transform(this.Form.givenat, 'yyyy-MM-dd hh:mm:ss')
+    this.Form.endat = this.datepipe.transform(this.Form.endat, 'yyyy-MM-dd hh:mm:ss')
 
     this.jerwis.settaskactivity(this.Form).subscribe(
       ()=>this.gettaskFunction(),

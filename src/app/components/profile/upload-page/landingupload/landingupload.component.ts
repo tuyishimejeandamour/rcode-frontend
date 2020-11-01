@@ -65,8 +65,8 @@ export class LandinguploadComponent implements OnInit {
   }
 
   gettaskinweek():void{
-   
-    this.gettask.gettasksinthisweek(this.user.user_id).subscribe(
+
+    this.gettask.gettasksinthisweek(this.user.id).subscribe(
       data=>this.HandleResponse(data,this.taskInThisWeek),
       error=> this.HandlError(error)
     )
@@ -88,7 +88,7 @@ export class LandinguploadComponent implements OnInit {
     ]
   }
   getaskinotherweek():void{
-    this.gettask.gettasksinotherweek(this.user.user_id).subscribe(
+    this.gettask.gettasksinotherweek(this.user.id).subscribe(
       data=>this.HandleResponse(data,this.taskInotherweek),
       error=> this.HandlError(error)
     );

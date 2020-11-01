@@ -7,16 +7,9 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class JerwisService {
-  private baseurl="http://127.0.0.1:8000/api";
-  private userdetails : User;
-  private defaultuser: User={
-    user_id: 1,
-    username: 'jaylove',
-    firstname: 'tuyishime',
-    lastname: 'jeandamour',
-    profile_image: '../../../../assets/profile_picture/11594486894.png',
-    email: 'tuyishimejeand88@gmail.com'
-  }
+  private baseurl="http://192.168.0.30:8000/api";
+  private userdetails:User= null;
+
   constructor(
     private http: HttpClient,
     private token: TokenService
@@ -37,20 +30,7 @@ export class JerwisService {
   newpasswordIn(data){
     return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
   }
-  settaskactivity(data){
-    return this.http.post(`${this.baseurl}/task`,data);
-  }
-  getask(data: number){
-    return this.http.get(`${this.baseurl}/tasks/${data}`);
-  }
-  getuserDetails(){
-    return this.http.post(`${this.baseurl}/me`,{
-      headers:{Authorization:`bearer ${this.token.get()}`}
-    }).subscribe(
-      (data)=> this.responsehandler(data),
-      error=> this.errorhandler(error)
-    );
-  }
+
   responsehandler(data): void{
     this.setuser(data);
   }
@@ -64,13 +44,19 @@ export class JerwisService {
     return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
   }
   setuser(value: User) : void{
-    this.userdetails = value;
+    this.setUser(value);
+    this.userdetails = this.get();
   }
-  getUser(): User{
+  getUser():User{
+    this.userdetails = this.get();
     return this.userdetails;
   }
-  initfuntion(): void{
-    this.setuser(this.defaultuser);
+  setUser(user:User) {
+    sessionStorage.setItem('currentuser', JSON.stringify(user));
+  }
+  get():any {
+    const userj = sessionStorage.getItem('currentuser');
+    return JSON.parse(userj);
   }
 }
 
@@ -80,10 +66,12 @@ export interface ContentShow{
   long_desc: string
 }
 export interface User{
-  user_id: number,
-  username: string,
+  created_at: Date,
+  email: string,
+  email_verified_at: any,
   firstname: string,
+  id: number,
   lastname: string,
-  profile_image: string,
-  email: string
+  updated_at: Date,
+  username: string
 }

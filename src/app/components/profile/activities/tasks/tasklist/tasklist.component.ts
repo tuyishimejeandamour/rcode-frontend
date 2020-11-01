@@ -3,9 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { CommonfunctionService } from 'app/Service/commonfunction.service';
-import { JerwisService, ContentShow } from 'app/core/services';
+import { JerwisService, ContentShow, HttpactivitiesService } from 'app/core/services';
 import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Console } from 'console';
 
 
 @Component({
@@ -26,8 +28,10 @@ export class TasklistComponent implements OnInit {
   constructor(
     private eventEmitterService: CommonfunctionService,
     private jerwis:JerwisService,
+    private activity:HttpactivitiesService,
     private contextMenuService: ContextMenuService,
-    private dialog:  MatDialog
+    private dialog:  MatDialog,
+    private route:Router
 
   ){
 
@@ -45,10 +49,10 @@ export class TasklistComponent implements OnInit {
     if(this.eventEmitterService.subsVar2 ==undefined){
       this.eventEmitterService.subsVar2 = this.eventEmitterService.
         invokegettaskfunction.subscribe(() => {
-          this.getalltsk();
+          this.getalltsk(this.jerwis.getUser().id);
         });
     }
-    this.getalltsk();
+    this.getalltsk(this.jerwis.getUser().id);
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -56,18 +60,20 @@ export class TasklistComponent implements OnInit {
   doFilter (value: string): void{
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-  getalltsk():void{
-    this.jerwis.getask(1).subscribe(
+  getalltsk(id:number):void{
+    this.activity.getask(id).subscribe(
       (data)=> this.responsehandler(data),
       error=> this.errorhandler(error)
     )
+  }
+  marktask(id:number):void{
+    this.route.navigateByUrl(`marktask/${id}`)
   }
   changeappeareanceofeditor(value: boolean): void{
     this.showtaskcontent = value;
   }
   responsehandler(data): void{
     this.dataSource.data = data as TasksDetails[];
-    console.log(data)
   }
   errorhandler(error): void{
     console.log(error)
@@ -96,7 +102,9 @@ export class TasklistComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  openDialog(obj): void {
+  openDialog(obj:TasksDetails): void {
+    obj.givenat = new Date(obj.givenat);
+    obj.endat = new Date(obj.endat);
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '450px',
       hasBackdrop: false,
@@ -108,21 +116,22 @@ export class TasklistComponent implements OnInit {
 
     });
   }
-  updateRowData(obj):void{
-    this.jerwis.updatetask(obj,obj.id).subscribe(
+  updateRowData(obj:TasksDetails):void{
+    this.jerwis.updatetask(obj,obj.task_id).subscribe(
       (data)=> {console.log(data)},
       (error)=>this.errorhandler(error)
     )
   }
+
 }
 
 export interface TasksDetails {
-  id: number;
+  task_id: number;
   taskname: string;
   lesson:string;
-  classname: string;
-  starting_date: string;
-  ending_date: string;
+  class: string;
+  givenat: Date;
+  endat: Date;
 }
 export interface ContentDetails {
   taskname: string;
@@ -130,14 +139,7 @@ export interface ContentDetails {
   starting_date: string;
   ending_date: string;
 }
-export interface DialogData {
-  id: number;
-  taskname: string;
-  lesson:string;
-  classname: string;
-  starting_date: string;
-  ending_date: string;
-}
+
 @Component({
   selector: 'task-edit-dialog',
   templateUrl: 'task-edit-dialog.html',
@@ -146,7 +148,7 @@ export class DialogOverviewExampleDialog {
   local_data:any;
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    @Inject(MAT_DIALOG_DATA) public data:TasksDetails) {
     this.local_data = {...data};
   }
 

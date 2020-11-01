@@ -5,6 +5,8 @@ import { ActivitiesComponent } from './activities.component';
 import { StudentsComponent, DialogOverviewExampleDialog } from './students/students.component';
 import { MaterialModule } from 'app/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
     ActivitiesRoutingModule,
     FormsModule,
     MaterialModule,
+    NgSelectModule
 
   ],
   entryComponents: [StudentsComponent, DialogOverviewExampleDialog],

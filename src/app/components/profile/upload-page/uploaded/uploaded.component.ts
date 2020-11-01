@@ -39,7 +39,7 @@ export class UploadedComponent implements OnInit {
   markedtask:SubmittedTask[]=[];
   ngOnInit(): void {
     this.User = this.jerwis.getUser();
-    this.gettasks(this.User.user_id)
+    this.gettasks(this.User.id)
   }
   isOpen = false;
 

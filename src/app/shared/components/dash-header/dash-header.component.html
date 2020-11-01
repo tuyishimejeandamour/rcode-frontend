@@ -8,7 +8,7 @@
     <a nohref (click)="gohome('/profile')" class="dashboard">
       <mat-icon>dashboard</mat-icon><span>Dashboard</span>
     </a>
-    <a nohref (click)="gohome('/marktask')" class="mark">
+    <a nohref (click)="gohome('/marktask/100#good')" class="mark">
       <mat-icon>check</mat-icon> <span>Mark</span>
     </a>
   </div>
@@ -21,19 +21,19 @@
           src="../../../assets/profile_picture/11594486894.png" alt="">
 
       </li>
-      
+
       <li [hidden]="isinbrowser"  (click)="minimizewindow()"><img src="../../../assets/others/minimize.png" alt=""></li>
       <li [hidden]="isinbrowser"  (click)="maximizewindow()" id="maximize"><img src="../../../assets/others/maximize_button.png" alt=""></li>
       <li [hidden]="isinbrowser"  (click)="restorewindow()" id="restore"><img src="../../../assets/others/restore_down.png" alt=""></li>
       <li [hidden]="isinbrowser"  (click)="closewindow()"><img src="../../../assets/others/close.png" alt=""></li>
-     
+
     </ul>
     <mat-menu #menu="matMenu" [overlapTrigger]="false">
      <div >
       <div class="user_menu_image">
         <div class="header_show_main">
           <div class="image_container">
-            <img id="dropdown_iimage" [src]="data.profile_image" alt="">
+            <img id="dropdown_iimage" src="../../../assets/profile_picture/11594486894.png" alt="">
           </div>
           <span>{{data.email}}</span>
         </div>
@@ -47,7 +47,7 @@
         <i class="fa fa-plus" style="font-size: 16px;margin-right:10px"></i>
         set your status</a>
         <mat-menu #fish="matMenu">
-          <button mat-menu-item>{{data.user_id}}</button>
+          <button mat-menu-item>{{data.id}}</button>
           <button mat-menu-item>{{data.firstname}}</button>
           <button mat-menu-item>{{data.lastname}}</button>
           <button mat-menu-item>{{data.email}}</button>
@@ -64,10 +64,10 @@
        <mat-icon>live_help</mat-icon>
         Help</a>
       <a nohref mat-menu-item >
- <mat-icon>contact_mail</mat-icon>     
+ <mat-icon>contact_mail</mat-icon>
    about</a>
    <mat-divider></mat-divider>
-    
+
       <a noref mat-menu-item >
         <mat-icon>exit_to_app</mat-icon>
         Log out</a>

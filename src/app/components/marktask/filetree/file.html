@@ -5,167 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-.monaco-list-row {
-    cursor: pointer;
-    touch-action: none;
-}
- .monaco-list-row {
-    padding-left: 4px;
-}
-.monaco-list-row {
-    position: absolute;
-    box-sizing: border-box;
-    overflow: hidden;
+  .termianal{
+    width:100%;
+    height: 500px;
+    background-color: black;
+  }
+  .header{
+    width:100%;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(51, 54, 54);
+  }
+  .switchcontainer{
+    line-height: 27px;
+    height: 35px;
+  }
+  .actions-container {
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
     width: 100%;
+    justify-content: flex-end;
 }
-.monaco-tl-row {
+.action-item {
+    text-transform: uppercase;
+    padding: 4px 10px 3px;
+    font-size: 11px;
     display: flex;
-    height: 100%;
-    align-items: center;
-    position: relative;
-}
-.monaco-tl-indent {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 16px;
-    pointer-events: none;
-}
-.indent-guide {
-    display: inline-block;
-    box-sizing: border-box;
-    height: 100%;
-    border-left: 1px solid transparent;
-    transition: border-color .1s linear;
-}
-.codicon[class*=codicon-] {
-    font-size: 16px;
-}
-.codicon {
-    color: #c5c5c5;
-}
-.codicon[class*=codicon-] {
-    font: normal normal normal 16px/1 codicon;
-    display: inline-block;
-    text-decoration: none;
-    text-rendering: auto;
-    text-align: center;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
-.monaco-tl-twistie {
-    font-size: 10px;
-    text-align: right;
-    padding-right: 6px;
-    flex-shrink: 0;
-    width: 16px;
-    display: flex!important;
-    align-items: center;
-    justify-content: center;
-    color: inherit!important;
-    transform: translateX(3px);
-}
-.codicon-tree-item-expanded:before {
-    content: '\eab4';
-}
-.monaco-tl-contents, .monaco-tl-twistie {
-    height: 100%;
-}
-.monaco-tl-contents {
-    flex: 1;
-    overflow: hidden;
-}
-.explorer-item{
-    flex: 1;
-}
-.explorer-item {
-    display: flex;
-    flex-wrap: nowrap;
-}
-.explorer-item {
-    height: 22px;
-    line-height: 22px;
-}
-.monaco-decoration-itemColor-b2t86r {
-    color: rgb(248, 128, 112);
-}
-.monaco-icon-label {
-    display: flex;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.monaco-tl-contents, .monaco-tl-twistie {
-    height: 100%;
-}
- .monaco-tl-twistie.collapsible:not(.collapsed) + .monaco-tl-contents .components-name-folder-icon.folder-icon::before, .show-file-icons .monaco-tl-twistie.collapsible:not(.collapsed) + .monaco-tl-contents .widget-name-folder-icon.folder-icon::before, .show-file-icons .monaco-tl-twistie.collapsible:not(.collapsed) + .monaco-tl-contents .widgets-name-folder-icon.folder-icon::before {
-    content: ' ';
-    background-image: url(file:///home/tuyishimejaylove/.vscode/extensions/pkief.material-icon-theme-4.3.0/icons/folder-components-open.svg);
-}
-.monaco-icon-label>.monaco-icon-label-container {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex: 1;
-}
-.monaco-decoration-bubbleBadge-3x6jkt::after {
-    content: "";
-    color: rgb(226, 192, 141);
-    font-family: codicon;
-    font-size: 14px;
-    padding-right: 14px;
-    opacity: 0.4;
-}
-.monaco-icon-label:after {
-    opacity: .75;
-    font-size: 90%;
-    font-weight: 600;
-    padding: 0 16px 0 5px;
-    text-align: center;
-}
-.monaco-icon-label:before {
-    background-size: 16px;
-    background-position: 0;
-    background-repeat: no-repeat;
-    padding-right: 6px;
-    width: 16px;
-    height: 22px;
-    line-height: inherit!important;
-    display: inline-block;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    vertical-align: top;
-    flex-shrink: 0;
+    padding-left: 12px;
 }
     </style>
 </head>
 <body>
-    <div class="monaco-list-rows"
-    style="transform: translate3d(0px, 0px, 0px);">
-
-    <div class="monaco-list-row" role="treeitem" data-index="5" data-last-element="false" aria-setsize="12"
-  aria-posinset="1" id="list_id_1_5" aria-selected="false" aria-label="components" aria-level="3" draggable="true"
-  style="top: 110px; height: 22px; line-height: 22px;" aria-expanded="true">
-  <div class="monaco-tl-row">
-    <div class="monaco-tl-indent" style="width: 16px;">
-      <div class="indent-guide" style="width: 8px"></div>
-      <div class="indent-guide" style="width: 8px"></div>
-    </div>
-    <div class="monaco-tl-twistie codicon codicon-tree-item-expanded collapsible" style="padding-left: 24px;"></div>
-    <div class="monaco-tl-contents">
-      <div
-        class="monaco-icon-label folder-icon components-name-folder-icon explorer-item monaco-decoration-itemColor--83mhpv monaco-decoration-bubbleBadge--83mhpv"
-        title="~/Desktop/homeworks/Rcode/src/app/components • Contains emphasized items" style="display: flex;">
-        <div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a class="label-name"><span
-                class="monaco-highlighted-label"
-                title="~/Desktop/homeworks/Rcode/src/app/components • Contains emphasized items"><span>components</span></span></a></span><span
-            class="monaco-icon-description-container"></span></div>
+    <div class="termianal">
+      <div class="header">
+       <div class="switchcontainer">
+        <ul class="actions-container" role="toolbar" aria-label="Active View Switcher">
+          <li class="action-item" role="tab" draggable="true" tabindex="0" ><a class="action-label output"  style="color: rgba(231, 231, 231, 0.6);">terminal</a>
+          </li>
+          <li class="action-item" role="tab" draggable="true" tabindex="0" ><a class="action-label output"  style="color: rgba(231, 231, 231, 0.6);">debug</a>
+          </li>
+          <li class="action-item" role="tab" draggable="true" tabindex="0" ><a class="action-label output"  style="color: rgba(231, 231, 231, 0.6);">mark</a>
+          </li>
+        </ul>
+       </div>
+       <div class="panelaction"></div>
       </div>
+      <div class="content"></div>
     </div>
-  </div>
-</div>
-</div>
+
 </body>
 </html>

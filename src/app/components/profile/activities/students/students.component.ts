@@ -4,10 +4,12 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HttpactivitiesService, JerwisService, User } from 'app/core/services';
+
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  email: string;
+  class: string;
 }
 @Component({
   selector: 'app-students',
@@ -36,7 +38,7 @@ export interface DialogData {
 export class StudentsComponent implements OnInit {
   hidden = false;
   isOpen = false;
-  
+
   toggle(): void {
     this.isOpen = !this.isOpen;
   }
@@ -46,7 +48,7 @@ export class StudentsComponent implements OnInit {
   expandedElement: string;
   displayedColumns: string[] = ['Number', 'names', 'username', 'class'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @HostListener('window:resize')
@@ -62,21 +64,35 @@ export class StudentsComponent implements OnInit {
   doFilter (value: string): void{
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-  animal: string;
-  name="wowe";
+  registerstudent(data:any):void{
+    if ( data.student_id && data.classname) {
+      this.Httpact.setStudent(data).subscribe(
+        (data)=>console.log(data),
+        error=>console.log(error)
+      )
+    }
 
-  constructor(public dialog: MatDialog) {}
-
+  }
+  getStudent(id:number):void{
+    this.Httpact.getStudent(id).subscribe(
+      (data)=>console.log(data),
+      error=>console.log(error)
+    )
+  }
+  constructor(
+    public dialog: MatDialog,
+    public Httpact:HttpactivitiesService
+  ) {}
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '450px',
       hasBackdrop: false,
-      data: {name: this.name, animal: this.animal}
+      panelClass:'newstudent'
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      this.registerstudent(result)
     });
   }
 
@@ -148,7 +164,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         lesson: 'C',
       }
     ]
-  }, 
+  },
   {
     names: 'tuyishime jeandamour',
     username: 'jaylove',
@@ -200,7 +216,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         lesson: 'C',
       }
     ]
-  }, 
+  },
 ];
 @Component({
   selector: 'dialog-overview-example-dialog',
@@ -208,8 +224,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DialogOverviewExampleDialog {
 
+  public stud =
+  {
+    teacher_id: this.User.getUser().id,
+    student_id:null,
+    classname:null,
+
+  }
+  cities2 = [
+    {id: 1, name: 'Vilnius'},
+    {id: 2, name: 'Kaunas'},
+    {id: 3, name: 'Pavilnys'}
+  ];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    private User:JerwisService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {

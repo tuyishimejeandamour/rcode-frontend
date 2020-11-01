@@ -1,8 +1,11 @@
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { HttpactivitiesService, HttpmarksService, JerwisService, User } from 'app/core/services';
+import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
 
 
 @Component({
@@ -13,6 +16,7 @@ import { filter, take } from 'rxjs/operators';
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
   reserved:TreeData[];
+  students:User[];
   // @HostListener('window:beforeunload',['$event'])
   // public onWindowBeforeunload(event):void {
   //   event.preventDefault();
@@ -23,9 +27,27 @@ export class MarktaskComponent implements OnInit {
   leftSidebarSelected = "";
   leftSidebarSelect = "";
   fileCounter = 1;
+  heroId:string;
+  task:TasksDetails;
+  public marks={
+    higscore:null,
+    score:null
+  }
+  public markform={
+    teacher_id:this.user.getUser().id,
+    student_id:null,
+    marks:this.combinemarks(this.marks.score,this.marks.score)
+  }
+
   constructor( treedata:FiletreeService,
-               private monacoLoaderService: MonacoEditorLoaderService) {
-  
+               private monacoLoaderService: MonacoEditorLoaderService,
+               private route: ActivatedRoute,
+               private user: JerwisService,
+               private http:HttpactivitiesService,
+               private httpmark:HttpmarksService
+
+  ) {
+
     this.treeData = treedata.getTreeData1();
     this.reserved = this.treeData;
   }
@@ -35,7 +57,7 @@ export class MarktaskComponent implements OnInit {
   split: SplitComponent;
   area1: SplitAreaDirective;
   area2: SplitAreaDirective;
-  
+
   direction = 'horizontal';
   play=false;
   terminal=false;
@@ -48,20 +70,27 @@ export class MarktaskComponent implements OnInit {
       area1: 50,
       area2: 50,
     }
-  } 
-  dragEnd({sizes}):void {
-    
-    this.sizes.percent.area1 = sizes[0];
-    this.sizes.percent.area2 = sizes[1];    
   }
-  drag2End({sizes}):void {    
+  dragEnd({sizes}):void {
+
+    this.sizes.percent.area1 = sizes[0];
+    this.sizes.percent.area2 = sizes[1];
+  }
+  drag2End({sizes}):void {
     this.sizes.percent2.area1 = sizes[0];
-    this.sizes.percent2.area2 = sizes[1];    
+    this.sizes.percent2.area2 = sizes[1];
   }
 
 
 
   ngOnInit(): void {
+    document.getElementById('defaultopen').click();
+
+    this.heroId = this.route.snapshot.paramMap.get('id');
+
+    this.gettasktomark(<number><unknown>this.heroId);
+
+    this.getstudents(this.user.getUser().id)
   }
 
   /**
@@ -142,7 +171,7 @@ export class MarktaskComponent implements OnInit {
    */
   filearrays:TreeData[]=[];
   activeindex:number;
-  
+
   setcode(data:TreeData):boolean{
     const num=this.filearrays.indexOf(data,1)
     if(num <0){
@@ -152,7 +181,7 @@ export class MarktaskComponent implements OnInit {
       return false
     }
   }
-    
+
   addFile(data:TreeData):void{
     if(this.setcode(data)){
       this.activeindex=this.filearrays.indexOf(data,1);
@@ -167,7 +196,7 @@ export class MarktaskComponent implements OnInit {
       take(1),
     ).subscribe(() => {
       monaco.editor.setModelLanguage(monaco.editor.getModels()[index-1],data.language);
-            
+
     });
   }
   closetab(index:number):void{
@@ -183,5 +212,40 @@ export class MarktaskComponent implements OnInit {
       this.activeindex -=1;
     }
   }
+  openCity(evt, cityName:string):void {
+    let i:number;
+    const tabcontent = Array.from(document.getElementsByClassName("tabcontentM") as  HTMLCollectionOf<HTMLElement>);
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    const tablinks =  Array.from(document.getElementsByClassName("action-label") as  HTMLCollectionOf<HTMLElement>)
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove('active');
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+    console.log(evt)
+  }
 
+  gettasktomark(id:number):void{
+    this.http.getsingletask(id).subscribe(
+      (data)=>this.task=data,
+      error=>console.log(error)
+    )
+  }
+  combinemarks(va1:number,va2:number):string{
+    return `${va1}/${va2}`;
+  }
+  markstudent():void{
+    this.httpmark.givemarks(this.markform).subscribe(
+      ()=>console.log('ok'),
+      error=>console.log(error)
+    )
+  }
+  getstudents(id:number):void{
+    this.httpmark.getyourstudents(id).subscribe(
+      (data)=>this.students = data,
+      error=>console.log(error)
+    )
+  }
 }

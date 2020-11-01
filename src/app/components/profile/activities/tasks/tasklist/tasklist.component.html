@@ -16,17 +16,17 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="classname">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Classname </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.classname}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.class}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="starting_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header> starting_date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.starting_date }} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.givenat | date:"dd/MM/yyyy','HH:mm"}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="submittion_deadline">
       <mat-header-cell *matHeaderCellDef mat-sort-header> submittion_deadline </mat-header-cell>
-      <mat-cell ng-co="onContextMenu($event, element)" *matCellDef="let element"> {{element.ending_date }} </mat-cell>
+      <mat-cell ng-co="onContextMenu($event, element)" *matCellDef="let element"> {{element.endat | date:"dd/MM/yyyy','HH:mm" }} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
@@ -46,14 +46,14 @@
     <ng-template contextMenuItem (execute)="openDialog($event.item)">
       edit
     </ng-template>
-    <ng-template contextMenuItem (execute)="getcontent($event.item.id)">
+    <ng-template contextMenuItem (execute)="marktask($event.item.task_id)">
       mark test
     </ng-template>
-    <ng-template contextMenuItem (execute)="getcontent($event.item.id)">
+    <ng-template contextMenuItem (execute)="getcontent($event.item.task_id)">
       show to student
     </ng-template>
     <ng-template contextMenuItem let-item
-      (execute)="showMessage($event.item.name + ' said: ' + $event.item.otherProperty)">
+      (execute)="showMessage($event.item.task_id + ' said: ' + $event.item.otherProperty)">
       show content
     </ng-template>
   </context-menu>

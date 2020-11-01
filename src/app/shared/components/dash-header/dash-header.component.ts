@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { JerwisService, User } from 'app/core/services';
 
 
+
 @Component({
   selector: 'app-dash-header',
   templateUrl: './dash-header.component.html',
@@ -12,7 +13,7 @@ import { JerwisService, User } from 'app/core/services';
 })
 export class DashHeaderComponent implements OnInit {
 
-  public data: User;
+  public data: User= null;
   public isinbrowser= false;
   constructor(
     private electron: ElectronService,
@@ -20,11 +21,10 @@ export class DashHeaderComponent implements OnInit {
     private jewris: JerwisService
   ) {
 
-    
+
   }
 
   ngOnInit(): void {
-    this.jewris.initfuntion();
     this.data = this.jewris.getUser();
     if(!this.electron.isElectron){
       this.isinbrowser = true;

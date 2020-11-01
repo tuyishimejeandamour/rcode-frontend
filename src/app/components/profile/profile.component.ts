@@ -7,7 +7,7 @@ import {
   NavigationStart,
   Router
 } from '@angular/router';
-import { ElectronService } from 'app/core/services';
+import { ElectronService,JerwisService  } from 'app/core/services';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
   public autoLogoutTimer = 0;
   constructor(
     private router: Router,
-    private electron: ElectronService
+    private electron: ElectronService,
+    private jewris:JerwisService
   ) {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
@@ -45,13 +46,11 @@ export class ProfileComponent implements OnInit {
       document.getElementById('nav_around').style.height='30px';
       document.getElementById('float-17').style.top='0px';
       document.getElementById('content').style.height="calc(100% - 95px)";
-      
-
     }
   }
   get(a:string):HTMLElement{
     return document.getElementById(a)
   }
-  
-   
+
+
 }

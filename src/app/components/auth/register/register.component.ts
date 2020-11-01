@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, OnInit } from '@angular/core';
-import { 
+import {
   JerwisService,
   TokenService } from 'app/core/services';
 import { Router } from '@angular/router';
@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   public Form = {
-    first_name:null,
-    last_name:null,
+    firstname:null,
+    lastname:null,
     username : null,
     email:null,
     password:null,

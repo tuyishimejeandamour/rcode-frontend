@@ -8,14 +8,17 @@
 </style>
 <h1 mat-dialog-title>Add student to your classes</h1>
 <div mat-dialog-content style="text-align: center;">
-  <mat-form-field appearance="fill">
-    <mat-label>Enter student email</mat-label>
-    <input matInput type="email" name="taskname" [(ngModel)]="data.name" required>
-  </mat-form-field>
+  <ng-select [items]="cities2"
+  bindLabel="name"
+  bindValue="id"
+  [multiple]="true"
+  placeholder="Select cities"
+  [(ngModel)]="stud.student_id">
+</ng-select>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>select class</mat-label>
-    <mat-select name="classname" [(ngModel)]="data.animal" required>
+    <mat-select name="classname" [(ngModel)]="stud.classname" required>
       <mat-option value="option">Option</mat-option>
       <mat-option value="option1">Option1</mat-option>
       <mat-option value="option2">Option2</mat-option>
@@ -24,5 +27,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
-  <button mat-button  cdkFocusInitial color="primary"><mat-icon>person</mat-icon> save</button>
+  <button mat-button  cdkFocusInitial color="primary" [mat-dialog-close]="stud"><mat-icon>person</mat-icon> save</button>
 </div>

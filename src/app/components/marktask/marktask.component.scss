@@ -1,7 +1,7 @@
 
 .split-example-page {
     display: block;
-    width: 100%;  
+    width: 100%;
 }
 
 .split-example {
@@ -9,7 +9,7 @@
     width:100%;
     height: calc(100% - 62.5px);
     background:rgb(30,30,30);
-    
+
 }
 
 .btns {
@@ -167,7 +167,7 @@
     position: relative;
     height: 28px;
     overflow: hidden;
-    
+
     text-align: left;
     text-decoration: none;
     display: inline-block;
@@ -175,7 +175,7 @@
     font-weight: bold;
     outline:none;
   }
-  
+
 
 #file-manager-title {
 width: 220px;
@@ -209,27 +209,27 @@ form {
   background-color: #FAFCFD;
   border: 3px solid transparent;
   transition: .3s ease-in-out;
-  
+
   &::-webkit-input-placeholder {
     color: #333;
   }
-  
+
   &:hover {
     background-color: #FF908B;
     cursor: pointer;
-    
+
     &::-webkit-input-placeholder {
       color: #333;
     }
   }
-  
+
   &:focus,
   &.open {
     box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.2);
     outline: 0;
     background-color: #FF908B;
     color: #000;
-    
+
     &::-webkit-input-placeholder {
       color: #000;
     }
@@ -243,12 +243,12 @@ form {
   overflow: hidden;
   max-height: 0;
   transition: .3s ease-in-out;
-  
+
   &.open {
    max-height: 320px;
    overflow: auto;
   }
-  
+
   li {
     position: relative;
     height: 4rem;
@@ -260,11 +260,11 @@ form {
     cursor: pointer;
     transition: background-color .3s;
     opacity: 1;
-    
+
     &:hover {
       background-color: #FF908B;
     }
-    
+
     &.closed {
       max-height: 0;
       overflow: hidden;
@@ -311,7 +311,7 @@ form {
   box-sizing: border-box;
   padding-left: 10px;
   &:hover{
-    .tab-close{ 
+    .tab-close{
       .action-label{
       opacity: 1;
     }
@@ -360,9 +360,9 @@ form {
   flex-shrink: 0;
 }
 .title .tabs-container>.tab {
- 
+
   cursor: pointer;
-  
+
 }
 .tab .tab-label span{
   cursor: pointer;
@@ -410,4 +410,135 @@ form {
   background-position: 50%;
   background-repeat: no-repeat;
   margin-right: .5em;
+}
+
+.termianal{
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  height: 100%;
+  background-color: black;
+  .header{
+    width:100%;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(30, 30, 30);
+    position: sticky;
+    top: 0px;
+    .switchcontainer{
+      line-height: 27px;
+      position: sticky;
+      top: 0px;
+      height: 35px;
+      .actions-container {
+        display: flex;
+        margin: 0 auto;
+        padding: 0;
+        width: 100%;
+        justify-content: flex-end;
+        .action-tab {
+          line-height: 27px;
+          width: 100px;
+          text-transform: uppercase;
+          font-size: 11px;
+          display: flex;
+          text-align: center;
+          height: 35px;
+          a{
+            width: 100%;
+            padding-top: 5px;
+            &.active{
+            border-bottom: 1px solid white;
+            color: rgb(255, 254, 254);
+          }
+        }
+        }
+      }
+    }
+  }
+  .tabcontentM{
+    display: none;
+    width: 100%;
+    flex: 1;
+    background: rgb(30,30,30);
+    .modal{
+     margin: 0 auto;
+    }
+  }
+}
+
+.modal-body{
+display: flex;
+.basicstomark{
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+.student_info {
+  text-align: center;
+  width: 50%;
+  height: 100%;
+}
+select {
+  display: block;
+  width: 80%;
+  margin-top: 20px;
+  height: 30px;
+  margin-left: 10%;
+  -webkit-appearance: none;
+  border-radius: 1px;
+  -moz-border-radius: 1px;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2),
+      inset 0 0 10px rgba(0, 0, 0, 0.2);
+  -webkit-padding-end: 20px;
+  -webkit-padding-start: 4px;
+  outline: none;
+  -webkit-user-select: none;
+  background-color: rgb(56, 56, 56);
+  border: none;
+  color: rgb(204, 204, 195);
+  background-image: url('../../../assets/others/down-arrow.png');
+  background-position: center right;
+  background-repeat: no-repeat;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 30%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.123);
+
+}
+input {
+  border: none;
+  display: block;
+  width: 80%;
+  margin-top: 20px;
+  height: 30px;
+  text-align: center;
+  margin-left: 10%;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+
+}
+.marks_header {
+  margin-left: 40px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: gray;
+  margin-top: 10px;
+}
+&::placeholder {
+  color: rgb(255, 255, 255);
+}
+textarea{
+  width: 80%;
+  border: none;
+  display: block;
+  margin-top: 20px;
+  margin-left: 10%;
+  height: 90px;
+  padding-left: 5px;
+}
+
 }

@@ -100,6 +100,7 @@
 
   }
   .logoname{
+    -webkit-app-region: no-drag;
     position: absolute;
     bottom:0%;
     margin-left: 3px;
@@ -108,6 +109,7 @@
     color: rgb(241, 241, 241);
   }
   .logo{
+    -webkit-app-region: no-drag;
     width: 30px;
     height: 30px;
     border-radius: 5px;

@@ -27,7 +27,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Select class</mat-label>
-            <mat-select name="classname" (focus)="viewhelp(2)" [(ngModel)]="Form.classname" required>
+            <mat-select name="classname" (focus)="viewhelp(2)" [(ngModel)]="Form.class" required>
               <mat-option value="option">Option</mat-option>
               <mat-option value="option1">Option1</mat-option>
               <mat-option value="option2">Option2</mat-option>
@@ -75,7 +75,7 @@
         <div class="example-container">
           <mat-form-field appearance="fill">
             <mat-label>Enter short discription</mat-label>
-            <textarea style="min-height:106px" matInput name="short_desc" [(ngModel)]="Form.short_desc" required></textarea>
+            <textarea style="min-height:106px" matInput name="short_desc" [(ngModel)]="Form.short" required></textarea>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -121,13 +121,13 @@
           <div class="example-container">
             <mat-form-field appearance="fill">
               <mat-label>Enter starting time or double click to select</mat-label>
-              <input matInput [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [(ngModel)]="Form.starting_date"
+              <input matInput [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [(ngModel)]="Form.givenat"
                 name="starting_date">
               <owl-date-time #dt12></owl-date-time>
             </mat-form-field><br>
             <mat-form-field appearance="fill">
               <mat-label>Enter submittion deadline or double click to select</mat-label>
-              <input matInput [owlDateTimeTrigger]="dt13" [owlDateTime]="dt13" [(ngModel)]="Form.ending_date"
+              <input matInput [owlDateTimeTrigger]="dt13" [owlDateTime]="dt13" [(ngModel)]="Form.endat"
                 name="ending_date">
               <owl-date-time #dt13></owl-date-time>
             </mat-form-field>
@@ -176,7 +176,7 @@
         src="../../../../../assets/others/icon.png" alt="">
     </div>
     <div class="show_assignment_info" id="assignment_info">
-      <quill-editor [(ngModel)]="Form.long_desc" name="long_desc" [styles]="{height: '88%'}"></quill-editor>
+      <quill-editor [(ngModel)]="Form.long" name="long" [styles]="{height: '88%'}"></quill-editor>
     </div>
 
   </div>
