@@ -1,12 +1,13 @@
+
 <mat-tab-group  mat-align-tabs="center">
     <mat-tab label="questions">
       <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.questions" name="long_desc" [styles]="{height: '100%'}" [disabled]="true" (onEditorCreated)="addclassquill()"></quill-editor>
+        <quill-editor [(ngModel)]="taskreviewcontent.long" name="long_desc" [styles]="{height: '100%'}" [disabled]="!data.authorized" (onEditorCreated)="addclassquill()"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="Answers">
       <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.answers" name="long_desc" [styles]="{height: '100%'}" [disabled]="true"></quill-editor>
+        <quill-editor [(ngModel)]="taskreviewcontent.short" name="long_desc" [styles]="{height: '100%'}" [disabled]="!data.authorized"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="feedback">
@@ -19,20 +20,20 @@
                         <img matListAvatar [src]="talk.image">
                         <p matLine class="message">
                             <span>{{talk.text}}</span>
-                        </p>                             
+                        </p>
                         <p matLine class="message-date">
                             <small>{{talk.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
-                          
-                        </p> 
+
+                        </p>
                     </mat-list-item>
                 </mat-list>
                 <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                    <mat-icon>chat</mat-icon>            
+                    <mat-icon>chat</mat-icon>
                     <p>no issue with this task yet</p>
-                </div> 
+                </div>
             </div>
             <mat-divider></mat-divider>
-            <div *ngIf="talks" class="chat-actions"> 
+            <div *ngIf="talks" class="chat-actions">
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
                   <img class="writecommentimage" src="../../../../../assets/tuy.png">
                     <mat-form-field class="w-100" style="width:60%">
@@ -41,7 +42,7 @@
                     <div fxLayout="row" fxLayoutAlign="center center">
                         <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
                             <mat-icon>send</mat-icon>
-                            
+
                         </button>
                     </div>
                     </div>
@@ -49,7 +50,7 @@
         </div>
         </div>
       </div>
-      
+
     </mat-tab>
-    
+
   </mat-tab-group>

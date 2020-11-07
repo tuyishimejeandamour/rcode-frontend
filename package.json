@@ -102,6 +102,7 @@
     "@ng-select/ng-select": "5.0.8",
     "acorn": "7.3.1",
     "angular-split": "4.0.0",
+    "electron-tray-window": "1.2.5",
     "highcharts": "8.2.2",
     "highcharts-angular": "2.8.0",
     "material-design-icons": "3.0.1",

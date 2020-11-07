@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpmarksService, Marks } from 'app/core/services';
+import { HttpmarksService, Marks, JerwisService } from 'app/core/services';
 import { SnotifyService } from 'ng-snotify';
 
 @Component({
@@ -16,19 +16,20 @@ export class Term1Component implements OnInit {
   firstmarks:Marks[]=[];
   displayedColumns: string[] = ['position', 'name', 'marks', 'review'];
   dataSource = new MatTableDataSource<Marks>(this.firstmarks);
-  
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private dialog:MatDialog,
               private markser:HttpmarksService,
-              private notify:SnotifyService
+              private notify:SnotifyService,
+              private user:JerwisService
   ){
-     
+
   }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.getmarks(1);
+    this.getmarks(this.user.getUser().id);
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -36,7 +37,7 @@ export class Term1Component implements OnInit {
   viewtaskremarks(taskid:number):void {
     const dialogRef = this.dialog.open(DialogComponent,{
       width:'80%',
-      data:{task:taskid}
+      data:{authorized:false,taskid:taskid}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -50,5 +51,6 @@ export class Term1Component implements OnInit {
       error=> this.notify.error(error.error.error)
     )
   }
+
 }
 

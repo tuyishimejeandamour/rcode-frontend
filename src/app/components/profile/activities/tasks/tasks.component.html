@@ -6,7 +6,7 @@
   <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
   <div class="closefilters" (click)="toggle()"><mat-icon>tune</mat-icon></div>
   </div>
-  <button mat-mini-fab color="primary"[@openClose]="addOpen ? 'open' : 'closed'"><mat-icon>add</mat-icon></button>
+  <button mat-mini-fab color="primary" matTooltip="add task" [routerLink]="'newtask'" [@openClose]="addOpen ? 'open' : 'closed'"><mat-icon>add</mat-icon></button>
   <div class="titleinheader"><span>prepare task or save for future set</span></div>
 
 </div>

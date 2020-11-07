@@ -8,25 +8,12 @@ import { Marks } from '..';
   providedIn: 'root'
 })
 export class HttpmarksService {
-  private baseurl="http://192.168.0.30:8000/api";
+  private baseurl="http://127.0.0.1:8000/api";
 
   constructor( private http: HttpClient) { }
-  private querySubject: BehaviorSubject<Marks[]>;
-  getmarks(term1:number):Observable<Marks[]>{
-    // return this.http.get(`${this.baseurl}/marks/${term1}`);
-    this.querySubject = new BehaviorSubject( [
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
-      { name: 'db cat1', marks: '30/40', id: 1},
+  getmarks(term1:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/marks/${term1}`);
 
-    ])
-    return this.querySubject.asObservable();
   }
 
   givemarks(data):Observable<any>{

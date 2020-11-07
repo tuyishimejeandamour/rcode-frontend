@@ -28,15 +28,23 @@ export class MarktaskComponent implements OnInit {
   leftSidebarSelect = "";
   fileCounter = 1;
   heroId:string;
-  task:TasksDetails;
+  task:TasksDetails ={
+    task_id: null,
+    taskname: null,
+    lesson:null,
+    class: null,
+    givenat: null,
+    endat: null,
+  };
   public marks={
     higscore:null,
     score:null
   }
   public markform={
+    task_id:null,
     teacher_id:this.user.getUser().id,
     student_id:null,
-    marks:this.combinemarks(this.marks.score,this.marks.score)
+    marks:null
   }
 
   constructor( treedata:FiletreeService,
@@ -50,6 +58,8 @@ export class MarktaskComponent implements OnInit {
 
     this.treeData = treedata.getTreeData1();
     this.reserved = this.treeData;
+    this.heroId = this.route.snapshot.paramMap.get('id');
+    this.gettasktomark(<number><unknown>this.heroId);
   }
   filterTree(name:string):void{
     this.treeData = this.reserved.filter(data => data.name == name);
@@ -85,11 +95,6 @@ export class MarktaskComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('defaultopen').click();
-
-    this.heroId = this.route.snapshot.paramMap.get('id');
-
-    this.gettasktomark(<number><unknown>this.heroId);
-
     this.getstudents(this.user.getUser().id)
   }
 
@@ -237,6 +242,8 @@ export class MarktaskComponent implements OnInit {
     return `${va1}/${va2}`;
   }
   markstudent():void{
+    this.markform.task_id = this.task.task_id;
+    this.markform.marks = this.combinemarks(this.marks.score,this.marks.higscore);
     this.httpmark.givemarks(this.markform).subscribe(
       ()=>console.log('ok'),
       error=>console.log(error)

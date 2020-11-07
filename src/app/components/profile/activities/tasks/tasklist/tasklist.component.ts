@@ -8,6 +8,7 @@ import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Console } from 'console';
+import { DialogComponent } from 'app/components/profile/marks-page/dialog/dialog.component';
 
 
 @Component({
@@ -114,6 +115,16 @@ export class TasklistComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.updateRowData(result.data);
 
+    });
+  }
+  opencontentDialog(id: number): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width:'80%',
+      data:{authorized:true,taskid:id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
     });
   }
   updateRowData(obj:TasksDetails):void{

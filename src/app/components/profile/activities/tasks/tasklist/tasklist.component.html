@@ -53,7 +53,7 @@
       show to student
     </ng-template>
     <ng-template contextMenuItem let-item
-      (execute)="showMessage($event.item.task_id + ' said: ' + $event.item.otherProperty)">
+      (execute)="opencontentDialog($event.item.task_id)">
       show content
     </ng-template>
   </context-menu>

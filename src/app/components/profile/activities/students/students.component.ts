@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild,Inject, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject, HostListener, EventEmitter} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpactivitiesService, JerwisService, User } from 'app/core/services';
+import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 
 
 export interface DialogData {
@@ -47,7 +48,8 @@ export class StudentsComponent implements OnInit {
   }
   expandedElement: string;
   displayedColumns: string[] = ['Number', 'names', 'username', 'class'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Students>();
+  studentsin: marksofstudent[]= [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,6 +58,8 @@ export class StudentsComponent implements OnInit {
     (window.innerWidth <= 1000) ? this.isOpen = true : this.isOpen = false;
   }
   ngOnInit(): void {
+    this.getStudent(this.User.getUser().id);
+
     this.dataSource.paginator = this.paginator;
   }
   ngAfterViewInit(): void {
@@ -75,13 +79,20 @@ export class StudentsComponent implements OnInit {
   }
   getStudent(id:number):void{
     this.Httpact.getStudent(id).subscribe(
-      (data)=>console.log(data),
+      (data)=>{this.dataSource.data = data as Students[]},
+      error=>console.log(error)
+    )
+  }
+  findmarks(id:number):void{
+    this.Httpact.getStudentmarks(id).subscribe(
+      (data)=>this.studentsin = data,
       error=>console.log(error)
     )
   }
   constructor(
     public dialog: MatDialog,
-    public Httpact:HttpactivitiesService
+    public Httpact:HttpactivitiesService,
+    public User:JerwisService
   ) {}
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -100,11 +111,12 @@ export class StudentsComponent implements OnInit {
 
 
 
-export interface PeriodicElement {
-  names: string;
+export interface Students{
+  id: number;
+  name: string;
   username: string;
   class: string;
-  description: marksofstudent[];
+
 }
 export interface marksofstudent{
   taskname: string;
@@ -112,117 +124,72 @@ export interface marksofstudent{
   lesson: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA= [
   {
+    id: 1,
     names: 'tuyishime jeandamour',
     username: 'jaylove',
     class: 'class1',
-    description:[
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      }
-    ]
   },
   {
+    id:2,
     names: 'tuyishime jeandamour',
     username: 'jaylove',
     class: 'class1',
-    description:[
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      },
-      {
-        taskname: 'userfunction',
-        marks: '20/40',
-        lesson: 'C',
-      }
-    ]
+    // description:[
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   },
+    //   {
+    //     taskname: 'userfunction',
+    //     marks: '20/40',
+    //     lesson: 'C',
+    //   }
+    // ]
   },
 ];
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialog implements OnInit {
 
   public stud =
   {
@@ -239,8 +206,28 @@ export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     private User:JerwisService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData)
+  {}
+  peopleTypeahead = new EventEmitter<string>();
+  serverSideFilterItems = [];
+  selectedPeople;
+  ngOnInit(): void {
+    this.serverSideSearch();
 
+  }
+
+  private serverSideSearch() {
+    this.peopleTypeahead.pipe(
+      distinctUntilChanged(),
+      debounceTime(300),
+      switchMap(term => this.User.findusers(term))
+    ).subscribe(x => {
+      this.serverSideFilterItems = [];
+      this.serverSideFilterItems.push(x);
+    }, (err) => {
+      this.serverSideFilterItems = [];
+    });
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

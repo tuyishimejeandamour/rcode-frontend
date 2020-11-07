@@ -8,12 +8,28 @@
 </style>
 <h1 mat-dialog-title>Add student to your classes</h1>
 <div mat-dialog-content style="text-align: center;">
-  <ng-select [items]="cities2"
+  <ng-select [multiple]="true"
+  [items]="serverSideFilterItems"
+  placeholder="type name or email "
   bindLabel="name"
   bindValue="id"
-  [multiple]="true"
-  placeholder="Select cities"
-  [(ngModel)]="stud.student_id">
+  [(ngModel)]="stud.student_id"
+  [typeahead]="peopleTypeahead">
+  <ng-template ng-typetosearch-tmp>
+    <div class="ng-option disabled">
+        Start typing...
+    </div>
+</ng-template>
+<ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+    <div class="ng-option disabled">
+        No data found for "{{searchTerm}}"
+    </div>
+</ng-template>
+<ng-template ng-loadingtext-tmp let-searchTerm="searchTerm">
+    <div class="ng-option disabled">
+        Fetching data for "{{searchTerm}}"
+    </div>
+</ng-template>
 </ng-select>
   <br>
   <mat-form-field appearance="fill">

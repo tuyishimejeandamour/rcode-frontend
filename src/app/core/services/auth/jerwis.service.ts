@@ -7,7 +7,7 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class JerwisService {
-  private baseurl="http://192.168.0.30:8000/api";
+  private baseurl="http://127.0.0.1:8000/api";
   private userdetails:User= null;
 
   constructor(
@@ -30,6 +30,9 @@ export class JerwisService {
   newpasswordIn(data){
     return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
   }
+  fileinit(data){
+    return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
+  }
 
   responsehandler(data): void{
     this.setuser(data);
@@ -42,6 +45,9 @@ export class JerwisService {
   }
   updatetask(values,id:number){
     return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
+  }
+  findusers(values:string){
+    return this.http.post(`${this.baseurl}/users-student`,values)
   }
   setuser(value: User) : void{
     this.setUser(value);

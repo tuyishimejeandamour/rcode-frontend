@@ -9,7 +9,7 @@ import { TasksDetails } from 'app/components/profile/activities/tasks/tasklist/t
 })
 export class HttpactivitiesService {
 
-  private baseurl="http://192.168.0.30:8000/api";
+  private baseurl="http://127.0.0.1:8000/api";
   constructor(
     private http: HttpClient,
   ) { }
@@ -28,6 +28,10 @@ export class HttpactivitiesService {
   }
   getsingletask(id:number):Observable<any>{
     return this.http.get(`${this.baseurl}/task/${id}`);
+
+  }
+  getStudentmarks(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/getstudentmarks/${id}`);
 
   }
 }

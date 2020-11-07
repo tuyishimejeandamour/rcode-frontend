@@ -24,7 +24,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private Jerwis:JerwisService,
-    private Token: TokenService,
     private router: Router
   ) { }
 
@@ -41,7 +40,6 @@ export class RegisterComponent implements OnInit {
     this.Error= error.error.errors;
   }
   handleesponse(data){
-    this.Token.handle(data.access_token);
-    this.router.navigateByUrl("/profile");
+    this.router.navigateByUrl("/login");
   }
 }

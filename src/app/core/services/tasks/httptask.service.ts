@@ -55,5 +55,9 @@ export class HttptaskService {
     ]);
     return one.asObservable();
   }
+  gettaskcontent(id:number): Observable<any> {
+    return this.http.get(`${this.baseurl}/gettaskcontent/${id}`);
+
+  }
 }
 
