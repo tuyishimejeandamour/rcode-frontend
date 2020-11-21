@@ -53,9 +53,12 @@
   z-index: 20;
   box-shadow: 1px 2px 3px #dde !important;
 }
-.example-small-box  .ql-toolbar,.mail-body .ql-toolbar{
+.example-small-box:not(.tool)  .ql-toolbar,.mail-body .ql-toolbar{
 display:none;
 }
+.example-small-box.tool  .ql-toolbar,.mail-body .ql-toolbar{
+  border-top: none;
+  }
 .example-small-box-dialog  .ql-toolbar{
  border-bottom-left-radius: 10px;
  border-bottom-right-radius: 10px;

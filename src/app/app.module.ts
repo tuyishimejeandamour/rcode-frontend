@@ -19,12 +19,12 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './components/auth/login/login.module';
 import { RegisterModule } from './components/auth/register/register.module';
 import { ProfileModule } from './components/profile/profile.module';
-import { 
+import {
   JerwisService,
   TokenService,
   AuthService,
-  BeforeLoginService, 
-  AfterLoginService, 
+  BeforeLoginService,
+  AfterLoginService,
   GettasksService} from './core/services';
 import { ResetPasswordModule } from './components/auth/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
@@ -36,7 +36,6 @@ import { MarktaskModule } from './components/marktask/marktask.module';
 import { FileservicesService } from './Service/fileservices.service';
 import { QuickhelpService } from './Service/quickhelp.service';
 import { StudentTaskService } from './Service/student-task.service';
-import { HttptaskService } from './core/services/tasks/httptask.service';
 
 
 
@@ -63,9 +62,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NewPasswordModule,
     MaterialModule,
     BrowserAnimationsModule,
-    
+
     MarktaskModule,
-    
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -80,7 +79,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AuthService,
     BeforeLoginService,
     AfterLoginService,
-    CommonfunctionService, 
+    CommonfunctionService,
     FileservicesService,
     QuickhelpService,
     StudentTaskService,

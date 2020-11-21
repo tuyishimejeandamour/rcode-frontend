@@ -13,11 +13,12 @@ import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { FooterMenuComponent } from './components/footer-menu/footer-menu.component';
 import { MaterialModule } from 'app/material/material.module';
 import { RouterModule } from '@angular/router';
+import { TimeDisplayComponent } from './components/time-display/time-display.component';
 
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent],
   imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , RouterModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent]
+  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent]
 })
 export class SharedModule {}

@@ -6,14 +6,7 @@ import * as url from 'url';
 let MainTray:Tray| undefined;
 let TrayWindow: BrowserWindow | undefined;
 
-const WINDOW_SIZE_DEFAUTS = {
-    width:200,
-    height:300,
-    margin:{
-      x:0,
-      y:0,
-    }
-}
+
 export function InitTray(){
   const iconName = './assets/icons/logo.ico';
   const iconPath = path.join(__dirname, iconName);

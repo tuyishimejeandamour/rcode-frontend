@@ -5,5 +5,6 @@
 
 export const AppConfig = {
   production: false,
-  environment: 'DEV'
+  environment: 'DEV',
+  apiHost: 'http://192.168.0.71:8000/api'
 };

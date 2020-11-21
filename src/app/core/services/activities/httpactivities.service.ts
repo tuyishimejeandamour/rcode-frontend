@@ -2,14 +2,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TasksDetails } from 'app/components/profile/activities/tasks/tasklist/tasklist.component';
+import { AppConfig } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpactivitiesService {
 
-  private baseurl="http://127.0.0.1:8000/api";
+  private baseurl=AppConfig.apiHost;
   constructor(
     private http: HttpClient,
   ) { }

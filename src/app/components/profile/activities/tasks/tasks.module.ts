@@ -9,6 +9,7 @@ import { FormsModule} from '@angular/forms';
 import { QuillModule } from 'ngx-quill'
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { DialogComponent } from '../../marks-page/dialog/dialog.component';
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
   datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
@@ -18,7 +19,7 @@ export const MY_NATIVE_FORMATS = {
   monthYearA11yLabel: {year: 'numeric', month: 'long'},
 };
 @NgModule({
-  declarations: [TasksComponent, NewtaskComponent, TasklistComponent, DialogOverviewExampleDialog],
+  declarations: [TasksComponent, NewtaskComponent, TasklistComponent, DialogOverviewExampleDialog, DialogComponent],
   imports: [
     CommonModule,
     TasksRoutingModule,
@@ -30,7 +31,7 @@ export const MY_NATIVE_FORMATS = {
     QuillModule.forRoot(),
     ContextMenuModule.forRoot()
   ],
-  entryComponents: [TasklistComponent, DialogOverviewExampleDialog],
+  entryComponents: [TasklistComponent, DialogOverviewExampleDialog, DialogComponent],
   providers: [
     DatePipe,
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS}

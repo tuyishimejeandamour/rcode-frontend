@@ -16,7 +16,11 @@ import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.comp
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
   reserved:TreeData[];
-  students:User[];
+  students=[{
+    id:null,
+    firstname:null,
+    lastname:null,
+  }];
   // @HostListener('window:beforeunload',['$event'])
   // public onWindowBeforeunload(event):void {
   //   event.preventDefault();
@@ -229,7 +233,7 @@ export class MarktaskComponent implements OnInit {
     }
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
-    console.log(evt)
+
   }
 
   gettasktomark(id:number):void{

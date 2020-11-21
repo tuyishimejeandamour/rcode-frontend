@@ -87,14 +87,35 @@
       flex-direction: column;
       width: 220px;
       height:200px;
+
+.profileimageeditandshow{
+  width: 100%;
+  flex: 1;
+  text-align: center;
+  position: relative;
+
       img{
         border: 3px solid white;
-        width: calc(50%);
-        height: calc(50% + 20px);
+        width: calc(60%);
+        height: calc(80% + 20px);
         border-radius: 50%;
         box-shadow: 0.5px 1.5px 5px #dde;
 
       }
+
+.changeprofileimage {
+  position: absolute;
+  width: 70px;
+  height: 25px;
+  background: white;
+  left: calc(67% - 5px);
+  bottom: 10%;
+  box-shadow: 1px 1px 6px #dde;
+  border-radius: 12px;
+  padding-left: 5px;
+  text-align: left;
+}
+    }
       .conent-info-profile{
         display: flex;
         justify-content: center;
@@ -119,7 +140,7 @@
         }
       }
     }
-   
+
     .profile-namedetail{
       flex: 1;
       display:flex;
@@ -132,12 +153,12 @@
       .profiledetails{
        width:50%;
        height: 200px;
-     
+
       }
       .performcechart{
         width:50%;
         height:200px;
-      
+
       }
 
     }
@@ -172,7 +193,7 @@
               font-size: 16px;
               color: white;
               font-weight: 900;
-    
+
             }
           }
         }
@@ -193,16 +214,16 @@
     box-shadow:1px 0px 12px rgb(46, 46, 48);
     z-index:999;
   }
-  
+
   }
   .directory_header {
     .sort-header-inheader{
-      width:220px;  
+      width:220px;
       background-origin: shadow 4px;
       box-shadow:2px 2px 10px rgb(46, 46, 48);
 
 
-    }    
+    }
   }
 
 }
@@ -232,9 +253,9 @@
       object-fit: cover;
       margin-right:10px;
      }
-     
+
    }
-  } 
+  }
   .chat-content{
     padding: 12px;
     flex:1;
@@ -252,7 +273,7 @@
   }
   .message{
       white-space: unset;
-      text-overflow: unset;       
+      text-overflow: unset;
       span{
           padding: 6px 10px;
           border-radius: 4px;
@@ -288,7 +309,7 @@
 }
 .chat-sidenav{
   border-right: 1px solid transparent;
-  overflow: hidden;  
+  overflow: hidden;
   .profile_in_title{
     width:100%;
     height:60px;
@@ -298,7 +319,7 @@
       color:white;
       background:rgb(84, 27, 117);
     }
-  } 
+  }
 }
 
 .chat-sidenav-list {

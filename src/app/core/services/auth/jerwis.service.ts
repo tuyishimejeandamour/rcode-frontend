@@ -2,12 +2,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
+import { AppConfig } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JerwisService {
-  private baseurl="http://127.0.0.1:8000/api";
+  private baseurl=AppConfig.apiHost;
   private userdetails:User= null;
 
   constructor(

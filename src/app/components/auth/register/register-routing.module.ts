@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register.component';
-import { BeforeLoginService } from 'app/core/services';
+// import { BeforeLoginService } from 'app/core/services';
 
 const routes: Routes = [
   {
     path: 'register',
-    canActivate: [BeforeLoginService],
+    // canActivate: [BeforeLoginService],
     component: RegisterComponent
 
   }

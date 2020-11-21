@@ -3,10 +3,11 @@ import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { TaskYouHave, User, JerwisService } from 'app/core/services';
+import { TaskYouHave, User, JerwisService, GettasksService } from 'app/core/services';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
 import { DialogData } from '../../activities/students/students.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-landingupload',
@@ -16,9 +17,9 @@ import { DialogData } from '../../activities/students/students.component';
 export class LandinguploadComponent implements OnInit {
   user:User;
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
-  taskInThisWeek:TaskYouHave[]=[];
-  tasklatesubmits:TaskYouHave[]=[];
-  taskInotherweek:TaskYouHave[]=[];
+  taskInThisWeek:Observable<TaskYouHave[]>;
+  tasklatesubmits:Observable<TaskYouHave[]>;
+  taskInotherweek:Observable<TaskYouHave[]>;
   date = new Date();
   day = this.date.getDate();
   month = this.date.getMonth();
@@ -31,7 +32,8 @@ export class LandinguploadComponent implements OnInit {
     private dialog:MatDialog,
     private gettask:HttptaskService,
     private jerw:JerwisService,
-    private notify:SnotifyService
+    private notify:SnotifyService,
+    private tasks:GettasksService
   ) { }
 
   ngOnInit(): void {
@@ -65,40 +67,35 @@ export class LandinguploadComponent implements OnInit {
   }
 
   gettaskinweek():void{
-
     this.gettask.gettasksinthisweek(this.user.id).subscribe(
-      data=>this.HandleResponse(data,this.taskInThisWeek),
+      data=>this.HandleResponse(data),
       error=> this.HandlError(error)
     )
   }
   getlatesubmitted():void{
-    // this.gettask.getunsumitted(this.user.user_id).subscribe(
-    //   data=>this.HandleResponse(data,this.tasklatesubmits),
-    //   error=> this.HandlError(error)
-    // );
-    this.tasklatesubmits= [
-      {
-        taskid:1,
-        taskname:'function in javascript',
-        lesson:'js',
-        remainingdate:'1day 12hr',
-        submittiondate:new Date(this.year, this.month, this.day-1, this.hour, this.minute),
+    this.gettask.getunsumitted(this.user.id).subscribe(
+      data=>this.HandleResponse1(data),
+      error=> this.HandlError(error)
+    );
 
-      }
-    ]
   }
   getaskinotherweek():void{
     this.gettask.gettasksinotherweek(this.user.id).subscribe(
-      data=>this.HandleResponse(data,this.taskInotherweek),
+      data=>this.HandleResponse2(data),
       error=> this.HandlError(error)
     );
   }
   HandlError(error: { error: { error: any; }; }):void {
     this.notify.error(error.error.error);
   }
-  HandleResponse(data:TaskYouHave[],typetask:TaskYouHave[]):void{
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    typetask=data;
+  HandleResponse(data:TaskYouHave[]):void{
+    this.taskInThisWeek = this.tasks.countdown(data);
+  }
+  HandleResponse1(data:TaskYouHave[]):void{
+    this.tasklatesubmits = this.tasks.countdown(data);
+  }
+  HandleResponse2(data:TaskYouHave[]):void{
+    this.taskInotherweek = this.tasks.countdown(data);
   }
   response(data:string):void{
     this.notify.success(data)

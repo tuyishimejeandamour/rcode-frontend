@@ -1,13 +1,13 @@
 
 <mat-tab-group  mat-align-tabs="center">
     <mat-tab label="questions">
-      <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.long" name="long_desc" [styles]="{height: '100%'}" [disabled]="!data.authorized" (onEditorCreated)="addclassquill()"></quill-editor>
+      <div class="example-small-box" [ngClass]="data.authorized?'tool':''">
+        <quill-editor [(ngModel)]="taskreviewcontent.long" name="long_desc" [styles]="{height: '85%',position: 'absolute',width:'100%'}" [disabled]="!data.authorized" (onEditorCreated)="addclassquill()"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="Answers">
-      <div class="example-small-box">
-        <quill-editor [(ngModel)]="taskreviewcontent.short" name="long_desc" [styles]="{height: '100%'}" [disabled]="!data.authorized"></quill-editor>
+      <div class="example-small-box" [ngClass]="data.authorized?'tool':''">
+        <quill-editor [(ngModel)]="taskreviewcontent.short" name="long_desc" [styles]="{height: '85%',position: 'absolute',width:'100%'}" [disabled]="!data.authorized"></quill-editor>
       </div>
     </mat-tab>
     <mat-tab label="feedback">

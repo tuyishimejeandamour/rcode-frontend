@@ -59,7 +59,6 @@ export class StudentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getStudent(this.User.getUser().id);
-
     this.dataSource.paginator = this.paginator;
   }
   ngAfterViewInit(): void {
@@ -71,7 +70,7 @@ export class StudentsComponent implements OnInit {
   registerstudent(data:any):void{
     if ( data.student_id && data.classname) {
       this.Httpact.setStudent(data).subscribe(
-        (data)=>console.log(data),
+        (data)=>this.getStudent(this.User.getUser().id),
         error=>console.log(error)
       )
     }
@@ -220,7 +219,13 @@ export class DialogOverviewExampleDialog implements OnInit {
     this.peopleTypeahead.pipe(
       distinctUntilChanged(),
       debounceTime(300),
-      switchMap(term => this.User.findusers(term))
+      switchMap(term =>
+      {
+        console.log(term);
+        return this.User.findusers(term);
+
+      }
+      )
     ).subscribe(x => {
       this.serverSideFilterItems = [];
       this.serverSideFilterItems.push(x);

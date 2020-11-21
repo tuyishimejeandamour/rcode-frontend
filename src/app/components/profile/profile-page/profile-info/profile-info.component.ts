@@ -24,12 +24,28 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ]),
 
     ]),
+    trigger('collapse', [
+      state('open', style({ width: 70 })),
+      state('close', style({ width: 30 })),
+      transition('open => close', [
+        style({ width: 70 }),
+        animate(200, style({ width: 30 }))
+      ]),
+      transition('close => open', [
+        style({ width: 0 }),
+        animate(200, style({ width: 70 }))
+      ])
+    ])
   ],
-  
+
+
 
 })
 export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
+  get collapseState():string {
+    return this.changesize ? 'open' : 'close';
+  }
   constructor(
     public dialog: MatDialog,
     public mailboxService:QuickhelpService,
@@ -38,13 +54,14 @@ export class ProfileInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMails();
-    this.chats = this.chatService.getChats(); 
+    this.chats = this.chatService.getChats();
     if(window.innerWidth <= 768){
       this.sidenavOpen = false;
-    }    
+    }
   }
   isOpen = false;
   isviewOpen=false;
+  changesize=false;
   public mails: Array<Mail>;
   public mail: Mail;
   public showSearch = false;
@@ -63,7 +80,7 @@ export class ProfileInfoComponent implements OnInit {
 
   public getMails():void{
     switch (this.type) {
-      case 'all': 
+      case 'all':
         this.mails = this.mailboxService.getAllMails();
         break;
       case 'starred':
@@ -80,23 +97,23 @@ export class ProfileInfoComponent implements OnInit {
         break;
       default:
         this.mails =  this.mailboxService.getDraftMails();
-    }  
+    }
   }
 
   public viewDetail(mail:Mail):void{
-    this.mail = this.mailboxService.getMail(mail.id);    
+    this.mail = this.mailboxService.getMail(mail.id);
     this.mails.forEach(m => m.selected = false);
     this.mail.selected = true;
     this.mail.unread = false;
-     
+
   }
   getChat(obj:Chat):void{
     if(this.talks){
       this.talks.length = 2;
-    }   
+    }
     this.talks = this.chatService.getTalk();
     this.talks.push(obj);
-    this.currentChat = obj;      
+    this.currentChat = obj;
     this.talks.forEach(talk => {
       if(!talk.my){
         talk.image = obj.image;
@@ -104,19 +121,19 @@ export class ProfileInfoComponent implements OnInit {
     });
     if(window.innerWidth <= 768){
       this.sidenav.close();
-    }     
+    }
   }
 
-  sendMessage($event: { which: number; }):void {       
+  sendMessage($event: { which: number; }):void {
     if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if(this.talks){ 
+      if(this.talks){
         this.talks.push(
           new Chat(
-            '../../../assets/tuy.png', 
-            'Emilio Verdines', 
-            'online', 
+            '../../../assets/tuy.png',
+            'Emilio Verdines',
+            'online',
             this.newMessage,
-            new Date(), 
+            new Date(),
             true)
         )
         this.newMessage = '';
@@ -126,13 +143,16 @@ export class ProfileInfoComponent implements OnInit {
             const nodes = chatContainer.querySelectorAll('.mat-list-item');
             const newChatTextHeight = nodes[nodes.length- 1];
             chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
-          }); 
+          });
         }
       }
     }
   }
   toggle(): void {
     this.isOpen = !this.isOpen;
+  }
+  togglesize(): void {
+    this.changesize = !this.changesize;
   }
 
   openNewFolderDialog():void {

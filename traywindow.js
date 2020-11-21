@@ -6,14 +6,6 @@ var trayWindow = require("electron-tray-window");
 var path = require("path");
 var MainTray;
 var TrayWindow;
-var WINDOW_SIZE_DEFAUTS = {
-    width: 200,
-    height: 300,
-    margin: {
-        x: 0,
-        y: 0,
-    }
-};
 function InitTray() {
     var iconName = './assets/icons/logo.ico';
     var iconPath = path.join(__dirname, iconName);

@@ -12,16 +12,19 @@ import { DialogComponent } from './dialog/dialog.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { IssuesComponent } from './dialog/issues/issues.component';
+import { ShortenttextPipe } from 'app/core/pipes/shortenttext.pipe';
+import { SharedModule } from 'app/shared/shared.module';
+
 
 
 @NgModule({
-  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent, DialogComponent, IssuesComponent, newReminderComponent],
+  declarations: [UploadPageComponent, UploadComponent, UploadedComponent, LandinguploadComponent, DialogComponent, IssuesComponent, newReminderComponent,ShortenttextPipe],
   imports: [
     CommonModule,
     UploadPageRoutingModule,
     MaterialModule,
+    SharedModule,
     ContextMenuModule.forRoot({
-
       autoFocus: true,
     }),
     QuillModule.forRoot(),
