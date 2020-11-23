@@ -1,0 +1,38 @@
+.hello{
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+ .image_outer_container{
+       margin-top: auto;
+       margin-bottom: auto;
+       border-radius: 50%;
+       position: relative;
+     }
+
+/*This styles the image_inner_container class on line 27*/
+     .image_inner_container{
+       border-radius: 50%;
+      background: #0043d1;
+      background-image: linear-gradient(to right bottom, #1042f6, #0243ea, #0043dd, #0043d1, #0043c4, #0146c3, #0449c3, #084cc2, #0a54ce, #0a5cda, #0a64e6, #076cf2);
+     }
+
+   /*This styles the image_outer_container green_icon class on line 26*/
+     .image_outer_container .green_icon{
+       background-color: #4cd137;
+       position: absolute;
+       right: 30px;
+       bottom: 10px;
+       height: 10px;
+       width: 10px;
+       border:2px solid white;
+       border-radius: 50%;
+     }
+ /*This styles the image_inner_container class image on line 29*/
+     .image_inner_container img{
+       height: 40px;
+       width: 40px;
+       border-radius: 50%;
+       border: 2px solid white;
+     }

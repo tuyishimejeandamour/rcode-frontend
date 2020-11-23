@@ -7,8 +7,7 @@ import { JerwisService, ContentShow, HttpactivitiesService } from 'app/core/serv
 import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Console } from 'console';
-import { DialogComponent } from 'app/components/profile/marks-page/dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 
 
 @Component({

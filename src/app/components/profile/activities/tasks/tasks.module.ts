@@ -9,7 +9,7 @@ import { FormsModule} from '@angular/forms';
 import { QuillModule } from 'ngx-quill'
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { ContextMenuModule } from 'ngx-contextmenu';
-import { DialogComponent } from '../../marks-page/dialog/dialog.component';
+import { DialogComponent } from './dialog/dialog.component';
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
   datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},

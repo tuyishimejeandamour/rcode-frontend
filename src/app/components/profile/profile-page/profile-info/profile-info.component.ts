@@ -1,11 +1,18 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
 import { Chat, ChatService } from 'app/Service/chat.service';
 import * as Highcharts from 'highcharts';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-
+import { JerwisService, User } from 'app/core/services';
+import { UploadfileService } from 'app/core/services/fileexplorer/uploadfile.service';
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
@@ -24,18 +31,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ]),
 
     ]),
-    trigger('collapse', [
-      state('open', style({ width: 70 })),
-      state('close', style({ width: 30 })),
-      transition('open => close', [
-        style({ width: 70 }),
-        animate(200, style({ width: 30 }))
-      ]),
-      transition('close => open', [
-        style({ width: 0 }),
-        animate(200, style({ width: 70 }))
-      ])
-    ])
+
   ],
 
 
@@ -43,16 +39,17 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
-  get collapseState():string {
-    return this.changesize ? 'open' : 'close';
-  }
+  currentuser: User;
+
   constructor(
     public dialog: MatDialog,
     public mailboxService:QuickhelpService,
-    private chatService:ChatService
+    private chatService:ChatService,
+    private user:JerwisService
   ) { }
 
   ngOnInit(): void {
+    this.currentuser = this.user.getUser()
     this.getMails();
     this.chats = this.chatService.getChats();
     if(window.innerWidth <= 768){
@@ -61,7 +58,6 @@ export class ProfileInfoComponent implements OnInit {
   }
   isOpen = false;
   isviewOpen=false;
-  changesize=false;
   public mails: Array<Mail>;
   public mail: Mail;
   public showSearch = false;
@@ -73,6 +69,12 @@ export class ProfileInfoComponent implements OnInit {
   public sidenavOpen = true;
   public currentChat:Chat;
   public newMessage:string;
+  tiles: Tile[] = [
+    {text: 'One', cols: 2, rows: 1, color: 'white'},
+    {text: 'Two', cols: 2, rows: 2, color: 'white'},
+    {text: 'Three', cols: 1, rows: 1, color: 'white'},
+    {text: 'Four', cols: 1, rows: 1, color: 'white'},
+  ];
   @HostListener('window:resize')
   public onWindowResize():void {
     (window.innerWidth <= 992) ? this.isOpen = true : this.isOpen = false;
@@ -98,6 +100,22 @@ export class ProfileInfoComponent implements OnInit {
       default:
         this.mails =  this.mailboxService.getDraftMails();
     }
+  }
+  clicktoupload():void{
+    const ele = document.getElementById('fileinput');
+    ele.click();
+  }
+  change(end:any):void{
+    const dialogRefs = this.dialog.open(UploadimageComponent ,{
+      maxHeight:'70%',
+      data:end
+
+    });
+    dialogRefs.afterClosed().subscribe(res => {
+      if (res) {
+        console.log(res)
+      }
+    });
   }
 
   public viewDetail(mail:Mail):void{
@@ -151,9 +169,7 @@ export class ProfileInfoComponent implements OnInit {
   toggle(): void {
     this.isOpen = !this.isOpen;
   }
-  togglesize(): void {
-    this.changesize = !this.changesize;
-  }
+
 
   openNewFolderDialog():void {
     const dialogRef = this.dialog.open(DialogComponent,{
@@ -226,10 +242,61 @@ export class ProfileInfoComponent implements OnInit {
       }
     },
     series: [{
-      name: 'John',
+      name: 'java',
       type: 'areaspline',
       data: [3, 4, 3, 5, 4, 10, 12]
+    }
+    ,
+    {
+      name: 'c++',
+      type: 'areaspline',
+      data: [1, 3, 4, 3, 3, 5, 4]
     }]
   };
 }
+@Component({
+  selector: 'uploadimage',
+  templateUrl: 'uploadimage.html',
+})
+export class UploadimageComponent implements OnInit {
+  constructor(
+    public dialogRef: MatDialogRef<UploadimageComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:any,
+    private User:JerwisService,
+    private uploadService:UploadfileService
+  )
+  {}
+  imgURL:any;
+  selectedFile:any;
+  ngOnInit(): void {
+    this.uploadimage(this.data)
+  }
+  uploadimage(event:any):void{
+    this.selectedFile = event.target.files[0];
 
+    // To display the selected image before deciding to upload it.
+    const reader = new FileReader();
+
+    // Gets a 'base64' representation of an image.
+    reader.readAsDataURL(this.selectedFile);
+
+    reader.onload = (event2) => {
+      // Sets the html <img> tag to the image.
+      this.imgURL = reader.result;
+      console.log(this.imgURL);
+
+    };
+
+
+  }
+  onupload():void{
+    this.uploadService.upload(this.selectedFile, this.User.getUser().id).subscribe(
+      (res) => console.log(res),
+      (err) => (err)
+    );
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}

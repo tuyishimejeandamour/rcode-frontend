@@ -1,0 +1,45 @@
+<style >
+  .imageupload{
+    text-align: center;
+    width: 358px;
+    height: 253px;
+  }
+.imagecontainer{
+  margin: 0 auto;
+}
+button{
+    background:transparent;
+    border-radius: 4px ;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 5px 5px;
+    text-align: center;
+}
+.green{
+    background:#3367D6;
+    color:#fff;
+    border: 1px solid #3367D6 ;
+    box-shadow: 0 1px 5px #dde;
+}
+.cancel{
+    background:#eb274859;
+    color:#fff;
+    border: 1px solid #85142752;
+    box-shadow: 0 1px 5px #dde;
+}
+</style>
+<div class="imageupload">
+  <div class="imagecontainer">
+  <img [src]="imgURL" height="200" width="200">
+</div>
+<div class="footer">
+  <button class="cancel" (click)="onNoClick()">cancel</button>
+  <button class="green" (click)="onupload()
+  ">upload</button>
+</div>
+</div>

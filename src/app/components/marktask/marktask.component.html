@@ -166,9 +166,9 @@
                 <h1 class="marks_header">Set who you marked</h1>
                 <select name="user" id="username"  [(ngModel)]="markform.student_id">
                   <option value=""  disabled>select student</option>
-                  <option *ngFor="let student of students; let i = index" [value]="student[i].id">
-                    {{student[i].firstname }}
-                    {{student[i].lastname }}
+                  <option *ngFor="let student of students" [value]="student.id">
+                    {{student.firstname }}
+                    {{student.lastname }}
                   </option>
 
                 </select>

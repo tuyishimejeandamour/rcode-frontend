@@ -14,11 +14,12 @@ import { FooterMenuComponent } from './components/footer-menu/footer-menu.compon
 import { MaterialModule } from 'app/material/material.module';
 import { RouterModule } from '@angular/router';
 import { TimeDisplayComponent } from './components/time-display/time-display.component';
+import { ProfilepictureComponent } from './components/profilepicture/profilepicture.component';
 
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent],
   imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , RouterModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent]
+  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent]
 })
 export class SharedModule {}

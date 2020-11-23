@@ -25,7 +25,7 @@ import {
   AuthService,
   BeforeLoginService,
   AfterLoginService,
-  GettasksService} from './core/services';
+  UploadfileService} from './core/services';
 import { ResetPasswordModule } from './components/auth/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NewPasswordModule } from './components/auth/new-password/new-password.module';
@@ -83,6 +83,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FileservicesService,
     QuickhelpService,
     StudentTaskService,
+    UploadfileService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],

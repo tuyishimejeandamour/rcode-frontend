@@ -26,6 +26,6 @@ import { QuillModule } from 'ngx-quill';
 
 
   ],
-  entryComponents:[ DialogComponent ]
+  // entryComponents:[ DialogComponent ]
 })
 export class MarksPageModule { }

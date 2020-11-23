@@ -15,16 +15,17 @@ import { AngularSplitModule } from 'angular-split';
 import { CdialogComponent } from './challenges/cdialog/cdialog.component';
 import { QuillModule } from 'ngx-quill';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, ChallengesComponent, DialogComponent, DialogAssignComponent, CdialogComponent ],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
-    
     MaterialModule,
     MonacoEditorModule,
     FormsModule,
+    SharedModule,
     AngularSplitModule,
     HighchartsChartModule,
     QuillModule.forRoot()

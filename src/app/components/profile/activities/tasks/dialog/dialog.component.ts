@@ -96,7 +96,6 @@ export class DialogComponent implements OnInit{
 
   }
   HandleResponse(data):void{
-    console.log(data);
     this.taskreviewcontent=data;
   }
 

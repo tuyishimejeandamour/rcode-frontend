@@ -23,7 +23,7 @@ import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
     ContextMenuModule.forRoot({
       autoFocus: true,
     }),
-    
+
   ],
   entryComponents: [ModalComponent]
 })

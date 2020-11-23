@@ -70,6 +70,25 @@
     </div>
     <div class="profile_content_right">
 <div class="challenge_container">
+  <div class="challenge" *ngIf="!compose">
+    <div class="assignment_div" *ngFor="let mail of mails " (click)="viewDetail(mail);openNav()">
+      <div class="img_assign img_challenge">
+        <p matLine class="text-truncate subject">{{mail.subject}}</p>
+      </div>
+      <div class="footer_assign">
+        <mat-nav-list>
+        <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+          <img *ngIf="mail.senderPhoto" matListAvatar [src]="mail.senderPhoto">
+          <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../../../assets/profile_picture/31592671453.png">
+          <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
+            <h4 class="text-truncate sender" [ngStyle]="{'font-size': '13px'}">{{mail.sender}}</h4>
+            <small>{{mail.date}}</small>
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+      </div>
+    </div>
+  </div>
     <div class="sidebar_diplay"  *ngIf="open && !compose">
      <div class="upper-for-solution">
       <div class="mailbox-content" perfectScrollbar>
@@ -121,11 +140,11 @@
                           <a nohref>
                             <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
                             Downloads</a>
-  
+
                           <a nohref mat-menu-item>
                             <mat-icon aria-hidden="true">format_color_fill</mat-icon>
                             white theme
-  
+
                           </a>
                           <mat-divider></mat-divider>
                           <a nohref mat-menu-item>
@@ -137,14 +156,14 @@
                             about
                           </a>
                           <mat-divider></mat-divider>
-  
+
                           <a noref mat-menu-item>
                             <mat-icon>exit_to_app</mat-icon>
                             Log out
                           </a>
                         </div>
                       </mat-menu>
-  
+
                       <button class="runbutton">
                         <mat-icon>play_arrow</mat-icon>
                       </button>
@@ -171,7 +190,7 @@
       </div>
      </div>
      <div class="leavecomment" [@expandmessage]="expand ? 'expanded' : 'collapsed'">
-      <div  class="chat-actions"> 
+      <div  class="chat-actions">
         <span class="minimize" *ngIf="expand" (click)="expand=false">
           <span class="mat-expansion-indicator ng-trigger ng-trigger-indicatorRotate ng-star-inserted" style="transform:rotate(0deg)"></span>
         </span>
@@ -217,32 +236,14 @@
      </div>
     </div>
 
-    <div class="challenge" *ngIf="!compose">
-      <div class="assignment_div" *ngFor="let mail of mails " (click)="viewDetail(mail);openNav()">
-        <div class="img_assign img_challenge">
-          <p matLine class="text-truncate subject">{{mail.subject}}</p>
-        </div>
-        <div class="footer_assign">
-          <mat-nav-list>
-          <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
-            <img *ngIf="mail.senderPhoto" matListAvatar [src]="mail.senderPhoto">
-            <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../../../assets/profile_picture/31592671453.png">
-            <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
-              <h4 class="text-truncate sender" [ngStyle]="{'font-size': '13px'}">{{mail.sender}}</h4>
-              <small>{{mail.date}}</small>
-            </div>
-          </mat-list-item>
-        </mat-nav-list>
-        </div>
-      </div>
-    </div>
+
     <div class="challenge" *ngIf="compose">
 
-        <form  #createChallengeForm=ngForm (ngSubmit)="onSubmit()" class="mail-body1"> 
+        <form  #createChallengeForm=ngForm (ngSubmit)="onSubmit()" class="mail-body1">
 
           <mat-form-field class="w-100">
               <input matInput placeholder="Subject" [(ngModel)]="Form.Subject"name="Subject">
-          </mat-form-field>                          
+          </mat-form-field>
           <quill-editor [(ngModel)]="Form.message"  name="message" class="editortext"></quill-editor>
           <div class="codeforchallenge" *ngIf="snippet">
             <div class="directory_header">
@@ -261,21 +262,21 @@
                  <a nohref>
                    <i class="fa fa-download" style="font-size: 16px;margin-right:10px"></i>
                    Downloads</a>
-                 
+
                  <a nohref mat-menu-item>
                    <mat-icon aria-hidden="true">format_color_fill</mat-icon>
                    white theme
-           
+
                  </a>
                  <mat-divider></mat-divider>
                  <a nohref mat-menu-item >
                   <mat-icon>live_help</mat-icon>
                    Help</a>
                  <a nohref mat-menu-item >
-            <mat-icon>contact_mail</mat-icon>     
+            <mat-icon>contact_mail</mat-icon>
               about</a>
               <mat-divider></mat-divider>
-               
+
                  <a noref mat-menu-item >
                    <mat-icon>exit_to_app</mat-icon>
                    Log out</a>
@@ -285,13 +286,13 @@
             <div class="codediveditor">
               <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
             </div>
-          </div>                            
+          </div>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="bottom">
               <button mat-raised-button (click)="compose = false;message=true;" type="button">Back</button>
               <button mat-raised-button color="primary" type="submit">Send</button>
               <button mat-raised-button color="primary" type="button" (click)="snippet=!snippet" style="float: right;">snippet</button>
-          </div> 
-      </form> 
+          </div>
+      </form>
     </div>
 
   </div>
