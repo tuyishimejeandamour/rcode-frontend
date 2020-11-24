@@ -10,7 +10,10 @@
 <div class="view-profile-over" [@openClose]="isviewOpen ? 'open' : 'closed'">
   <mat-grid-list cols="4" rowHeight="50%" style="z-index: 300;">
     <mat-grid-tile [colspan]="tiles[0].cols" [rowspan]="tiles[0].rows" [style.background]="tiles[0].color">
-      <mat-grid-tile-header [style.background]="tiles[1].color" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">profile intro</mat-grid-tile-header>
+      <mat-grid-tile-header [style.background]="tiles[1].color" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">
+        <button mat-stroked-button color="primary" (click)="isviewOpen = !isviewOpen"><mat-icon>chevron_left</mat-icon></button>
+        profile intro
+      </mat-grid-tile-header>
       <div class="cardscontainer">
       <mat-card class="example-card" >
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" height="80">
@@ -79,14 +82,24 @@
 
       <div class="profileimage">
         <div class="profileimageeditandshow">
-        <img src="../.././../../../assets/profile_picture/41594424503.png" alt="">
+        <img *ngIf="!profileinfo.filepath" src="../.././../../../assets/profile_picture/41594424503.png" alt="">
+        <img *ngIf="profileinfo.filepath" [src]="profileinfo.filePath" alt="">
         <div class="changeprofileimage" (click)="clicktoupload()">
         <mat-icon>camera_enhance</mat-icon>
         <input type="file" name="profileimage" id="fileinput" hidden (change)="change($event)">
         </div>
         </div>
         <div class="conent-info-profile">
-           <span class="userbio"><i>My naam is Pieter Goosen BLAH BLAH BLAH</i></span>
+           <span *ngIf="bio.bio && !edit" class="userbio"  (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
+           <span *ngIf="!bio.bio && !edit" class="userbio" (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
+           <mat-form-field *ngIf="edit">
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      (blur)="edit=false; updatebio()"
+                      cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
           <div class="buttonsdiv">
            <button mat-button ><mat-icon>edit</mat-icon>edit</button>
            <button mat-button  (click)="isviewOpen = !isviewOpen" ><mat-icon>menu</mat-icon>more</button>
@@ -97,13 +110,19 @@
 
       <div class="profile-namedetail">
         <div class="profiledetails">
-          <mat-list role="list">
+          <button mat-icon-button style="position:absolute;right:10px;top:3px;z-index: 300; color:rgb(84, 27, 117)" (dblclick)="editinput =! editinput">
+            <mat-icon>edit</mat-icon>
+          </button>
+            <mat-list role="list">
             <mat-list-item role="listitem">
               <div class="label">
                 <h6 class="labelname">firstname</h6>
               </div>
               <div class="realname">
-                {{currentuser.firstname}}
+                <mat-form-field *ngIf="!editinput">
+                  <input matInput [(ngModel)]="currentuser.firstname">
+                </mat-form-field>
+               <span *ngIf="editinput">{{currentuser.firstname}}</span>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -112,7 +131,10 @@
                 <h6 class="labelname">lastname</h6>
               </div>
               <div class="realname">
-                {{currentuser.lastname}}
+                <mat-form-field *ngIf="!editinput">
+                  <input matInput [(ngModel)]="currentuser.lastname">
+                </mat-form-field>
+               <span *ngIf="editinput"> {{currentuser.lastname}}</span>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -121,7 +143,10 @@
                 <h6 class="labelname">username</h6>
               </div>
               <div class="realname">
-                {{currentuser.username}}
+                <mat-form-field *ngIf="!editinput">
+                  <input matInput [(ngModel)]="currentuser.username">
+                </mat-form-field>
+                <span *ngIf="editinput">{{currentuser.username}}</span>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -130,7 +155,10 @@
                 <h6 class="labelname">email</h6>
               </div>
               <div class="realname">
-                {{currentuser.email}}
+                <mat-form-field *ngIf="!editinput">
+                  <input matInput [(ngModel)]="currentuser.email">
+                </mat-form-field>
+                <span *ngIf="editinput">{{currentuser.email}}</span>
               </div>
             </mat-list-item>
           </mat-list>

@@ -13,8 +13,8 @@ export class UploadfileService {
   constructor(private httpClient: HttpClient) { }
   public upload(data:any, userId:number):any {
     const formData = new FormData();
-    formData.append('file', data);
-    const uploadURL = `${this.baseurl}/avatar/${userId}`;
+    formData.append('image', data);
+    const uploadURL = `${this.baseurl}/profile/${userId}`;
 
     return this.httpClient.post<any>(uploadURL, formData, {
       reportProgress: true,
@@ -34,5 +34,14 @@ export class UploadfileService {
       }
     })
     );
+  }
+  profileimage(userId:number):any{
+    const uploadURL = `${this.baseurl}/profile/${userId}`;
+
+    return this.httpClient.get(uploadURL)
+  }
+  updatebio(userId:number,data:any):any{
+    const uploadURL = `${this.baseurl}/profile/bio/${userId}`;
+    return this.httpClient.put(uploadURL,data);
   }
 }

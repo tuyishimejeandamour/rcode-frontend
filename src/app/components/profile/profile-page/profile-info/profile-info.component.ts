@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, Inject, NgZone } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
@@ -7,6 +7,8 @@ import * as Highcharts from 'highcharts';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { JerwisService, User } from 'app/core/services';
 import { UploadfileService } from 'app/core/services/fileexplorer/uploadfile.service';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { take } from 'rxjs/operators';
 export interface Tile {
   color: string;
   cols: number;
@@ -39,17 +41,25 @@ export interface Tile {
 })
 export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
   currentuser: User;
-
+  public profileinfo ={
+    filepath:null,
+    bio:null
+  }
   constructor(
     public dialog: MatDialog,
     public mailboxService:QuickhelpService,
     private chatService:ChatService,
-    private user:JerwisService
+    private user:JerwisService,
+    private uploadService:UploadfileService,
+    private _ngZone: NgZone
   ) { }
 
   ngOnInit(): void {
-    this.currentuser = this.user.getUser()
+    this.currentuser = this.user.getUser();
+    this.geitprogileinfo();
+    console.log(this.profileinfo);
     this.getMails();
     this.chats = this.chatService.getChats();
     if(window.innerWidth <= 768){
@@ -57,6 +67,8 @@ export class ProfileInfoComponent implements OnInit {
     }
   }
   isOpen = false;
+  edit=false;
+  editinput= true;
   isviewOpen=false;
   public mails: Array<Mail>;
   public mail: Mail;
@@ -69,6 +81,10 @@ export class ProfileInfoComponent implements OnInit {
   public sidenavOpen = true;
   public currentChat:Chat;
   public newMessage:string;
+  public bio={
+    bio:'click to add bio'
+  }
+
   tiles: Tile[] = [
     {text: 'One', cols: 2, rows: 1, color: 'white'},
     {text: 'Two', cols: 2, rows: 2, color: 'white'},
@@ -79,7 +95,11 @@ export class ProfileInfoComponent implements OnInit {
   public onWindowResize():void {
     (window.innerWidth <= 992) ? this.isOpen = true : this.isOpen = false;
   }
-
+  triggerResize():void {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
   public getMails():void{
     switch (this.type) {
       case 'all':
@@ -185,7 +205,18 @@ export class ProfileInfoComponent implements OnInit {
       }
     });
   }
-
+  geitprogileinfo():void{
+    this.uploadService.profileimage(this.user.getUser().id).subscribe(
+      data=>{this.profileinfo = data;this.bio.bio = data.bio},
+      (error)=>{}
+    )
+  }
+  updatebio():void{
+    this.uploadService.updatebio(this.user.getUser().id,this.bio).subscribe(
+      data=> this.bio = data,
+      error=>console.log(error)
+    )
+  }
   /**
     * charts
     */
@@ -273,23 +304,16 @@ export class UploadimageComponent implements OnInit {
   }
   uploadimage(event:any):void{
     this.selectedFile = event.target.files[0];
-
-    // To display the selected image before deciding to upload it.
     const reader = new FileReader();
-
-    // Gets a 'base64' representation of an image.
     reader.readAsDataURL(this.selectedFile);
-
     reader.onload = (event2) => {
-      // Sets the html <img> tag to the image.
       this.imgURL = reader.result;
-      console.log(this.imgURL);
-
     };
 
 
   }
   onupload():void{
+    this.onNoClick();
     this.uploadService.upload(this.selectedFile, this.User.getUser().id).subscribe(
       (res) => console.log(res),
       (err) => (err)
