@@ -9,17 +9,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { ExplorerComponent } from './file-explorer/explorer/explorer.component';
 import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
+import { CoreModule } from 'app/core/core.module';
+
 
 
 
 @NgModule({
-  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent, ModalComponent],
+  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     SharedModule,
     MaterialModule,
     MatIconModule,
+    CoreModule,
     ContextMenuModule.forRoot({
       autoFocus: true,
     }),

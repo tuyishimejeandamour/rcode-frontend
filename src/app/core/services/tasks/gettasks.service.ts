@@ -65,14 +65,15 @@ export class GettasksService {
     const now = new Date();
     console.log(date);
     const remainingTime = Math.floor((date.getTime() - now.getTime()) / 1000);
+    console.log(remainingTime);
     if (remainingTime <= 0) {
-
       return null;
     } else {
       const hours = Math.floor(remainingTime / 3600);
       const remainingTimes = remainingTime % 3600;
       const minutes = Math.floor(remainingTimes / 60);
       const seconds = remainingTimes % 60;
+      console.log(`${this.leadingZero(hours)}:${this.leadingZero(minutes)}:${this.leadingZero(seconds)}`);
       return `${this.leadingZero(hours)}:${this.leadingZero(minutes)}:${this.leadingZero(seconds)}`;
     }
   }

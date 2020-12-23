@@ -27,8 +27,8 @@ export class FiletreeService {
       active:false,
       children: [
         {
-          name: 'index.php', 
-          iconname: 'note', 
+          name: 'index.php',
+          iconname: 'note',
           code:this.goCode,
           padding:0,
           language:'go',
@@ -40,7 +40,7 @@ export class FiletreeService {
           padding:0,
           active:false,
           children: [
-            { name: 'logo.png', 
+            { name: 'hello.py',
               iconname: 'note',
               code:this.pythonCode,
               language:'python',
@@ -63,8 +63,8 @@ export class FiletreeService {
           padding:0,
           active:false,
           children: [
-            { 
-              name: 'app.componet.java', 
+            {
+              name: 'app.componet.java',
               iconname: 'note',
               code:this.javaCode,
               language:'java',
@@ -77,13 +77,13 @@ export class FiletreeService {
               active:false,
               padding:0,
               children: [
-                { name: 'logo.png', 
+                { name: 'logo.png',
                   iconname: 'note',
                   padding:0,
                   code:this.pythonCode,
                   language:'python',
                   active:false,
-  
+
                 },
                 {
                   name: 'background.png',
@@ -105,8 +105,8 @@ export class FiletreeService {
       active:false,
       children: [
         {
-          name: 'index.php', 
-          iconname: 'note', 
+          name: 'index.php',
+          iconname: 'note',
           code:this.goCode,
           padding:0,
           language:'go',
@@ -118,7 +118,7 @@ export class FiletreeService {
           padding:0,
           active:false,
           children: [
-            { name: 'logo.png', 
+            { name: 'logo.png',
               iconname: 'note',
               code:this.pythonCode,
               language:'python',
@@ -141,8 +141,8 @@ export class FiletreeService {
           padding:0,
           active:false,
           children: [
-            { 
-              name: 'app.componet.java', 
+            {
+              name: 'app.componet.java',
               iconname: 'note',
               code:this.javaCode,
               language:'java',
@@ -155,13 +155,13 @@ export class FiletreeService {
               active:false,
               padding:0,
               children: [
-                { name: 'logo.png', 
+                { name: 'logo.png',
                   iconname: 'note',
                   padding:0,
                   code:this.pythonCode,
                   language:'python',
                   active:false,
-  
+
                 },
                 {
                   name: 'background.png',
@@ -180,5 +180,5 @@ export class FiletreeService {
   getTreeData1(): TreeData[] {
     return this.data;
   }
-  
+
 }

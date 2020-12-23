@@ -1,0 +1,5 @@
+{
+  "result":
+  {"status":"success","message":null},
+  "directories":["public/images","public/profileimg"],
+  "files":["public/.gitignore"]}

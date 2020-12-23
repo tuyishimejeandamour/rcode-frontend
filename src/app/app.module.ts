@@ -25,7 +25,8 @@ import {
   AuthService,
   BeforeLoginService,
   AfterLoginService,
-  UploadfileService} from './core/services';
+  UploadfileService,
+  HttpexplorerService} from './core/services';
 import { ResetPasswordModule } from './components/auth/reset-password/reset-password.module';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NewPasswordModule } from './components/auth/new-password/new-password.module';
@@ -33,7 +34,6 @@ import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CommonfunctionService } from './Service/commonfunction.service';
 import { MarktaskModule } from './components/marktask/marktask.module';
-import { FileservicesService } from './Service/fileservices.service';
 import { QuickhelpService } from './Service/quickhelp.service';
 import { StudentTaskService } from './Service/student-task.service';
 
@@ -62,9 +62,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NewPasswordModule,
     MaterialModule,
     BrowserAnimationsModule,
-
     MarktaskModule,
-
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -80,10 +78,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BeforeLoginService,
     AfterLoginService,
     CommonfunctionService,
-    FileservicesService,
     QuickhelpService,
     StudentTaskService,
     UploadfileService,
+    HttpexplorerService,
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     SnotifyService
   ],

@@ -8,4 +8,5 @@ export { GettasksService,TaskYouHave,SubmittedTask,Submittedfiles } from './task
 export { HttpmarksService } from './marks/httpmarks.service'
 export { MarksService,Marks } from './marks/marks.service'
 export { HttpactivitiesService } from './activities/httpactivities.service';
-export{ UploadfileService } from './fileexplorer/uploadfile.service'
+export{ UploadfileService } from './fileexplorer/uploadfile.service';
+export { HttpexplorerService}  from './fileexplorer/httpexplorer.service'

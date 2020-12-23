@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeDisplayComponent implements OnInit {
-  @Input() time: string;
+  @Input() time: any;
 
   constructor() { }
 

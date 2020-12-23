@@ -1,11 +1,11 @@
 
 import { Injectable } from '@angular/core';
+import { FolderFile } from 'app/components/profile/file-explorer/file-explorer.component';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { v4 } from 'uuid';
-import { FileElement } from './fileservices.service';
 export interface Breadcrumb {
   id?: string;
-  element:FileElement;
+  element:FolderFile;
 
 }
 export interface IFileService {

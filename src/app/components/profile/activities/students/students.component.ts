@@ -221,7 +221,6 @@ export class DialogOverviewExampleDialog implements OnInit {
       debounceTime(300),
       switchMap(term =>
       {
-        console.log(term);
         return this.User.findusers(term);
 
       }

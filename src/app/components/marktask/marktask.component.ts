@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
@@ -21,11 +21,13 @@ export class MarktaskComponent implements OnInit {
     firstname:null,
     lastname:null,
   }];
-  // @HostListener('window:beforeunload',['$event'])
-  // public onWindowBeforeunload(event):void {
-  //   event.preventDefault();
-  //   event.returnValue = true;
-  // }
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent):void {
+    if(event.key == 'ArrowDown'){
+      // Your row selection code
+      console.log(event.key);
+    }
+  }
   public editor;
   leftSidebarStatus = "c";
   leftSidebarSelected = "";
@@ -237,6 +239,7 @@ export class MarktaskComponent implements OnInit {
   }
 
   gettasktomark(id:number):void{
+
     this.http.getsingletask(id).subscribe(
       (data)=>this.task=data,
       error=>console.log(error)

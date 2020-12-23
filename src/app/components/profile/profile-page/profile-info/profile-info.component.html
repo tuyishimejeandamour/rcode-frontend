@@ -82,22 +82,21 @@
 
       <div class="profileimage">
         <div class="profileimageeditandshow">
-        <img *ngIf="!profileinfo.filepath" src="../.././../../../assets/profile_picture/41594424503.png" alt="">
-        <img *ngIf="profileinfo.filepath" [src]="profileinfo.filePath" alt="">
+        <img  src="{{profileinfo.filepath}}" alt="">
         <div class="changeprofileimage" (click)="clicktoupload()">
         <mat-icon>camera_enhance</mat-icon>
         <input type="file" name="profileimage" id="fileinput" hidden (change)="change($event)">
         </div>
         </div>
         <div class="conent-info-profile">
-           <span *ngIf="bio.bio && !edit" class="userbio"  (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
-           <span *ngIf="!bio.bio && !edit" class="userbio" (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
+           <span  class="userbio" *ngIf="!edit"  (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
            <mat-form-field *ngIf="edit">
             <textarea matInput
                       cdkTextareaAutosize
                       #autosize="cdkTextareaAutosize"
                       cdkAutosizeMinRows="1"
                       (blur)="edit=false; updatebio()"
+                      [(ngModel)]="bio.bio"
                       cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
           <div class="buttonsdiv">

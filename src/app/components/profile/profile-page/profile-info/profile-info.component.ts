@@ -44,8 +44,8 @@ export class ProfileInfoComponent implements OnInit {
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   currentuser: User;
   public profileinfo ={
-    filepath:null,
-    bio:null
+    filepath:'../.././../../../assets/profile_picture/41594424503.png',
+    bio:'add bio'
   }
   constructor(
     public dialog: MatDialog,
@@ -210,6 +210,7 @@ export class ProfileInfoComponent implements OnInit {
       data=>{this.profileinfo = data;this.bio.bio = data.bio},
       (error)=>{}
     )
+    console.log(this.profileinfo);
   }
   updatebio():void{
     this.uploadService.updatebio(this.user.getUser().id,this.bio).subscribe(

@@ -5,15 +5,16 @@
         <div class="logo-and-nav-wrap">
           <div class="logo-wrap">
              <button mat-icon-button><mat-icon>keyboard_arrow_left</mat-icon></button>
-            <button mat-icon-button><mat-icon>keyboard_arrow_right</mat-icon></button> 
-            <button mat-icon-button> <mat-icon>home</mat-icon></button>
+            <button mat-icon-button><mat-icon>keyboard_arrow_right</mat-icon></button>
+            <button mat-icon-button (click)="navigatehome()"><mat-icon>home</mat-icon></button>
           </div>
           <div class="site-nav-wrap">
             <nav class="nav">
               <div class="breadcrumb-wrap" *ngFor="let item of path" (click)="navigateFrom(item)">
                 <span class="sep">
                   <mat-icon>keyboard_arrow_right</mat-icon>
-                </span> <span class="breadcrumb"><a nohref>{{item.element.name|| 'Files'}}</a></span>
+                </span>
+                <span class="breadcrumb"><a nohref>{{item.element.basename || 'Files'}}</a></span>
               </div>
             </nav>
           </div>
@@ -22,18 +23,35 @@
     </div>
   </div>
   <div class="filediv">
-    <div class="filefolder_container">
-      <div class="filecontainer" *ngFor="let element of fileElements" (click)="rotate($event,'filecontainer',element)"
+    <div class="filefolder_container" *ngIf="fileElements">
+      <div class="filecontainer"  *ngFor="let element of fileElements.directories" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
         (contextmenu)="onContextMenu($event,element)">
-        <div class="file-image" (click)="navigate(element)">
+        <div class="file-image" >
           <div class='image'>
 
           </div>
         </div>
         <div class="file-semidetails">
-          <span class="foldername">{{element.name}}</span>
+          <span class="foldername">{{element.basename}}</span>
+          <span>last modified:{{ element.timestamp | date }}</span>
+          <span></span>
+          <button mat-icon-button (click)="onContextMenu($event,element)"
+            aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="filecontainer" *ngFor="let element of fileElements.files" (click)="rotate($event,'filecontainer',element)"
+        (contextmenu)="onContextMenu($event,element)">
+        <div class="file-image">
+          <div class='image'>
+
+          </div>
+        </div>
+        <div class="file-semidetails">
+          <span class="foldername">{{element.basename}}</span>
           <span>1 item</span>,
-          <span>2002 23 apr</span>
+          <span>last modified:{{ element.timestamp | date }}</span>
           <span></span>
           <button mat-icon-button (click)="onContextMenu($event,element)"
             aria-label="Example icon button with a vertical three dot icon">
@@ -42,9 +60,10 @@
         </div>
       </div>
 
+
     </div>
     <context-menu>
-      <ng-template contextMenuItem>
+      <ng-template contextMenuItem (execute) ="navigate($event.item)">
         <mat-icon>open_in_new</mat-icon>open
       </ng-template>
       <ng-template contextMenuItem [subMenu]="createMenu">
@@ -114,19 +133,19 @@
       <div class='clicked_file_detail'>
         <div class="file_1">
           <span class="file_desc_span_header">name</span>
-          <span>{{discdetail.name}}</span>
+          <span>{{discdetail.basename}}</span>
         </div>
-        <div class="file_2">
+        <div class="file_2" *ngIf="discdetail.type != 'dir'">
           <span class="file_desc_span_header">size</span>
-          <span>20 kb</span>
+          <span>{{discdetail.size}}</span>
         </div>
         <div class="file_3">
           <span class="file_desc_span_header">date</span>
-          <span>30, apirl, 2020 at 10:30</span>
+          <span>{{discdetail.timestamp | date}}</span>
         </div>
         <div class="file_4">
           <span class="file_desc_span_header">path</span>
-          <span>home/good/fare</span>
+          <span>{{discdetail.path}}</span>
         </div>
 
       </div>

@@ -69,13 +69,14 @@
 
     </div>
   </div>
-  <app-explorer [fileElements]="fileElements | async" [path]="currentPath" 
+  <app-explorer [fileElements]="fileElements" [path]="currentPath"
     [canNavigateUp]="canNavigateUp"
-    (folderAdded)="addFolder($event)" 
+    (folderAdded)="addFolder($event)"
     (elementRemoved)="removeElement($event)"
+    (gohome)="gethome()"
     (navigatedDown)="navigateToFolder($event)"
     (navigateFromNav)="navigateFromNav($event)"
-    (navigatedUp)="navigateUp()" 
+    (navigatedUp)="navigateUp()"
     (elementRenamed)="renameElement($event)"
     (elementMoved)="moveElement($event)"></app-explorer>
 </div>
