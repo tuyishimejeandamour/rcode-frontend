@@ -11,9 +11,10 @@ import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { MaterialModule } from 'app/material/material.module';
 import { SelectstudentComponent } from './selectstudent/selectstudent.component';
 import { FiletreeComponent } from './filetree/filetree.component';
+import { GivemarksComponent } from './givemarks/givemarks.component';
 @NgModule({
-  
-  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent],
+
+  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent],
   imports: [
     CommonModule,
     MarktaskRoutingModule,
@@ -25,7 +26,8 @@ import { FiletreeComponent } from './filetree/filetree.component';
     MaterialModule,
     ReactiveFormsModule
   ],
- 
+  entryComponents:[GivemarksComponent]
+
 
 })
 export class MarktaskModule { }

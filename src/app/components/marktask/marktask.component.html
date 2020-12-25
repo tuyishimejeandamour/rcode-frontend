@@ -136,49 +136,7 @@
           </div>
 
           <div id="mark" class="tabcontentM">
-            <div class="modal-body">
-              <div class="basicstomark">
-                <h1 class="marks_header">Set marking essential</h1>
-                <select name="catname"  id="task">
-                  <option value="" disabled>select task name</option>
-                  <option value="{{task.taskname}}" selected>{{task.taskname}}</option>
-                </select>
-                <select name="term" id="lesson">
-                  <option value="" disabled>select lesson</option>
-                  <option value="{{task.lesson}}" selected>{{task.lesson}}</option>
-                </select>
-                <select name="class"  id="classactive">
-                  <option value="" disabled>select class</option>
-                  <option value="{{task.class}" selected>{{task.class}}</option>
-                </select>
-                <select name="term" id="term">
-                  <option value="term1">term1</option>
-                  <option value="term2">term2</option>
-                  <option value="term3">term3</option>
-                </select>
-                <input type="number" [(ngModel)]="marks.higscore" name="highscore" placeholder="marks cat in on">
-                <div class="guidelines" id="results">
-                </div>
-              </div>
-              <div class="student_info">
-                <h1 class="marks_header">Set who you marked</h1>
-                <select name="user" id="username"  [(ngModel)]="markform.student_id">
-                  <option value=""  disabled>select student</option>
-                  <option *ngFor="let student of students" [value]="student.id">
-                    {{student.firstname }}
-                    {{student.lastname }}
-                  </option>
 
-                </select>
-                <input type="number" id="marks" placeholder="enter marks"  name="score"  [(ngModel)]="marks.score">
-                <textarea id="comments" class="comment_section" placeholder="give feedback to students"></textarea>
-                <div style="margin-top: 20px;">
-                <button mat-raised-button type="button"s style="margin-right: 50px;">cancel</button>
-                <button mat-raised-button color="primary" type="submit" (click)="markstudent()">save</button>
-              </div>
-              </div>
-
-            </div>
           </div>
         </div>
     </as-split-area>

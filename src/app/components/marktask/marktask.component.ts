@@ -6,6 +6,8 @@ import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { HttpactivitiesService, HttpmarksService, JerwisService, User } from 'app/core/services';
 import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GivemarksComponent } from './givemarks/givemarks.component';
 
 
 @Component({
@@ -21,11 +23,10 @@ export class MarktaskComponent implements OnInit {
     firstname:null,
     lastname:null,
   }];
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent):void {
-    if(event.key == 'ArrowDown'){
-      // Your row selection code
-      console.log(event.key);
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent):void {
+    if (event.key==="m") {
+      this.opendialogy()
     }
   }
   public editor;
@@ -57,6 +58,7 @@ export class MarktaskComponent implements OnInit {
                private monacoLoaderService: MonacoEditorLoaderService,
                private route: ActivatedRoute,
                private user: JerwisService,
+               private dialog:MatDialog,
                private http:HttpactivitiesService,
                private httpmark:HttpmarksService
 
@@ -261,5 +263,11 @@ export class MarktaskComponent implements OnInit {
       (data)=>this.students = data,
       error=>console.log(error)
     )
+  }
+  opendialogy():void{
+    this.dialog.open(GivemarksComponent,{
+      width:"40%"
+    });
+
   }
 }

@@ -1,0 +1,33 @@
+<div mat-dialog-title class="headertitle">
+  <select name="user" id="username">
+    <option value="" >Tuyishime jeandamour</option>
+  </select>
+  <div class="classname">
+    <span>class:</span>
+    <span>c</span>
+  </div>
+</div>
+<mat-divider>
+</mat-divider>
+<mat-dialog-content>
+  <div class="modal-body">
+    <div class="student_info">
+     <div class="givemarkinput">
+      <input type="number" id="marks" placeholder="Enter marks"  name="score">
+      <span class="markdiscription">/</span>
+      <span class="markdiscription">60</span>
+    </div>
+      <textarea id="comments" class="comment_section" placeholder="give feedback to students"></textarea>
+      <div style="margin-top: 20px;">
+
+    </div>
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button type="button"s style="margin-right: 50px;" (click)="closedialog()">close</button>
+  <button mat-raised-button color="primary" type="submit" (click)="markstudent()">save</button>
+</mat-dialog-actions>
