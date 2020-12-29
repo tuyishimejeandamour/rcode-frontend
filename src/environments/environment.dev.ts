@@ -6,5 +6,5 @@
 export const AppConfig = {
   production: false,
   environment: 'DEV',
-  apiHost: 'https://rcode-backend.heroku.com/api'
+  apiHost: 'https://192.168.0.152:8000/api'
 };

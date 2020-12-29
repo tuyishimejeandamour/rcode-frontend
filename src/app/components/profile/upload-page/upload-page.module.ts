@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { IssuesComponent } from './dialog/issues/issues.component';
 import { ShortenttextPipe } from 'app/core/pipes/shortenttext.pipe';
 import { SharedModule } from 'app/shared/shared.module';
+import { FilenamePipe } from 'app/core/pipes/filename.pipe';
+import { CoreModule } from 'app/core/core.module';
 
 
 
@@ -24,6 +26,7 @@ import { SharedModule } from 'app/shared/shared.module';
     UploadPageRoutingModule,
     MaterialModule,
     SharedModule,
+    CoreModule,
     ContextMenuModule.forRoot({
       autoFocus: true,
     }),

@@ -262,3 +262,22 @@ border: none !important;
     box-shadow: 1px 0 1px #dde;
   }
 }
+.uploaded{
+  width: 100%;
+  ul{
+    list-style-type: none;
+    li{
+      width: 90%;
+      height: 40px;
+      background: rgb(80, 80, 87);
+      margin-top: 3px;
+      color: white;
+      margin: 2px 5%;
+      border-radius: 5px;
+      &:last-child{
+        margin-bottom: 20px;
+      }
+
+    }
+  }
+}
