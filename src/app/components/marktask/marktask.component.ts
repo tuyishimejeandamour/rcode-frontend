@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
-import FileB, { FiletreeService, TreeData } from 'app/Service/filetree.service';
+import  { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { HttpactivitiesService, HttpmarksService, JerwisService, User } from 'app/core/services';
+import { HttpactivitiesService, HttpmarkeditorService, HttpmarksService, JerwisService, User } from 'app/core/services';
 import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
@@ -18,6 +18,7 @@ import { GivemarksComponent } from './givemarks/givemarks.component';
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
   reserved:TreeData[];
+  codes: any[]=[]
   students=[{
     id:null,
     firstname:null,
@@ -60,7 +61,8 @@ export class MarktaskComponent implements OnInit {
                private user: JerwisService,
                private dialog:MatDialog,
                private http:HttpactivitiesService,
-               private httpmark:HttpmarksService
+               private httpmark:HttpmarksService,
+               private markeditor:HttpmarkeditorService
 
   ) {
 
@@ -186,6 +188,10 @@ export class MarktaskComponent implements OnInit {
   activeindex:number;
 
   setcode(data:TreeData):boolean{
+    this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
+      data=> this.codes.push(data),
+      error => console.log(error)
+    );
     const num=this.filearrays.indexOf(data,1)
     if(num <0){
       this.filearrays.push(data);

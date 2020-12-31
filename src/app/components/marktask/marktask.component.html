@@ -79,15 +79,15 @@
           <div class="directory_header">
             <div class="tabsmarks">
               <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index" [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }" (click)="activeindex=i"
-                class="tab close-button-right sizing-fit has-icon dirty active" aria-label="marktask.component.html"
+                class="tab close-button-right sizing-fit has-icon dirty active" aria-label="{{item.basename}}"
                 aria-description=""
-                title="~/Desktop/homeworks/Rcode/src/app/components/marktask/marktask.component.html"
-                data-resource-name="marktask.component.html" aria-selected="true"
+                title="{{item.path}}"
+                data-resource-name="{{item.basename}}" aria-selected="true"
                 style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
                 <div class="tab-border-top-container"></div>
                 <div
                   class="monaco-icon-label"
-                  title="~/Desktop/homeworks/Rcode/src/app/components/marktask/marktask.component.html"{{item.}}>
+                  title="{{item.path}}">
                   <div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a
                         class="label-name">{{item.basename}}</a></span><span
                       class="monaco-icon-description-container"></span></div>
@@ -109,7 +109,7 @@
         </div>
         </div>
         <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
-          <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.language}" [(ngModel)]="item.code"></ngx-monaco-editor>
+          <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="code[i]"></ngx-monaco-editor>
         </div>
       </as-split-area>
       <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal" >

@@ -13,8 +13,7 @@ export class FiletreeComponent implements OnInit {
   @Output() elementadd = new EventEmitter();
   public toppx:number;
 
-  getcode(code:string):void{
-
+  getcode(code:TreeData):void{
     this.elementadd.emit(code)
   }
   constructor() { }

@@ -11,7 +11,7 @@ export class HttpactivitiesService {
 
   private baseurl=AppConfig.apiHost;
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
   setStudent(data: any):any{
