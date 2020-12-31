@@ -36,7 +36,7 @@ export class SelectstudentComponent implements OnInit {
   private getindex(data:TreeData[]):void{
     const datawchild = data.filter(option => option.children != null && option.children.length > 0);
     datawchild.forEach( data=>{
-      this.options.push(data.name)
+      this.options.push(data.basename)
     })
 
   }

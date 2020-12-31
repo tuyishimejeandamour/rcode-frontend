@@ -14,6 +14,7 @@ export class FiletreeComponent implements OnInit {
   public toppx:number;
 
   getcode(code:string):void{
+
     this.elementadd.emit(code)
   }
   constructor() { }
@@ -21,7 +22,7 @@ export class FiletreeComponent implements OnInit {
   ngOnInit(): void {
   }
   test(data:TreeData):void{
-    console.log(data.padding)
+    console.log(data.properties.padding)
   }
   getChildren = (node: TreeData):any => of(node.children);
   nestedTreeControl = new NestedTreeControl(this.getChildren);
@@ -30,11 +31,11 @@ export class FiletreeComponent implements OnInit {
   }
   addpadding(node: TreeData):void{
     node.children.forEach(element => {
-     
+
       if(element.children != null && element.children.length > 0){
-        element.padding=node.padding+12
+        element.properties.padding=node.properties.padding+12
       }else{
-        element.padding=node.padding+8
+        element.properties.padding=node.properties.padding+8
       }
     });
   }

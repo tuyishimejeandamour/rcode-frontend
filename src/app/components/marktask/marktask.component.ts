@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
-import { FiletreeService, TreeData } from 'app/Service/filetree.service';
+import FileB, { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -70,7 +70,7 @@ export class MarktaskComponent implements OnInit {
     this.gettasktomark(<number><unknown>this.heroId);
   }
   filterTree(name:string):void{
-    this.treeData = this.reserved.filter(data => data.name == name);
+    this.treeData = this.reserved.filter(data => data.basename == name);
   }
   split: SplitComponent;
   area1: SplitAreaDirective;
@@ -208,7 +208,7 @@ export class MarktaskComponent implements OnInit {
       filter(isLoaded => isLoaded),
       take(1),
     ).subscribe(() => {
-      monaco.editor.setModelLanguage(monaco.editor.getModels()[index-1],data.language);
+      monaco.editor.setModelLanguage(monaco.editor.getModels()[index-1],data.extension);
 
     });
   }
