@@ -79,10 +79,9 @@
           <div class="directory_header">
             <div class="tabsmarks">
               <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index" [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }" (click)="activeindex=i"
-                class="tab close-button-right sizing-fit has-icon dirty active" aria-label="{{item.basename}}"
-                aria-description=""
-                title="{{item.path}}"
-                data-resource-name="{{item.basename}}" aria-selected="true"
+                class="tab close-button-right sizing-fit has-icon dirty active"
+
+                title="{{item.path}}"        aria-selected="true"
                 style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
                 <div class="tab-border-top-container"></div>
                 <div
@@ -94,7 +93,7 @@
                 </div>
                 <div class="tab-close" (click)="closetab(i)">
                   <div class="monaco-action-bar animated">
-                    <ul class="actions-container" role="toolbar" aria-label="Tab actions">
+                    <ul class="actions-container" role="toolbar">
                       <li class="action-item" role="presentation"><a class="action-label codicon codicon-close"
                           role="button" tabindex="0" title="Close (Ctrl+W)"></a></li>
                     </ul>
@@ -108,15 +107,15 @@
           <button class="runbutton" (click)="terminal=true" [hidden]="play"><mat-icon>code</mat-icon></button>
         </div>
         </div>
-        <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
-          <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="code[i]"></ngx-monaco-editor>
+        <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }" >
+          <ngx-monaco-editor *ngIf="codes[i]" [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="codes[i]"></ngx-monaco-editor>
         </div>
       </as-split-area>
       <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal" >
         <div class="termianal">
           <div class="header">
            <div class="switchcontainer">
-            <ul class="actions-container" role="toolbar" aria-label="Active View Switcher">
+            <ul class="actions-container" role="toolbar" >
               <li class="action-tab active" role="tab" draggable="true" tabindex="0" ><a class="action-label"  style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'terminal')" id="defaultopen">terminal</a>
               </li>
               <li class="action-tab" role="tab" draggable="true" tabindex="0" ><a class="action-label"  style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'debug')">debug</a>

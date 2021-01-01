@@ -12,6 +12,7 @@ import { MaterialModule } from 'app/material/material.module';
 import { SelectstudentComponent } from './selectstudent/selectstudent.component';
 import { FiletreeComponent } from './filetree/filetree.component';
 import { GivemarksComponent } from './givemarks/givemarks.component';
+import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 @NgModule({
 
   declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent],
@@ -26,7 +27,8 @@ import { GivemarksComponent } from './givemarks/givemarks.component';
     MaterialModule,
     ReactiveFormsModule
   ],
-  entryComponents:[GivemarksComponent]
+  entryComponents:[GivemarksComponent],
+  providers:[FilenamePipe]
 
 
 })

@@ -8,6 +8,7 @@ import { HttpactivitiesService, HttpmarkeditorService, HttpmarksService, JerwisS
 import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
+import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 
 
 @Component({
@@ -62,7 +63,8 @@ export class MarktaskComponent implements OnInit {
                private dialog:MatDialog,
                private http:HttpactivitiesService,
                private httpmark:HttpmarksService,
-               private markeditor:HttpmarkeditorService
+               private markeditor:HttpmarkeditorService,
+               private extension:FilenamePipe
 
   ) {
 
@@ -188,10 +190,7 @@ export class MarktaskComponent implements OnInit {
   activeindex:number;
 
   setcode(data:TreeData):boolean{
-    this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
-      data=> this.codes.push(data),
-      error => console.log(error)
-    );
+
     const num=this.filearrays.indexOf(data,1)
     if(num <0){
       this.filearrays.push(data);
@@ -202,6 +201,11 @@ export class MarktaskComponent implements OnInit {
   }
 
   addFile(data:TreeData):void{
+    this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
+      data=> this.codes.push(data),
+      error => console.log(error)
+    );
+
     if(this.setcode(data)){
       this.activeindex=this.filearrays.indexOf(data,1);
     }
@@ -214,7 +218,10 @@ export class MarktaskComponent implements OnInit {
       filter(isLoaded => isLoaded),
       take(1),
     ).subscribe(() => {
-      monaco.editor.setModelLanguage(monaco.editor.getModels()[index-1],data.extension);
+      monaco.editor.setModelLanguage(
+        monaco.editor.getModels()[index-1],
+        this.fileTypes[ this.extension.transform(data.path)]
+      );
 
     });
   }
@@ -275,5 +282,13 @@ export class MarktaskComponent implements OnInit {
       width:"40%"
     });
 
+  }
+  fileTypes: {
+    css: 'css',
+    js: 'javascript',
+    json: 'json',
+    md: 'markdown',
+    mjs: 'javascript',
+    ts: 'typescript',
   }
 }
