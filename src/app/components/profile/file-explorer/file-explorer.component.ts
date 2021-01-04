@@ -3,7 +3,10 @@ import {  Breadcrumb } from 'app/Service/path.service';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { v4 } from 'uuid';
 import { SnotifyService } from 'ng-snotify';
-import { HttpexplorerService } from 'app/core/services';
+import { HttpexplorerService, TaskYouHave } from 'app/core/services';
+import { MatDialog } from '@angular/material/dialog';
+import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
+import { DialogComponent } from './dialog/dialog.component';
 export interface FolderFile{
   type:string;
   path:string;
@@ -24,10 +27,13 @@ export class FileExplorerComponent implements OnInit {
 
   public fileElements: any;
   @ViewChild(ExplorerComponent) private explorer:ExplorerComponent;
+  @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
   constructor(
     private filehttp: HttpexplorerService,
-    private notify:SnotifyService
+    private notify:SnotifyService,
+    private dialog:MatDialog,
+    private contextMenuService: ContextMenuService,
   ) {}
 
   currentRoot:FolderFile;
@@ -103,5 +109,33 @@ export class FileExplorerComponent implements OnInit {
       this.currentPath.splice(this.currentPath.length-1,1);
     }
   }
+
+  /**
+   * task functionlities
+   */
+  onContextMenu($event: MouseEvent, item:TaskYouHave): void {
+    this.contextMenuService.show.next({
+      contextMenu: this.basicMenu,
+      event: $event,
+      item: item
+
+    });
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+  showQuestion(task:TaskYouHave):void {
+    const dialogRef = this.dialog.open(DialogComponent,{
+      width:'90%',
+      height:'90%',
+      data: {taskid: task}
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        console.log(res)
+      }
+    });
+
+  }
+
 
 }

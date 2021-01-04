@@ -10,24 +10,24 @@
   <div class="float-pro">
     <div class='sort_arrengement'>
       <div class="filters">
-        <span class="header_sort">Base</span>
+        <span class="header_sort">Tasks</span>
         <ul>
           <li>
             <mat-icon>menu</mat-icon><span> all</span>
           </li>
           <li>
-            <mat-icon>folder_open</mat-icon><span>recent file</span>
+            <mat-icon>folder_open</mat-icon><span>This week</span>
           </li>
           <li>
-            <mat-icon>folder_special</mat-icon><span>important</span>
+            <mat-icon>folder_special</mat-icon><span>Other weeK</span>
           </li>
           <li>
-            <mat-icon>recent_actors</mat-icon><span>projects</span>
+            <mat-icon>recent_actors</mat-icon><span>unsubmitted</span>
           </li>
         </ul>
       </div>
       <div class="label">
-        <span class="header_sort">File library</span>
+        <span class="header_sort">Uploaded task</span>
         <ul>
           <li>
             <mat-icon>star</mat-icon><span>favorite</span>
@@ -69,6 +69,31 @@
 
     </div>
   </div>
+  <div class="tasks">
+    <div class="commmoncontainer">
+      <div class="recentupload">
+        <p class="title" style="margin-left:0%;">task in this week</p>
+        <div class="assinment_div">
+        <div class="filecontainer" *ngFor="let task of taskInThisWeek | async" (contextmenu)="onContextMenu($event,task)">
+         <div class="file-image">
+           <div class='image'>
+             <span>{{task.lesson | short:3}}</span>
+           </div>
+         </div>
+         <div class="file-semidetails">
+               <span class="foldername">{{task.taskname}}</span>
+               <span><app-time-display [time]="task.givenat"></app-time-display> </span>
+               <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+               <button mat-icon-button (click)="onContextMenu($event,task)" >
+                 <mat-icon>more_vert</mat-icon>
+               </button>
+             </div>
+       </div>
+     </div>
+      </div>
+      </div>
+  </div>
+  <div>
   <app-explorer [fileElements]="fileElements" [path]="currentPath"
     [canNavigateUp]="canNavigateUp"
     (folderAdded)="addFolder($event)"
@@ -79,4 +104,6 @@
     (navigatedUp)="navigateUp()"
     (elementRenamed)="renameElement($event)"
     (elementMoved)="moveElement($event)"></app-explorer>
+  </div>
+
 </div>
