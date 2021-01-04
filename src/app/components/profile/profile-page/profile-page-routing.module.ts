@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfilePageComponent } from './profile-page.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
-import { ChallengesComponent } from './challenges/challenges.component';
 
 const routes: Routes = [ {
   path: '', component: ProfilePageComponent,children: [
@@ -20,11 +19,6 @@ const routes: Routes = [ {
     {
       path:'assignments',
       component: AssignmentsComponent
-    }
-    ,
-    {
-      path:'challenges',
-      component: ChallengesComponent
     }
   ] }];
 

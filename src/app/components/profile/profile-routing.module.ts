@@ -19,8 +19,6 @@ const routes: Routes = [
       ,
       { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) }
       ,
-      { path: 'upload', loadChildren: () => import('./upload-page/upload-page.module').then(m => m.UploadPageModule) }
-      ,
       { path: 'profile-page', loadChildren: () => import('./profile-page/profile-page.module').then(m => m.ProfilePageModule) }
 
 

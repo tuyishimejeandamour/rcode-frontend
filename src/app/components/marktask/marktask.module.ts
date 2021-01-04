@@ -13,6 +13,7 @@ import { SelectstudentComponent } from './selectstudent/selectstudent.component'
 import { FiletreeComponent } from './filetree/filetree.component';
 import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 @NgModule({
 
   declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent],
@@ -25,7 +26,8 @@ import { FilenamePipe } from 'app/core/pipes/filename.pipe';
     FormsModule,
     MonacoEditorModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule
   ],
   entryComponents:[GivemarksComponent],
   providers:[FilenamePipe]

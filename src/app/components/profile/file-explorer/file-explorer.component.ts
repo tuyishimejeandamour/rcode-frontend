@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 import {  Breadcrumb } from 'app/Service/path.service';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { v4 } from 'uuid';

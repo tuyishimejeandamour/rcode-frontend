@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import  { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
@@ -9,7 +9,7 @@ import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.comp
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
-
+import { AppConfig } from 'environments/environment';
 
 @Component({
   selector: 'app-marktask',
@@ -19,7 +19,9 @@ import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
   reserved:TreeData[];
-  codes: any[]=[]
+  codes: any[]=[];
+  private baseurl=AppConfig.apiHost;
+  pdf = "http://192.168.0.96:8000/storage/task/jaylove/good/jaylove/Slides_Unit1.pdf"
   students=[{
     id:null,
     firstname:null,
@@ -107,7 +109,10 @@ export class MarktaskComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('defaultopen').click();
-    this.getstudents(this.user.getUser().id)
+    this.getstudents(this.user.getUser().id);
+  }
+  ngAfterViewInit(): void {
+
   }
 
   /**
@@ -190,7 +195,6 @@ export class MarktaskComponent implements OnInit {
   activeindex:number;
 
   setcode(data:TreeData):boolean{
-
     const num=this.filearrays.indexOf(data,1)
     if(num <0){
       this.filearrays.push(data);
@@ -199,13 +203,30 @@ export class MarktaskComponent implements OnInit {
       return false
     }
   }
+  getiffileopened(data:TreeData):boolean{
+    if (this.codes.length>0) {
+      console.log(this.codes)
+      const file =  this.codes.filter((code)=> code.path === data.path)
+      return file.length >0 ? true:false;
+    }else{
+      return false;
+    }
+
+
+  }
 
   addFile(data:TreeData):void{
-    this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
-      data=> this.codes.push(data),
-      error => console.log(error)
-    );
-
+    if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc") {
+      this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
+        data=> this.codes.push(data),
+        error => console.log(error)
+      );
+    }else if(!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc"){
+      const str = data.path.replace("public/", "");
+      const url = this.baseurl.replace("api","")
+      const pathname = `{"path":"${data.path}","code":"${url}storage/${str}"}`;
+      this.codes.push(JSON.parse(pathname));
+    }
     if(this.setcode(data)){
       this.activeindex=this.filearrays.indexOf(data,1);
     }

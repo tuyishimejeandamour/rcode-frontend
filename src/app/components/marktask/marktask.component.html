@@ -108,7 +108,12 @@
         </div>
         </div>
         <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }" >
-          <ngx-monaco-editor *ngIf="codes[i]" [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="codes[i]"></ngx-monaco-editor>
+          <div *ngIf="codes[i] && item.extension != 'pdf'">
+          <ngx-monaco-editor  [options]="{theme: 'vs-dark', language: item.extension}"  [(ngModel)]="codes[i].code"></ngx-monaco-editor>
+        </div>
+          <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
+            <pdf-viewer [src]="codes[i].code" [render-text]="true" style="display: block;"></pdf-viewer>
+          </div>
         </div>
       </as-split-area>
       <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal" >

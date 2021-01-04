@@ -16,4 +16,10 @@ export class HttpmarkeditorService {
     const pathname = `{"path":"${path}"}`;
     return this.http.post(`${this.baseurl}/file/content/${id}`,JSON.parse(pathname));
   }
+  geturl(path:string,id:number):Observable<any>{
+    const str = path.replace("public/", "");
+    const pathname = `{"path":"${str}"}`;
+    console.log(pathname);
+    return this.http.post(`${this.baseurl}/file/url/${id}`,JSON.parse(pathname));
+  }
 }
