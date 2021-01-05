@@ -114,6 +114,17 @@ export class ExplorerComponent implements OnChanges {
     this.discdetail= element;
 
   }
-
+  getfileicons(ext){
+    const defaulpath = "../../../../../assets/fileicons/"
+    if (ext == 'txt') {
+      return defaulpath+"document.svg"
+    }else if(ext  == 'php'){
+      return defaulpath+"php.svg"
+    }else if(ext == 'json'){
+      return defaulpath+"json.svg"
+    }else{
+      return defaulpath+"document.svg"
+    }
+  }
 }
 

@@ -24,11 +24,10 @@
   </div>
   <div class="filediv">
     <div class="filefolder_container" *ngIf="fileElements">
-      <div class="filecontainer" *ngFor="let element of fileElements.directories" (click)="rotate($event,'filecontainer',element)"
+      <div class="filecontainer" *ngFor="let element of fileElements.directories" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
       (contextmenu)="onContextMenu($event,element)">
       <div class="file-image">
-        <div class='image'>
-
+        <div class='image' style="background-image: url(../../../../../assets/others/icons8_folder_96px.png);">
         </div>
       </div>
       <div class="file-semidetails">
@@ -45,8 +44,7 @@
       <div class="filecontainer"  *ngFor="let element of fileElements.files" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
         (contextmenu)="onContextMenu($event,element)">
         <div class="file-image" >
-          <div class='image'>
-
+          <div class='image' [ngStyle]="{'background-image': 'url(' + getfileicons(element.extension) + ')'}">
           </div>
         </div>
         <div class="file-semidetails">
