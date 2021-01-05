@@ -7,6 +7,8 @@ import { HttpexplorerService, TaskYouHave } from 'app/core/services';
 import { MatDialog } from '@angular/material/dialog';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 export interface FolderFile{
   type:string;
   path:string;
@@ -34,12 +36,24 @@ export class FileExplorerComponent implements OnInit {
     private notify:SnotifyService,
     private dialog:MatDialog,
     private contextMenuService: ContextMenuService,
+    private gettasks:HttptaskService,
   ) {}
 
   currentRoot:FolderFile;
   currentPath: Breadcrumb[]=[];
   pathdel:Breadcrumb;
   canNavigateUp = false;
+  currenttask:TaskYouHave;
+  selectedFiles: any;
+  selectedpath:any[] =[];
+  currentFile: File;
+  progress = 0;
+  message = '';
+  ischanged= false;
+  taskstoworkon = false;
+  uploadedtasks = true;
+  uploadtasks = true;
+  currentselectedtask:TaskYouHave = null;
 
   ngOnInit():void {
     this.gethome();
@@ -51,17 +65,16 @@ export class FileExplorerComponent implements OnInit {
     );
     this.currentPath=[];
   }
-  addFolder(name: string ):void {
+  // addFolder(name: string ):void {
 
-  }
+  // }
 
-  removeElement(path:string):void {
+  // removeElement(path:string):void {
 
-  }
+  // }
 
   navigateToFolder(element:FolderFile):void {
-    const path = `{"path":"${element.path}"}`;
-    this.filehttp. getfilesinpath(JSON.parse(path)).subscribe(
+    this.filehttp. getfilesinpath(element.path).subscribe(
       data => this.fileElements = data,
       error => this.notify.error(`ok enought${<string>error.message}`
       ));
@@ -77,13 +90,13 @@ export class FileExplorerComponent implements OnInit {
 
   }
 
-  moveElement(event: { element: FolderFile; moveTo: FolderFile }):void {
+  // moveElement(event: { element: FolderFile; moveTo: FolderFile }):void {
 
-  }
+  // }
 
-  renameElement(element: FolderFile):void {
+  // renameElement(element: FolderFile):void {
 
-  }
+  // }
 
 
   pushToPath(element:FolderFile):void{
@@ -123,11 +136,11 @@ export class FileExplorerComponent implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
   }
-  showQuestion(task:TaskYouHave):void {
+  showQuestion(id : number):void {
     const dialogRef = this.dialog.open(DialogComponent,{
       width:'90%',
       height:'90%',
-      data: {taskid: task}
+      data: {taskid: id}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -136,6 +149,43 @@ export class FileExplorerComponent implements OnInit {
     });
 
   }
+  routesubmitt(task:number):void{
+    // this.currentselectedtask = task;
+    this.taskstoworkon = true;
+    this.uploadedtasks = true;
+    this.uploadtasks = false;
+  }
+  /**
+   * uploading functionlities
+   */
 
+  uploadfolder(event: { target: { files: any; }; }):void{
+    this.selectedFiles = event.target.files;
 
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.selectedpath[i] = { value: 0, name: this.selectedFiles[i].webkitRelativePath};
+
+    }
+
+  }
+  uploadtoserver():void{
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.upload(i, this.selectedFiles[i]);
+    }
+  }
+  upload(idx:number,file:any): void {
+
+    this.gettasks.uploadproject(file).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.selectedpath[idx].value = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('ok');
+        }
+      },
+      err => {
+        this.selectedpath[idx].value = 0;
+        this.message = 'Could not upload the file:' + <string>file.webkitRelativePath;
+      });
+  }
 }

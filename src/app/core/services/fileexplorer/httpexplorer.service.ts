@@ -21,7 +21,8 @@ export class HttpexplorerService {
     return this.http.get(`${this.baseurl}/content/${this.user.getUser().id}`)
   }
   getfilesinpath(path:string):Observable<any>{
-    return this.http.post(`${this.baseurl}/content`,path)
+    const pathgo = `{"path":"${path}","id":${this.user.getUser().id}}`;
+    return this.http.post(`${this.baseurl}/content`,JSON.parse(pathgo))
   }
 
 }

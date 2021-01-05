@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskYouHave } from 'app/core/services';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
-import { Observable } from 'rxjs';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -47,7 +46,7 @@ export class UploadComponent implements OnInit {
       error=>this.notify.error(error.error.error)
     )
   }
-  uploadfolder(event):void{
+  uploadfolder(event: { target: { files: any; }; }):void{
     this.selectedFiles = event.target.files;
 
     for (let i = 0; i < this.selectedFiles.length; i++) {
@@ -56,12 +55,12 @@ export class UploadComponent implements OnInit {
     }
 
   }
-  uploadtoserver(files:any):void{
+  uploadtoserver():void{
     for (let i = 0; i < this.selectedFiles.length; i++) {
       this.upload(i, this.selectedFiles[i]);
     }
   }
-  upload(idx:number,file): void {
+  upload(idx:number,file:any): void {
 
     this.gettasks.uploadproject(file).subscribe(
       event => {

@@ -24,7 +24,25 @@
   </div>
   <div class="filediv">
     <div class="filefolder_container" *ngIf="fileElements">
-      <div class="filecontainer"  *ngFor="let element of fileElements.directories" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
+      <div class="filecontainer" *ngFor="let element of fileElements.directories" (click)="rotate($event,'filecontainer',element)"
+      (contextmenu)="onContextMenu($event,element)">
+      <div class="file-image">
+        <div class='image'>
+
+        </div>
+      </div>
+      <div class="file-semidetails">
+        <span class="foldername">{{element.basename}}</span>
+        <span>1 item</span>,
+        <span>last modified:{{ element.timestamp | date }}</span>
+        <span></span>
+        <button mat-icon-button (click)="onContextMenu($event,element)"
+          aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </div>
+      <div class="filecontainer"  *ngFor="let element of fileElements.files" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
         (contextmenu)="onContextMenu($event,element)">
         <div class="file-image" >
           <div class='image'>
@@ -33,24 +51,6 @@
         </div>
         <div class="file-semidetails">
           <span class="foldername">{{element.basename}}</span>
-          <span>last modified:{{ element.timestamp | date }}</span>
-          <span></span>
-          <button mat-icon-button (click)="onContextMenu($event,element)"
-            aria-label="Example icon button with a vertical three dot icon">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="filecontainer" *ngFor="let element of fileElements.files" (click)="rotate($event,'filecontainer',element)"
-        (contextmenu)="onContextMenu($event,element)">
-        <div class="file-image">
-          <div class='image'>
-
-          </div>
-        </div>
-        <div class="file-semidetails">
-          <span class="foldername">{{element.basename}}</span>
-          <span>1 item</span>,
           <span>last modified:{{ element.timestamp | date }}</span>
           <span></span>
           <button mat-icon-button (click)="onContextMenu($event,element)"

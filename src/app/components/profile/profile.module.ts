@@ -12,6 +12,7 @@ import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
 import { CoreModule } from 'app/core/core.module';
 import { DialogComponent } from './file-explorer/dialog/dialog.component';
 import { IssuesComponent } from './file-explorer/dialog/issues/issues.component';
+import { QuillModule } from 'ngx-quill';
 
 
 
@@ -28,7 +29,7 @@ import { IssuesComponent } from './file-explorer/dialog/issues/issues.component'
     ContextMenuModule.forRoot({
       autoFocus: true,
     }),
-
+    QuillModule.forRoot(),
   ],
   entryComponents: [ModalComponent]
 })

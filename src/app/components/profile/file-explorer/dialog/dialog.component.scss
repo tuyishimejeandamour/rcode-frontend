@@ -5,7 +5,7 @@
     width: 100%;
     height: calc(73vh);
     overflow-y: auto;
-
+    
   }
   .messages{
     display:flex;
@@ -28,7 +28,7 @@
         object-fit: cover;
         margin-right:10px;
        }
-
+       
      }
     }
     .chat-content{
@@ -51,14 +51,14 @@
     border-radius: 0;
     .chat-actions{
         padding: 12px;
-    }
+    }    
     .talk-item{
         padding: 6px 0;
         height: 100%;
     }
     .message{
         white-space: unset;
-        text-overflow: unset;
+        text-overflow: unset;       
         span{
             padding: 6px 10px;
             border-radius: 4px;
@@ -71,7 +71,7 @@
         opacity: 0.8;
         margin-right:30px;
       }
-
+        
         mat-icon{
           font-size: 15px;
           color:black;

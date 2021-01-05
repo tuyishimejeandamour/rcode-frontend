@@ -79,7 +79,6 @@
 <div class="directory_show">
   <div class="profile_content_right">
     <mat-card class="example-card" style="box-shadow:none;background:transparent;">
-
       <div class="profileimage">
         <div class="profileimageeditandshow">
         <img  src="{{profileinfo.filepath}}" alt="">
@@ -89,7 +88,7 @@
         </div>
         </div>
         <div class="conent-info-profile">
-           <span  class="userbio" *ngIf="!edit"  (dblclick)="edit=true"><i>{{bio.bio}}</i></span>
+           <span  class="userbio" *ngIf="!edit"  (click)="edit=true"><i>{{bio.bio}}</i></span>
            <mat-form-field *ngIf="edit">
             <textarea matInput
                       cdkTextareaAutosize
@@ -109,7 +108,7 @@
 
       <div class="profile-namedetail">
         <div class="profiledetails">
-          <button mat-icon-button style="position:absolute;right:10px;top:3px;z-index: 300; color:rgb(84, 27, 117)" (dblclick)="editinput =! editinput">
+          <button mat-icon-button style="position:absolute;right:10px;top:3px;z-index: 300; color:rgb(84, 27, 117)" (click)="editinput =! editinput">
             <mat-icon>edit</mat-icon>
           </button>
             <mat-list role="list">
@@ -167,7 +166,7 @@
           <highcharts-chart
           [Highcharts]="Highcharts"
           [options]="chartOptions"
-          style="width: 100%; height: 200px; display: block;"
+          style="width: 100%; height: 266px; display: block;"
         ></highcharts-chart>
         </div>
 

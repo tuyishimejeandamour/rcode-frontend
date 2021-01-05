@@ -12,16 +12,16 @@
       <div class="filters">
         <span class="header_sort">Tasks</span>
         <ul>
-          <li>
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
             <mat-icon>menu</mat-icon><span> all</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
             <mat-icon>folder_open</mat-icon><span>This week</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
             <mat-icon>folder_special</mat-icon><span>Other weeK</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
             <mat-icon>recent_actors</mat-icon><span>unsubmitted</span>
           </li>
         </ul>
@@ -29,16 +29,16 @@
       <div class="label">
         <span class="header_sort">Uploaded task</span>
         <ul>
-          <li>
+          <li (click)="uploadedtasks = false;taskstoworkon= true;uploadtasks = true">
             <mat-icon>star</mat-icon><span>favorite</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = false;taskstoworkon= true;uploadtasks = true">
             <mat-icon>drafts</mat-icon><span>answer files</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = false;taskstoworkon= true;uploadtasks = true">
             <mat-icon>folder_shared</mat-icon><span>shared files</span>
           </li>
-          <li>
+          <li (click)="uploadedtasks = false;taskstoworkon= true;uploadtasks = true">
             <mat-icon>archive</mat-icon><span>ziped files</span>
           </li>
 
@@ -69,41 +69,113 @@
 
     </div>
   </div>
-  <div class="tasks">
+  <div class="whole_container">
+  <div class="tasks" [hidden]="taskstoworkon">
     <div class="commmoncontainer">
       <div class="recentupload">
         <p class="title" style="margin-left:0%;">task in this week</p>
         <div class="assinment_div">
-        <div class="filecontainer" *ngFor="let task of taskInThisWeek | async" (contextmenu)="onContextMenu($event,task)">
-         <div class="file-image">
-           <div class='image'>
-             <span>{{task.lesson | short:3}}</span>
-           </div>
-         </div>
-         <div class="file-semidetails">
-               <span class="foldername">{{task.taskname}}</span>
-               <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-               <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
-               <button mat-icon-button (click)="onContextMenu($event,task)" >
-                 <mat-icon>more_vert</mat-icon>
-               </button>
-             </div>
-       </div>
-     </div>
-      </div>
-      </div>
-  </div>
-  <div>
-  <app-explorer [fileElements]="fileElements" [path]="currentPath"
-    [canNavigateUp]="canNavigateUp"
-    (folderAdded)="addFolder($event)"
-    (elementRemoved)="removeElement($event)"
-    (gohome)="gethome()"
-    (navigatedDown)="navigateToFolder($event)"
-    (navigateFromNav)="navigateFromNav($event)"
-    (navigatedUp)="navigateUp()"
-    (elementRenamed)="renameElement($event)"
-    (elementMoved)="moveElement($event)"></app-explorer>
-  </div>
+          <div class="filecontainer" (contextmenu)="onContextMenu($event,task)">
+            <div class="file-image">
+              <div class='image'>
+                <span>php</span>
 
+              </div>
+            </div>
+            <div class="file-semidetails">
+              <span class="foldername">array and pointer</span>
+              <span>Mon Jan 4 17:34:12 2021</span>
+              <span style="margin-left:10px">Mon Jan 4 17:34:12 2021</span>
+              <button mat-icon-button (click)="onContextMenu($event,task)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <context-menu>
+        <ng-template contextMenuItem>
+          <mat-icon>cloud_download</mat-icon>
+          download
+        </ng-template>
+
+        <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)">
+          <mat-icon>date_range</mat-icon>
+          set reminder
+        </ng-template>
+        <ng-template contextMenuItem (execute)="routesubmitt(1)">
+          <mat-icon>assignment_sent</mat-icon>
+          submitt
+        </ng-template>
+        <ng-template contextMenuItem (execute)="showQuestion(1)">
+          <mat-icon>note</mat-icon>
+          show content
+        </ng-template>
+      </context-menu>
+    </div>
+  </div>
+  <div class="uploadedfile" [hidden]="uploadedtasks">
+    <app-explorer [fileElements]="fileElements" [path]="currentPath" [canNavigateUp]="canNavigateUp"
+      (folderAdded)="addFolder($event)" (elementRemoved)="removeElement($event)" (gohome)="gethome()"
+      (navigatedDown)="navigateToFolder($event)" (navigateFromNav)="navigateFromNav($event)"
+      (navigatedUp)="navigateUp()" (elementRenamed)="renameElement($event)" (elementMoved)="moveElement($event)">
+    </app-explorer>
+  </div>
+  <div class="upload-file" *ngIf="!uploadtasks">
+    <div class="side_bar_left_with_img">
+      <div class="header">
+      <h4>short instruction</h4>
+      <mat-divider></mat-divider>
+      <ul>
+        <li>todo every thing</li>
+        <li>todo every thing</li>
+        <li>todo every thing</li>
+      </ul>
+      </div>
+    </div>
+    <div class="profile_content_right">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Upload <i>new equations db</i> Task</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+         <div class="insideuploader">
+            <div class="intro" *ngIf="!ischanged">
+                <h4>No recents</h4>
+                <p>Drag &amp; Drop to upload or click on button to upload</p>
+                <input type="file" #files name="files[]" webkitdirectory (change)="uploadfolder($event);ischanged=true" [hidden]='true'>
+                <button mat-raised-button (click)="files.click()"><mat-icon>cloud_upload</mat-icon><span>  choose</span></button>
+            </div>
+            <div class="uploaded file" *ngIf="ischanged">
+              <button mat-raised-button style="margin-left: 40%; margin-bottom: 10px;background:rgb(23, 202, 38);color: white;" (click)="uploadtoserver()"><mat-icon>cloud_upload</mat-icon><span>  upload</span></button>
+              <ul id="pathlist" >
+                <li *ngFor="let item of selectedpath" >
+                  <div class="div-overay"
+                  role="progressbar"
+                  attr.aria-valuenow="{{ item.value }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [ngStyle]="{ width: item.value + '%' }"
+                  >
+                   </div>
+                  <div class="fileuploaded">
+                    <div class="log-file">{{item.name | extension}}</div>
+                    <div class="file_content">
+                     <span>{{item.name}}</span> <br>
+                    <span>12.mb</span>
+                    </div>
+                    <div class="progress">{{ item.value }}%</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+         </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>
 </div>
