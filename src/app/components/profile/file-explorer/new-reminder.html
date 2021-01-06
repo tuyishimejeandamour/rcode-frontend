@@ -1,0 +1,54 @@
+<style>
+
+.upper-div{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  overflow: hidden;
+  flex-direction: column;
+
+}
+.inputs{
+  width: 100%;
+  height: 50px;
+}
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+</style>
+  <h1 mat-dialog-title>add reminder</h1>
+  <mat-divider></mat-divider>
+  <div mat-dialog-content style="text-align: center;">
+    <div class="upper-div">
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>set time</mat-label>
+          <input matInput type="text" [(ngModel)]="selectedtime.dateset" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+          name="ending_date">
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>select time</mat-label>
+          <input matInput [(ngModel)]="selectedtime.timeset"  name="ending_date" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" >
+          <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time>
+        </mat-form-field></td>
+      </tr></table>
+      <mat-form-field class="example-full-width">
+        <mat-label>make note</mat-label>
+        <textarea matInput [(ngModel)]="Remainder.comment"></textarea>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
+    <button mat-button  cdkFocusInitial color="primary" (click)="onSubmit()"><mat-icon>person</mat-icon> save</button>
+  </div>

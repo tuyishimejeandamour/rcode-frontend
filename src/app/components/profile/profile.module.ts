@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ProfileComponent } from './profile.component';
-import { FileExplorerComponent } from './file-explorer/file-explorer.component';
+import { FileExplorerComponent, newReminderComponent } from './file-explorer/file-explorer.component';
 import { MaterialModule } from 'app/material/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { ContextMenuModule } from 'ngx-contextmenu';
@@ -13,16 +13,18 @@ import { CoreModule } from 'app/core/core.module';
 import { DialogComponent } from './file-explorer/dialog/dialog.component';
 import { IssuesComponent } from './file-explorer/dialog/issues/issues.component';
 import { QuillModule } from 'ngx-quill';
+import { FormsModule } from '@angular/forms';
 
 
 
 
 @NgModule({
-  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent, DialogComponent, IssuesComponent],
+  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent, DialogComponent, IssuesComponent,newReminderComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     SharedModule,
+    FormsModule,
     MaterialModule,
     MatIconModule,
     CoreModule,
@@ -31,6 +33,6 @@ import { QuillModule } from 'ngx-quill';
     }),
     QuillModule.forRoot(),
   ],
-  entryComponents: [ModalComponent]
+  entryComponents: [ModalComponent,newReminderComponent]
 })
 export class ProfileModule { }

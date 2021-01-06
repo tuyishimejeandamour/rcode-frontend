@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {  Breadcrumb } from 'app/Service/path.service';
 import { ExplorerComponent } from './explorer/explorer.component';
 import { v4 } from 'uuid';
 import { SnotifyService } from 'ng-snotify';
-import { HttpexplorerService, TaskYouHave } from 'app/core/services';
-import { MatDialog } from '@angular/material/dialog';
+import { HttpexplorerService, JerwisService, TaskYouHave } from 'app/core/services';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
+import { Observable } from 'rxjs';
 export interface FolderFile{
   type:string;
   path:string;
@@ -37,6 +38,7 @@ export class FileExplorerComponent implements OnInit {
     private dialog:MatDialog,
     private contextMenuService: ContextMenuService,
     private gettasks:HttptaskService,
+    private user:JerwisService,
   ) {}
 
   currentRoot:FolderFile;
@@ -54,6 +56,9 @@ export class FileExplorerComponent implements OnInit {
   uploadedtasks = true;
   uploadtasks = true;
   currentselectedtask:TaskYouHave = null;
+  taskInThisWeek:Observable<TaskYouHave[]>;
+  tasklatesubmits:Observable<TaskYouHave[]>;
+  taskInotherweek:Observable<TaskYouHave[]>;
 
   ngOnInit():void {
     this.gethome();
@@ -155,6 +160,36 @@ export class FileExplorerComponent implements OnInit {
     this.uploadedtasks = true;
     this.uploadtasks = false;
   }
+
+  filtertasks(choice:number):void{
+    if(choice == 1){
+      this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
+        data=>this.HandleResponse(data),
+        error=> this.HandlError(error)
+      )
+      return;
+    }
+    if (choice == 2) {
+      this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
+        data=>this.HandleResponse(data),
+        error=> this.HandlError(error)
+      )
+      return;
+    }
+    if (choice == 3) {
+      this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
+        data=>this.HandleResponse(data),
+        error=> this.HandlError(error)
+      );
+      return;
+    }
+  }
+  HandlError(error: { error: { error: any; }; }):void {
+    this.notify.error(error.error.error);
+  }
+  HandleResponse(data:TaskYouHave[]):void{
+    this.taskInThisWeek = this.tasks.countdown(data);
+  }
   /**
    * uploading functionlities
    */
@@ -187,5 +222,47 @@ export class FileExplorerComponent implements OnInit {
         this.selectedpath[idx].value = 0;
         this.message = 'Could not upload the file:' + <string>file.webkitRelativePath;
       });
+  }
+  setRemainder(id:number):void{
+    const dialogRef = this.dialog.open(newReminderComponent,{
+      data:id
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        console.log(res)
+      }
+    });
+  }
+}
+@Component({
+  selector: 'new-reminder',
+  templateUrl: 'new-reminder.html',
+})
+export class newReminderComponent {
+  selectedtime ={
+    dateset:null,
+    timeset:null,
+  }
+  Remainder={
+    taskid:null,
+    setedtime:null,
+    comment:null
+  }
+
+  constructor(
+    public dialogRef: MatDialogRef<newReminderComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: number,
+    private gettask:HttptaskService,
+    private notify:SnotifyService) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  onSubmit():void{
+    this.Remainder.taskid = this.data;
+    this.gettask.setreminder(this.Remainder).subscribe(
+      ()=>{this.notify.success('succefull set');this.onNoClick()},
+      error=> this.notify.error(error.error.error)
+    )
   }
 }

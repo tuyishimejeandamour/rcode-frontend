@@ -119,7 +119,12 @@ export class LandinguploadComponent implements OnInit {
   selector: 'new-reminder',
   templateUrl: 'new-reminder.html',
 })
-export class newReminderComponent {
+export class newReminderComponent implements OnInit   {
+  public selectedMoment = new Date();
+  selectedtime ={
+    dateset:this.selectedMoment.getDate(),
+    timeset:this.selectedMoment.toTimeString()
+  }
   Remainder={
     taskid:null,
     setedtime:null,
@@ -127,10 +132,13 @@ export class newReminderComponent {
 
   constructor(
     public dialogRef: MatDialogRef<newReminderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: number,
     private gettask:HttptaskService,
     private notify:SnotifyService) {}
+  ngOnInit(): void {
 
+
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -12,16 +12,16 @@
       <div class="filters">
         <span class="header_sort">Tasks</span>
         <ul>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(1)">
             <mat-icon>menu</mat-icon><span> all</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(2)">
             <mat-icon>folder_open</mat-icon><span>This week</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(3)">
             <mat-icon>folder_special</mat-icon><span>Other weeK</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(4)">
             <mat-icon>recent_actors</mat-icon><span>unsubmitted</span>
           </li>
         </ul>
@@ -99,7 +99,8 @@
           download
         </ng-template>
 
-        <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)">
+        <!-- <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)"> -->
+        <ng-template contextMenuItem (execute)="setRemainder(1)">
           <mat-icon>date_range</mat-icon>
           set reminder
         </ng-template>
