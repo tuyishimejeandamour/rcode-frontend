@@ -57,6 +57,11 @@ export class StudentsComponent implements OnInit {
   public onWindowResize():void {
     (window.innerWidth <= 1000) ? this.isOpen = true : this.isOpen = false;
   }
+  constructor(
+    public dialog: MatDialog,
+    public Httpact:HttpactivitiesService,
+    public User:JerwisService
+  ) {}
   ngOnInit(): void {
     this.getStudent(this.User.getUser().id);
     this.dataSource.paginator = this.paginator;
@@ -68,7 +73,8 @@ export class StudentsComponent implements OnInit {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
   registerstudent(data:any):void{
-    if ( data.student_id && data.classname) {
+
+    if (data.student_id && data.classname) {
       this.Httpact.setStudent(data).subscribe(
         (data)=>this.getStudent(this.User.getUser().id),
         error=>console.log(error)
@@ -76,6 +82,16 @@ export class StudentsComponent implements OnInit {
     }
 
   }
+  registergroup(data:{groupname:string}):void{
+    if (data.groupname) {
+      this.Httpact.creategroup(this.User.getUser().id,data).subscribe(
+        (data)=>this.getStudent(this.User.getUser().id),
+        error=>console.log(error)
+      )
+    }
+
+  }
+
   getStudent(id:number):void{
     this.Httpact.getStudent(id).subscribe(
       (data)=>{this.dataSource.data = data as Students[]},
@@ -88,21 +104,32 @@ export class StudentsComponent implements OnInit {
       error=>console.log(error)
     )
   }
-  constructor(
-    public dialog: MatDialog,
-    public Httpact:HttpactivitiesService,
-    public User:JerwisService
-  ) {}
-  openDialog(): void {
+
+  openDialogaddclass(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '450px',
-      hasBackdrop: false,
-      panelClass:'newstudent'
+      panelClass:'newstudent',
+      data:{isregister:false}
 
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.registerstudent(result)
+      console.log(result)
+    });
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '450px',
+      panelClass:'newstudent',
+      data:{isregister:true}
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined){
+        this.registerstudent(result);
+      }
+
     });
   }
 
@@ -205,14 +232,18 @@ export class DialogOverviewExampleDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     private User:JerwisService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData)
+    @Inject(MAT_DIALOG_DATA) public data: any)
   {}
   peopleTypeahead = new EventEmitter<string>();
   serverSideFilterItems = [];
   selectedPeople;
+  registerstudent:boolean
+  groupname ={
+    groupname:null
+  };
   ngOnInit(): void {
     this.serverSideSearch();
-
+    this.registerstudent = this.data.isregister;
   }
 
   private serverSideSearch() {

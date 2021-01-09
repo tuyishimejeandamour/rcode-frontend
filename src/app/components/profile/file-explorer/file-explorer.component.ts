@@ -56,9 +56,10 @@ export class FileExplorerComponent implements OnInit {
   uploadedtasks = true;
   uploadtasks = true;
   currentselectedtask:TaskYouHave = null;
-  taskInThisWeek:Observable<TaskYouHave[]>;
-  tasklatesubmits:Observable<TaskYouHave[]>;
-  taskInotherweek:Observable<TaskYouHave[]>;
+  tasks:TaskYouHave[];
+  taskInThisWeek:TaskYouHave[];
+  tasklatesubmits:TaskYouHave[];
+  taskInotherweek:TaskYouHave[];
 
   ngOnInit():void {
     this.gethome();
@@ -70,13 +71,13 @@ export class FileExplorerComponent implements OnInit {
     );
     this.currentPath=[];
   }
-  // addFolder(name: string ):void {
+  addFolder(name: string ):void {
+    name
+  }
 
-  // }
-
-  // removeElement(path:string):void {
-
-  // }
+  removeElement(path:string):void {
+    path
+  }
 
   navigateToFolder(element:FolderFile):void {
     this.filehttp. getfilesinpath(element.path).subscribe(
@@ -95,13 +96,13 @@ export class FileExplorerComponent implements OnInit {
 
   }
 
-  // moveElement(event: { element: FolderFile; moveTo: FolderFile }):void {
+  moveElement(event: { element: FolderFile; moveTo: FolderFile }):void {
+    event
+  }
 
-  // }
-
-  // renameElement(element: FolderFile):void {
-
-  // }
+  renameElement(element: FolderFile):void {
+    element
+  }
 
 
   pushToPath(element:FolderFile):void{
@@ -164,21 +165,21 @@ export class FileExplorerComponent implements OnInit {
   filtertasks(choice:number):void{
     if(choice == 1){
       this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
-        data=>this.HandleResponse(data),
+        data=>this.HandleResponse(data,choice),
         error=> this.HandlError(error)
       )
       return;
     }
     if (choice == 2) {
       this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
-        data=>this.HandleResponse(data),
+        data=>this.HandleResponse(data,choice),
         error=> this.HandlError(error)
       )
       return;
     }
     if (choice == 3) {
       this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
-        data=>this.HandleResponse(data),
+        data=>this.HandleResponse(data,choice),
         error=> this.HandlError(error)
       );
       return;
@@ -187,8 +188,17 @@ export class FileExplorerComponent implements OnInit {
   HandlError(error: { error: { error: any; }; }):void {
     this.notify.error(error.error.error);
   }
-  HandleResponse(data:TaskYouHave[]):void{
-    this.taskInThisWeek = this.tasks.countdown(data);
+  HandleResponse(data:TaskYouHave[],choice:number):void{
+    if (choice == 1) {
+      this.tasks = data;
+    }else if(choice == 2){
+      this.taskInThisWeek = data;
+    }else if(choice == 3){
+      this.taskInotherweek = data;
+    }else if(choice == 4){
+      this.tasklatesubmits = data;
+
+    }
   }
   /**
    * uploading functionlities

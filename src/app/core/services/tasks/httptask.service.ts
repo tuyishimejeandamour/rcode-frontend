@@ -14,9 +14,11 @@ export class HttptaskService {
   constructor(private http:HttpClient) { }
 
   gettasksinthisweek(id:number,data:number):any{
-    return this.http.post(`${this.baseurl}/gettasks/thisweek/${id}`,data);
+    const choice = `{"choice":${data}}`;
+    return this.http.post(`${this.baseurl}/gettasks/thisweek/${id}`,JSON.parse(choice));
   }
   gettask(data:number):any{
+
     return this.http.get(`${this.baseurl}/gettask/${data}`);
 
   }

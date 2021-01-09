@@ -210,7 +210,6 @@ export class ProfileInfoComponent implements OnInit {
       data=>{this.profileinfo = data;this.bio.bio = data.bio},
       (error)=>{}
     )
-    console.log(this.profileinfo);
   }
   updatebio():void{
     this.uploadService.updatebio(this.user.getUser().id,this.bio).subscribe(

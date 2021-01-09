@@ -6,6 +6,7 @@
     margin-left:10%;
   }
 </style>
+<div *ngIf="registerstudent">
 <h1 mat-dialog-title>Add student to your classes</h1>
 <div mat-dialog-content style="text-align: center;">
   <ng-select [multiple]="true"
@@ -44,4 +45,18 @@
 <div mat-dialog-actions>
   <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
   <button mat-button  cdkFocusInitial color="primary" [mat-dialog-close]="stud"><mat-icon>person</mat-icon> save</button>
+</div>
+</div>
+<div *ngIf="!registerstudent">
+  <h1 mat-dialog-title>Add group student</h1>
+  <div mat-dialog-content style="text-align: center;">
+  <mat-form-field appearance="fill">
+    <mat-label>Input</mat-label>
+    <input matInput [(ngModel)]="groupname.groupname">
+  </mat-form-field>
+</div>
+  <div mat-dialog-actions>
+    <button mat-button  (click)="onNoClick()" color="warn" ><mat-icon>cancel</mat-icon> cancel</button>
+    <button mat-button  cdkFocusInitial color="primary" [mat-dialog-close]="groupname"><mat-icon>person</mat-icon> save</button>
+  </div>
 </div>

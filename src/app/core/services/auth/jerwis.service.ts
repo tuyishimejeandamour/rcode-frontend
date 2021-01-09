@@ -48,7 +48,7 @@ export class JerwisService {
     return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
   }
   findusers(values:string){
-    const value =JSON.parse(`{request:${values}}`);
+    const value =JSON.parse(`{"email_or_name":${values}}`);
     return this.http.post(`${this.baseurl}/users-student`,value)
   }
   setuser(value: User) : void{
