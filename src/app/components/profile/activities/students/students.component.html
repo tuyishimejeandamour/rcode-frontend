@@ -32,23 +32,18 @@
         <span class="header_sort">filter</span>
         <button mat-mini-fab class="add_class" color="primary" (click)="openDialogaddclass()"><mat-icon>add</mat-icon></button>
         <ul>
-          <li>
-            <mat-icon>menu</mat-icon><span> all</span>
+          <li *ngFor="let group of groups">
+            <mat-icon>menu</mat-icon>
+            <span> {{group.name}}</span>
           </li>
-          <li>
-            <mat-icon>menu</mat-icon><span>class1</span>
-          </li>
-          <li>
-            <mat-icon>menu</mat-icon><span>class2</span>
-          </li>
-
         </ul>
       </div>
       <div class="label">
         <span class="header_sort">labeled</span>
         <ul>
           <li>
-            <mat-icon>menu</mat-icon><span>best performers</span>
+            <mat-icon>menu</mat-icon>
+            <span>best performers</span>
           </li>
           <li>
             <mat-icon>menu</mat-icon><span>lethergies</span>

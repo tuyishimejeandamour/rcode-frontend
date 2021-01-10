@@ -5,12 +5,26 @@ import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpactivitiesService, JerwisService, User } from 'app/core/services';
-import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime, switchMap, tap, catchError } from 'rxjs/operators';
+// import { TouchBarSlider } from 'electron';
+// import { identifierModuleUrl } from '@angular/compiler';
+// import { dateFormat } from 'highcharts';
+import { DatePipe } from '@angular/common';
+import { concat, Observable, of } from 'rxjs';
+import { Subject } from 'rxjs';
 
 
 export interface DialogData {
   email: string;
   class: string;
+}
+export interface Groups{
+  created_at: string;
+  id: number;
+  name: string;
+  updated_at: string;
+  user_id: number;
+  year: string;
 }
 @Component({
   selector: 'app-students',
@@ -50,6 +64,7 @@ export class StudentsComponent implements OnInit {
   displayedColumns: string[] = ['Number', 'names', 'username', 'class'];
   dataSource = new MatTableDataSource<Students>();
   studentsin: marksofstudent[]= [];
+  groups:Groups[] = [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -65,6 +80,7 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     this.getStudent(this.User.getUser().id);
     this.dataSource.paginator = this.paginator;
+    this.getgroups();
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
@@ -73,8 +89,8 @@ export class StudentsComponent implements OnInit {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
   registerstudent(data:any):void{
-
-    if (data.student_id && data.classname) {
+    console.log(data);
+    if (data.group_id && data.user_id) {
       this.Httpact.setStudent(data).subscribe(
         (data)=>this.getStudent(this.User.getUser().id),
         error=>console.log(error)
@@ -82,14 +98,26 @@ export class StudentsComponent implements OnInit {
     }
 
   }
-  registergroup(data:{groupname:string}):void{
-    if (data.groupname) {
+
+  registergroup(data:{user_id:number,name:string,year:string}):void{
+    const pipe = new DatePipe('en-US');
+    if (data.name) {
+      data.year = pipe.transform(data.year,"yyyy-dd-MM");
       this.Httpact.creategroup(this.User.getUser().id,data).subscribe(
         (data)=>this.getStudent(this.User.getUser().id),
         error=>console.log(error)
       )
     }
 
+  }
+  getgroups():void{
+    this.Httpact.getgroups(this.User.getUser().id).subscribe(
+      data => this.handlethergroups(data),
+      error => console.error(error)
+    )
+  }
+  handlethergroups(data:Groups[]):void{
+    this.groups = data;
   }
 
   getStudent(id:number):void{
@@ -114,14 +142,17 @@ export class StudentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      if(result !== undefined){
+        console.log(result);
+        this.registergroup(result);
+      }
     });
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '450px',
       panelClass:'newstudent',
-      data:{isregister:true}
+      data:{isregister:true,groups:this.groups}
 
     });
 
@@ -150,118 +181,121 @@ export interface marksofstudent{
   lesson: string;
 }
 
-const ELEMENT_DATA= [
-  {
-    id: 1,
-    names: 'tuyishime jeandamour',
-    username: 'jaylove',
-    class: 'class1',
-  },
-  {
-    id:2,
-    names: 'tuyishime jeandamour',
-    username: 'jaylove',
-    class: 'class1',
-    // description:[
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   },
-    //   {
-    //     taskname: 'userfunction',
-    //     marks: '20/40',
-    //     lesson: 'C',
-    //   }
-    // ]
-  },
-];
+// const ELEMENT_DATA= [
+//   {
+//     id: 1,
+//     names: 'tuyishime jeandamour',
+//     username: 'jaylove',
+//     class: 'class1',
+//   },
+//   {
+//     id:2,
+//     names: 'tuyishime jeandamour',
+//     username: 'jaylove',
+//     class: 'class1',
+//     // description:[
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   },
+//     //   {
+//     //     taskname: 'userfunction',
+//     //     marks: '20/40',
+//     //     lesson: 'C',
+//     //   }
+//     // ]
+//   },
+// ];
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog implements OnInit {
-
+  peopleTypeahead = new EventEmitter<string>();
+  serverSideFilterItems = [];
+  selectedPeople;
+  registerstudent:boolean;
+  people$: Observable<User[]>;
+  peopleLoading = false;
+  peopleInput$ = new Subject<string>();
+  selectedPersons: User[] = <any>[];
+  groupname ={
+    user_id:this.User.getUser().id,
+    name:null,
+    year:Date.now()
+  };
   public stud =
   {
-    teacher_id: this.User.getUser().id,
-    student_id:null,
-    classname:null,
+    user_id:null,
+    group_id:null,
 
   }
-  cities2 = [
-    {id: 1, name: 'Vilnius'},
-    {id: 2, name: 'Kaunas'},
-    {id: 3, name: 'Pavilnys'}
-  ];
+  // cities2 = [
+  //   {id: 1, name: 'Vilnius'},
+  //   {id: 2, name: 'Kaunas'},
+  //   {id: 3, name: 'Pavilnys'}
+  // ];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     private User:JerwisService,
     @Inject(MAT_DIALOG_DATA) public data: any)
   {}
-  peopleTypeahead = new EventEmitter<string>();
-  serverSideFilterItems = [];
-  selectedPeople;
-  registerstudent:boolean
-  groupname ={
-    groupname:null
-  };
+
   ngOnInit(): void {
     this.serverSideSearch();
     this.registerstudent = this.data.isregister;
   }
-
+  trackByFn(item: User):number {
+    return item.id;
+  }
   private serverSideSearch() {
-    this.peopleTypeahead.pipe(
-      distinctUntilChanged(),
-      debounceTime(300),
-      switchMap(term =>
-      {
-        return this.User.findusers(term);
-
-      }
+    this.people$ = concat(
+      of([]), // default items
+      this.peopleInput$.pipe(
+        distinctUntilChanged(),
+        tap(() => this.peopleLoading = true),
+        switchMap(term => this.User.findusers(term).pipe(
+          catchError(() => of([])), // empty list on error
+          tap(() => this.peopleLoading = false)
+        ))
       )
-    ).subscribe(x => {
-      this.serverSideFilterItems = [];
-      this.serverSideFilterItems.push(x);
-    }, (err) => {
-      this.serverSideFilterItems = [];
-    });
+    );
   }
   onNoClick(): void {
     this.dialogRef.close();

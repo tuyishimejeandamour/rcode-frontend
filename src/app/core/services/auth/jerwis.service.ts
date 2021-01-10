@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { AppConfig } from 'environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +48,9 @@ export class JerwisService {
   updatetask(values,id:number){
     return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
   }
-  findusers(values:string){
-    const value =JSON.parse(`{"email_or_name":${values}}`);
+  findusers(values:string):Observable<any>{
+    const stringsearch = `{"email_or_name":"${values}"}`;
+    const value =JSON.parse(stringsearch);
     return this.http.post(`${this.baseurl}/users-student`,value)
   }
   setuser(value: User) : void{

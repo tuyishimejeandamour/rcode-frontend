@@ -12,10 +12,8 @@
   <br>
   <mat-form-field appearance="fill">
     <mat-label>update class</mat-label>
-    <mat-select name="classname" [(ngModel)]="data.class" required>
-      <mat-option value="option">Option</mat-option>
-      <mat-option value="option1">Option1</mat-option>
-      <mat-option value="option2">Option2</mat-option>
+    <mat-select name="classname" [(ngModel)]="data.group_id" required>
+      <mat-option  *ngFor="let group of groups" value="{{ group.id}}" >{{group.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <br>

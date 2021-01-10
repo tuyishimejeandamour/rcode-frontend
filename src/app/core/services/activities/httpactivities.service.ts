@@ -34,8 +34,10 @@ export class HttpactivitiesService {
     return this.http.get(`${this.baseurl}/getstudentmarks/${id}`);
 
   }
-  creategroup(id:number,data:{groupname:string}):Observable<any>{
-    return this.http.post(`${this.baseurl}/groups/${id}`,data)
-
+  creategroup(id:number,data:{user_id:number,name:string,year:string}):Observable<any>{
+    return this.http.post(`${this.baseurl}/groups`,data)
+  }
+  getgroups(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/groups/${id}`)
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpactivitiesService, JerwisService } from 'app/core/services';
+import { HttpactivitiesService, JerwisService} from 'app/core/services';
 import { DatePipe } from '@angular/common';
 import { CommonfunctionService } from 'app/Service/commonfunction.service';
+import { Groups } from '../../students/students.component';
 
 @Component({
   selector: 'app-newtask',
@@ -11,10 +12,11 @@ import { CommonfunctionService } from 'app/Service/commonfunction.service';
 export class NewtaskComponent implements OnInit {
   filename = "upload file";
   iconname = "cloud_upload";
+  groups:Groups[] = [];
   public Form ={
     user_id: null,
     taskname:null,
-    class:null,
+    group_id:null,
     lesson:null,
     short:null,
     long:null,
@@ -28,7 +30,7 @@ export class NewtaskComponent implements OnInit {
 
   }
   constructor(
-    private jerwis: HttpactivitiesService,
+    private Httpact: HttpactivitiesService,
     private user:JerwisService,
     public datepipe: DatePipe,
     private eventemitterService: CommonfunctionService
@@ -36,7 +38,7 @@ export class NewtaskComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.getgroups();
   }
   step = 0;
 
@@ -64,12 +66,21 @@ export class NewtaskComponent implements OnInit {
     this.Form.user_id = this.user.getUser().id;
     this.Form.givenat = this.datepipe.transform(this.Form.givenat, 'yyyy-MM-dd hh:mm:ss')
     this.Form.endat = this.datepipe.transform(this.Form.endat, 'yyyy-MM-dd hh:mm:ss')
-
-    this.jerwis.settaskactivity(this.Form).subscribe(
+    console.log( this.Form.group_id);
+    this.Httpact.settaskactivity(this.Form).subscribe(
       ()=>this.gettaskFunction(),
       error=>console.log(error)
     )
 
+  }
+  getgroups():void{
+    this.Httpact.getgroups(this.user.getUser().id).subscribe(
+      data => this.handlethergroups(data),
+      error => console.error(error)
+    )
+  }
+  handlethergroups(data:Groups[]):void{
+    this.groups = data;
   }
   viewhelp(id:number):void{
     if(id==1){

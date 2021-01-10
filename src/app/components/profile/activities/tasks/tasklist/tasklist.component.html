@@ -46,14 +46,14 @@
     <ng-template contextMenuItem (execute)="openDialog($event.item)">
       edit
     </ng-template>
-    <ng-template contextMenuItem (execute)="marktask($event.item.task_id)">
+    <ng-template contextMenuItem (execute)="marktask($event.item.id)">
       mark test
     </ng-template>
-    <ng-template contextMenuItem (execute)="getcontent($event.item.task_id)">
+    <ng-template contextMenuItem (execute)="getcontent($event.item.id)">
       show to student
     </ng-template>
     <ng-template contextMenuItem let-item
-      (execute)="opencontentDialog($event.item.task_id)">
+      (execute)="opencontentDialog($event.item.id)">
       show content
     </ng-template>
   </context-menu>

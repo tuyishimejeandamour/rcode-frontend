@@ -27,20 +27,14 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Select class</mat-label>
-            <mat-select name="classname" (focus)="viewhelp(2)" [(ngModel)]="Form.class" required>
-              <mat-option value="option">Option</mat-option>
-              <mat-option value="option1">Option1</mat-option>
-              <mat-option value="option2">Option2</mat-option>
+            <mat-select name="group_id" (focus)="viewhelp(2)" [(ngModel)]="Form.group_id" required>
+              <mat-option *ngFor="let group of groups" value="{{group.id}}">{{group.name}}</mat-option>
             </mat-select>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
-            <mat-label>Select lesson</mat-label>
-            <mat-select name="lesson" (focus)="viewhelp(3)" [(ngModel)]="Form.lesson" required>
-              <mat-option value="option">Option</mat-option>
-              <mat-option value="option1">Option1</mat-option>
-              <mat-option value="option2">Option2</mat-option>
-            </mat-select>
+            <mat-label>Enter task name</mat-label>
+            <input matInput name="taskname" (focus)="viewhelp(3)" [(ngModel)]="Form.lesson" required>
           </mat-form-field>
         </div>
         <div class="float-right-help" [hidden]="firstcontent.title ==null">

@@ -9,36 +9,24 @@
 <div *ngIf="registerstudent">
 <h1 mat-dialog-title>Add student to your classes</h1>
 <div mat-dialog-content style="text-align: center;">
-  <ng-select [multiple]="true"
-  [items]="serverSideFilterItems"
-  placeholder="type name or email "
+  <ng-select [items]="people$ | async"
   bindLabel="name"
-  bindValue="id"
-  [(ngModel)]="stud.student_id"
-  [typeahead]="peopleTypeahead">
-  <ng-template ng-typetosearch-tmp>
-    <div class="ng-option disabled">
-        Start typing...
-    </div>
-</ng-template>
-<ng-template ng-notfound-tmp let-searchTerm="searchTerm">
-    <div class="ng-option disabled">
-        No data found for "{{searchTerm}}"
-    </div>
-</ng-template>
-<ng-template ng-loadingtext-tmp let-searchTerm="searchTerm">
-    <div class="ng-option disabled">
-        Fetching d\ata for "{{searchTerm}}"
-    </div>
-</ng-template>
+  [addTag]="true"
+  [multiple]="true"
+  placeholder ="Search student"
+  [hideSelected]="true"
+  [trackByFn]="trackByFn"
+  [minTermLength]="2"
+  [loading]="peopleLoading"
+  typeToSearchText="Please enter 2 or more characters"
+  [typeahead]="peopleInput$"
+  [(ngModel)]="stud.user_id">
 </ng-select>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>select class</mat-label>
-    <mat-select name="classname" [(ngModel)]="stud.classname" required>
-      <mat-option value="option">Option</mat-option>
-      <mat-option value="option1">Option1</mat-option>
-      <mat-option value="option2">Option2</mat-option>
+    <mat-select name="classname" [(ngModel)]="stud.group_id" required>
+      <mat-option *ngFor="let group of data.groups" value="{{group.id}}">{{group.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>
@@ -51,8 +39,13 @@
   <h1 mat-dialog-title>Add group student</h1>
   <div mat-dialog-content style="text-align: center;">
   <mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput [(ngModel)]="groupname.groupname">
+    <mat-label>name of group</mat-label>
+    <input matInput [(ngModel)]="groupname.name">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>enter year</mat-label>
+    <input matInput [(ngModel)]="groupname.year"  name="ending_date" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" >
+    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
   </mat-form-field>
 </div>
   <div mat-dialog-actions>

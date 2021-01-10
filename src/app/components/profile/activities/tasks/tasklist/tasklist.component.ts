@@ -8,6 +8,7 @@ import { ContextMenuService, ContextMenuComponent } from 'ngx-contextmenu';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogComponent } from '../dialog/dialog.component';
+import { Groups } from '../../students/students.component';
 
 
 @Component({
@@ -121,7 +122,6 @@ export class TasklistComponent implements OnInit {
       width:'80%',
       data:{authorized:true,taskid:id}
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
     });
@@ -139,7 +139,7 @@ export interface TasksDetails {
   task_id: number;
   taskname: string;
   lesson:string;
-  class: string;
+  group_id: string;
   givenat: Date;
   endat: Date;
 }
@@ -156,9 +156,12 @@ export interface ContentDetails {
 })
 export class DialogOverviewExampleDialog {
   local_data:any;
+  groups:Groups[] = [];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data:TasksDetails) {
+    @Inject(MAT_DIALOG_DATA) public data:TasksDetails,
+    private user:JerwisService,
+    private Httpact:HttpactivitiesService,) {
     this.local_data = {...data};
   }
 
@@ -167,6 +170,15 @@ export class DialogOverviewExampleDialog {
   }
   doAction(): void{
     this.dialogRef.close({data:this.local_data})
+  }
+  getgroups():void{
+    this.Httpact.getgroups(this.user.getUser().id).subscribe(
+      data => this.handlethergroups(data),
+      error => console.error(error)
+    )
+  }
+  handlethergroups(data:Groups[]):void{
+    this.groups = data;
   }
 }
 

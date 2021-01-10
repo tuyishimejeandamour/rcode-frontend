@@ -43,7 +43,7 @@ export class MarktaskComponent implements OnInit {
     task_id: null,
     taskname: null,
     lesson:null,
-    class: null,
+    group_id: null,
     givenat: null,
     endat: null,
   };
