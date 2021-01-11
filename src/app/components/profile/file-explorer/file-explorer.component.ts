@@ -55,6 +55,12 @@ export class FileExplorerComponent implements OnInit {
   taskstoworkon = false;
   uploadedtasks = true;
   uploadtasks = true;
+  tooglebetweetask ={
+    thisweek:true,
+    lastweek:true,
+    otherweek:true,
+    all:false
+  }
   currentselectedtask:TaskYouHave = null;
   tasks:TaskYouHave[];
   taskInThisWeek:TaskYouHave[];
@@ -63,6 +69,15 @@ export class FileExplorerComponent implements OnInit {
 
   ngOnInit():void {
     this.gethome();
+  }
+  tooglearounddiv(name:string):void{
+    Object.keys(this.tooglebetweetask).map((key)=>{
+      if (key == name) {
+        this.tooglebetweetask[key] = !this.tooglebetweetask[key];
+      }else{
+        this.tooglebetweetask[key] = true;
+      }
+    });
   }
   gethome():void{
     this.filehttp.getAllFiles().subscribe(

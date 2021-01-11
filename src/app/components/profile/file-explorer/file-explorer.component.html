@@ -12,16 +12,16 @@
       <div class="filters">
         <span class="header_sort">Tasks</span>
         <ul>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(1)">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;tooglearounddiv('all');filtertasks(1)">
             <mat-icon>menu</mat-icon><span> all</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(2)">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;tooglearounddiv('thisweek');filtertasks(2)">
             <mat-icon>folder_open</mat-icon><span>This week</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(3)">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;tooglearounddiv('otherweek');filtertasks(3)">
             <mat-icon>folder_special</mat-icon><span>Other weeK</span>
           </li>
-          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;filtertasks(4)">
+          <li (click)="uploadedtasks = true;taskstoworkon= false;uploadtasks = true;tooglearounddiv('lastweek');filtertasks(4)">
             <mat-icon>recent_actors</mat-icon><span>unsubmitted</span>
           </li>
         </ul>
@@ -72,24 +72,91 @@
   <div class="whole_container">
   <div class="tasks" [hidden]="taskstoworkon">
     <div class="commmoncontainer">
-      <div class="recentupload">
+      <div class="recentupload" [hidden]="tooglebetweetask.all" >
         <p class="title" style="margin-left:0%;">task in this week</p>
         <div class="assinment_div">
-          <div class="filecontainer" (contextmenu)="onContextMenu($event,1)">
+          <div class="filecontainer" *ngFor="let task of tasks " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
             <div class="file-image">
               <div class='image'>
-                <span>php</span>
+                <span>{{task.lesson | short:3}}</span>
 
               </div>
             </div>
             <div class="file-semidetails">
-              <span class="foldername">array and pointer</span>
-              <span>Mon Jan 4 17:34:12 2021</span>
-              <span style="margin-left:10px">Mon Jan 4 17:34:12 2021</span>
-              <button mat-icon-button (click)="onContextMenu($event,1)">
+              <span class="foldername">{{task.taskname}}</span>
+              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <button mat-icon-button (click)="onContextMenu($event,task)" >
                 <mat-icon>more_vert</mat-icon>
               </button>
             </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="recentupload" [hidden]="tooglebetweetask.thisweek">
+        <p class="title" style="margin-left:0%;">task in this week</p>
+        <div class="assinment_div">
+          <div class="filecontainer" *ngFor="let task of taskInThisWeek " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+            <div class="file-image">
+              <div class='image'>
+                <span>{{task.lesson | short:3}}</span>
+
+              </div>
+            </div>
+            <div class="file-semidetails">
+              <span class="foldername">{{task.taskname}}</span>
+              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <button mat-icon-button (click)="onContextMenu($event,task)" >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="recentupload"[hidden]="tooglebetweetask.otherweek">
+        <p class="title" style="margin-left:0%;">task in this week</p>
+        <div class="assinment_div">
+          <div class="filecontainer" *ngFor="let task of taskInotherweek " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+            <div class="file-image">
+              <div class='image'>
+                <span>{{task.lesson | short:3}}</span>
+
+              </div>
+            </div>
+            <div class="file-semidetails">
+              <span class="foldername">{{task.taskname}}</span>
+              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <button mat-icon-button (click)="onContextMenu($event,task)" >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="recentupload"[hidden]="tooglebetweetask.lastweek">
+        <p class="title" style="margin-left:0%;">task in this week</p>
+        <div class="assinment_div">
+          <div class="filecontainer" *ngFor="let task of tasklatesubmits " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+            <div class="file-image">
+              <div class='image'>
+                <span>{{task.lesson | short:3}}</span>
+
+              </div>
+            </div>
+            <div class="file-semidetails">
+              <span class="foldername">{{task.taskname}}</span>
+              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <button mat-icon-button (click)="onContextMenu($event,task)" >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -99,16 +166,15 @@
           download
         </ng-template>
 
-        <!-- <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)"> -->
-        <ng-template contextMenuItem (execute)="setRemainder(1)">
+        <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)">
           <mat-icon>date_range</mat-icon>
           set reminder
         </ng-template>
-        <ng-template contextMenuItem (execute)="routesubmitt(1)">
+        <ng-template contextMenuItem (execute)="routesubmitt($event.item.task_id)">
           <mat-icon>assignment_sent</mat-icon>
           submitt
         </ng-template>
-        <ng-template contextMenuItem (execute)="showQuestion(1)">
+        <ng-template contextMenuItem (execute)="showQuestion($event.item.task_id)">
           <mat-icon>note</mat-icon>
           show content
         </ng-template>
