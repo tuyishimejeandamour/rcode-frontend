@@ -3,7 +3,7 @@
     <button mat-raised-button color="accent" aria-label="Example icon button with a plus one icon"
       (click)="addnewFolder()">
       <mat-icon>create_new_folder</mat-icon>
-      <span> Add file</span>
+      <span> Upload task</span>
     </button>
 
   </div>
@@ -73,7 +73,7 @@
   <div class="tasks" [hidden]="taskstoworkon">
     <div class="commmoncontainer">
       <div class="recentupload" [hidden]="tooglebetweetask.all" >
-        <p class="title" style="margin-left:0%;">task in this week</p>
+        <p class="title" style="margin-left:0%;">all tasks given</p>
         <div class="assinment_div">
           <div class="filecontainer" *ngFor="let task of tasks " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
             <div class="file-image">
@@ -117,7 +117,7 @@
         </div>
       </div>
       <div class="recentupload"[hidden]="tooglebetweetask.otherweek">
-        <p class="title" style="margin-left:0%;">task in this week</p>
+        <p class="title" style="margin-left:0%;">task in coming weeks</p>
         <div class="assinment_div">
           <div class="filecontainer" *ngFor="let task of taskInotherweek " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
             <div class="file-image">
@@ -139,7 +139,7 @@
         </div>
       </div>
       <div class="recentupload"[hidden]="tooglebetweetask.lastweek">
-        <p class="title" style="margin-left:0%;">task in this week</p>
+        <p class="title" style="margin-left:0%;">Unsubmitted tasks</p>
         <div class="assinment_div">
           <div class="filecontainer" *ngFor="let task of tasklatesubmits " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
             <div class="file-image">
@@ -170,7 +170,7 @@
           <mat-icon>date_range</mat-icon>
           set reminder
         </ng-template>
-        <ng-template contextMenuItem (execute)="routesubmitt($event.item.task_id)">
+        <ng-template contextMenuItem (execute)="routesubmitt($event.item)">
           <mat-icon>assignment_sent</mat-icon>
           submitt
         </ng-template>
@@ -193,17 +193,13 @@
       <div class="header">
       <h4>short instruction</h4>
       <mat-divider></mat-divider>
-      <ul>
-        <li>todo every thing</li>
-        <li>todo every thing</li>
-        <li>todo every thing</li>
-      </ul>
+      <code >{{currentselectedtask.short}}</code>
       </div>
     </div>
     <div class="profile_content_right">
       <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title>Upload <i>new equations db</i> Task</mat-card-title>
+          <mat-card-title>Upload <i>{{currentselectedtask.taskname}}</i> Task</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
@@ -211,28 +207,28 @@
             <div class="intro" *ngIf="!ischanged">
                 <h4>No recents</h4>
                 <p>Drag &amp; Drop to upload or click on button to upload</p>
-                <input type="file" #files name="files[]" webkitdirectory (change)="uploadfolder($event);ischanged=true" [hidden]='true'>
+                <input type="file" #files name="files" (change)="uploadfolder($event);ischanged=true" [hidden]='true'>
                 <button mat-raised-button (click)="files.click()"><mat-icon>cloud_upload</mat-icon><span>  choose</span></button>
             </div>
             <div class="uploaded file" *ngIf="ischanged">
-              <button mat-raised-button style="margin-left: 40%; margin-bottom: 10px;background:rgb(23, 202, 38);color: white;" (click)="uploadtoserver()"><mat-icon>cloud_upload</mat-icon><span>  upload</span></button>
+              <button mat-raised-button style="margin-left: 40%; margin-bottom: 10px;background:rgb(23, 202, 38);color: white;" (click)="upload(currentselectedtask.id)"><mat-icon>cloud_upload</mat-icon><span>  upload</span></button>
               <ul id="pathlist" >
-                <li *ngFor="let item of selectedpath" >
+                <li>
                   <div class="div-overay"
                   role="progressbar"
-                  attr.aria-valuenow="{{ item.value }}"
+                  attr.aria-valuenow="{{ selectedpath.value }}"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                  [ngStyle]="{ width: item.value + '%' }"
+                  [ngStyle]="{ width: selectedpath.value + '%' }"
                   >
                    </div>
                   <div class="fileuploaded">
-                    <div class="log-file">{{item.name | extension}}</div>
+                    <div class="log-file">{{selectedpath.name | extension}}</div>
                     <div class="file_content">
-                     <span>{{item.name}}</span> <br>
+                     <span>{{selectedpath.name}}</span> <br>
                     <span>12.mb</span>
                     </div>
-                    <div class="progress">{{ item.value }}%</div>
+                    <div class="progress">{{ selectedpath.value }}%</div>
                   </div>
                 </li>
               </ul>

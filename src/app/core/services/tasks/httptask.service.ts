@@ -29,12 +29,13 @@ export class HttptaskService {
     return this.http.get(`${this.baseurl}/gettaskcontent/${id}`);
   }
 
-  uploadproject(file: File): Observable<HttpEvent<any>> {
+  uploadproject(id:number,taskid:string,file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
-    formData.append('file', file);
+    formData.append('taskzip', file);
+    formData.append('taskid', taskid);
 
-    const req = new HttpRequest('POST', `${this.baseurl}/upload`, formData, {
+    const req = new HttpRequest('POST', `${this.baseurl}/uploadtask/${id}`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

@@ -309,8 +309,6 @@ export class UploadimageComponent implements OnInit {
     reader.onload = (event2) => {
       this.imgURL = reader.result;
     };
-
-
   }
   onupload():void{
     this.onNoClick();

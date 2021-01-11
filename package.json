@@ -106,6 +106,7 @@
     "electron-tray-window": "1.2.5",
     "highcharts": "8.2.2",
     "highcharts-angular": "2.8.0",
+    "jszip": "3.5.0",
     "material-design-icons": "3.0.1",
     "moment": "2.27.0",
     "monaco-editor": "0.20.0",

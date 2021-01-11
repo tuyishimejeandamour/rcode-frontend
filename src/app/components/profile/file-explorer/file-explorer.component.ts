@@ -9,7 +9,8 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
+// import * as JSZip from 'jszip';
 export interface FolderFile{
   type:string;
   path:string;
@@ -47,7 +48,7 @@ export class FileExplorerComponent implements OnInit {
   canNavigateUp = false;
   currenttask:TaskYouHave;
   selectedFiles: any;
-  selectedpath:any[] =[];
+  selectedpath:any;
   currentFile: File;
   progress = 0;
   message = '';
@@ -69,6 +70,7 @@ export class FileExplorerComponent implements OnInit {
 
   ngOnInit():void {
     this.gethome();
+    this.filtertasks(1);
   }
   tooglearounddiv(name:string):void{
     Object.keys(this.tooglebetweetask).map((key)=>{
@@ -170,8 +172,8 @@ export class FileExplorerComponent implements OnInit {
     });
 
   }
-  routesubmitt(task:number):void{
-    // this.currentselectedtask = task;
+  routesubmitt(task:TaskYouHave):void{
+    this.currentselectedtask = task;
     this.taskstoworkon = true;
     this.uploadedtasks = true;
     this.uploadtasks = false;
@@ -220,34 +222,50 @@ export class FileExplorerComponent implements OnInit {
    */
 
   uploadfolder(event: { target: { files: any; }; }):void{
-    this.selectedFiles = event.target.files;
-
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.selectedpath[i] = { value: 0, name: this.selectedFiles[i].webkitRelativePath};
-
-    }
+    this.selectedFiles = event.target.files[0];
+    this.selectedpath = { value: 0, name: this.selectedFiles.name,file:this.selectedFiles};
 
   }
-  uploadtoserver():void{
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
-    }
-  }
-  upload(idx:number,file:any): void {
 
-    this.gettasks.uploadproject(file).subscribe(
+  upload(id:number): void {
+
+    this.gettasks.uploadproject(this.user.getUser().id,id.toString(),this.selectedpath.file).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
-          this.selectedpath[idx].value = Math.round(100 * event.loaded / event.total);
+          this.selectedpath.value = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          console.log('ok');
+          console.log(event.body)
         }
       },
       err => {
-        this.selectedpath[idx].value = 0;
-        this.message = 'Could not upload the file:' + <string>file.webkitRelativePath;
+        this.selectedpath.value = 0;
+        this.message = 'Could not upload the file:' + <string>this.selectedpath.webkitRelativePath;
       });
   }
+
+  // async  viewfileinzip(zipFile:File):Promise<any[]> {
+  //   const flist = [];
+  //   const zip = await JSZip.loadAsync(zipFile);
+  //   // async-forEach loop inspired from jszip source
+  //   for(const filename in zip.files) {
+  //     if (!zip.files.hasOwnProperty(filename)) {
+  //       continue;
+  //     }
+  //     // Object key is the filename
+  //     // const regex = /REGEX.pdf$/ ;
+  //     // const match =  regex.exec(filename);
+  //     // if(match) {
+  //     //   const blob = await zip.file( filename ).async("blob");
+  //     //   const file = new File( [blob], filename, {type : 'application/pdf'} );
+  //     flist.push(filename);
+  //     // }
+  //   }
+  //   return flist;
+  //   console.log(flist);
+  // }
+  /**
+   * end upload files
+   */
   setRemainder(id:number):void{
     const dialogRef = this.dialog.open(newReminderComponent,{
       data:id

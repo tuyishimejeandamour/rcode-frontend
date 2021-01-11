@@ -9,7 +9,7 @@ export interface TaskYouHave{
   lesson: string;
   long:string;
   short: string;
-  task_id: number;
+  id: number;
   taskname: string;
   updated_at: Date;
   user_id: number
