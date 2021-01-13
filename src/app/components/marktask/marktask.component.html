@@ -43,10 +43,7 @@
             </svg>
           </div>
 
-          <div id="github-link">
-            <a href="https://github.com/luochang212/monaco-speech-editor" target="_blank"><img
-                src="../../assets/others/logo.png" alt="github"></a>
-          </div>
+
         </div>
         <div id="left-sidebar">
           <div id="sidebar-1" class="tabcontent">
@@ -112,7 +109,7 @@
           <ngx-monaco-editor  [options]="{theme: 'vs-dark', language: item.extension}"  [(ngModel)]="codes[i].code"></ngx-monaco-editor>
         </div>
           <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
-            <pdf-viewer [src]="codes[i].code" [render-text]="true" style="display: block;"></pdf-viewer>
+            <pdf-viewer [src]="pdfview" [render-text]="true" style="display: block;"></pdf-viewer>
           </div>
         </div>
       </as-split-area>

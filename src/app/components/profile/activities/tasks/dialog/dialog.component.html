@@ -33,20 +33,12 @@
               </div>
           </div>
           <mat-divider></mat-divider>
-          <div *ngIf="talks" class="chat-actions">
-              <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
-                <img class="writecommentimage" src="../../../../../assets/tuy.png">
-                  <mat-form-field class="w-100" style="width:60%">
-                      <input matInput placeholder="ask any problem about task" (keyup)="sendMessage($event)" [(ngModel)]="newMessage">
-                  </mat-form-field>
-                  <div fxLayout="row" fxLayoutAlign="center center">
-                      <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
-                          <mat-icon>send</mat-icon>
-
-                      </button>
-                  </div>
-                  </div>
-         </div>
+          <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+            <mat-icon>chat</mat-icon>
+            <p>no issue with this task yet</p>
+        </div>
+        <app-issues *ngIf="talks"[talks]="talks">
+        </app-issues>
       </div>
       </div>
     </div>

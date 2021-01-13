@@ -65,7 +65,7 @@ try {
      setTimeout(createWindow, 400);
      InitTray()
     }
-     );
+    );
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

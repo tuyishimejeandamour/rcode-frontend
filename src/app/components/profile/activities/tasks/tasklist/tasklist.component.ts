@@ -20,7 +20,7 @@ import { Groups } from '../../students/students.component';
 export class TasklistComponent implements OnInit {
   public content:ContentShow;
   public showtaskcontent = false;
-  displayedColumns: string[] = ['position', 'name', 'classname', 'starting_date', 'submittion_deadline', 'action'];
+  displayedColumns: string[] = ['position', 'name', 'starting_date', 'submittion_deadline', 'action'];
   dataSource = new MatTableDataSource<TasksDetails>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

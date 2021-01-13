@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
-import  { FiletreeService, TreeData } from 'app/Service/filetree.service';
+import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -18,18 +18,17 @@ import { AppConfig } from 'environments/environment';
 })
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[];
-  reserved:TreeData[];
-  codes: any[]=[];
-  private baseurl=AppConfig.apiHost;
-  pdf = "http://192.168.0.96:8000/storage/task/jaylove/good/jaylove/Slides_Unit1.pdf"
-  students=[{
-    id:null,
-    firstname:null,
-    lastname:null,
+  reserved: TreeData[];
+  codes: any[] = [];
+  private baseurl = AppConfig.apiHost;
+  students = [{
+    id: null,
+    firstname: null,
+    lastname: null,
   }];
   @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent):void {
-    if (event.key==="m") {
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.key === "m") {
       this.opendialogy()
     }
   }
@@ -38,36 +37,39 @@ export class MarktaskComponent implements OnInit {
   leftSidebarSelected = "";
   leftSidebarSelect = "";
   fileCounter = 1;
-  heroId:string;
-  task:TasksDetails ={
+  heroId: string;
+  pdfview ={
+    url:"https://moodle.benax.rw/pluginfile.php/2595/mod_resource/content/1/Chap_1_Exercises.pdf",
+    withCredentials: true
+  }
+  task: TasksDetails = {
     task_id: null,
     taskname: null,
-    lesson:null,
+    lesson: null,
     group_id: null,
     givenat: null,
     endat: null,
   };
-  public marks={
-    higscore:null,
-    score:null
+  public marks = {
+    higscore: null,
+    score: null
   }
-  public markform={
-    task_id:null,
-    teacher_id:this.user.getUser().id,
-    student_id:null,
-    marks:null
+  public markform = {
+    task_id: null,
+    teacher_id: this.user.getUser().id,
+    student_id: null,
+    marks: null
   }
 
-  constructor( treedata:FiletreeService,
-               private monacoLoaderService: MonacoEditorLoaderService,
-               private route: ActivatedRoute,
-               private user: JerwisService,
-               private dialog:MatDialog,
-               private http:HttpactivitiesService,
-               private httpmark:HttpmarksService,
-               private markeditor:HttpmarkeditorService,
-               private extension:FilenamePipe
-
+  constructor(treedata: FiletreeService,
+              private monacoLoaderService: MonacoEditorLoaderService,
+              private route: ActivatedRoute,
+              private user: JerwisService,
+              private dialog: MatDialog,
+              private http: HttpactivitiesService,
+              private httpmark: HttpmarksService,
+              private markeditor: HttpmarkeditorService,
+              private extension: FilenamePipe
   ) {
 
     this.treeData = treedata.getTreeData1();
@@ -75,7 +77,7 @@ export class MarktaskComponent implements OnInit {
     this.heroId = this.route.snapshot.paramMap.get('id');
     this.gettasktomark(<number><unknown>this.heroId);
   }
-  filterTree(name:string):void{
+  filterTree(name: string): void {
     this.treeData = this.reserved.filter(data => data.basename == name);
   }
   split: SplitComponent;
@@ -83,8 +85,8 @@ export class MarktaskComponent implements OnInit {
   area2: SplitAreaDirective;
 
   direction = 'horizontal';
-  play=false;
-  terminal=false;
+  play = false;
+  terminal = false;
   sizes = {
     percent: {
       area1: 3.7,
@@ -95,12 +97,12 @@ export class MarktaskComponent implements OnInit {
       area2: 50,
     }
   }
-  dragEnd({sizes}):void {
+  dragEnd({ sizes }): void {
 
     this.sizes.percent.area1 = sizes[0];
     this.sizes.percent.area2 = sizes[1];
   }
-  drag2End({sizes}):void {
+  drag2End({ sizes }): void {
     this.sizes.percent2.area1 = sizes[0];
     this.sizes.percent2.area2 = sizes[1];
   }
@@ -108,7 +110,7 @@ export class MarktaskComponent implements OnInit {
 
 
   ngOnInit(): void {
-    document.getElementById('defaultopen').click();
+    document.getElementById('left-nav-button-1').click();
     this.getstudents(this.user.getUser().id);
   }
   ngAfterViewInit(): void {
@@ -118,7 +120,7 @@ export class MarktaskComponent implements OnInit {
   /**
    * sidebar functions
    */
-  hideSection(evt:any, section_id:string, icon_id:string):void {
+  hideSection(evt: any, section_id: string, icon_id: string): void {
     const selectedElement = document.getElementById(section_id);
     const selectedIcon = document.getElementById(icon_id);
     if (evt.currentTarget.className.toString().split(' ').pop() != "hidden") {
@@ -131,7 +133,7 @@ export class MarktaskComponent implements OnInit {
       selectedIcon.style.transform = "";
     }
   }
-  clickLeftNav(evt:any, sidebarName:string):void {
+  clickLeftNav(evt: any, sidebarName: string): void {
     let i;
     const tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -146,8 +148,6 @@ export class MarktaskComponent implements OnInit {
     }
 
     evt.currentTarget.className += " active";
-
-    //控制sidebar的开关，因为closeLeftSideBar()内的语句，本节代码和上一节顺序不可对调
     this.leftSidebarSelected = this.leftSidebarSelect;
     this.leftSidebarSelect = sidebarName;
     if (this.leftSidebarStatus == "c") {
@@ -160,7 +160,7 @@ export class MarktaskComponent implements OnInit {
     }
   }
 
-  openLeftSideBar():void {
+  openLeftSideBar(): void {
     document.getElementById("left-sidebar").style.width = "calc(100% - 50px)";
     const conta = document.getElementsByClassName("container");
     for (let i = 0; i < conta.length; i++) {
@@ -170,7 +170,7 @@ export class MarktaskComponent implements OnInit {
     this.sizes.percent.area2 = 80;
   }
 
-  closeLeftSideBar():void {
+  closeLeftSideBar(): void {
     document.getElementById("left-sidebar").style.width = "0";
     const conta = document.getElementsByClassName("container");
 
@@ -191,81 +191,80 @@ export class MarktaskComponent implements OnInit {
    * editor functions
    * @type rcode editor
    */
-  filearrays:TreeData[]=[];
-  activeindex:number;
+  filearrays: TreeData[] = [];
+  activeindex: number;
 
-  setcode(data:TreeData):boolean{
-    const num=this.filearrays.indexOf(data,1)
-    if(num <0){
+  setcode(data: TreeData): boolean {
+    const num = this.filearrays.indexOf(data, 1)
+    if (num < 0) {
       this.filearrays.push(data);
       return true;
-    }else{
+    } else {
       return false
     }
   }
-  getiffileopened(data:TreeData):boolean{
-    if (this.codes.length>0) {
-      console.log(this.codes)
-      const file =  this.codes.filter((code)=> code.path === data.path)
-      return file.length >0 ? true:false;
-    }else{
+  getiffileopened(data: TreeData): boolean {
+    if (this.codes.length > 0) {
+      const file = this.codes.filter((code) => code.path === data.path)
+      return file.length > 0 ? true : false;
+    } else {
       return false;
     }
 
 
   }
 
-  addFile(data:TreeData):void{
+  addFile(data: TreeData): void {
     if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc") {
-      this.markeditor.getcode(data.path,this.user.getUser().id).subscribe(
-        data=> this.codes.push(data),
+      this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
+        data => this.codes.push(data),
         error => console.log(error)
       );
-    }else if(!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc"){
+    } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
       const str = data.path.replace("public/", "");
-      const url = this.baseurl.replace("api","")
+      const url = this.baseurl.replace("api", "")
       const pathname = `{"path":"${data.path}","code":"${url}storage/${str}"}`;
       this.codes.push(JSON.parse(pathname));
     }
-    if(this.setcode(data)){
-      this.activeindex=this.filearrays.indexOf(data,1);
+    if (this.setcode(data)) {
+      this.activeindex = this.filearrays.indexOf(data, 1);
     }
-    if(this.filearrays.length==0){
+    if (this.filearrays.length == 0) {
       this.activeindex = 0;
     }
   }
-  switchtab(index:number,data:TreeData):void{
+  switchtab(index: number, data: TreeData): void {
     this.monacoLoaderService.isMonacoLoaded$.pipe(
       filter(isLoaded => isLoaded),
       take(1),
     ).subscribe(() => {
       monaco.editor.setModelLanguage(
-        monaco.editor.getModels()[index-1],
-        this.fileTypes[ this.extension.transform(data.path)]
+        monaco.editor.getModels()[index - 1],
+        this.fileTypes[this.extension.transform(data.path)]
       );
 
     });
   }
-  closetab(index:number):void{
-    this.filearrays.splice(index,1);
-    if(index == this.activeindex){
-      if(index==0){
+  closetab(index: number): void {
+    this.filearrays.splice(index, 1);
+    if (index == this.activeindex) {
+      if (index == 0) {
         this.activeindex = index;
-      }else{
-        this.activeindex = index -1;
+      } else {
+        this.activeindex = index - 1;
 
       }
-    }else if(index<this.activeindex){
-      this.activeindex -=1;
+    } else if (index < this.activeindex) {
+      this.activeindex -= 1;
     }
   }
-  openCity(evt, cityName:string):void {
-    let i:number;
-    const tabcontent = Array.from(document.getElementsByClassName("tabcontentM") as  HTMLCollectionOf<HTMLElement>);
+  openCity(evt, cityName: string): void {
+    let i: number;
+    const tabcontent = Array.from(document.getElementsByClassName("tabcontentM") as HTMLCollectionOf<HTMLElement>);
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
-    const tablinks =  Array.from(document.getElementsByClassName("action-label") as  HTMLCollectionOf<HTMLElement>)
+    const tablinks = Array.from(document.getElementsByClassName("action-label") as HTMLCollectionOf<HTMLElement>)
     for (i = 0; i < tablinks.length; i++) {
       tablinks[i].classList.remove('active');
     }
@@ -274,33 +273,33 @@ export class MarktaskComponent implements OnInit {
 
   }
 
-  gettasktomark(id:number):void{
+  gettasktomark(id: number): void {
 
     this.http.getsingletask(id).subscribe(
-      (data)=>this.task=data,
-      error=>console.log(error)
+      (data) => this.task = data,
+      error => console.log(error)
     )
   }
-  combinemarks(va1:number,va2:number):string{
+  combinemarks(va1: number, va2: number): string {
     return `${va1}/${va2}`;
   }
-  markstudent():void{
+  markstudent(): void {
     this.markform.task_id = this.task.task_id;
-    this.markform.marks = this.combinemarks(this.marks.score,this.marks.higscore);
+    this.markform.marks = this.combinemarks(this.marks.score, this.marks.higscore);
     this.httpmark.givemarks(this.markform).subscribe(
-      ()=>console.log('ok'),
-      error=>console.log(error)
+      () => console.log('ok'),
+      error => console.log(error)
     )
   }
-  getstudents(id:number):void{
+  getstudents(id: number): void {
     this.httpmark.getyourstudents(id).subscribe(
-      (data)=>this.students = data,
-      error=>console.log(error)
+      (data) => this.students = data,
+      error => console.log(error)
     )
   }
-  opendialogy():void{
-    this.dialog.open(GivemarksComponent,{
-      width:"40%"
+  opendialogy(): void {
+    this.dialog.open(GivemarksComponent, {
+      width: "40%"
     });
 
   }

@@ -7,7 +7,7 @@ var path = require("path");
 var MainTray;
 var TrayWindow;
 function InitTray() {
-    var iconName = 'dist/assets/icons/logo.ico';
+    var iconName = './src/assets/icons/logo.ico';
     var iconPath = path.join(__dirname, iconName);
     MainTray = new electron_1.Tray(electron_1.nativeImage.createFromPath(iconPath));
     TrayWindow = new electron_1.BrowserWindow({
@@ -23,13 +23,13 @@ function InitTray() {
         }
     });
     TrayWindow.setMenu(null);
-    TrayWindow.loadURL('https://stackblitz.com/edit/angular-susr5n?file=src/app/app.component.ts');
+    TrayWindow.loadURL("file://" + path.join(__dirname, "src/loading.html"));
     trayWindow.setOptions({ tray: MainTray, window: TrayWindow });
     trayWindow.setWindowSize({
-        width: 300,
-        height: 400,
-        margin_x: 1,
-        margin_y: 1 //optional
+        width: 411,
+        height: 530,
+        margin_x: -100,
+        margin_y: -5
     });
 }
 exports.InitTray = InitTray;

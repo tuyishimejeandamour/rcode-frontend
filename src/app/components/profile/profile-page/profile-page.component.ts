@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { TouchBarSlider } from 'electron';
 
 @Component({
   selector: 'app-profile-page',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePageComponent implements OnInit {
 
+  @ViewChild('intialselect') public initialclick:ElementRef;
   constructor() { }
 
   ngOnInit(): void {
+    this.initialclick.nativeElement.click();
   }
 
 }
+
+

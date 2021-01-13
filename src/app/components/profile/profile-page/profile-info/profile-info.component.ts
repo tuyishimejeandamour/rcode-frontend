@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, Inject, NgZone } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
 import { Chat, ChatService } from 'app/Service/chat.service';
 import * as Highcharts from 'highcharts';
@@ -43,92 +43,91 @@ export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   currentuser: User;
-  public profileinfo ={
-    filepath:'../.././../../../assets/profile_picture/41594424503.png',
-    bio:'add bio'
+  public profileinfo = {
+    filepath: '../.././../../../assets/profile_picture/41594424503.png',
+    bio: 'add bio'
   }
   constructor(
     public dialog: MatDialog,
-    public mailboxService:QuickhelpService,
-    private chatService:ChatService,
-    private user:JerwisService,
-    private uploadService:UploadfileService,
+    public mailboxService: QuickhelpService,
+    private chatService: ChatService,
+    private user: JerwisService,
+    private uploadService: UploadfileService,
     private _ngZone: NgZone
   ) { }
 
   ngOnInit(): void {
     this.currentuser = this.user.getUser();
     this.geitprogileinfo();
-    console.log(this.profileinfo);
     this.getMails();
     this.chats = this.chatService.getChats();
-    if(window.innerWidth <= 768){
+    if (window.innerWidth <= 768) {
       this.sidenavOpen = false;
     }
   }
   isOpen = false;
-  edit=false;
-  editinput= true;
-  isviewOpen=false;
+  edit = false;
+  editinput = true;
+  isviewOpen = false;
   public mails: Array<Mail>;
   public mail: Mail;
   public showSearch = false;
   public searchText: string;
-  public type="all";
+  public type = "all";
   public userImage = '../../../assets/tuy.png';
   public chats: Array<Chat>;
   public talks: Array<Chat>;
   public sidenavOpen = true;
-  public currentChat:Chat;
-  public newMessage:string;
-  public bio={
-    bio:'click to add bio'
+  public currentChat: Chat;
+  public newMessage: string;
+  public bio = {
+    bio: 'click to add bio'
   }
 
   tiles: Tile[] = [
-    {text: 'One', cols: 2, rows: 1, color: 'white'},
-    {text: 'Two', cols: 2, rows: 2, color: 'white'},
-    {text: 'Three', cols: 1, rows: 1, color: 'white'},
-    {text: 'Four', cols: 1, rows: 1, color: 'white'},
+    { text: 'One', cols: 2, rows: 1, color: 'white' },
+    { text: 'Two', cols: 2, rows: 2, color: 'white' },
+    { text: 'Three', cols: 1, rows: 1, color: 'white' },
+    { text: 'Four', cols: 1, rows: 1, color: 'white' },
   ];
   @HostListener('window:resize')
-  public onWindowResize():void {
+  public onWindowResize(): void {
     (window.innerWidth <= 992) ? this.isOpen = true : this.isOpen = false;
   }
-  triggerResize():void {
+  triggerResize(): void {
     // Wait for changes to be applied, then trigger textarea resize.
     this._ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
   }
-  public getMails():void{
+  public getMails(): void {
     switch (this.type) {
       case 'all':
         this.mails = this.mailboxService.getAllMails();
         break;
       case 'starred':
-        this.mails =  this.mailboxService.getStarredMails();
+        this.mails = this.mailboxService.getStarredMails();
         break;
       case 'sent':
-        this.mails =  this.mailboxService.getSentMails();
+        this.mails = this.mailboxService.getSentMails();
         break;
       case 'drafts':
-        this.mails =  this.mailboxService.getDraftMails();
+        this.mails = this.mailboxService.getDraftMails();
         break;
       case 'trash':
-        this.mails =  this.mailboxService.getTrashMails();
+        this.mails = this.mailboxService.getTrashMails();
         break;
       default:
-        this.mails =  this.mailboxService.getDraftMails();
+        this.mails = this.mailboxService.getDraftMails();
     }
   }
-  clicktoupload():void{
+  clicktoupload(): void {
     const ele = document.getElementById('fileinput');
     ele.click();
   }
-  change(end:any):void{
-    const dialogRefs = this.dialog.open(UploadimageComponent ,{
-      maxHeight:'70%',
-      data:end
+  change(end: any): void {
+    const dialogRefs = this.dialog.open(UploadimageComponent, {
+      maxHeight: '70%',
+      data: end
 
     });
     dialogRefs.afterClosed().subscribe(res => {
@@ -138,33 +137,33 @@ export class ProfileInfoComponent implements OnInit {
     });
   }
 
-  public viewDetail(mail:Mail):void{
+  public viewDetail(mail: Mail): void {
     this.mail = this.mailboxService.getMail(mail.id);
     this.mails.forEach(m => m.selected = false);
     this.mail.selected = true;
     this.mail.unread = false;
 
   }
-  getChat(obj:Chat):void{
-    if(this.talks){
+  getChat(obj: Chat): void {
+    if (this.talks) {
       this.talks.length = 2;
     }
     this.talks = this.chatService.getTalk();
     this.talks.push(obj);
     this.currentChat = obj;
     this.talks.forEach(talk => {
-      if(!talk.my){
+      if (!talk.my) {
         talk.image = obj.image;
       }
     });
-    if(window.innerWidth <= 768){
+    if (window.innerWidth <= 768) {
       this.sidenav.close();
     }
   }
 
-  sendMessage($event: { which: number; }):void {
+  sendMessage($event: { which: number; }): void {
     if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if(this.talks){
+      if (this.talks) {
         this.talks.push(
           new Chat(
             '../../../assets/tuy.png',
@@ -176,10 +175,10 @@ export class ProfileInfoComponent implements OnInit {
         )
         this.newMessage = '';
         const chatContainer = document.querySelector('.chat-content');
-        if(chatContainer){
+        if (chatContainer) {
           setTimeout(() => {
             const nodes = chatContainer.querySelectorAll('.mat-list-item');
-            const newChatTextHeight = nodes[nodes.length- 1];
+            const newChatTextHeight = nodes[nodes.length - 1];
             chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
           });
         }
@@ -191,12 +190,12 @@ export class ProfileInfoComponent implements OnInit {
   }
 
 
-  openNewFolderDialog():void {
-    const dialogRef = this.dialog.open(DialogComponent,{
-      backdropClass:'searchmembermessage',
-      width:'50%',
-      maxHeight:'70%',
-      position:{top:'10%',left:'35%'}
+  openNewFolderDialog(): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      backdropClass: 'searchmembermessage',
+      width: '50%',
+      maxHeight: '70%',
+      position: { top: '10%', left: '35%' }
 
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -205,16 +204,16 @@ export class ProfileInfoComponent implements OnInit {
       }
     });
   }
-  geitprogileinfo():void{
+  geitprogileinfo(): void {
     this.uploadService.profileimage(this.user.getUser().id).subscribe(
-      data=>{this.profileinfo = data;this.bio.bio = data.bio},
-      (error)=>{}
+      data => { this.profileinfo = data; this.bio.bio = data.bio },
+      (error) => { }
     )
   }
-  updatebio():void{
-    this.uploadService.updatebio(this.user.getUser().id,this.bio).subscribe(
-      data=> this.bio = data,
-      error=>console.log(error)
+  updatebio(): void {
+    this.uploadService.updatebio(this.user.getUser().id, this.bio).subscribe(
+      data => this.bio = data,
+      error => console.log(error)
     )
   }
   /**
@@ -237,7 +236,7 @@ export class ProfileInfoComponent implements OnInit {
       floating: true,
       borderWidth: 1,
       backgroundColor:
-          Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
+        Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
     },
     xAxis: {
       categories: [
@@ -292,17 +291,16 @@ export class ProfileInfoComponent implements OnInit {
 export class UploadimageComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UploadimageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any,
-    private User:JerwisService,
-    private uploadService:UploadfileService
-  )
-  {}
-  imgURL:any;
-  selectedFile:any;
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private User: JerwisService,
+    private uploadService: UploadfileService
+  ) { }
+  imgURL: any;
+  selectedFile: any;
   ngOnInit(): void {
     this.uploadimage(this.data)
   }
-  uploadimage(event:any):void{
+  uploadimage(event: any): void {
     this.selectedFile = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(this.selectedFile);
@@ -310,7 +308,7 @@ export class UploadimageComponent implements OnInit {
       this.imgURL = reader.result;
     };
   }
-  onupload():void{
+  onupload(): void {
     this.onNoClick();
     this.uploadService.upload(this.selectedFile, this.User.getUser().id).subscribe(
       (res) => console.log(res),

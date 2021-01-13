@@ -11,7 +11,6 @@ import { ExplorerComponent } from './file-explorer/explorer/explorer.component';
 import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
 import { CoreModule } from 'app/core/core.module';
 import { DialogComponent } from './file-explorer/dialog/dialog.component';
-import { IssuesComponent } from './file-explorer/dialog/issues/issues.component';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { ShortenttextPipe } from 'app/core/pipes/shortenttext.pipe';
@@ -20,14 +19,13 @@ import { ShortenttextPipe } from 'app/core/pipes/shortenttext.pipe';
 
 
 @NgModule({
-  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent, DialogComponent, IssuesComponent,newReminderComponent, ShortenttextPipe],
+  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent, DialogComponent,newReminderComponent, ShortenttextPipe],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     SharedModule,
     FormsModule,
     MaterialModule,
-
     MatIconModule,
     CoreModule,
     ContextMenuModule.forRoot({

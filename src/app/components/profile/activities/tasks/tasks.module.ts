@@ -10,6 +10,7 @@ import { QuillModule } from 'ngx-quill'
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
+import { SharedModule } from 'app/shared/shared.module';
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
   datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
@@ -27,7 +28,7 @@ export const MY_NATIVE_FORMATS = {
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-
+    SharedModule,
     QuillModule.forRoot(),
     ContextMenuModule.forRoot()
   ],
