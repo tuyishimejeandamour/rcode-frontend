@@ -11,10 +11,15 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 export class FiletreeComponent implements OnInit {
   @Input() nestedDataSource: TreeData[];
   @Output() elementadd = new EventEmitter();
+  @Output() activestudent = new EventEmitter();
   public toppx:number;
 
   getcode(code:TreeData):void{
     this.elementadd.emit(code)
+  }
+  activestudentfx(file:TreeData):void{
+    console.log(file)
+    this.activestudent.emit(file);
   }
   constructor() { }
 

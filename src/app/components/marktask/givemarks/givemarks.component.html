@@ -1,6 +1,6 @@
 <div mat-dialog-title class="headertitle">
   <select name="user" id="username">
-    <option value="" >Tuyishime jeandamour</option>
+    <option value="{{data.basename}}">{{data.basename}}</option>
   </select>
   <div class="classname">
     <span>class:</span>
@@ -12,15 +12,42 @@
 <mat-dialog-content>
   <div class="modal-body">
     <div class="student_info">
-     <div class="givemarkinput">
-      <input type="number" id="marks" placeholder="Enter marks"  name="score">
-      <span class="markdiscription">/</span>
-      <span class="markdiscription">60</span>
-    </div>
-      <textarea id="comments" class="comment_section" placeholder="give feedback to students"></textarea>
+      <div class="givemarkinput">
+        <input type="number" id="marks" placeholder="Enter marks" name="score">
+        <span class="markdiscription">/</span>
+        <span class="markdiscription">60</span>
+      </div>
+      <quill-editor customToolbarPosition="bottom" class="givecomment" [(ngModel)]="text" name="message" [style]="{width:'90%',minHeight:'70px'}">
+        <div quill-editor-toolbar>
+          <span class="ql-formats">
+            <button class="ql-bold" [title]="'Bold'"></button>
+            <button class="ql-italic" [title]="'Italic'"></button>
+            <button class="ql-underline" [title]="'Underline'"></button>
+            <button class="ql-strike" [title]="'Strike'"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-align" [title]="'Aligment'">
+              <option selected></option>
+              <option value="center"></option>
+              <option value="right"></option>
+              <option value="justify"></option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-list" value="ordered"></button>
+            <button type="button" class="ql-list" value="bullet"></button>
+            <button type="button" class="ql-script" value="sub"></button>
+          </span>
+          <span class="ql-formats">
+            <button type="button" class="ql-image"></button>
+            <button type="button" class="ql-video"></button>
+          </span>
+        </div>
+      </quill-editor>
+
       <div style="margin-top: 20px;">
 
-    </div>
+      </div>
     </div>
 
   </div>
@@ -28,6 +55,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button type="button"s style="margin-right: 50px;" (click)="closedialog()">close</button>
-  <button mat-raised-button color="primary" type="submit" (click)="markstudent()">save</button>
+  <button mat-raised-button type="button" s style="margin-right: 50px;" (click)="closedialog()">close</button>
+  <button mat-raised-button color="primary" type="submit">save</button>
 </mat-dialog-actions>

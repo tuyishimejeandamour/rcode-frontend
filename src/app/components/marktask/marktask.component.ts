@@ -1,10 +1,10 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { HttpactivitiesService, HttpmarkeditorService, HttpmarksService, JerwisService, User } from 'app/core/services';
+import { HttpactivitiesService, HttpexplorerService, HttpmarkeditorService, HttpmarksService, JerwisService, User } from 'app/core/services';
 import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
@@ -17,7 +17,7 @@ import { AppConfig } from 'environments/environment';
   styleUrls: ['./marktask.component.scss']
 })
 export class MarktaskComponent implements OnInit {
-  treeData: TreeData[];
+  treeData: TreeData[] =  [];
   reserved: TreeData[];
   codes: any[] = [];
   private baseurl = AppConfig.apiHost;
@@ -26,6 +26,7 @@ export class MarktaskComponent implements OnInit {
     firstname: null,
     lastname: null,
   }];
+  activestudent: TreeData;
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.key === "m") {
@@ -39,7 +40,7 @@ export class MarktaskComponent implements OnInit {
   fileCounter = 1;
   heroId: string;
   pdfview ={
-    url:"https://moodle.benax.rw/pluginfile.php/2595/mod_resource/content/1/Chap_1_Exercises.pdf",
+    url:"https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
     withCredentials: true
   }
   task: TasksDetails = {
@@ -69,13 +70,10 @@ export class MarktaskComponent implements OnInit {
               private http: HttpactivitiesService,
               private httpmark: HttpmarksService,
               private markeditor: HttpmarkeditorService,
-              private extension: FilenamePipe
+              private extension: FilenamePipe,
+              private filetree:HttpexplorerService
   ) {
 
-    this.treeData = treedata.getTreeData1();
-    this.reserved = this.treeData;
-    this.heroId = this.route.snapshot.paramMap.get('id');
-    this.gettasktomark(<number><unknown>this.heroId);
   }
   filterTree(name: string): void {
     this.treeData = this.reserved.filter(data => data.basename == name);
@@ -112,6 +110,14 @@ export class MarktaskComponent implements OnInit {
   ngOnInit(): void {
     document.getElementById('left-nav-button-1').click();
     this.getstudents(this.user.getUser().id);
+    this.reserved = this.treeData;
+    this.heroId = this.route.snapshot.paramMap.get('id');
+    this.gettasktomark(<number><unknown>this.heroId);
+    this.filetree.getTreeData1(<number><unknown>this.heroId).subscribe(
+      data => {this.treeData = data; this.reserved = data},
+      error => console.error(error)
+    );
+
   }
   ngAfterViewInit(): void {
 
@@ -233,6 +239,12 @@ export class MarktaskComponent implements OnInit {
       this.activeindex = 0;
     }
   }
+  activatestudent(file:TreeData):void{
+    console.log(file)
+    if(file.properties.main){
+      this.activestudent = file;
+    }
+  }
   switchtab(index: number, data: TreeData): void {
     this.monacoLoaderService.isMonacoLoaded$.pipe(
       filter(isLoaded => isLoaded),
@@ -274,7 +286,6 @@ export class MarktaskComponent implements OnInit {
   }
 
   gettasktomark(id: number): void {
-
     this.http.getsingletask(id).subscribe(
       (data) => this.task = data,
       error => console.log(error)
@@ -298,8 +309,10 @@ export class MarktaskComponent implements OnInit {
     )
   }
   opendialogy(): void {
+    console.log(this.activestudent)
     this.dialog.open(GivemarksComponent, {
-      width: "40%"
+      width: "40%",
+      data: this.activestudent
     });
 
   }
@@ -310,5 +323,6 @@ export class MarktaskComponent implements OnInit {
     md: 'markdown',
     mjs: 'javascript',
     ts: 'typescript',
+    csv:'csv'
   }
 }

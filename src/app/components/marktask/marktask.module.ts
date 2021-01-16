@@ -14,6 +14,7 @@ import { FiletreeComponent } from './filetree/filetree.component';
 import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { QuillModule } from 'ngx-quill';
 @NgModule({
 
   declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent],
@@ -27,7 +28,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MonacoEditorModule,
     MaterialModule,
     ReactiveFormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    QuillModule.forRoot()
   ],
   entryComponents:[GivemarksComponent],
   providers:[FilenamePipe]

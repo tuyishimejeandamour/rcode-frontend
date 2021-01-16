@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -10,11 +10,10 @@ import { FiletreeService, TreeData } from 'app/Service/filetree.service';
   styleUrls: ['./selectstudent.component.scss']
 })
 export class SelectstudentComponent implements OnInit {
-  data:TreeData[];
+  @Input() TaskFolder:TreeData[];
   @Output() filtertreedata = new EventEmitter<string>();
   constructor(private treedata:FiletreeService) {
-    this.data = treedata.getTreeData1();
-    this.getindex(this.data);
+
   }
 
   myControl = new FormControl();
@@ -22,13 +21,17 @@ export class SelectstudentComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   ngOnInit():void {
+    this.getindex(this.TaskFolder);
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
   }
-
+  public setdata(data:TreeData[]):void{
+    console.log(data)
+    this.getindex(data);
+  }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));

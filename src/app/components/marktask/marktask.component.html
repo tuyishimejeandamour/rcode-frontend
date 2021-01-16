@@ -50,8 +50,8 @@
             <div class="sidebar-top-title">
               <p>Explorer</p>
             </div>
-            <app-selectstudent (filtertreedata)="filterTree($event)"></app-selectstudent>
-            <app-filetree [nestedDataSource]=treeData (elementadd)="addFile($event)" ></app-filetree>
+            <app-selectstudent [TaskFolder]=treeData (filtertreedata)="filterTree($event)"></app-selectstudent>
+            <app-filetree [nestedDataSource]=treeData (elementadd)="addFile($event)" (activestudent)="activatestudent($event)" ></app-filetree>
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
