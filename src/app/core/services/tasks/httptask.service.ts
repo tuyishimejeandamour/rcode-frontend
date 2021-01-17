@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { SubmittedTask } from '..';
+import { Observable} from 'rxjs';
 import { AppConfig } from 'environments/environment';
 
 

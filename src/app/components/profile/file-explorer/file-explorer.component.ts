@@ -187,7 +187,7 @@ export class FileExplorerComponent implements OnInit {
       )
       return;
     }
-    if (choice == 2) {
+    if(choice == 2){
       this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
         data=>this.HandleResponse(data,choice),
         error=> this.HandlError(error)
@@ -195,6 +195,13 @@ export class FileExplorerComponent implements OnInit {
       return;
     }
     if (choice == 3) {
+      this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
+        data=>this.HandleResponse(data,choice),
+        error=> this.HandlError(error)
+      )
+      return;
+    }
+    if (choice == 4) {
       this.gettasks.gettasksinthisweek(this.user.getUser().id,choice).subscribe(
         data=>this.HandleResponse(data,choice),
         error=> this.HandlError(error)

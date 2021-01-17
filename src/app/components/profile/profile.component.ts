@@ -7,7 +7,7 @@ import {
   NavigationStart,
   Router
 } from '@angular/router';
-import { ElectronService,JerwisService  } from 'app/core/services';
+import { ElectronService } from 'app/core/services';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private electron: ElectronService,
-    private jewris:JerwisService
   ) {
     this.router.events.subscribe((event: Event) => {
       switch (true) {

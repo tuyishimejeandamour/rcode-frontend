@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
@@ -9,7 +9,7 @@ import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.comp
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
-import { AppConfig } from 'environments/environment';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-marktask',
@@ -20,7 +20,7 @@ export class MarktaskComponent implements OnInit {
   treeData: TreeData[] =  [];
   reserved: TreeData[];
   codes: any[] = [];
-  private baseurl = AppConfig.apiHost;
+  @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
   students = [{
     id: null,
     firstname: null,
@@ -29,9 +29,11 @@ export class MarktaskComponent implements OnInit {
   activestudent: TreeData;
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if (event.key === "m") {
+    if (event.getModifierState && event.getModifierState('Control') && event.key === "g") {
+
       this.opendialogy()
     }
+
   }
   public editor;
   leftSidebarStatus = "c";
@@ -39,10 +41,7 @@ export class MarktaskComponent implements OnInit {
   leftSidebarSelect = "";
   fileCounter = 1;
   heroId: string;
-  pdfview ={
-    url:"https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf",
-    withCredentials: true
-  }
+  pdfdata:any;
   task: TasksDetails = {
     task_id: null,
     taskname: null,
@@ -71,7 +70,7 @@ export class MarktaskComponent implements OnInit {
               private httpmark: HttpmarksService,
               private markeditor: HttpmarkeditorService,
               private extension: FilenamePipe,
-              private filetree:HttpexplorerService
+              private filetree:HttpexplorerService,
   ) {
 
   }
@@ -109,15 +108,14 @@ export class MarktaskComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('left-nav-button-1').click();
-    this.getstudents(this.user.getUser().id);
     this.reserved = this.treeData;
     this.heroId = this.route.snapshot.paramMap.get('id');
     this.gettasktomark(<number><unknown>this.heroId);
+    this.getstudents(<number><unknown>this.heroId);
     this.filetree.getTreeData1(<number><unknown>this.heroId).subscribe(
       data => {this.treeData = data; this.reserved = data},
       error => console.error(error)
     );
-
   }
   ngAfterViewInit(): void {
 
@@ -227,10 +225,17 @@ export class MarktaskComponent implements OnInit {
         error => console.log(error)
       );
     } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
-      const str = data.path.replace("public/", "");
-      const url = this.baseurl.replace("api", "")
-      const pathname = `{"path":"${data.path}","code":"${url}storage/${str}"}`;
-      this.codes.push(JSON.parse(pathname));
+
+      const pathname =
+      {
+        path:data.path,
+        code:null
+      };
+
+      this.markeditor.getpdfdata(this.user.getUser().id,data.path).subscribe(
+        data =>{ pathname.code = new Uint8Array(data); this.codes.push(pathname)},
+        error => console.log(error)
+      );
     }
     if (this.setcode(data)) {
       this.activeindex = this.filearrays.indexOf(data, 1);
@@ -240,7 +245,6 @@ export class MarktaskComponent implements OnInit {
     }
   }
   activatestudent(file:TreeData):void{
-    console.log(file)
     if(file.properties.main){
       this.activestudent = file;
     }
@@ -325,4 +329,48 @@ export class MarktaskComponent implements OnInit {
     ts: 'typescript',
     csv:'csv'
   }
+  /**
+   * pdf staffs
+   */
+  page = 1;
+  totalPages: number;
+  isLoaded = false;
+  fitpage= true;
+  zoom = 1;
+
+  afterLoadComplete(pdfData: any):void {
+    this.totalPages = pdfData.numPages;
+    this.isLoaded = true;
+  }
+
+  nextPage():void {
+    this.page++;
+  }
+
+  prevPage():void {
+    this.page--;
+  }
+  search(stringToSearch: string):void {
+    this.pdfComponent.pdfFindController.executeCommand('find', {
+      caseSensitive: false, findPrevious: undefined, highlightAll: true, phraseSearch: true, query: stringToSearch
+    });
+  }
+  data = [
+    {
+      srcUrl: "https://preview.ibb.co/jrsA6R/img12.jpg",
+      previewUrl: "https://preview.ibb.co/jrsA6R/img12.jpg"
+    },
+    {
+      srcUrl: "https://preview.ibb.co/kPE1D6/clouds.jpg",
+      previewUrl: "https://preview.ibb.co/kPE1D6/clouds.jpg"
+    },
+    {
+      srcUrl: "https://preview.ibb.co/mwsA6R/img7.jpg",
+      previewUrl: "https://preview.ibb.co/mwsA6R/img7.jpg"
+    },
+    {
+      srcUrl: "https://preview.ibb.co/kZGsLm/img8.jpg",
+      previewUrl: "https://preview.ibb.co/kZGsLm/img8.jpg"
+    }
+  ];
 }

@@ -18,7 +18,6 @@ export class FiletreeComponent implements OnInit {
     this.elementadd.emit(code)
   }
   activestudentfx(file:TreeData):void{
-    console.log(file)
     this.activestudent.emit(file);
   }
   constructor() { }

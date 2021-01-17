@@ -1,14 +1,15 @@
 
 <div class="projectlister">
   <div class="profile_img_container">
-      <div class="quote_container" style="background:url(../../../../assets/tuy.png);background-size:cover" >
+      <div class="quote_container"  [ngStyle]="{'background-image': this.inspire.fileBackground ? 'url('+this.inspire.fileBackground+')' : 'url(../../../../assets/tuy.png)', 'background-position': 'center','background-size':'cover' }"  >
           <div class="quote_text_continer">
-              <p class="my-inspiration"> Imagination is better than knowledge</p>
+              <p class="my-inspiration">{{inspire.quote}}</p>
           </div>
           <div class="writers_name">
-              <span><i>Albert Einstein </i></span>
+              <span><i>{{inspire.authorName}}</i></span>
           </div>
-          <img src="../../../../assets/others/insipier.png" class="creater_image">
+          <img *ngIf="inspire.authorImage" [src]="inspire.authorImage" class="creater_image">
+          <img *ngIf="!inspire.authorImage" src="../../../../assets/others/insipier.png" class="creater_image">
 
       </div>
   </div>

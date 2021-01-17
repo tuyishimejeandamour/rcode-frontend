@@ -19,7 +19,13 @@ export class HttpmarkeditorService {
   geturl(path:string,id:number):Observable<any>{
     const str = path.replace("public/", "");
     const pathname = `{"path":"${str}"}`;
-    console.log(pathname);
     return this.http.post(`${this.baseurl}/file/url/${id}`,JSON.parse(pathname));
+  }
+  getpdfdata(id:number,path:string):Observable<any>{
+    const pathname = `{"path":"${path}"}`;
+    return this.http.post(`${this.baseurl}/file/pdf/${id}`,JSON.parse(pathname),{
+      responseType: 'arraybuffer'
+    });
+
   }
 }

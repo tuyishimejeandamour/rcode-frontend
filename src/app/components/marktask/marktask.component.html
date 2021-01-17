@@ -51,7 +51,8 @@
               <p>Explorer</p>
             </div>
             <app-selectstudent [TaskFolder]=treeData (filtertreedata)="filterTree($event)"></app-selectstudent>
-            <app-filetree [nestedDataSource]=treeData (elementadd)="addFile($event)" (activestudent)="activatestudent($event)" ></app-filetree>
+            <app-filetree [nestedDataSource]=treeData (elementadd)="addFile($event)"
+              (activestudent)="activatestudent($event)"></app-filetree>
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
@@ -73,83 +74,147 @@
       <as-split-area [size]="sizes.percent.area2">
         <as-split class="split-examplecode" unit="percent" direction="vertical" (dragEnd)="drag2End($event)">
           <as-split-area [size]="sizes.percent2.area1" [visible]="!play">
-          <div class="directory_header">
-            <div class="tabsmarks">
-              <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index" [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }" (click)="activeindex=i"
-                class="tab close-button-right sizing-fit has-icon dirty active"
-
-                title="{{item.path}}"        aria-selected="true"
-                style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
-                <div class="tab-border-top-container"></div>
-                <div
-                  class="monaco-icon-label"
-                  title="{{item.path}}">
-                  <div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a
-                        class="label-name">{{item.basename}}</a></span><span
-                      class="monaco-icon-description-container"></span></div>
-                </div>
-                <div class="tab-close" (click)="closetab(i)">
-                  <div class="monaco-action-bar animated">
-                    <ul class="actions-container" role="toolbar">
-                      <li class="action-item" role="presentation"><a class="action-label codicon codicon-close"
-                          role="button" tabindex="0" title="Close (Ctrl+W)"></a></li>
-                    </ul>
+            <div class="directory_header">
+              <div class="tabsmarks">
+                <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index"
+                  [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }"
+                  (click)="activeindex=i" class="tab close-button-right sizing-fit has-icon dirty active"
+                  title="{{item.path}}" aria-selected="true"
+                  style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
+                  <div class="tab-border-top-container"></div>
+                  <div class="monaco-icon-label" title="{{item.path}}">
+                    <div class="monaco-icon-label-container"><span class="monaco-icon-name-container"><a
+                          class="label-name">{{item.basename}}</a></span><span
+                        class="monaco-icon-description-container"></span></div>
                   </div>
+                  <div class="tab-close" (click)="closetab(i)">
+                    <div class="monaco-action-bar animated">
+                      <ul class="actions-container" role="toolbar">
+                        <li class="action-item" role="presentation"><a class="action-label codicon codicon-close"
+                            role="button" tabindex="0" title="Close (Ctrl+W)"></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="tab-border-bottom-container"></div>
                 </div>
-                <div class="tab-border-bottom-container"></div>
+              </div>
+              <div class="tabactions">
+                <button class="runbutton" (click)="play=true">
+                  <mat-icon>play_arrow</mat-icon>
+                </button>
+                <button class="runbutton" (click)="terminal=true" [hidden]="play">
+                  <mat-icon>code</mat-icon>
+                </button>
               </div>
             </div>
-            <div class="tabactions">
-          <button class="runbutton" (click)="play=true"><mat-icon>play_arrow</mat-icon></button>
-          <button class="runbutton" (click)="terminal=true" [hidden]="play"><mat-icon>code</mat-icon></button>
-        </div>
-        </div>
-        <div class="codediveditor" *ngFor="let item of filearrays;let i= index" [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }" >
-          <div *ngIf="codes[i] && item.extension != 'pdf'">
-          <ngx-monaco-editor  [options]="{theme: 'vs-dark', language: item.extension}"  [(ngModel)]="codes[i].code"></ngx-monaco-editor>
-        </div>
-          <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
-            <pdf-viewer [src]="pdfview" [render-text]="true" style="display: block;"></pdf-viewer>
-          </div>
-        </div>
-      </as-split-area>
-      <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal" >
-        <div class="termianal">
-          <div class="header">
-           <div class="switchcontainer">
-            <ul class="actions-container" role="toolbar" >
-              <li class="action-tab active" role="tab" draggable="true" tabindex="0" ><a class="action-label"  style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'terminal')" id="defaultopen">terminal</a>
-              </li>
-              <li class="action-tab" role="tab" draggable="true" tabindex="0" ><a class="action-label"  style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'debug')">debug</a>
-              </li>
-              <li class="action-tab" role="tab" draggable="true" tabindex="0" ><a class="action-label"  style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'mark')">mark</a>
-              </li>
-            </ul>
-           </div>
-           <div class="panelaction"></div>
-          </div>
-          <div id="terminal" class="tabcontentM">
+            <div class="codediveditor" *ngFor="let item of filearrays;let i= index"
+              [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
+              <div *ngIf="codes[i] && item.extension != 'pdf'">
+                <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="codes[i].code">
+                </ngx-monaco-editor>
+              </div>
+              <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
+                <div class="pdf-editor">
+                  <div class="left_toool_bar"></div>
+                  <div class="search_tool_bar">
+                    <input id="search" type="text"  (input)="search($event.target.value)" placeholder="Search..." autofocus required />
+                  </div>
+                  <div class="main_tools">
 
-          </div>
+                  </div>
 
-          <div id="debug" class="tabcontentM">
-            <h1 style="color: white;">comming soon</h1>
-          </div>
+                </div>
+                <pdf-viewer
+                 [src]="codes[i].code"
+                 [render-text]="true"
+                 [page]="page"
+                 [original-size]="fitpage"
+                 [zoom]="zoom"
+                 [external-link-target]="'blank'"
+                 (after-load-complete)="afterLoadComplete($event)"
+                 style="display: block;">
+                </pdf-viewer>
+                <div class="font_manager">
+                  <button mat-mini-fab (click)="fitpage = !fitpage">
+                    <mat-icon>fullscreen</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="zoom = zoom+0.5">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="zoom = zoom-0.5">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="item.extension === 'jpg' || item.extension === 'png'">
+                <div class="pdf-editor">
+                  <div class="left_toool_bar"></div>
+                  <div class="search_tool_bar">
+                    <input id="search" type="text"  (input)="search($event.target.value)" placeholder="Search..." autofocus required />
+                  </div>
+                  <div class="main_tools">
 
-          <div id="mark" class="tabcontentM">
+                  </div>
 
-          </div>
-        </div>
-    </as-split-area>
-    <as-split-area size="100" [visible]="play">
-      <div class="directory_header">
-        <button class="runbutton " style="background: rgb(60,60,60);" (click)="play=false"><mat-icon>code</mat-icon></button>
+                </div>
+                 <app-image-viewer [images]="data"></app-image-viewer>
+                <div class="font_manager">
+                  <button mat-mini-fab (click)="fitpage = !fitpage">
+                    <mat-icon>fullscreen</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="zoom = zoom+0.5">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="zoom = zoom-0.5">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal">
+            <div class="termianal">
+              <div class="header">
+                <div class="switchcontainer">
+                  <ul class="actions-container" role="toolbar">
+                    <li class="action-tab active" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'terminal')"
+                        id="defaultopen">terminal</a>
+                    </li>
+                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'debug')">debug</a>
+                    </li>
+                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'mark')">mark</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="panelaction"></div>
+              </div>
+              <div id="terminal" class="tabcontentM">
 
-    </div>
-    <div class="codediveditor">
-    </div>
-  </as-split-area>
-      </as-split>
+              </div>
+
+              <div id="debug" class="tabcontentM">
+                <h1 style="color: white;">comming soon</h1>
+              </div>
+
+              <div id="mark" class="tabcontentM">
+
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="100" [visible]="play">
+            <div class="directory_header">
+              <button class="runbutton " style="background: rgb(60,60,60);" (click)="play=false">
+                <mat-icon>code</mat-icon>
+              </button>
+
+            </div>
+            <div class="codediveditor">
+            </div>
+          </as-split-area>
+        </as-split>
       </as-split-area>
     </as-split>
   </div>
@@ -159,4 +224,3 @@
 <div class="common-footer aero">
 
 </div>
-
