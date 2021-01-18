@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-
 .mat-tree-node {
   display: block;
 }
@@ -123,14 +122,14 @@
 .monaco-tl-contents, .monaco-tl-twistie {
   height: 100%;
 }
-.monaco-tl-contents .components-name-folder-icon.folder-icon::before{
-  content: ' ';
-  background-image: url(../../../../assets/icons/favicon.png);
-}
- .file-icon::before {
-  content: ' ';
-  background-image: url(../../../../assets/icons/favicon.png);
-}
+// .monaco-tl-contents .components-name-folder-icon.folder-icon::before{
+//   content: ' ';
+//   background-image: url(../../../../assets/icons/favicon.png);
+// }
+//  .file-icon::before {
+//   content: ' ';
+//   background-image: url(../../../../assets/icons/favicon.png);
+// }
 .monaco-icon-label>.monaco-icon-label-container {
   min-width: 0;
   overflow: hidden;

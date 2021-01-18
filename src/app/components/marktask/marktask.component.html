@@ -113,7 +113,7 @@
                 <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="codes[i].code">
                 </ngx-monaco-editor>
               </div>
-              <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
+              <div *ngIf="item.extension === 'pdfs' || item.extension === 'docs'">
                 <div class="pdf-editor">
                   <div class="left_toool_bar"></div>
                   <div class="search_tool_bar">
@@ -146,29 +146,16 @@
                   </button>
                 </div>
               </div>
-              <div *ngIf="item.extension === 'jpg' || item.extension === 'png'">
+              <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
                 <div class="pdf-editor">
                   <div class="left_toool_bar"></div>
                   <div class="search_tool_bar">
                     <input id="search" type="text"  (input)="search($event.target.value)" placeholder="Search..." autofocus required />
                   </div>
                   <div class="main_tools">
-
                   </div>
-
                 </div>
-                 <app-image-viewer [images]="data"></app-image-viewer>
-                <div class="font_manager">
-                  <button mat-mini-fab (click)="fitpage = !fitpage">
-                    <mat-icon>fullscreen</mat-icon>
-                  </button>
-                  <button mat-mini-fab (click)="zoom = zoom+0.5">
-                    <mat-icon>add</mat-icon>
-                  </button>
-                  <button mat-mini-fab (click)="zoom = zoom-0.5">
-                    <mat-icon>remove</mat-icon>
-                  </button>
-                </div>
+                 <app-image-viewer [images]="data" ></app-image-viewer>
               </div>
             </div>
           </as-split-area>

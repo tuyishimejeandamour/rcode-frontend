@@ -15,10 +15,9 @@ import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QuillModule } from 'ngx-quill';
-import { ImageViewerModule } from '@hallysonh/ngx-imageviewer';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
-import { GalleryModule } from 'ng-gallery';
-import { LightboxModule } from 'ng-gallery/lightbox';
+import { NgImageSliderModule } from 'ng-image-slider';
+
 @NgModule({
 
   declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, ImageViewerComponent],
@@ -33,9 +32,7 @@ import { LightboxModule } from 'ng-gallery/lightbox';
     MaterialModule,
     ReactiveFormsModule,
     PdfViewerModule,
-    GalleryModule,
-    LightboxModule,
-    ImageViewerModule,
+    NgImageSliderModule,
     QuillModule.forRoot()
   ],
   entryComponents:[GivemarksComponent],

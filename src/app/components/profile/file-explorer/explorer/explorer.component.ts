@@ -29,7 +29,7 @@ export class ExplorerComponent implements OnChanges {
 
 
 
-  @Input() fileElements: FileElement[];
+  @Input() fileElements: any;
   @Input() canNavigateUp: string;
   @Input() path: Breadcrumb[];
 

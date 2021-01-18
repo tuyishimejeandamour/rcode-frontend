@@ -29,10 +29,16 @@ export class MarktaskComponent implements OnInit {
   activestudent: TreeData;
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if (event.getModifierState && event.getModifierState('Control') && event.key === "g") {
-
+    console.log(event.key)
+    if (event.key.toLowerCase() == "alt" &&
+       event.key.toLowerCase() == "m")
+    {
       this.opendialogy()
     }
+    // if (event.getModifierState && event.getModifierState('Control') && event.key === "g") {
+
+    //   this.opendialogy()
+    // }
 
   }
   public editor;
@@ -355,22 +361,29 @@ export class MarktaskComponent implements OnInit {
       caseSensitive: false, findPrevious: undefined, highlightAll: true, phraseSearch: true, query: stringToSearch
     });
   }
-  data = [
-    {
-      srcUrl: "https://preview.ibb.co/jrsA6R/img12.jpg",
-      previewUrl: "https://preview.ibb.co/jrsA6R/img12.jpg"
-    },
-    {
-      srcUrl: "https://preview.ibb.co/kPE1D6/clouds.jpg",
-      previewUrl: "https://preview.ibb.co/kPE1D6/clouds.jpg"
-    },
-    {
-      srcUrl: "https://preview.ibb.co/mwsA6R/img7.jpg",
-      previewUrl: "https://preview.ibb.co/mwsA6R/img7.jpg"
-    },
-    {
-      srcUrl: "https://preview.ibb.co/kZGsLm/img8.jpg",
-      previewUrl: "https://preview.ibb.co/kZGsLm/img8.jpg"
-    }
+
+  data: Array<any> = [{
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+    title: 'Hummingbirds are amazing creatures'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+    title: 'Example with title.'
+  },{
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
+    title: 'Hummingbirds are amazing creatures'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
+    title: 'Example two with title.'
+  }
   ];
 }

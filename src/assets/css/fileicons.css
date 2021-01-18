@@ -1,0 +1,24 @@
+.monaco-tl-contents .components-name-folder-icon.folder-icon::before{
+  content: ' ';
+  background-image: url(../fileicons/folder_root_dark.svg) ;
+}
+ .file-icon::before {
+  content: ' ';
+  background-image: url(../fileicons/document.svg);
+}
+.file-ext-html::before {
+  content: ' ';
+  background-image: url(../fileicons/html.svg);
+}
+.file-ext-pdf::before {
+  content: ' ';
+  background-image: url(../fileicons/pdf.svg);
+}
+.file-ext-csv::before {
+  content: ' ';
+  background-image: url(../fileicons/xml.svg);
+}
+.file-ext-html::before {
+  content: ' ';
+  background-image: url(../fileicons/html.svg);
+}

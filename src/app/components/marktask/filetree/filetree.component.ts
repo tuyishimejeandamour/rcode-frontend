@@ -42,4 +42,9 @@ export class FiletreeComponent implements OnInit {
       }
     });
   }
+  getfileextension(value:string):string{
+    const ext = value.split('.').pop();
+    const fileclass = "file-ext-"+ext;
+    return fileclass;
+  }
 }

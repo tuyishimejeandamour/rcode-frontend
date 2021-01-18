@@ -1,21 +1,10 @@
-<div class="basic-container">
-	<h2>Basic Example</h2>
-	<gallery id="basic-test" fluid [items]="items" [itemTemplate]="itemTemplate" [gestures]="false"></gallery>
+<div style="width: 90%; height: 500px; text-align:center;margin:0;margin-top: 10%;margin-left: 5%; padding:0;">
+<ng-image-slider
+ [images]="imageObject"
+ #nav
+ [infinite]="false"
+ [autoSlide]="1"
+ [imageSize]="{width: '25%', height: 200}"
+ slideImage="1"
+ ></ng-image-slider>
 </div>
-
-<div class="lightbox-example">
-	<h2>Lightbox Example</h2>
-	<button mat-raised-button color="primary" (click)="lightbox.open(0)">Open Lightbox</button>
-
-
-	<button mat-raised-button color="accent" (click)="lightbox.open(0, 'lightbox', {panelClass: 'fullscreen'})">Open Lightbox in fullscreen mode</button>
-</div>
-
-
-<!-- create a template to use the imageviewer -->
-
-<ng-template #itemTemplate let-index="index" let-type="type" let-data="data" let-currIndex="currIndex">
-	<ng-container *ngIf="type === 'imageViewer' && index === currIndex" >
-    <ngx-imageviewer [src]="data.src"></ngx-imageviewer>
-  </ng-container>
-</ng-template>

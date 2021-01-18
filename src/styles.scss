@@ -2,6 +2,7 @@
 @import "~material-design-icons/iconfont/material-icons.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import "~@ng-select/ng-select/themes/material.theme.css";
+@import"./assets/css/fileicons.css";
  *{
    margin: 0;
    padding: 0;
@@ -284,4 +285,12 @@ border: none !important;
 
 .givecomment .ql-container.ql-snow {
   min-height: 100px;
+}
+
+
+.ng-image-fullscreen-view{
+  position: absolute !important;
+  .lightbox-wrapper{
+   position: absolute !important;
+  }
 }

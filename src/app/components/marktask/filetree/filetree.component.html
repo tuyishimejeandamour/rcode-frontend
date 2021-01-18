@@ -10,7 +10,8 @@
       <div class="monaco-tl-twistie" style="padding-left: 24px;"></div>
       <div class="monaco-tl-contents">
         <div
-          class="monaco-icon-label file-icon file.html-name-file-icon html-ext-file-icon ext-file-icon html-lang-file-icon explorer-item monaco-decoration-itemColor--ec98p9 monaco-decoration-itemBadge--ec98p9"
+          [class]="getfileextension(node.basename)"
+          class="monaco-icon-label file-icon    explorer-item "
           title="{{node.path}}" style="display: flex;">
           <div class="monaco-icon-label-container">
             <span class="monaco-icon-name-container">
