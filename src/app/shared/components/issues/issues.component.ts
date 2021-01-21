@@ -14,29 +14,29 @@ export class IssuesComponent implements OnInit {
   constructor(){}
 
   ngOnInit():void{
-    
+
   }
 
   addComment(comment:Message):void{
-    this.addAnwser(comment);      
+    this.addAnwser(comment);
     comment.relyOpen = false;
-    this.text="";    
+    this.text="";
   }
   addAnwser(newComment:Message):void{
-    
+
     if(this.text){
-      console.log(this.text)
-      newComment.relys.push({
-        
-        image:'../../../assets/tuy.png', 
-        author:'Emilio Verdines', 
-        authorStatus:'online', 
-        text:this.text,
-        date:new Date(), 
-        relys:[],
-        relyOpen:false,
-        
-      });
+      newComment.relys.push(
+        {
+
+          image:'../../../assets/tuy.png',
+          author:'Emilio Verdines',
+          authorStatus:'online',
+          text:this.text,
+          date:new Date(),
+          relys:[],
+          relyOpen:false,
+
+        });
     }
   }
 
@@ -44,9 +44,9 @@ export class IssuesComponent implements OnInit {
     comment.relyOpen = !comment.relyOpen;
   }
 
-  remove(comment:Message):void{    
+  remove(comment:Message):void{
     const index = this.talks.indexOf(comment);
-    this.talks = this.talks.splice(index,1);        
+    this.talks = this.talks.splice(index,1);
   }
 
 }

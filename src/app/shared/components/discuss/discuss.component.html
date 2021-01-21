@@ -1,0 +1,71 @@
+
+<mat-tab-group  mat-align-tabs="center">
+  <mat-tab label="questions">
+    <div class="example-small-box" [ngClass]="data.authorized?'tool':''">
+      <quill-editor [(ngModel)]="taskreviewcontent.long" name="long_desc" [styles]="{height: '85%',position: 'absolute',width:'100%'}" [disabled]="!data.authorized" (onEditorCreated)="addclassquill()"></quill-editor>
+    </div>
+  </mat-tab>
+  <mat-tab label="Answers">
+    <div class="example-small-box" [ngClass]="data.authorized?'tool':''">
+      <quill-editor [(ngModel)]="taskreviewcontent.short" name="long_desc" [styles]="{height: '85%',position: 'absolute',width:'100%'}" [disabled]="!data.authorized"></quill-editor>
+    </div>
+  </mat-tab>
+  <mat-tab label="issues">
+    <div class="example-small-box ">
+        <div class="messages">
+          <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
+            <app-issues *ngIf="talks"[talks]="talks">
+            </app-issues>
+              <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                  <mat-icon>chat</mat-icon>
+                  <p>no issue with this task yet</p>
+              </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div *ngIf="talks" class="chat-actions">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
+              <img class="writecommentimage" src="../../../../../assets/tuy.png">
+                <div class="w-100" style="width:60%">
+                  <quill-editor customToolbarPosition="bottom" (onContentChanged)="sendMessage($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%'}">
+                    <div quill-editor-toolbar>
+                      <span class="ql-formats">
+                        <button class="ql-bold" [title]="'Bold'"></button>
+                        <button class="ql-italic" [title]="'Italic'"></button>
+                        <button class="ql-underline" [title]="'Underline'"></button>
+                        <button class="ql-strike" [title]="'Strike'"></button>
+                      </span>
+                      <span class="ql-formats">
+                        <select class="ql-align" [title]="'Aligment'">
+                          <option selected></option>
+                          <option value="center"></option>
+                          <option value="right"></option>
+                          <option value="justify"></option>
+                        </select>
+                      </span>
+                      <span class="ql-formats">
+                      <button type="button" class="ql-list" value="ordered"></button>
+                      <button type="button" class="ql-list" value="bullet"></button>
+                      <button type="button" class="ql-script" value="sub"></button>
+                      </span>
+                      <span class="ql-formats">
+                      <button type="button" class="ql-image"></button>
+                      <button type="button" class="ql-video"></button>
+                    </span>
+                    </div>
+                </quill-editor>
+                    <!-- <input matInput placeholder="Enter your issue or comment" (keyup)="sendMessage($event)" [(ngModel)]="newMessage"> -->
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+                </div>
+       </div>
+      </div>
+      </div>
+
+  </mat-tab>
+
+</mat-tab-group>
+

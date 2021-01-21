@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Message, StudentTaskService } from 'app/Service/student-task.service';
-
+import { CommentsService, Message } from 'app/core/services';
+import { HttptaskService } from 'app/core/services/tasks/httptask.service';
+import { SnotifyService } from 'ng-snotify';
+import { TextContent } from '../../marks-page/dialog/dialog.component';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
@@ -12,8 +14,10 @@ export class DialogComponent implements OnInit {
   newMessage: string;
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    public message:StudentTaskService,
-    @Inject(MAT_DIALOG_DATA) public data: number
+    public message:CommentsService ,
+    public httptask:HttptaskService,
+    public notify:SnotifyService,
+    @Inject(MAT_DIALOG_DATA) public data:TextContent
   ) {}
   taskreviewcontent=
   {
@@ -108,6 +112,8 @@ export class DialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getChat();
+    this.gettaskcontent();
+
   }
   getChat():void{
     if(this.talks){
@@ -141,7 +147,18 @@ export class DialogComponent implements OnInit {
     if(this.talks)
       this.talks.length = 2;
   }
+  gettaskcontent():void{
+    const t = this.data.taskid;
+    alert(this.data.taskid)
+    this.httptask. gettaskcontent(t).subscribe(
+      data=> this.HandleResponse(data),
+      error=> this.notify.error(error.error.error)
+    );
 
+  }
+  HandleResponse(data):void{
+    this.taskreviewcontent=data;
+  }
 
 }
 

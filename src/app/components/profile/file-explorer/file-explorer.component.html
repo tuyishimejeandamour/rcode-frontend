@@ -166,7 +166,7 @@
           download
         </ng-template>
 
-        <ng-template contextMenuItem (execute)="setRemainder($event.item.task_id)">
+        <ng-template contextMenuItem (execute)="setRemainder($event.item.id)">
           <mat-icon>date_range</mat-icon>
           set reminder
         </ng-template>
@@ -174,7 +174,7 @@
           <mat-icon>assignment_sent</mat-icon>
           submitt
         </ng-template>
-        <ng-template contextMenuItem (execute)="showQuestion($event.item.task_id)">
+        <ng-template contextMenuItem (execute)="showQuestion($event.item.id)">
           <mat-icon>note</mat-icon>
           show content
         </ng-template>

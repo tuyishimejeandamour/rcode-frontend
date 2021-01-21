@@ -17,11 +17,12 @@ import { TimeDisplayComponent } from './components/time-display/time-display.com
 import { ProfilepictureComponent } from './components/profilepicture/profilepicture.component';
 import { IssuesComponent } from './components/issues/issues.component';
 import { QuillModule } from 'ngx-quill';
+import { DiscussComponent } from './components/discuss/discuss.component';
 
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent,IssuesComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent,IssuesComponent, DiscussComponent],
   imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , RouterModule, QuillModule.forRoot() ],
-  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent,IssuesComponent]
+  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent,IssuesComponent, DiscussComponent]
 })
 export class SharedModule {}

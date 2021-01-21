@@ -9,6 +9,7 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { DialogComponent } from './dialog/dialog.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
+import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
 // import { Observable } from 'rxjs';
 // import * as JSZip from 'jszip';
 export interface FolderFile{
@@ -160,10 +161,10 @@ export class FileExplorerComponent implements OnInit {
     $event.stopPropagation();
   }
   showQuestion(id : number):void {
-    const dialogRef = this.dialog.open(DialogComponent,{
+    const dialogRef = this.dialog.open(DiscussComponent,{
       width:'90%',
       height:'90%',
-      data: {taskid: id}
+      data:{authorized:false,taskid:id}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

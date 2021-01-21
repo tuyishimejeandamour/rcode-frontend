@@ -17,20 +17,18 @@ export class HttptaskService {
     return this.http.post(`${this.baseurl}/gettasks/thisweek/${id}`,JSON.parse(choice));
   }
   gettask(data:number):any{
-
     return this.http.get(`${this.baseurl}/gettask/${data}`);
-
   }
   setreminder(data:unknown):any{
     return this.http.post(`${this.baseurl}/setreminder`,data);
   }
+
   gettaskcontent(id:number): Observable<any> {
     return this.http.get(`${this.baseurl}/gettaskcontent/${id}`);
   }
 
   uploadproject(id:number,taskid:string,file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-
     formData.append('taskzip', file);
     formData.append('taskid', taskid);
 

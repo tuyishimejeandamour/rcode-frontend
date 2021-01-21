@@ -11,3 +11,4 @@ export { HttpactivitiesService } from './activities/httpactivities.service';
 export{ UploadfileService } from './fileexplorer/uploadfile.service';
 export { HttpexplorerService}  from './fileexplorer/httpexplorer.service'
 export {HttpmarkeditorService } from './markseditor/httpmarkeditor.service'
+export { CommentsService, Message  } from './tasks/comments.service'

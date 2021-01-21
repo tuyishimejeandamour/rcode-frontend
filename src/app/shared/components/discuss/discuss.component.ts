@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StudentTaskService, Message } from 'app/Service/student-task.service';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
+import { CommentsService,Message } from 'app/core/services';
 export interface taskFeedback{
   teachermessage:string;
   studentrely:string;
@@ -17,16 +17,16 @@ export interface taskReview{
   feedBack:taskFeedback;
 }
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  selector: 'app-discuss',
+  templateUrl: './discuss.component.html',
+  styleUrls: ['./discuss.component.scss']
 })
-export class DialogComponent implements OnInit{
+export class DiscussComponent implements OnInit{
   public talks: Message[];
   newMessage: string;
   constructor(
-    public dialogRef: MatDialogRef<DialogComponent>,
-    public message:StudentTaskService,
+    public dialogRef: MatDialogRef<DiscussComponent>,
+    public message:CommentsService,
     public httptask:HttptaskService,
     public notify:SnotifyService,
     @Inject(MAT_DIALOG_DATA) public data:TextContent
@@ -100,3 +100,4 @@ export class DialogComponent implements OnInit{
   }
 
 }
+

@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Groups } from '../../students/students.component';
+import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
 
 
 @Component({
@@ -118,7 +119,7 @@ export class TasklistComponent implements OnInit {
     });
   }
   opencontentDialog(id: number): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(DiscussComponent, {
       width:'80%',
       data:{authorized:true,taskid:id}
     });
