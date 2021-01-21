@@ -127,7 +127,7 @@ export class TasklistComponent implements OnInit {
     });
   }
   updateRowData(obj:TasksDetails):void{
-    this.jerwis.updatetask(obj,obj.task_id).subscribe(
+    this.jerwis.updatetask(obj,obj.id).subscribe(
       (data)=> {console.log(data)},
       (error)=>this.errorhandler(error)
     )
@@ -136,7 +136,7 @@ export class TasklistComponent implements OnInit {
 }
 
 export interface TasksDetails {
-  task_id: number;
+  id: number;
   taskname: string;
   lesson:string;
   group_id: string;

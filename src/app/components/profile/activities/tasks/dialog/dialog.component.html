@@ -11,22 +11,11 @@
     </div>
   </mat-tab>
   <mat-tab label="feedback">
-    <div class="example-small-box">
-      <div class="example-small-box">
+    <div class="example-small-box ">
         <div class="messages">
-          <div class="chat-content"  [class.actions-visible]="talks" perfectScrollbar>
-              <mat-list *ngIf="talks" class="p-0" >
-                  <mat-list-item *ngFor="let talk of talks" class="talk-item">
-                      <img matListAvatar [src]="talk.image">
-                      <p matLine class="message">
-                          <span>{{talk.text}}</span>
-                      </p>
-                      <p matLine class="message-date">
-                          <small>{{talk.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
-
-                      </p>
-                  </mat-list-item>
-              </mat-list>
+          <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
+            <app-issues *ngIf="talks"[talks]="talks">
+            </app-issues>
               <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                   <mat-icon>chat</mat-icon>
                   <p>no issue with this task yet</p>
@@ -37,11 +26,8 @@
             <mat-icon>chat</mat-icon>
             <p>no issue with this task yet</p>
         </div>
-        <app-issues *ngIf="talks"[talks]="talks">
-        </app-issues>
       </div>
       </div>
-    </div>
 
   </mat-tab>
 

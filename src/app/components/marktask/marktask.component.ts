@@ -4,7 +4,7 @@ import { FiletreeService, TreeData } from 'app/Service/filetree.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { HttpactivitiesService, HttpexplorerService, HttpmarkeditorService, HttpmarksService, JerwisService, User } from 'app/core/services';
+import { HttpactivitiesService, HttpexplorerService, HttpmarkeditorService, HttpmarksService, JerwisService } from 'app/core/services';
 import { TasksDetails } from '../profile/activities/tasks/tasklist/tasklist.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
@@ -25,20 +25,17 @@ export class MarktaskComponent implements OnInit {
     id: null,
     firstname: null,
     lastname: null,
+    username:null
   }];
   activestudent: TreeData;
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
-    console.log(event.key)
     if (event.key.toLowerCase() == "alt" &&
        event.key.toLowerCase() == "m")
     {
       this.opendialogy()
     }
-    // if (event.getModifierState && event.getModifierState('Control') && event.key === "g") {
 
-    //   this.opendialogy()
-    // }
 
   }
   public editor;
@@ -49,7 +46,7 @@ export class MarktaskComponent implements OnInit {
   heroId: string;
   pdfdata:any;
   task: TasksDetails = {
-    task_id: null,
+    id: null,
     taskname: null,
     lesson: null,
     group_id: null,
@@ -100,12 +97,12 @@ export class MarktaskComponent implements OnInit {
       area2: 50,
     }
   }
-  dragEnd({ sizes }): void {
+  dragEnd(sizes:Array<any>): void {
 
     this.sizes.percent.area1 = sizes[0];
     this.sizes.percent.area2 = sizes[1];
   }
-  drag2End({ sizes }): void {
+  drag2End(sizes:Array<any>): void {
     this.sizes.percent2.area1 = sizes[0];
     this.sizes.percent2.area2 = sizes[1];
   }
@@ -254,6 +251,7 @@ export class MarktaskComponent implements OnInit {
     if(file.properties.main){
       this.activestudent = file;
     }
+
   }
   switchtab(index: number, data: TreeData): void {
     this.monacoLoaderService.isMonacoLoaded$.pipe(
@@ -301,16 +299,17 @@ export class MarktaskComponent implements OnInit {
       error => console.log(error)
     )
   }
-  combinemarks(va1: number, va2: number): string {
-    return `${va1}/${va2}`;
-  }
-  markstudent(): void {
-    this.markform.task_id = this.task.task_id;
-    this.markform.marks = this.combinemarks(this.marks.score, this.marks.higscore);
-    this.httpmark.givemarks(this.markform).subscribe(
-      () => console.log('ok'),
-      error => console.log(error)
-    )
+
+  markstudent(result:{user_id:number,marks:number,task_id:number}): void {
+    result.task_id = <number><unknown>this.heroId;
+    if(result.task_id){
+      this.httpmark.givemarks(result).subscribe(
+        () => console.log('ok'),
+        error => console.log(error)
+      )
+    }else{
+      alert(<number><unknown>this.heroId);
+    }
   }
   getstudents(id: number): void {
     this.httpmark.getyourstudents(id).subscribe(
@@ -319,10 +318,15 @@ export class MarktaskComponent implements OnInit {
     )
   }
   opendialogy(): void {
-    console.log(this.activestudent)
-    this.dialog.open(GivemarksComponent, {
+    const dialogRef = this.dialog.open(GivemarksComponent, {
       width: "40%",
-      data: this.activestudent
+      data:{task:this.activestudent,students:this.students}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined){
+        this.markstudent(result);
+      }
+
     });
 
   }

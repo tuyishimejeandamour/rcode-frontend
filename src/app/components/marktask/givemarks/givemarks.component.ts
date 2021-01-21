@@ -1,6 +1,5 @@
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TreeData } from 'app/core/services/fileexplorer/httpexplorer.service';
 
 @Component({
   selector: 'app-givemarks',
@@ -8,10 +7,15 @@ import { TreeData } from 'app/core/services/fileexplorer/httpexplorer.service';
   styleUrls: ['./givemarks.component.scss']
 })
 export class GivemarksComponent implements OnInit {
+  marks={
+    user_id:null,
+    marks:null,
+    task_id:null
+  }
   text:string;
   constructor(
     private dialogRef:MatDialogRef<GivemarksComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:TreeData
+    @Inject(MAT_DIALOG_DATA) public data:{task:any,students:any}
   ) { }
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent):void {
@@ -24,6 +28,5 @@ export class GivemarksComponent implements OnInit {
 
   closedialog():void{
     this.dialogRef.close();
-
   }
 }

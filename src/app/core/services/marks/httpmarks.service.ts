@@ -17,7 +17,7 @@ export class HttpmarksService {
 
   }
 
-  givemarks(data):Observable<any>{
+  givemarks(data:{user_id:number,marks:number,task_id:number}):Observable<any>{
     return this.http.post(`${this.baseurl}/marks`,data);
 
   }

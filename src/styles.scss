@@ -10,8 +10,8 @@
   //  box-sizing:border-box;
  }
  ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: px;
 }
 ::-webkit-scrollbar-button {
   width: 0px;
@@ -54,8 +54,15 @@
   z-index: 20;
   box-shadow: 1px 2px 3px #dde !important;
 }
-.example-small-box:not(.tool)  .ql-toolbar,.mail-body .ql-toolbar{
+.example-small-box:not(.tool)  .ql-toolbar,
+.mail-body .ql-toolbar{
 display:none;
+}
+.chat-content .writerelydiv .ql-toolbar{
+ display: block !important;
+ border-left: none;
+ border-bottom: none;
+ border-right: none;
 }
 .example-small-box.tool  .ql-toolbar,.mail-body .ql-toolbar{
   border-top: none;
