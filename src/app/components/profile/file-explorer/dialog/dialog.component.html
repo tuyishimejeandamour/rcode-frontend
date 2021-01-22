@@ -3,7 +3,6 @@
   <button mat-icon-button color="primary"><mat-icon>share</mat-icon></button>
   <button mat-icon-button color="primary"><mat-icon>file_download</mat-icon></button>
   <button mat-icon-button color="warn" (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
-
 </div>
 <mat-tab-group  mat-align-tabs="center">
     <mat-tab label="questions">
@@ -16,21 +15,21 @@
         <div class="messages">
           <div class="chat-content"  [class.actions-visible]="talks" perfectScrollbar>
               <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                  <mat-icon>chat</mat-icon>            
+                  <mat-icon>chat</mat-icon>
                   <p>no issue with this task yet</p>
-              </div> 
-              <app-issues *ngIf="talks"[talks]="talks">  
+              </div>
+              <app-issues *ngIf="talks"[talks]="talks">
               </app-issues>
             </div>
           <mat-divider></mat-divider>
-          <div *ngIf="talks" class="chat-actions"> 
+          <div *ngIf="talks" class="chat-actions">
               <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
                 <img class="writecommentimage" src="../../../../../assets/tuy.png">
                   <mat-form-field class="w-100" style="width:60%">
                       <input matInput placeholder="Enter your issue or comment" (keyup)="sendMessage($event)" [(ngModel)]="newMessage">
                   </mat-form-field>
                   <div fxLayout="row" fxLayoutAlign="center center">
-                    
+
                       <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
                           <mat-icon>send</mat-icon>
                       </button>
@@ -39,8 +38,8 @@
          </div>
       </div>
       </div>
-      
+
     </mat-tab>
-    
+
   </mat-tab-group>
 </div>

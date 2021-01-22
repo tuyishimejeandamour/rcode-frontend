@@ -1,4 +1,9 @@
-
+<div style="position:relative">
+  <div class="download-button">
+    <button mat-icon-button color="primary"><mat-icon>share</mat-icon></button>
+    <button mat-icon-button color="primary"><mat-icon>file_download</mat-icon></button>
+    <button mat-icon-button color="warn" (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+  </div>
 <mat-tab-group  mat-align-tabs="center">
   <mat-tab label="questions">
     <div class="example-small-box" [ngClass]="data.authorized?'tool':''">
@@ -25,7 +30,7 @@
           <div *ngIf="talks" class="chat-actions">
             <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
               <img class="writecommentimage" src="../../../../../assets/tuy.png">
-                <div class="w-100" style="width:60%">
+                <div class="w-100 writerelydiv" style="width:60%">
                   <quill-editor customToolbarPosition="bottom" (onContentChanged)="sendMessage($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%'}">
                     <div quill-editor-toolbar>
                       <span class="ql-formats">
@@ -47,15 +52,11 @@
                       <button type="button" class="ql-list" value="bullet"></button>
                       <button type="button" class="ql-script" value="sub"></button>
                       </span>
-                      <span class="ql-formats">
-                      <button type="button" class="ql-image"></button>
-                      <button type="button" class="ql-video"></button>
-                    </span>
                     </div>
                 </quill-editor>
                     <!-- <input matInput placeholder="Enter your issue or comment" (keyup)="sendMessage($event)" [(ngModel)]="newMessage"> -->
                 </div>
-                <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
                     <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
                         <mat-icon>send</mat-icon>
                     </button>
@@ -68,4 +69,5 @@
   </mat-tab>
 
 </mat-tab-group>
+</div>
 

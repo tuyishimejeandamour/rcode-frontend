@@ -56,30 +56,34 @@ export class DiscussComponent implements OnInit{
     }
   }
   sendMessage($event:any):void {
-    if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if(this.talks){
-        this.talks.push(
-          {
-            image:'../../../assets/tuy.png',
-            author:'Emilio Verdines',
-            authorStatus:'online',
-            text:this.newMessage,
-            date:new Date(),
-            relys:[],
-            relyOpen:false
-          }
-        )
-        this.newMessage = '';
-        const chatContainer = document.querySelector('.chat-content');
-        if(chatContainer){
-          setTimeout(() => {
-            const nodes = chatContainer.querySelectorAll('.mat-list-item');
-            const newChatTextHeight = nodes[nodes.length- 1];
-            chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
-          });
-        }
-      }
-    }
+    $event.delta.ops.filter(item=>{
+      if(item.insert === "↵")
+        console.log(item)
+    });
+    // if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
+    //   if(this.talks){
+    //     this.talks.push(
+    //       {
+    //         image:'../../../assets/tuy.png',
+    //         author:'Emilio Verdines',
+    //         authorStatus:'online',
+    //         text:this.newMessage,
+    //         date:new Date(),
+    //         relys:[],
+    //         relyOpen:false
+    //       }
+    //     )
+    //     this.newMessage = '';
+    //     const chatContainer = document.querySelector('.chat-content');
+    //     if(chatContainer){
+    //       setTimeout(() => {
+    //         const nodes = chatContainer.querySelectorAll('.mat-list-item');
+    //         const newChatTextHeight = nodes[nodes.length- 1];
+    //         chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
+    //       });
+    //     }
+    //   }
+    // }
   }
 
   ngOnDestroy():void{

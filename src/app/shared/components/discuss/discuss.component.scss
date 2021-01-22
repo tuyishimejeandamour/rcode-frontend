@@ -12,7 +12,7 @@
     flex-direction: column;
     height:100%;
     .chat-actions{
-      height:55px;
+      height:84px;
       width:100%;
       overflow: hidden;
 
@@ -20,8 +20,9 @@
        display: flex;
        flex-direction: row;
        justify-content: center;
-       align-items:center;
+       align-items:flex-end;
        .writecommentimage{
+        margin-right: 20px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -37,7 +38,16 @@
       overflow-y: auto;
     }
   }
-
+  .download-button{
+    position: absolute;
+    width: 20%;
+    height:47px;
+    right: 0px;
+    z-index:200;
+    button{
+      margin-right: 10px;
+    }
+  }
   .chat-content{
     border-radius: 0;
     .chat-actions{
