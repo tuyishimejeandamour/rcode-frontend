@@ -18,7 +18,7 @@
 
       <li id="profile-header-image" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"(click)="menuTrigger.openMenu()"><img class="btngogo" id="header_profile_picture"
           style=" display:inline-block;width: 30px;height: 30px;background: lightgray; border:2px solid white; border-radius: 50%;"
-          src="../../../assets/profile_picture/11594486894.png" alt="">
+          [src]="data.profileImage" alt="">
 
       </li>
 
@@ -33,7 +33,7 @@
       <div class="user_menu_image">
         <div class="header_show_main">
           <div class="image_container">
-            <img id="dropdown_iimage" src="../../../assets/profile_picture/11594486894.png" alt="">
+            <img id="dropdown_iimage" *ngIf="data.profileImage" [src]="data.profileImage" alt="">
           </div>
           <span>{{data.email}}</span>
         </div>

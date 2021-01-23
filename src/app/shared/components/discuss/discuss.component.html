@@ -1,6 +1,5 @@
 <div style="position:relative">
   <div class="download-button">
-    <button mat-icon-button color="primary"><mat-icon>share</mat-icon></button>
     <button mat-icon-button color="primary"><mat-icon>file_download</mat-icon></button>
     <button mat-icon-button color="warn" (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
   </div>
@@ -19,7 +18,7 @@
     <div class="example-small-box ">
         <div class="messages">
           <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
-            <app-issues *ngIf="talks"[talks]="talks">
+            <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
             </app-issues>
               <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                   <mat-icon>chat</mat-icon>
@@ -29,35 +28,14 @@
           <mat-divider></mat-divider>
           <div *ngIf="talks" class="chat-actions">
             <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
-              <img class="writecommentimage" src="../../../../../assets/tuy.png">
+              <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
+              <img class="writecommentimage" *ngIf="image" [src]="image">
                 <div class="w-100 writerelydiv" style="width:60%">
-                  <quill-editor customToolbarPosition="bottom" (onContentChanged)="sendMessage($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%'}">
-                    <div quill-editor-toolbar>
-                      <span class="ql-formats">
-                        <button class="ql-bold" [title]="'Bold'"></button>
-                        <button class="ql-italic" [title]="'Italic'"></button>
-                        <button class="ql-underline" [title]="'Underline'"></button>
-                        <button class="ql-strike" [title]="'Strike'"></button>
-                      </span>
-                      <span class="ql-formats">
-                        <select class="ql-align" [title]="'Aligment'">
-                          <option selected></option>
-                          <option value="center"></option>
-                          <option value="right"></option>
-                          <option value="justify"></option>
-                        </select>
-                      </span>
-                      <span class="ql-formats">
-                      <button type="button" class="ql-list" value="ordered"></button>
-                      <button type="button" class="ql-list" value="bullet"></button>
-                      <button type="button" class="ql-script" value="sub"></button>
-                      </span>
-                    </div>
+                  <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
                 </quill-editor>
-                    <!-- <input matInput placeholder="Enter your issue or comment" (keyup)="sendMessage($event)" [(ngModel)]="newMessage"> -->
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
-                    <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
+                    <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
                         <mat-icon>send</mat-icon>
                     </button>
                 </div>

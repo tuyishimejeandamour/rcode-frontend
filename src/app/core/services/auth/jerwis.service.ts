@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class JerwisService {
-  private baseurl=AppConfig.apiHost;
-  private userdetails:User= null;
+  private baseurl = AppConfig.apiHost;
+  private userdetails: User = null;
 
   constructor(
     private http: HttpClient,
@@ -18,64 +18,59 @@ export class JerwisService {
   ) { }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  signup(data: any){
-    return this.http.post(`${this.baseurl}/signup`,data);
+  signup(data: any) {
+    return this.http.post(`${this.baseurl}/signup`, data);
   }
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  login(data){
-    return this.http.post(`${this.baseurl}/login`,data);
+  login(data) {
+    return this.http.post(`${this.baseurl}/login`, data);
   }
-  reset(data){
-    return this.http.post(`${this.baseurl}/resetPasswordEmail`,data);
+  reset(data) {
+    return this.http.post(`${this.baseurl}/resetPasswordEmail`, data);
 
   }
-  newpasswordIn(data){
-    return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
+  newpasswordIn(data) {
+    return this.http.post(`${this.baseurl}/newPasswordEmail`, data);
   }
-  fileinit(data){
-    return this.http.post(`${this.baseurl}/newPasswordEmail`,data);
+  fileinit(data) {
+    return this.http.post(`${this.baseurl}/newPasswordEmail`, data);
   }
 
-  responsehandler(data): void{
-    this.setuser(data);
-  }
-  errorhandler(error): void{
-    console.log(error)
-  }
-  getaskcontent(value: number){
+  getaskcontent(value: number) {
     return this.http.get(`${this.baseurl}/taskcontent/${value}`);
   }
-  updatetask(values,id:number){
-    return this.http.put(`${this.baseurl}/updatetask/${id}`,values)
+  updatetask(values, id: number) {
+    return this.http.put(`${this.baseurl}/updatetask/${id}`, values)
   }
-  findusers(values:string):Observable<any>{
+  findusers(values: string): Observable<any> {
     const stringsearch = `{"email_or_name":"${values}"}`;
-    const value =JSON.parse(stringsearch);
-    return this.http.post(`${this.baseurl}/users-student`,value)
+    const value = JSON.parse(stringsearch);
+    return this.http.post(`${this.baseurl}/users-student`, value)
   }
-  setuser(value: User) : void{
-    this.setUser(value);
+  setuser(value: User, image: string): void {
+    this.setUser(value, image);
     this.userdetails = this.get();
   }
-  getUser():User{
+  getUser(): User {
     this.userdetails = this.get();
     return this.userdetails;
   }
-  setUser(user:User) {
+  setUser(user: User, image: string) {
+    user.profileImage = image;
     sessionStorage.setItem('currentuser', JSON.stringify(user));
   }
-  get():any {
+  get(): any {
     const userj = sessionStorage.getItem('currentuser');
     return JSON.parse(userj);
   }
 }
 
-export interface ContentShow{
+export interface ContentShow {
   taskname: string,
   short_desc: string,
   long_desc: string
 }
-export interface User{
+export interface User {
   created_at: Date,
   email: string,
   email_verified_at: any,
@@ -83,5 +78,6 @@ export interface User{
   id: number,
   lastname: string,
   updated_at: Date,
-  username: string
+  username: string,
+  profileImage?: string
 }

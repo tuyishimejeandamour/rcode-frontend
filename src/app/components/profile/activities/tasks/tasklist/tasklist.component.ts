@@ -118,13 +118,11 @@ export class TasklistComponent implements OnInit {
     });
   }
   opencontentDialog(id: number): void {
-    const dialogRef = this.dialog.open(DiscussComponent, {
+    this.dialog.open(DiscussComponent, {
       width:'80%',
       data:{authorized:true,taskid:id}
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+
   }
   updateRowData(obj:TasksDetails):void{
     this.jerwis.updatetask(obj,obj.id).subscribe(

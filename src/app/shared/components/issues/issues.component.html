@@ -3,15 +3,14 @@
                     <mat-list-item  class="talk-item">
                         <img matListAvatar [src]="comment.image">
                         <p matLine class="message mail-body">
+                          <span>{{comment.author}}</span><br>
                           <quill-editor matLine class="message"  [(ngModel)]="comment.text" name="message"  [disabled]="true"  [style]="{width:'100%'}">
-                            <div quill-editor-toolbar>
-                            </div>
                           </quill-editor>
                         </p>
                         <p matLine class="message-date">
-                            <small>{{comment.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
+                        <small>{{comment.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
                         <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
-                            <mat-icon>favorite</mat-icon>
+                        <mat-icon>favorite</mat-icon>
                         </p>
                     </mat-list-item>
                 </mat-list>
@@ -40,11 +39,12 @@
               <span class="ql-formats">
               <button type="button" class="ql-image"></button>
               <button type="button" class="ql-video"></button>
-            </span>
+             </span>
+             <button type="button" class="emoji"></button>
             </div>
         </quill-editor>
       <button (click)="addComment(comment)" mat-raised-button color="primary" class="savebutton">reply</button>
     </div>
-    <app-issues [talks]="comment.relys">
+    <app-issues [talks]="comment.relys" [task]="task_id">
     </app-issues>
   </div>

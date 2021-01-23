@@ -6,12 +6,10 @@ import { SnotifyService } from 'ng-snotify';
 import { HttpexplorerService, JerwisService, TaskYouHave } from 'app/core/services';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
-import { DialogComponent } from './dialog/dialog.component';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
-// import { Observable } from 'rxjs';
-// import * as JSZip from 'jszip';
+
 export interface FolderFile{
   type:string;
   path:string;
@@ -161,16 +159,12 @@ export class FileExplorerComponent implements OnInit {
     $event.stopPropagation();
   }
   showQuestion(id : number):void {
-    const dialogRef = this.dialog.open(DiscussComponent,{
+    this.dialog.open(DiscussComponent,{
       width:'90%',
       height:'90%',
       data:{authorized:false,taskid:id}
     });
-    dialogRef.afterClosed().subscribe(res => {
-      if (res) {
-        console.log(res)
-      }
-    });
+
 
   }
   routesubmitt(task:TaskYouHave):void{
@@ -250,30 +244,6 @@ export class FileExplorerComponent implements OnInit {
         this.message = 'Could not upload the file:' + <string>this.selectedpath.webkitRelativePath;
       });
   }
-
-  // async  viewfileinzip(zipFile:File):Promise<any[]> {
-  //   const flist = [];
-  //   const zip = await JSZip.loadAsync(zipFile);
-  //   // async-forEach loop inspired from jszip source
-  //   for(const filename in zip.files) {
-  //     if (!zip.files.hasOwnProperty(filename)) {
-  //       continue;
-  //     }
-  //     // Object key is the filename
-  //     // const regex = /REGEX.pdf$/ ;
-  //     // const match =  regex.exec(filename);
-  //     // if(match) {
-  //     //   const blob = await zip.file( filename ).async("blob");
-  //     //   const file = new File( [blob], filename, {type : 'application/pdf'} );
-  //     flist.push(filename);
-  //     // }
-  //   }
-  //   return flist;
-  //   console.log(flist);
-  // }
-  /**
-   * end upload files
-   */
   setRemainder(id:number):void{
     const dialogRef = this.dialog.open(newReminderComponent,{
       data:id

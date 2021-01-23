@@ -10,11 +10,13 @@
   .messages{
     display:flex;
     flex-direction: column;
-    height:100%;
+    height: calc(100% - 2px);
     .chat-actions{
-      height:84px;
+      min-height: 84px;
+      position: relative;
+      margin-top: 5px;
       width:100%;
-      overflow: hidden;
+      // overflow: hidden;
 
      .write_message{
        display: flex;

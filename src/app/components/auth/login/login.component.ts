@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.Token.handle(data.access_token);
     this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl("/profile");
-    this.Jerwis.setuser(data.users)
+    this.Jerwis.setuser(data.users,data.profileImage)
     this.loading = false;
 
   }
