@@ -20,12 +20,16 @@
 }
     .message{
         white-space: unset;
-        text-overflow: unset;       
+        text-overflow: unset;
         span{
-            padding: 6px 10px;
+            padding: 0px 0px;
             border-radius: 4px;
             display: inline-block;
-            font-size: 14px;
+            font-size: 13px;
+        }
+        .header{
+          font-weight: 600;
+
         }
     }
     .message-date{
@@ -33,7 +37,7 @@
         opacity: 0.8;
         margin-right:30px;
       }
-        
+
         mat-icon{
           font-size: 15px;
           color:black;

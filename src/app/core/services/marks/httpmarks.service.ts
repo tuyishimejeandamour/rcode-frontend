@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { Marks } from '..';
+import { Observable } from 'rxjs';
 import { AppConfig } from 'environments/environment';
 
 
@@ -23,6 +22,11 @@ export class HttpmarksService {
   }
   getyourstudents(id:number):Observable<any>{
     return this.http.get(`${this.baseurl}/pupils/${id}`);
-
+  }
+  getfeedback(task_id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/feedback/${task_id}`);
+  }
+  setfeedback(task_id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/feedback/${task_id}`);
   }
 }

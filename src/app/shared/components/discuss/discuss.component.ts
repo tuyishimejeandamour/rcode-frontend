@@ -4,6 +4,10 @@ import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
 import { CommentsService,JerwisService,Message } from 'app/core/services';
 import 'quill-emoji/dist/quill-emoji.js'
+import * as QuillNamespace from 'quill';
+const Quill = QuillNamespace;
+import ImageResize from 'quill-image-resize-module';
+Quill.register('modules/imageResize', ImageResize);
 export interface taskFeedback{
   teachermessage:string;
   studentrely:string;
@@ -44,9 +48,10 @@ export class DiscussComponent implements OnInit{
         ['code-block'],
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         ['image', 'video'],
-        ['emoji']
+        ['emoji'],
 
-      ]
+      ],
+      imageResize: true
     }
   }
   taskreviewcontent ={

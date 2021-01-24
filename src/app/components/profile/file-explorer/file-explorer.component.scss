@@ -137,12 +137,11 @@
     height: 55px;
     margin-left:10px;
     margin-top:5px;
-
     &:hover {
       border-radius: 5px;
       cursor: pointer;
-      background: rgb(208, 236, 211);
-
+      background: rgb(255, 255, 255);
+      box-shadow: 0 3px 6px rgba(221, 221, 238, 0.705), 0 2px 2px rgba(221, 221, 238, 0.705);
       .file-semidetails {
         .foldername {
           color: rgb(18, 18, 19);

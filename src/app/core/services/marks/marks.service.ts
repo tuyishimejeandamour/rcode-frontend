@@ -4,11 +4,17 @@ export interface Marks {
   name: string;
   marks: string;
 }
+export interface Feedback{
+  id:number;
+  feedback:string;
+  send_image:string;
+  send_at:Date;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class MarksService {
-  
+
 
   constructor() { }
 }
