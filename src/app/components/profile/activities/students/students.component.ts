@@ -6,9 +6,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpactivitiesService, JerwisService, User } from 'app/core/services';
 import { distinctUntilChanged, debounceTime, switchMap, tap, catchError } from 'rxjs/operators';
-// import { TouchBarSlider } from 'electron';
-// import { identifierModuleUrl } from '@angular/compiler';
-// import { dateFormat } from 'highcharts';
 import { DatePipe } from '@angular/common';
 import { concat, Observable, of } from 'rxjs';
 import { Subject } from 'rxjs';

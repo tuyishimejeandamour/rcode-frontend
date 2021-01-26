@@ -11,7 +11,12 @@ import { TouchBarSlider } from 'electron';
 export class ProfilePageComponent implements OnInit,AfterViewInit {
 
   @ViewChild('intialselect', {read: ElementRef})  initialclick:ElementRef;
-  public inspire: any;
+  public inspire ={
+    authorImage: null,
+    authorName: "Albert Einstein ",
+    fileBackground: null,
+    quote: "let you smile change the world"
+  };
   constructor(
     private httpser:HttpprofileService,
     private user:JerwisService

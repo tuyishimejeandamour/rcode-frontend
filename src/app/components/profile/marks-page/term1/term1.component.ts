@@ -34,10 +34,10 @@ export class Term1Component implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
-  viewtaskremarks(taskid:number):void {
+  viewtaskremarks(taskid:number,user_id:number):void {
     const dialogRef = this.dialog.open(DialogComponent,{
       width:'80%',
-      data:{authorized:false,taskid:taskid}
+      data:{authorized:false,taskid:taskid,user:user_id}
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

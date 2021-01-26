@@ -6,7 +6,6 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { MaterialModule } from 'app/material/material.module';
-import { DialogComponent } from './profile-info/dialog/dialog.component';
 import { MonacoEditorModule } from '@materia-ui/ngx-monaco-editor';
 import { FormsModule } from '@angular/forms';
 import { DialogAssignComponent } from './assignments/dialog/dialog.component';
@@ -16,7 +15,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
-  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, DialogComponent, DialogAssignComponent ],
+  declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, DialogAssignComponent ],
   imports: [
     CommonModule,
     ProfilePageRoutingModule,
@@ -28,6 +27,6 @@ import { SharedModule } from 'app/shared/shared.module';
     HighchartsChartModule,
     QuillModule.forRoot()
   ],
-  entryComponents: [DialogComponent,DialogAssignComponent]
+  entryComponents: [DialogAssignComponent]
 })
 export class ProfilePageModule { }

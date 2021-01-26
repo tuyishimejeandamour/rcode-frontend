@@ -1,8 +1,14 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StudentTaskService, Message } from 'app/Service/student-task.service';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
+import { HttpmarksService, JerwisService} from 'app/core/services';
+import { Feedback } from 'app/core/services/marks/marks.service';
+import 'quill-emoji/dist/quill-emoji.js'
+import * as QuillNamespace from 'quill';
+const Quill = QuillNamespace;
+import ImageResize from 'quill-image-resize-module';
+Quill.register('modules/imageResize', ImageResize);
 export interface taskFeedback{
   teachermessage:string;
   studentrely:string;
@@ -22,31 +28,52 @@ export interface taskReview{
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit{
-  public talks: Message[];
+  public talks: Feedback[];
   newMessage: string;
+  modules:any;
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    public message:StudentTaskService,
+    public feedback:HttpmarksService,
     public httptask:HttptaskService,
+    public user:JerwisService,
     public notify:SnotifyService,
-    @Inject(MAT_DIALOG_DATA) public data:TextContent
+    @Inject(MAT_DIALOG_DATA) public data:{authorized:boolean,taskid:number,user:number}
   ) {
+    this.modules = {
+      'emoji-shortname': true,
+      'emoji-textarea': true,
+      'emoji-toolbar': true,
+      'toolbar': [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['code-block'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['image', 'video'],
+        ['emoji'],
+
+      ],
+      imageResize: true
+    }
   }
+
   taskreviewcontent ={
     long:null,
     short:null
   };
 
   ngOnInit(): void {
-    this.getChat();
+    this.getFeedback();
     this.gettaskcontent();
 
   }
-  getChat():void{
-    if(this.talks){
-      this.talks.length = 2;
+  getFeedback():void{
+    const feed ={
+      task_id:this.data.taskid,
+      sender_id:this.user.getUser().id,
+      reciever_id:this.data.user
     }
-    this.talks = this.message.getTalk();
+    this.feedback.getfeedback(feed).subscribe(
+      data => this.talks = data
+    )
 
   }
   addclassquill():void{
@@ -55,31 +82,30 @@ export class DialogComponent implements OnInit{
       editors[i].className += " prettyprint linenums";
     }
   }
-  sendMessage($event:any):void {
-    if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if(this.talks){
-        this.talks.push(
+  sendMessage():void {
+    const respond =
           {
-            image:'../../../assets/tuy.png',
-            author:'Emilio Verdines',
-            authorStatus:'online',
-            text:this.newMessage,
-            date:new Date(),
-            relys:[],
-            relyOpen:false
+            task_id: this.data.taskid,
+            sender_id: this.user.getUser().id,
+            reciever_id: this.data.user,
+            feedback: this.newMessage
           }
-        )
-        this.newMessage = '';
-        const chatContainer = document.querySelector('.chat-content');
-        if(chatContainer){
-          setTimeout(() => {
-            const nodes = chatContainer.querySelectorAll('.mat-list-item');
-            const newChatTextHeight = nodes[nodes.length- 1];
-            chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
-          });
-        }
-      }
+    this.feedback.setfeedback(respond).subscribe(
+      () => this.getFeedback(),
+      error => this.notify.error(error)
+    )
+
+    this.newMessage = '';
+    const chatContainer = document.querySelector('.chat-content');
+    if(chatContainer){
+      setTimeout(() => {
+        const nodes = chatContainer.querySelectorAll('.mat-list-item');
+        const newChatTextHeight = nodes[nodes.length- 1];
+        chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
+      });
     }
+
+
   }
 
   ngOnDestroy():void{
@@ -96,8 +122,25 @@ export class DialogComponent implements OnInit{
 
   }
   HandleResponse(data):void{
-    console.log(data);
     this.taskreviewcontent=data;
+  }
+  addBindingCreated(quill):void {
+    quill.keyboard.addBinding({
+      key: 'g',
+      ctrlKey: true
+    }, (range, context) => {
+      // tslint:disable-next-line:no-console
+      console.log('KEYBINDING B', range, context)
+    })
+
+    quill.keyboard.addBinding({
+      key: 13,
+      ctrlKey: true
+    }, (range, context) => {
+      // tslint:disable-next-line:no-console
+      alert('ok');
+      console.log('KEYBINDING SHIFT + B', range, context)
+    })
   }
 
 }

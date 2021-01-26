@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-marktask',
@@ -74,6 +75,7 @@ export class MarktaskComponent implements OnInit {
               private markeditor: HttpmarkeditorService,
               private extension: FilenamePipe,
               private filetree:HttpexplorerService,
+              private notify:SnotifyService
   ) {
 
   }
@@ -311,6 +313,19 @@ export class MarktaskComponent implements OnInit {
       alert(<number><unknown>this.heroId);
     }
   }
+  givefeedback(user_id:number,text:string):void{
+    const savefeedback ={
+      task_id:this.task.id,
+      sender_id:this.user.getUser().id,
+      reciever_id:user_id,
+      feedback:text
+    }
+    this.httpmark.setfeedback(savefeedback).subscribe(
+      data=> this.notify.success(data.message),
+      error=>this.notify.error(error.message)
+    )
+
+  }
   getstudents(id: number): void {
     this.httpmark.getyourstudents(id).subscribe(
       (data) => this.students = data,
@@ -318,17 +333,25 @@ export class MarktaskComponent implements OnInit {
     )
   }
   opendialogy(): void {
-    const dialogRef = this.dialog.open(GivemarksComponent, {
-      width: "40%",
-      data:{task:this.activestudent,students:this.students}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined){
-        this.markstudent(result);
-      }
+    if(this.activestudent){
+      const dialogRef = this.dialog.open(GivemarksComponent, {
+        width: "40%",
+        data:{task:this.activestudent,students:this.students}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result !== undefined){
+          console.log(result);
+          this.markstudent(result.mark);
+          if(result.text.length>0){
+            this.givefeedback(result.mark.user_id,result.text)
+          }
+        }
 
-    });
+      });
 
+    }else{
+      this.notify.info("select the student to marks");
+    }
   }
   fileTypes: {
     css: 'css',

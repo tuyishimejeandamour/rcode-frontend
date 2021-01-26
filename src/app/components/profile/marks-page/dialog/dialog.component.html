@@ -17,13 +17,12 @@
             <div class="chat-content"  [class.actions-visible]="talks" perfectScrollbar>
                 <mat-list *ngIf="talks" class="p-0" >
                     <mat-list-item *ngFor="let talk of talks" class="talk-item">
-                        <img matListAvatar [src]="talk.image">
-                        <p matLine class="message">
-                            <span>{{talk.text}}</span>
-                        </p>
+                        <img matListAvatar [src]="talk.sender_image">
+                        <div matLine class="message">
+                          <quill-editor  class="message"  [(ngModel)]="talk.feedback" name="message"  [disabled]="true"  [style]="{width:'100%'}"></quill-editor>
+                          </div>
                         <p matLine class="message-date">
-                            <small>{{talk.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
-
+                            <small>{{talk.send_at | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
                         </p>
                     </mat-list-item>
                 </mat-list>
@@ -35,14 +34,14 @@
             <mat-divider></mat-divider>
             <div *ngIf="talks" class="chat-actions">
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
-                  <img class="writecommentimage" src="../../../../../assets/tuy.png">
-                    <mat-form-field class="w-100" style="width:60%">
-                        <input matInput placeholder="ask any problem about task" (keyup)="sendMessage($event)" [(ngModel)]="newMessage">
-                    </mat-form-field>
+                  <img class="writecommentimage" [src]="user.getUser().profileImage">
+                  <div class="w-100 writerelydiv" style="width:60%">
+                  <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
+                  </quill-editor>
+                  </div>
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-mini-fab color="primary" type="button" (click)="sendMessage($event)">
+                        <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
                             <mat-icon>send</mat-icon>
-
                         </button>
                     </div>
                     </div>

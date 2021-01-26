@@ -9,7 +9,13 @@ import { NestedTreeControl } from '@angular/cdk/tree';
   styleUrls: ['./filetree.component.scss']
 })
 export class FiletreeComponent implements OnInit {
-  @Input() nestedDataSource: TreeData[];
+  nestedDataSource: TreeData[];
+  @Input("nestedDataSource")
+  public set (v:TreeData[]):void {
+    console.log(v)
+    this.nestedDataSource = v;
+  }
+
   @Output() elementadd = new EventEmitter();
   @Output() activestudent = new EventEmitter();
   public toppx: number;

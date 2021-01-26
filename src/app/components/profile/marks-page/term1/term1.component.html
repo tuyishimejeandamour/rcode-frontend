@@ -28,7 +28,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="review">
         <mat-header-cell *matHeaderCellDef> review </mat-header-cell>
-        <mat-cell *matCellDef="let element"><button (click)="viewtaskremarks(element.task_id)"mat-raised-button>review</button></mat-cell>
+        <mat-cell *matCellDef="let element"><button (click)="viewtaskremarks(element.task_id,element.user_id)"mat-raised-button>review</button></mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

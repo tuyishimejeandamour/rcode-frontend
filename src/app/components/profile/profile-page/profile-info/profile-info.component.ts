@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener, ViewChild, Inject, NgZone } from '@angular/core';
-import { DialogComponent } from './dialog/dialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
 import { Chat, ChatService } from 'app/Service/chat.service';
@@ -190,20 +189,20 @@ export class ProfileInfoComponent implements OnInit {
   }
 
 
-  openNewFolderDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      backdropClass: 'searchmembermessage',
-      width: '50%',
-      maxHeight: '70%',
-      position: { top: '10%', left: '35%' }
+  // openNewFolderDialog(): void {
+  //   const dialogRef = this.dialog.open(DialogComponent, {
+  //     backdropClass: 'searchmembermessage',
+  //     width: '50%',
+  //     maxHeight: '70%',
+  //     position: { top: '10%', left: '35%' }
 
-    });
-    dialogRef.afterClosed().subscribe(res => {
-      if (res) {
-        console.log(res)
-      }
-    });
-  }
+  //   });
+  //   dialogRef.afterClosed().subscribe(res => {
+  //     if (res) {
+  //       console.log(res)
+  //     }
+  //   });
+  // }
   geitprogileinfo(): void {
     this.uploadService.profileimage(this.user.getUser().id).subscribe(
       data => { this.profileinfo = data; this.bio.bio = data.bio },
@@ -288,6 +287,7 @@ export class ProfileInfoComponent implements OnInit {
   selector: 'uploadimage',
   templateUrl: 'uploadimage.html',
 })
+
 export class UploadimageComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UploadimageComponent>,

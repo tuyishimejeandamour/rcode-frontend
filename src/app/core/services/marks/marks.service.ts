@@ -5,9 +5,9 @@ export interface Marks {
   marks: string;
 }
 export interface Feedback{
-  id:number;
+  id?:number;
   feedback:string;
-  send_image:string;
+  sender_image:string;
   send_at:Date;
 }
 @Injectable({

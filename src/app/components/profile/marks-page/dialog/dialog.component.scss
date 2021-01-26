@@ -5,16 +5,17 @@
     width: 100%;
     height: calc(73vh);
     overflow-y: auto;
-    
+
   }
   .messages{
     display:flex;
     flex-direction: column;
     height:100%;
     .chat-actions{
-      height:55px;
+      min-height: 84px;
+      position: relative;
+      margin-top: 5px;
       width:100%;
-      overflow: hidden;
 
      .write_message{
        display: flex;
@@ -28,7 +29,7 @@
         object-fit: cover;
         margin-right:10px;
        }
-       
+
      }
     }
     .chat-content{
@@ -42,14 +43,14 @@
     border-radius: 0;
     .chat-actions{
         padding: 12px;
-    }    
+    }
     .talk-item{
         padding: 6px 0;
         height: 100%;
     }
     .message{
         white-space: unset;
-        text-overflow: unset;       
+        text-overflow: unset;
         span{
             padding: 6px 10px;
             border-radius: 4px;
@@ -62,7 +63,7 @@
         opacity: 0.8;
         margin-right:30px;
       }
-      
+
     }
     .empty{
         mat-icon{
