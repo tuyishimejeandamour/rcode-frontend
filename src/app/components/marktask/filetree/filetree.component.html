@@ -1,4 +1,4 @@
-<mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl">
+<mat-tree [dataSource]="studentfolder" [treeControl]="nestedTreeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="monaco-list-row"
     [class.activefile]="node.properties.active" (click)="getcode(node)" (mouseover)="node.properties.active= true"
     (mouseleave)="node.properties.active= false">
@@ -60,3 +60,4 @@
     </div>
   </mat-nested-tree-node>
 </mat-tree>
+

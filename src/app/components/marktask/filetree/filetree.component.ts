@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { TreeData } from 'app/Service/filetree.service';
 import { of } from 'rxjs';
 import { NestedTreeControl } from '@angular/cdk/tree';
@@ -8,13 +8,20 @@ import { NestedTreeControl } from '@angular/cdk/tree';
   templateUrl: './filetree.component.html',
   styleUrls: ['./filetree.component.scss']
 })
-export class FiletreeComponent implements OnInit {
-  nestedDataSource: TreeData[];
-  @Input("nestedDataSource")
-  public set (v:TreeData[]):void {
-    console.log(v)
-    this.nestedDataSource = v;
+export class FiletreeComponent implements OnInit,AfterViewInit {
+  studentfolder:TreeData[];
+  filetomarks:TreeData[] = [];
+  students:any;
+  @Input('Studentfolder')
+  set value(v:TreeData[]){
+    this.studentfolder = v;
   }
+  @Input('Students')
+  set student(v:TreeData[]){
+    this.students = v;
+    console.log(this.students)
+  }
+
 
   @Output() elementadd = new EventEmitter();
   @Output() activestudent = new EventEmitter();
@@ -30,6 +37,14 @@ export class FiletreeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.students.forEach(element => {
+      this.filetomarks = this.studentfolder.filter((item)=> item.basename == element.username)
+    });
+  }
+  ngAfterViewInit(): void {
+    console.log(this.students);
+    console.log(this.studentfolder);
+    console.log(this.filetomarks);
   }
   test(data: TreeData): void {
     console.log(data.properties.padding)

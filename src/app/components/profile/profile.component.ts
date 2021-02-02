@@ -22,6 +22,14 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private electron: ElectronService,
   ) {
+
+  }
+  ngOnInit(): void {
+    if(!this.electron.isElectron){
+      document.getElementById('nav_around').style.height='30px';
+      document.getElementById('float-17').style.top='0px';
+      document.getElementById('content').style.height="calc(100% - 95px)";
+    }
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
@@ -40,16 +48,6 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void {
-    if(!this.electron.isElectron){
-      document.getElementById('nav_around').style.height='30px';
-      document.getElementById('float-17').style.top='0px';
-      document.getElementById('content').style.height="calc(100% - 95px)";
-    }
-  }
-  get(a:string):HTMLElement{
-    return document.getElementById(a)
-  }
-
-
 }
+
+

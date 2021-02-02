@@ -355,8 +355,8 @@ export class MarktaskComponent implements OnInit {
   }
   fileTypes: {
     css: 'css',
-    js: 'javascript',
-    json: 'json',
+    js: 'json',
+    json:'json',
     md: 'markdown',
     mjs: 'javascript',
     ts: 'typescript',
