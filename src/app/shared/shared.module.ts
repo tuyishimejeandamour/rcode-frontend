@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,11 +18,27 @@ import { ProfilepictureComponent } from './components/profilepicture/profilepict
 import { IssuesComponent } from './components/issues/issues.component';
 import { QuillModule } from 'ngx-quill';
 import { DiscussComponent } from './components/discuss/discuss.component';
+import { AssessimentComponent } from './components/assessiment/assessiment.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { AngularSplitModule } from 'angular-split';
+export const MY_NATIVE_FORMATS = {
+  fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
+  datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
+  timePickerInput: {hour: 'numeric', minute: 'numeric'},
+  monthYearLabel: {year: 'numeric', month: 'short'},
+  dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+  monthYearA11yLabel: {year: 'numeric', month: 'long'},
+};
 
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent,IssuesComponent, DiscussComponent],
-  imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , RouterModule, QuillModule.forRoot() ],
-  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent,IssuesComponent, DiscussComponent]
+  declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent,IssuesComponent, DiscussComponent,AssessimentComponent],
+  imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , AngularSplitModule, RouterModule,QuillModule.forRoot(),OwlDateTimeModule,
+    OwlNativeDateTimeModule ],
+  exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent,IssuesComponent, DiscussComponent,AssessimentComponent],
+  providers: [
+    DatePipe,
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_NATIVE_FORMATS}
+  ]
 })
 export class SharedModule {}

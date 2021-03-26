@@ -1,0 +1,109 @@
+<div class="preview_assignment_header assignment_fullscreen">
+  <div class="sort_challenge">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="none" d="M0 0h24v24H0z"/><path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z"/></svg>
+  </div>
+  <div style="display:inline-block;margin-left:10px"><div
+      style="position: absolute;top:2px;" id="title_name">
+       <span class="assignement_header">
+        PHP assignement
+      </span>
+    </div>
+  </div>
+  <div class="save_button">
+    <button >draft</button>
+    <button >save</button>
+
+  </div>
+ </div>
+<div class="show_assignment_info">
+  <as-split class="split-example ex-percent" unit="percent" style="display: flex; width:100%;" [direction]="direction" (dragEnd)="dragEnd($event)">
+    <as-split-area [size]="sizes.percent.area1" style="min-width:50px">
+      <div class="shordiscription" id="displayshortdiscription">
+        <div class="editor_div">
+         <quill-editor name="long" placeholder="Enter Text" [modules]="quillConfig" [styles]="{height: '88%'}"></quill-editor>
+        </div>
+       </div>
+    </as-split-area>
+    <as-split-area [size]="sizes.percent.area2">
+      <div class="show_content" id="displaycontent">
+        <div class="tabbar">
+          <div class="tabs">
+            <ul class="tab-group">
+              <li *ngFor="let tab of tabs; index as i"
+                class="tab" [class.active]="tab.active"
+                (click)="changeTab(i)">
+                <div class="tab_inside">
+                <mat-icon>{{tab.iconClass}}</mat-icon>
+                <span>{{tab.title}}</span>
+              </div>
+              </li>
+            </ul>
+            <div class="tab-content-group">
+              <!--<ng-container *ngFor="let tab of tabs">-->
+                <div class="tab-content" *ngIf="tabs[0].active">
+                  <div class="example-container" style="width: 100%;">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Enter task name</mat-label>
+                      <input matInput name="taskname" (focus)="viewhelp(1)" [(ngModel)]="Form.taskname" required>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Select class</mat-label>
+                      <mat-select name="group_id" (focus)="viewhelp(2)" [(ngModel)]="Form.group_id" required>
+                        <mat-option *ngFor="let group of groups" value="{{group.id}}">{{group.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Enter task name</mat-label>
+                      <input matInput name="taskname" (focus)="viewhelp(3)" [(ngModel)]="Form.lesson" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Enter short discription</mat-label>
+                      <textarea style="min-height:106px" matInput name="short_desc" [(ngModel)]="Form.short" required></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="float-right-help" [hidden]="firstcontent.title ==null">
+                    <mat-card >
+                      <mat-card-header>
+                        <div mat-card-avatar>
+                          <mat-icon>live_help</mat-icon>
+                        </div>
+                        <mat-card-title>{{firstcontent.title}}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        {{firstcontent.content}}
+                      </mat-card-content>
+
+                    </mat-card>
+                  </div>
+                </div>
+                <div class="tab-content" *ngIf="tabs[1].active" >
+                  <div class="example-container">
+                    <div class="example-container">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Enter starting time or double click to select</mat-label>
+                        <input matInput [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12" [(ngModel)]="Form.givenat"
+                          name="starting_date">
+                        <owl-date-time #dt12></owl-date-time>
+                      </mat-form-field><br>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Enter submittion deadline or double click to select</mat-label>
+                        <input matInput [owlDateTimeTrigger]="dt13" [owlDateTime]="dt13" [(ngModel)]="Form.endat"
+                          name="ending_date">
+                        <owl-date-time #dt13></owl-date-time>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-content" *ngIf="tabs[2].active" [innerHTML]="tabs[2].content"></div>
+              <!--</ng-container>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </as-split-area>
+  </as-split>
+
+
+</div>
