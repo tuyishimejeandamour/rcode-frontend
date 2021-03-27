@@ -10,6 +10,7 @@ box-sizing: border-box;
     width: 100%;
     display: flex;
     overflow-x: auto;
+    list-style-type: none;
     &::-webkit-scrollbar {
       display: none;
       height: 5px;
@@ -44,7 +45,7 @@ box-sizing: border-box;
 .tab-content {
   /* display: none; */
   padding: 15px;
-  border-top: 1px solid #ddd;
+  //border-top: 1px solid #ddd;
   border-bottom: none;
   line-height: 1.6rem;
   .mat-form-field{

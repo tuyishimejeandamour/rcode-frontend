@@ -27,6 +27,7 @@ export class TasksComponent implements OnInit{
   sidebar:number = window.innerHeight;
   isOpen = false;
   addOpen = false;
+  issidebaropened = false;
 
 
   @HostListener('window:resize')
@@ -47,33 +48,18 @@ export class TasksComponent implements OnInit{
   ngOnInit(): void {
     if(this.sidebar<700){
       if(!this.isOpen)this.isOpen = !this.isOpen;
-      if(!this.addOpen)this.addOpen = !this.addOpen;
-
-
     }
   }
 
-  showtaskgiver(){
 
-  }
   firstComponentFunction(value: string): void {
     this.eventemitterService.onFirstComponentButtonClick(value);
   }
 
   toggle(): void {
-    this.isOpen = !this.isOpen;
-    const link= this.router.url;
+    console.log(this.addOpen);
     this.addOpen = !this.addOpen;
-    if(link=="/profile/activities/newtask"){
-      if(this.addOpen){
-        this.addOpen = !this.addOpen;
-      }
-    }
-    if(link=="/profile/activities"){
-      if(!this.addOpen && this.isOpen){
-        this.addOpen = !this.addOpen;
-      }
-    }
+    console.log(this.addOpen);
   }
   tabs: any[] = [
     {

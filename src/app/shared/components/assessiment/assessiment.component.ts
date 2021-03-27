@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import 'quill-mention';
 import 'quill-emoji';
 import { Input } from '@angular/core';
@@ -13,6 +13,7 @@ export class AssessimentComponent implements OnInit {
 
   @Input() tabs: any[];
   groups:Groups[] = [];
+  @Output() disppear = new EventEmitter<any>();
   public Form ={
     user_id: null,
     taskname:null,
@@ -29,6 +30,11 @@ export class AssessimentComponent implements OnInit {
 
   }
   constructor() { }
+
+  hidetasker():any{
+    console.log("good for nothig");
+    this.disppear.emit();
+  }
 
   ngOnInit(): void {
   }
@@ -104,7 +110,7 @@ export class AssessimentComponent implements OnInit {
         // },
         enter:{
           key:13,
-          handler: (range, context)=>{
+          handler: (_range, _context):boolean=>{
             console.log("enter");
             return true;
           }
@@ -112,7 +118,7 @@ export class AssessimentComponent implements OnInit {
       }
     }
   }
-  changeTab(index: number) {
+  changeTab(index: number):void {
     this.tabs = this.tabs.map((tab, i) => i === index ? { ...tab, active: true } : { ...tab, active: false });
   }
   viewhelp(id:number):void{
