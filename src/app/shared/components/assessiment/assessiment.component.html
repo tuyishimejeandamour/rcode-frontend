@@ -1,3 +1,4 @@
+<form #createTaskForm=ngForm (ngSubmit)="onsubmit()" style="height: 100%;">
 <div class="preview_assignment_header assignment_fullscreen">
   <div class="sort_challenge" (click)="hidetasker()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" (click)="hidetasker()">
@@ -13,8 +14,8 @@
     </div>
   </div>
   <div class="save_button">
-    <button>draft</button>
-    <button>save</button>
+    <button >draft</button>
+    <button [disabled]="!createTaskForm.valid">save</button>
 
   </div>
 </div>
@@ -24,7 +25,7 @@
     <as-split-area [size]="sizes.percent.area1" style="min-width:50px">
       <div class="shordiscription" id="displayshortdiscription">
         <div class="editor_div">
-          <quill-editor name="long" placeholder="Enter Text" [modules]="quillConfig" [styles]="{height: '88%'}">
+          <quill-editor [(ngModel)]="Form.long" name="long" placeholder="Enter Text" [modules]="quillConfig" [styles]="{height: '88%'}">
           </quill-editor>
         </div>
       </div>
@@ -131,6 +132,5 @@
       </div>
     </as-split-area>
   </as-split>
-
-
 </div>
+</form>

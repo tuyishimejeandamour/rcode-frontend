@@ -4,6 +4,9 @@ import 'quill-emoji';
 import { Input } from '@angular/core';
 import { Groups } from 'app/components/profile/activities/students/students.component';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
+import { DatePipe } from '@angular/common';
+import { HttpactivitiesService, JerwisService } from 'app/core/services';
+import { CommonfunctionService } from 'app/Service/commonfunction.service';
 @Component({
   selector: 'app-assessiment',
   templateUrl: './assessiment.component.html',
@@ -29,7 +32,12 @@ export class AssessimentComponent implements OnInit {
     content:null,
 
   }
-  constructor() { }
+  constructor(
+    private Httpact: HttpactivitiesService,
+    private user:JerwisService,
+    public datepipe: DatePipe,
+    private eventemitterService: CommonfunctionService
+  ) { }
 
   hidetasker():any{
     console.log("good for nothig");
@@ -37,6 +45,7 @@ export class AssessimentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getgroups();
   }
   atValues = [
     { id: 1, value: 'Fredrik Sundqvist', link: 'https://google.com' },
@@ -120,6 +129,29 @@ export class AssessimentComponent implements OnInit {
   }
   changeTab(index: number):void {
     this.tabs = this.tabs.map((tab, i) => i === index ? { ...tab, active: true } : { ...tab, active: false });
+  }
+  gettaskFunction():void{
+    this.eventemitterService.onsubmittask();
+  }
+  onsubmit(): void{
+    this.Form.user_id = this.user.getUser().id;
+    this.Form.givenat = this.datepipe.transform(this.Form.givenat, 'yyyy-MM-dd hh:mm:ss')
+    this.Form.endat = this.datepipe.transform(this.Form.endat, 'yyyy-MM-dd hh:mm:ss')
+    console.log( this.Form.group_id);
+    this.Httpact.settaskactivity(this.Form).subscribe(
+      ()=>this.gettaskFunction(),
+      error=>console.log(error)
+    )
+
+  }
+  getgroups():void{
+    this.Httpact.getgroups(this.user.getUser().id).subscribe(
+      data => this.handlethergroups(data),
+      error => console.error(error)
+    )
+  }
+  handlethergroups(data:Groups[]):void{
+    this.groups = data;
   }
   viewhelp(id:number):void{
     if(id==1){
