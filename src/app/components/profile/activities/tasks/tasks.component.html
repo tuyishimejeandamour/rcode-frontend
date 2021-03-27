@@ -6,14 +6,14 @@
   <div class="cancledsidebar" [@openClose]="isOpen ? 'open' : 'closed'">
   <div class="closefilters" (click)="toggle()"><mat-icon>tune</mat-icon></div>
   </div>
-  <button mat-mini-fab color="primary" matTooltip="add task" [routerLink]="'newtask'" [@openClose]="addOpen ? 'open' : 'closed'"><mat-icon>add</mat-icon></button>
+  <button mat-mini-fab color="primary" matTooltip="add task" [@openClose]="addOpen ? 'open' : 'closed'"><mat-icon>add</mat-icon></button>
   <div class="titleinheader"><span>prepare task or save for future set</span></div>
 
 </div>
   <div class="directory_show">
       <div class="side_bar_left_with_img" [@openClose]="!isOpen ? 'open' : 'closed'">
         <div class="profile_in_title" >
-          <button mat-raised-button [routerLink]="'newtask'" (click)="!isOpen?isOpen = !isOpen:isOpen;addOpen?addOpen = !addOpen:addOpen" color="primary" aria-label="Example icon button with a plus one icon">
+          <button mat-raised-button  (click)="!isOpen?isOpen = !isOpen:isOpen;addOpen?addOpen = !addOpen:addOpen" color="primary" aria-label="Example icon button with a plus one icon">
             <mat-icon>add_task</mat-icon>
             <span> Add Task</span>
           </button>
@@ -48,7 +48,7 @@
         <router-outlet></router-outlet>
       </div>
     </div>
-    <div class="preview_assignment">
+    <div class="preview_assignment"  [hidden]="isOpen">
    <app-assessiment [tabs]="tabs"></app-assessiment>
 
     </div>

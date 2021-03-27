@@ -28,6 +28,7 @@ export class TasksComponent implements OnInit{
   isOpen = false;
   addOpen = false;
 
+
   @HostListener('window:resize')
   public onWindowResize():void {
     (window.innerWidth <= 1000) ? this.isOpen = true : this.isOpen = false;
@@ -52,7 +53,9 @@ export class TasksComponent implements OnInit{
     }
   }
 
+  showtaskgiver(){
 
+  }
   firstComponentFunction(value: string): void {
     this.eventemitterService.onFirstComponentButtonClick(value);
   }

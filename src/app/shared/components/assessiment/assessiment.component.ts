@@ -132,6 +132,12 @@ export class AssessimentComponent implements OnInit {
         content:'select lesson if you give many lesson for futher classification of task'
       }
     }
+    else if(id==4){
+      this.firstcontent={
+        title:'short discription',
+        content:'enter summary of what you task is about'
+      }
+    }
   }
   split: SplitComponent;
   area1: SplitAreaDirective;
