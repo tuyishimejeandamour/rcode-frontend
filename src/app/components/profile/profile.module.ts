@@ -12,13 +12,13 @@ import { ModalComponent } from './file-explorer/explorer/modal/modal.component';
 import { CoreModule } from 'app/core/core.module';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
-import { ShortenttextPipe } from 'app/core/pipes/shortenttext.pipe';
+
 
 
 
 
 @NgModule({
-  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent,newReminderComponent, ShortenttextPipe],
+  declarations: [ ProfileComponent, FileExplorerComponent, ExplorerComponent,ModalComponent,newReminderComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

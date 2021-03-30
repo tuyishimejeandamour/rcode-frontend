@@ -125,5 +125,18 @@
     "quill-mention": "3.0.2",
     "uuid": "8.3.0",
     "xterm": "4.11.0"
+  },
+  "build": {
+    "appId": "oikonomopo.electron-deeplinking-macos-win32",
+    "protocols": {
+      "name": "electron-deep-linking",
+      "schemes": [
+        "myapp"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.Reference"
+    },
+    "win": {}
   }
 }

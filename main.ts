@@ -5,18 +5,38 @@ import { InitTray } from './traywindow';
 import * as contextMenu from 'electron-context-menu'
 
 let win: BrowserWindow = null;
+let deeplinkingUrl;
+const gotTheLock = app.requestSingleInstanceLock();
+if (gotTheLock) {
+  app.on('second-instance', (e, argv) => {
+    // Someone tried to run a second instance, we should focus our window.
+
+    // Protocol handler for win32
+    // argv: An array of the second instance’s (command line / deep linked) arguments
+    if (process.platform == 'win32') {
+      // Keep only command line / deep linked arguments
+      deeplinkingUrl = argv.slice(1)
+    }
+    logEverywhere('app.makeSingleInstance# ' + deeplinkingUrl)
+
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+} else {
+  app.quit()
+}
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
   contextMenu({
     prepend: (defaultActions, parameters, browserWindow) => [
       {
         label: 'Rainbow',
-        // Only show it when right-clicking images
         visible: parameters.mediaType === 'image'
       },
       {
         label: 'Search Google for “{selection}”',
-        // Only show it when right-clicking text
         visible: parameters.selectionText.trim().length > 0,
         click: () => {
           shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
@@ -43,6 +63,7 @@ function createWindow(): BrowserWindow {
       enableRemoteModule : true // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
+
   win.webContents.on('will-navigate', function(e, reqUrl) {
     let getHost = url=>require('url').parse(url).host;
     let reqHost = getHost(reqUrl);
@@ -55,7 +76,11 @@ function createWindow(): BrowserWindow {
   if (serve) {
 
     win.webContents.openDevTools();
-
+ if (process.platform == 'win32') {
+    // Keep only command line / deep linked arguments
+    deeplinkingUrl = process.argv.slice(1)
+  }
+  logEverywhere('createWindow# ' + deeplinkingUrl)
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
@@ -112,4 +137,25 @@ try {
 } catch (e) {
   // Catch Error
   // throw e;
+}
+if (!app.isDefaultProtocolClient('myapp')) {
+  // Define custom protocol handler. Deep linking works on packaged versions of the application!
+  app.setAsDefaultProtocolClient('myapp')
+}
+
+app.on('will-finish-launching', function() {
+  // Protocol handler for osx
+  app.on('open-url', function(event, url) {
+    event.preventDefault()
+    deeplinkingUrl = url
+    logEverywhere('open-url# ' + deeplinkingUrl)
+  })
+})
+
+// Log both at dev console and at running node console instance
+function logEverywhere(s) {
+  console.log(s)
+  if (win && win.webContents) {
+    win.webContents.executeJavaScript(`console.log("${s}")`)
+  }
 }

@@ -9,6 +9,7 @@ import { ContextMenuComponent, ContextMenuService } from 'ngx-contextmenu';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
+import { DatePipe } from '@angular/common';
 
 export interface FolderFile{
   type:string;
@@ -274,13 +275,25 @@ export class newReminderComponent {
     public dialogRef: MatDialogRef<newReminderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private gettask:HttptaskService,
-    private notify:SnotifyService) {}
+    public datepipe: DatePipe,
+    private notify:SnotifyService
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
   onSubmit():void{
     this.Remainder.taskid = this.data;
+    const date = new Date(this.selectedtime.dateset).toLocaleDateString();
+    // const month = date.getUTCMonth() + 1; //months from 1-12
+    // const day = date.getUTCDate();
+    // const year = date.getUTCFullYear();
+    // // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    // const newdate = year + "/" + month + "/" + day;
+    const time = new Date(this.selectedtime.timeset).toLocaleTimeString();
+    // const form = this.datepipe.transform(this.selectedtime.timeset, 'yyyy-MM-dd hh:mm:ss')
+    console.log(date+"T"+time);
+    console.log(time);
     this.gettask.setreminder(this.Remainder).subscribe(
       ()=>{this.notify.success('succefull set');this.onNoClick()},
       error=> this.notify.error(error.error.error)

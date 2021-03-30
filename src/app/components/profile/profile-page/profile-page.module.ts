@@ -13,6 +13,7 @@ import { AngularSplitModule } from 'angular-split';
 import { QuillModule } from 'ngx-quill';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { SharedModule } from 'app/shared/shared.module';
+import { CoreModule } from 'app/core/core.module';
 
 @NgModule({
   declarations: [ProfilePageComponent, ProfileInfoComponent, AssignmentsComponent, DialogAssignComponent ],
@@ -23,6 +24,7 @@ import { SharedModule } from 'app/shared/shared.module';
     MonacoEditorModule,
     FormsModule,
     SharedModule,
+    CoreModule,
     AngularSplitModule,
     HighchartsChartModule,
     QuillModule.forRoot()

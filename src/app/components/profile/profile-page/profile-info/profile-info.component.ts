@@ -4,10 +4,11 @@ import { Mail, QuickhelpService } from 'app/Service/quickhelp.service';
 import { Chat, ChatService } from 'app/Service/chat.service';
 import * as Highcharts from 'highcharts';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { JerwisService, User } from 'app/core/services';
+import { JerwisService, TaskYouHave, User } from 'app/core/services';
 import { UploadfileService } from 'app/core/services/fileexplorer/uploadfile.service';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
+import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 export interface Tile {
   color: string;
   cols: number;
@@ -42,6 +43,7 @@ export interface Tile {
 export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  taskInThisWeek:TaskYouHave[];
   currentuser: User;
   public profileinfo = {
     filepath: '../.././../../../assets/profile_picture/41594424503.png',
@@ -52,6 +54,7 @@ export class ProfileInfoComponent implements OnInit {
     public mailboxService: QuickhelpService,
     private chatService: ChatService,
     private user: JerwisService,
+    private gettasks:HttptaskService,
     private uploadService: UploadfileService,
     private _ngZone: NgZone
   ) { }
@@ -60,6 +63,7 @@ export class ProfileInfoComponent implements OnInit {
     this.currentuser = this.user.getUser();
     this.geitprogileinfo();
     this.getMails();
+    this.gettask();
     this.chats = this.chatService.getChats();
     if (window.innerWidth <= 768) {
       this.sidenavOpen = false;
@@ -119,6 +123,13 @@ export class ProfileInfoComponent implements OnInit {
       default:
         this.mails = this.mailboxService.getDraftMails();
     }
+  }
+
+  gettask():void{
+    this.gettasks.gettasksinthisweek(this.user.getUser().id,1).subscribe(
+      data=>this.taskInThisWeek = data,
+      error=> console.log(error)
+    )
   }
   clicktoupload(): void {
     const ele = document.getElementById('fileinput');
