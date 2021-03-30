@@ -1,12 +1,29 @@
-import { app, BrowserWindow, Menu, nativeImage, screen, Tray } from 'electron';
+import { app, BrowserWindow, Menu, nativeImage, screen, shell, Tray } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { InitTray } from './traywindow';
+import * as contextMenu from 'electron-context-menu'
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
-
+  contextMenu({
+    prepend: (defaultActions, parameters, browserWindow) => [
+      {
+        label: 'Rainbow',
+        // Only show it when right-clicking images
+        visible: parameters.mediaType === 'image'
+      },
+      {
+        label: 'Search Google for “{selection}”',
+        // Only show it when right-clicking text
+        visible: parameters.selectionText.trim().length > 0,
+        click: () => {
+          shell.openExternal(`https://google.com/search?q=${encodeURIComponent(parameters.selectionText)}`);
+        }
+      }
+    ]
+  });
 function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
@@ -26,7 +43,15 @@ function createWindow(): BrowserWindow {
       enableRemoteModule : true // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
-
+  win.webContents.on('will-navigate', function(e, reqUrl) {
+    let getHost = url=>require('url').parse(url).host;
+    let reqHost = getHost(reqUrl);
+    let isExternal = reqHost && reqHost !== getHost(win.webContents.getURL());
+    if(isExternal) {
+      e.preventDefault();
+      shell.openExternal(reqUrl, {});
+    }
+  })
   if (serve) {
 
     win.webContents.openDevTools();

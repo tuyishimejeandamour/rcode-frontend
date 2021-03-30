@@ -38,7 +38,7 @@
   .tabactions {
     display: flex;
     justify-content: center;
-    width: 60px;
+    width: 90px;
     height: 35px;
 
     .runbutton {
@@ -137,6 +137,9 @@
       color: rgb(22, 22, 26);
     }
   }
+}
+.iframbackground{
+  background: rgb(255, 255, 255);
 }
 
 #left-nav {
@@ -433,7 +436,7 @@ form {
 
 .monaco-icon-label::before {
   content: ' ';
-  background-image: url(../../../assets/icons/favicon.png);
+  background-image: url(../../../assets/fileicons/angular-component.svg);
 }
 
 .monaco-icon-label:before {
@@ -575,4 +578,93 @@ form {
       margin: 0 auto;
     }
   }
+}
+
+.image_editor{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  img{
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 90%;
+  max-height: 90%;
+  }
+}
+.UrlBar {
+  z-index: 1;
+  width: 100%;
+  background: rgb(37, 37, 37);
+  padding: 2px 0;
+  display: flex;
+  border-bottom: 1px solid rgb(37, 37, 37);
+  position: relative;
+  box-shadow: -1px 1px 2px rgb(0 0 0 / 10%);
+  .UrlBar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+    width: 100px;
+    .UrlBar-controlBtn {
+      cursor: default!important;
+      background: transparent;
+      //transition: all .2s ease-in-out;
+      display: flex;
+      font-size: 21px;
+      border-radius: 2px;
+      border: 2px solid transparent;
+  }
+  }
+.UrlBar-searchWrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  .BrowserUrlField-wrapper {
+    width: 100%;
+    position: relative;
+    height: 34px;
+    margin-right: 6px;
+    .secure-icon {
+      z-index: 1;
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      width: 15px;
+      height: 15px;
+  }
+   #BrowserUrlField {
+    position: absolute;
+    margin: 4px 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #888;
+    //font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,Arial,Helvetica,sans-serif;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    height: 27px;
+    overflow: hidden;
+    width: 100%;
+    min-width: 50px;
+    .public-DraftEditor-content {
+      padding: 0 5px;
+      .public-DraftStyleDefault-block {
+        margin-left: 20px;
+        padding: 5.5px 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+  }
+}
+
+}
+}
 }

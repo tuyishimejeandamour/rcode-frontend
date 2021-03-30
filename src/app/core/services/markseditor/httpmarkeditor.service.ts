@@ -28,4 +28,8 @@ export class HttpmarkeditorService {
     });
 
   }
+  getimagedata(id:number,path:string):Observable<any>{
+    const pathname = `{"path":"${path}"}`;
+    return this.http.post(`${this.baseurl}/file/image/${id}`,JSON.parse(pathname));
+  }
 }

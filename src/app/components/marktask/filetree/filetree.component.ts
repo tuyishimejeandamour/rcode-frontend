@@ -19,7 +19,7 @@ export class FiletreeComponent implements OnInit,AfterViewInit {
   @Input('Students')
   set student(v:TreeData[]){
     this.students = v;
-    console.log(this.students)
+    //console.log(this.students)
   }
 
 
@@ -42,12 +42,12 @@ export class FiletreeComponent implements OnInit,AfterViewInit {
     });
   }
   ngAfterViewInit(): void {
-    console.log(this.students);
-    console.log(this.studentfolder);
-    console.log(this.filetomarks);
+    // console.log(this.students);
+    // console.log(this.studentfolder);
+    // console.log(this.filetomarks);
   }
   test(data: TreeData): void {
-    console.log(data.properties.padding)
+  //  console.log(data.properties.padding)
   }
   getChildren = (node: TreeData): any => of(node.children);
   nestedTreeControl = new NestedTreeControl(this.getChildren);

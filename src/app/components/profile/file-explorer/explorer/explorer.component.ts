@@ -13,6 +13,7 @@ import { FolderFile } from '../file-explorer.component';
 })
 export class ExplorerComponent implements OnChanges {
   public showdetail = true;
+  public fileElements = null;
   public discdetail:any ={
     name: 'Folder A',
     isFolder: true,
@@ -26,10 +27,11 @@ export class ExplorerComponent implements OnChanges {
     public dialog: MatDialog
   ) { }
 
+  @Input("fileElements")
+  public set value(v : any[]) {
+    this.fileElements = v;
+  }
 
-
-
-  @Input() fileElements: any;
   @Input() canNavigateUp: string;
   @Input() path: Breadcrumb[];
 

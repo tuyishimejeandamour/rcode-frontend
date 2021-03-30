@@ -22,7 +22,8 @@
               <path fill="none" d="M0 0h24v24H0z" />
               <path
                 d="M11.602 13.76l1.412 1.412 8.466-8.466 1.414 1.414-9.88 9.88-6.364-6.364 1.414-1.414 2.125 2.125 1.413 1.412zm.002-2.828l4.952-4.953 1.41 1.41-4.952 4.953-1.41-1.41zm-2.827 5.655L7.364 18 1 11.636l1.414-1.414 1.413 1.413-.001.001 4.951 4.951z"
-                fill="rgba(255,255,255,1)" /></svg>
+                fill="rgba(255,255,255,1)" />
+            </svg>
           </div>
 
           <div role=button class="left-nav-button" id="left-nav-button-3" (click)="clickLeftNav($event, 'sidebar-3')">
@@ -30,7 +31,8 @@
               <path fill="none" d="M0 0h24v24H0z" />
               <path
                 d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h16V5H4zm8 10h6v2h-6v-2zm-3.333-3L5.838 9.172l1.415-1.415L11.495 12l-4.242 4.243-1.415-1.415L8.667 12z"
-                fill="rgba(255,255,255,1)" /></svg>
+                fill="rgba(255,255,255,1)" />
+            </svg>
           </div>
 
           <div role=button class="left-nav-button" id="left-nav-button-4" (click)="clickLeftNav($event, 'sidebar-4')">
@@ -38,7 +40,8 @@
               <path fill="none" d="M0 0h24v24H0z" />
               <path
                 d="M2.213 14.06a9.945 9.945 0 0 1 0-4.12c1.11.13 2.08-.237 2.396-1.001.317-.765-.108-1.71-.986-2.403a9.945 9.945 0 0 1 2.913-2.913c.692.877 1.638 1.303 2.403.986.765-.317 1.132-1.286 1.001-2.396a9.945 9.945 0 0 1 4.12 0c-.13 1.11.237 2.08 1.001 2.396.765.317 1.71-.108 2.403-.986a9.945 9.945 0 0 1 2.913 2.913c-.877.692-1.303 1.638-.986 2.403.317.765 1.286 1.132 2.396 1.001a9.945 9.945 0 0 1 0 4.12c-1.11-.13-2.08.237-2.396 1.001-.317.765.108 1.71.986 2.403a9.945 9.945 0 0 1-2.913 2.913c-.692-.877-1.638-1.303-2.403-.986-.765.317-1.132 1.286-1.001 2.396a9.945 9.945 0 0 1-4.12 0c.13-1.11-.237-2.08-1.001-2.396-.765-.317-1.71.108-2.403.986a9.945 9.945 0 0 1-2.913-2.913c.877-.692 1.303-1.638.986-2.403-.317-.765-1.286-1.132-2.396-1.001zM4 12.21c1.1.305 2.007 1.002 2.457 2.086.449 1.085.3 2.22-.262 3.212.096.102.195.201.297.297.993-.562 2.127-.71 3.212-.262 1.084.45 1.781 1.357 2.086 2.457.14.004.28.004.42 0 .305-1.1 1.002-2.007 2.086-2.457 1.085-.449 2.22-.3 3.212.262.102-.096.201-.195.297-.297-.562-.993-.71-2.127-.262-3.212.45-1.084 1.357-1.781 2.457-2.086.004-.14.004-.28 0-.42-1.1-.305-2.007-1.002-2.457-2.086-.449-1.085-.3-2.22.262-3.212a7.935 7.935 0 0 0-.297-.297c-.993.562-2.127.71-3.212.262C13.212 6.007 12.515 5.1 12.21 4a7.935 7.935 0 0 0-.42 0c-.305 1.1-1.002 2.007-2.086 2.457-1.085.449-2.22.3-3.212-.262-.102.096-.201.195-.297.297.562.993.71 2.127.262 3.212C6.007 10.788 5.1 11.485 4 11.79c-.004.14-.004.28 0 .42zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-                fill="rgba(255,255,255,1)" /></svg>
+                fill="rgba(255,255,255,1)" />
+            </svg>
           </div>
 
 
@@ -49,7 +52,8 @@
               <p>Explorer</p>
             </div>
             <app-selectstudent [TaskFolder]="treeData" (filtertreedata)="filterTree($event)"></app-selectstudent>
-            <app-filetree [Studentfolder]="treeData" [Students]="students" (elementadd)="addFile($event)" (activestudent)="activatestudent($event)"></app-filetree>
+            <app-filetree [Studentfolder]="treeData" [Students]="students" (elementadd)="addFile($event)"
+              (activestudent)="activatestudent($event)"></app-filetree>
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
@@ -99,6 +103,9 @@
                 <button class="runbutton" (click)="play=true">
                   <mat-icon>play_arrow</mat-icon>
                 </button>
+                <button class="runbutton" (click)="terminal=true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 12l-7.071 7.071-1.414-1.414L8.172 12 2.515 6.343 3.929 4.93 11 12zm0 7h10v2H11v-2z" fill="rgba(255,255,255,1)"/></svg>
+                </button>
                 <button class="runbutton" (click)="opendialogy()">
                   <mat-icon>check</mat-icon>
                 </button>
@@ -106,7 +113,7 @@
             </div>
             <div class="codediveditor" *ngFor="let item of filearrays;let i= index"
               [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
-              <div *ngIf="codes[i] && item.extension != 'pdf'">
+              <div *ngIf="codes[i] && item.extension != 'pdf'&& item.extension != 'jpg' && item.extension != 'png'">
                 <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}" [(ngModel)]="codes[i].code">
                 </ngx-monaco-editor>
               </div>
@@ -138,16 +145,11 @@
                   </button>
                 </div>
               </div>
-              <!-- <div *ngIf="item.extension != 'pdf' || item.extension != 'doc'">
-                <div class="pdf-editor">
-                  <div class="left_toool_bar"></div>
-                  <div class="search_tool_bar">
-                  </div>
-                  <div class="main_tools">
-                  </div>
+              <div *ngIf="item.extension == 'jpg' || item.extension == 'png'">
+                <div class="image_editor">
+                  <img [src]="codes[i].code" alt="">
                 </div>
-                 <app-image-viewer [images]="data" ></app-image-viewer>
-              </div> -->
+              </div>
             </div>
           </as-split-area>
           <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal">
@@ -170,7 +172,7 @@
                 <div class="panelaction"></div>
               </div>
               <div id="terminal" class="tabcontentM">
-
+               <app-terminal-viewer></app-terminal-viewer>
               </div>
 
               <div id="debug" class="tabcontentM">
@@ -184,12 +186,63 @@
           </as-split-area>
           <as-split-area size="100" [visible]="play">
             <div class="directory_header">
-              <button class="runbutton " style="background: rgb(60,60,60);" (click)="play=false">
-                <mat-icon>code</mat-icon>
-              </button>
-
+              <div class="UrlBar" id="UrlBar">
+                <div class="UrlBar-controls">
+                  <button class="UrlBar-controlBtn" disabled="">
+                    <svg viewBox="0 0 512 512" width="1em" height="1em" class="action-icon">
+                      <path
+                        d="M427 234.625H167.296l119.702-119.702L256 85 85 256l171 171 29.922-29.924-118.626-119.701H427v-42.75z">
+                      </path>
+                    </svg></button>
+                  <button class="UrlBar-controlBtn" disabled=""><svg viewBox="0 0 512 512" width="1em" height="1em"
+                      class="action-icon">
+                      <path
+                        d="M85 277.375h259.704L225.002 397.077 256 427l171-171L256 85l-29.922 29.924 118.626 119.701H85v42.75z">
+                      </path>
+                    </svg></button>
+                  <button class="UrlBar-controlBtn"><svg viewBox="0 0 512 512" width="1em" height="1em"
+                      class="action-icon">
+                      <path
+                        d="M256 388c-72.597 0-132-59.405-132-132 0-72.601 59.403-132 132-132 36.3 0 69.299 15.4 92.406 39.601L278 234h154V80l-51.698 51.702C348.406 99.798 304.406 80 256 80c-96.797 0-176 79.203-176 176s78.094 176 176 176c81.045 0 148.287-54.134 169.401-128H378.85c-18.745 49.561-67.138 84-122.85 84z">
+                      </path>
+                    </svg></button>
+                </div>
+                <div class="UrlBar-searchWrapper">
+                  <div class="BrowserUrlField-wrapper">
+                    <svg viewBox="0 0 512 512" width="1em" height="1em" class="secure-icon">
+                      <path
+                        d="M376 186h-20v-40c0-55-45-100-100-100S156 91 156 146v40h-20c-22.002 0-40 17.998-40 40v200c0 22.002 17.998 40 40 40h240c22.002 0 40-17.998 40-40V226c0-22.002-17.998-40-40-40zM256 368c-22.002 0-40-17.998-40-40s17.998-40 40-40 40 17.998 40 40-17.998 40-40 40zm62.002-182H193.998v-40c0-34.004 28.003-62.002 62.002-62.002 34.004 0 62.002 27.998 62.002 62.002v40z">
+                      </path>
+                    </svg>
+                    <div id="BrowserUrlField" class="">
+                      <div class="DraftEditor-root">
+                        <div class="DraftEditor-editorContainer">
+                          <div aria-describedby="placeholder-66hoq" class="notranslate public-DraftEditor-content"
+                            contenteditable="true" role="textbox" spellcheck="false"
+                            style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;">
+                            <div data-contents="true">
+                              <div class="" data-block="true" data-editor="66hoq" data-offset-key="1kdtd-0-0">
+                                <div data-offset-key="1kdtd-0-0"
+                                  class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr"><span
+                                    data-offset-key="1kdtd-0-0" style="color: rgb(23, 127, 69);"><span
+                                      data-offset-key="1kdtd-0-0"><span data-text="true">https</span></span></span><span
+                                    data-offset-key="1kdtd-1-0"><span data-text="true">://</span></span><span
+                                    data-offset-key="1kdtd-2-0" style="color: rgb(0, 0, 0);"><span
+                                      data-offset-key="1kdtd-2-0"><span
+                                        data-text="true">angular-lazy-loading-simple.stackblitz.io</span></span></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="codediveditor">
+            <div class="codediveditor iframbackground">
+              <iframe src="https://angular-lazy-loading-simple.stackblitz.io" title="W3Schools Free Online Web Tutorials" width="100%" height="100%"></iframe>
             </div>
           </as-split-area>
         </as-split>

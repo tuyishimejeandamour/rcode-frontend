@@ -1,8 +1,9 @@
 <div class="directory_header" style="height: 40px">
 
   <div class="cancledsidebar">
-    <div class="closefilters" (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
+    <div class="closefilters" (click)="isviewOpen = !isviewOpen">
+      <mat-icon *ngIf="!isviewOpen">menu</mat-icon>
+      <mat-icon *ngIf="isviewOpen">chevron_left</mat-icon>
     </div>
   </div>
   <div class="titleinheader"><span>Profile</span></div>
@@ -10,68 +11,59 @@
 <div class="view-profile-over" [@openClose]="isviewOpen ? 'open' : 'closed'">
   <mat-grid-list cols="4" rowHeight="50%" style="z-index: 300;">
     <mat-grid-tile [colspan]="tiles[0].cols" [rowspan]="tiles[0].rows" [style.background]="tiles[0].color">
-      <mat-grid-tile-header [style.background]="tiles[1].color" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">
-        <button mat-stroked-button color="primary" (click)="isviewOpen = !isviewOpen"><mat-icon>chevron_left</mat-icon></button>
-        profile intro
+      <mat-grid-tile-header [style.background]="tiles[1].color"
+        style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">
+        <span style="margin-left: 10px;">shared link</span>
       </mat-grid-tile-header>
       <div class="cardscontainer">
-      <mat-card class="example-card" >
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" height="80">
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            bred for hunting.
-          </p>
-        </mat-card-content>
-        <!-- <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions> -->
-      </mat-card>
-      <mat-card class="example-card" >
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu" height="80">
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            bred for hunting.
-          </p>
-        </mat-card-content>
-        <!-- <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions> -->
-      </mat-card>
-
-    </div>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="tiles[1].cols" [rowspan]="tiles[1].rows" [style.background]="tiles[1].color">
-      <mat-grid-tile-header [style.background]="tiles[1].color" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">profile intro</mat-grid-tile-header>
-      <highcharts-chart
-          [Highcharts]="Highcharts"
-          [options]="chartOptions"
-          style="width: 100%; height: 90%; display: block;position: absolute;top: 52px;"
-        ></highcharts-chart>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="tiles[2].cols" [rowspan]="tiles[2].rows" [style.background]="tiles[0].color" >
-      <mat-grid-tile-header [style.background]="tiles[1].color" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">profile intro</mat-grid-tile-header>
-      {{tiles[2].text}}
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="tiles[3].cols" [rowspan]="tiles[3].rows" [style.background]="tiles[3].color" style="flex-direction: column;">
-      <mat-grid-tile-header  [ngStyle]="{background: 'white'}" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);"><span>active Users</span></mat-grid-tile-header>
-      <div class="cardscontainer">
-      <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar style="width: 100%;height: 100%;overflow: auto;">
+        <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar
+        style="width: 100%;height: 100%;overflow: auto;">
         <div *ngFor="let mail of mails " (click)="viewDetail(mail)">
-          <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}" >
-            <app-profilepicture *ngIf="mail.senderPhoto" matListAvatar [imgUrl]="mail.senderPhoto"></app-profilepicture>
-            <img *ngIf="!mail.senderPhoto" matListAvatar
-              src="../../../../../assets/profile_picture/31592671453.png">
+          <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+            <app-profilepicture *ngIf="mail.senderPhoto" matListAvatar [imgUrl]="mail.senderPhoto">
+            </app-profilepicture>
+            <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../../../assets/profile_picture/31592671453.png">
             <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
               <h6 class="text-truncate sender">{{mail.sender}}</h6>
             </div>
-           </mat-list-item>
+          </mat-list-item>
           <mat-divider></mat-divider>
         </div>
       </mat-nav-list>
+
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="tiles[1].cols" [rowspan]="tiles[1].rows" [style.background]="tiles[1].color">
+      <mat-grid-tile-header [style.background]="tiles[1].color"
+        style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">profile intro</mat-grid-tile-header>
+      <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+        style="width: 100%; height: 90%; display: block;position: absolute;top: 52px;"></highcharts-chart>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="tiles[2].cols" [rowspan]="tiles[2].rows" [style.background]="tiles[0].color">
+      <mat-grid-tile-header [style.background]="tiles[1].color"
+        style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">profile intro</mat-grid-tile-header>
+      {{tiles[2].text}}
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="tiles[3].cols" [rowspan]="tiles[3].rows" [style.background]="tiles[3].color"
+      style="flex-direction: column;">
+      <mat-grid-tile-header [ngStyle]="{background: 'white'}" style="box-shadow:1px 0 5px #dde;color: rgb(87, 87, 88);">
+        <span>active Users</span>
+      </mat-grid-tile-header>
+      <div class="cardscontainer">
+        <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar
+          style="width: 100%;height: 100%;overflow: auto;">
+          <div *ngFor="let mail of mails " (click)="viewDetail(mail)">
+            <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+              <app-profilepicture *ngIf="mail.senderPhoto" matListAvatar [imgUrl]="mail.senderPhoto">
+              </app-profilepicture>
+              <img *ngIf="!mail.senderPhoto" matListAvatar src="../../../../../assets/profile_picture/31592671453.png">
+              <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
+                <h6 class="text-truncate sender">{{mail.sender}}</h6>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-nav-list>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
@@ -81,26 +73,25 @@
     <mat-card class="example-card" style="box-shadow:none;background:transparent;">
       <div class="profileimage">
         <div class="profileimageeditandshow">
-        <img  src="{{profileinfo.filepath}}" alt="">
-        <div class="changeprofileimage" (click)="clicktoupload()">
-        <mat-icon>camera_enhance</mat-icon>
-        <input type="file" name="profileimage" id="fileinput" hidden (change)="change($event)">
-        </div>
+          <img src="{{profileinfo.filepath}}" alt="">
+          <div class="changeprofileimage" (click)="clicktoupload()">
+            <mat-icon>camera_enhance</mat-icon>
+            <input type="file" name="profileimage" id="fileinput" hidden (change)="change($event)">
+          </div>
         </div>
         <div class="conent-info-profile">
-           <span  class="userbio" *ngIf="!edit"  (click)="edit=true"><i>{{bio.bio}}</i></span>
-           <mat-form-field *ngIf="edit">
-            <textarea matInput
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1"
-                      (blur)="edit=false; updatebio()"
-                      [(ngModel)]="bio.bio"
-                      cdkAutosizeMaxRows="5"></textarea>
+          <span class="userbio" *ngIf="!edit" (click)="edit=true"><i>{{bio.bio}}</i></span>
+          <mat-form-field *ngIf="edit">
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+              (blur)="edit=false; updatebio()" [(ngModel)]="bio.bio" cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
           <div class="buttonsdiv">
-           <button mat-button ><mat-icon>edit</mat-icon>edit</button>
-           <button mat-button  (click)="isviewOpen = !isviewOpen" ><mat-icon>menu</mat-icon>more</button>
+            <button mat-button>
+              <mat-icon>edit</mat-icon>edit
+            </button>
+            <button mat-button (click)="isviewOpen = !isviewOpen">
+              <mat-icon>menu</mat-icon>more
+            </button>
           </div>
 
         </div>
@@ -108,10 +99,11 @@
 
       <div class="profile-namedetail">
         <div class="profiledetails">
-          <button mat-icon-button style="position:absolute;right:10px;top:3px;z-index: 300; color:rgb(84, 27, 117)" (click)="editinput =! editinput">
+          <button mat-icon-button style="position:absolute;right:10px;top:3px;z-index: 300; color:rgb(84, 27, 117)"
+            (click)="editinput =! editinput">
             <mat-icon>edit</mat-icon>
           </button>
-            <mat-list role="list">
+          <mat-list role="list">
             <mat-list-item role="listitem">
               <div class="label">
                 <h6 class="labelname">firstname</h6>
@@ -120,7 +112,7 @@
                 <mat-form-field *ngIf="!editinput">
                   <input matInput [(ngModel)]="currentuser.firstname">
                 </mat-form-field>
-               <span *ngIf="editinput">{{currentuser.firstname}}</span>
+                <span *ngIf="editinput">{{currentuser.firstname}}</span>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -132,7 +124,7 @@
                 <mat-form-field *ngIf="!editinput">
                   <input matInput [(ngModel)]="currentuser.lastname">
                 </mat-form-field>
-               <span *ngIf="editinput"> {{currentuser.lastname}}</span>
+                <span *ngIf="editinput"> {{currentuser.lastname}}</span>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -163,11 +155,8 @@
         </div>
         <div class="performcechart">
           <div class="moreinfopro"></div>
-          <highcharts-chart
-          [Highcharts]="Highcharts"
-          [options]="chartOptions"
-          style="width: 100%; height: 266px; display: block;"
-        ></highcharts-chart>
+          <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+            style="width: 100%; height: 266px; display: block;"></highcharts-chart>
         </div>
 
       </div>
@@ -248,6 +237,6 @@
       </mat-card>
 
     </mat-card>
-     </div>
+  </div>
 
 </div>

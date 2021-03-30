@@ -24,14 +24,16 @@
   </div>
   <div class="filediv">
     <div class="filefolder_container" *ngIf="fileElements">
-      <div class="filecontainer" *ngFor="let element of fileElements.directories" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
+      <ng-container *ngFor="let element of fileElements">
+        <ng-container *ngIf="element.type === 'dir'">
+      <div class="filecontainer"  (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
       (contextmenu)="onContextMenu($event,element)">
       <div class="file-image">
         <div class='image' style="background-image: url(../../../../../assets/others/icons8_folder_96px.png);">
         </div>
       </div>
       <div class="file-semidetails">
-        <span class="foldername">{{element.basename}}</span>
+        <span class="foldername">{{element.dirname | taskname}}</span>
         <span>1 item</span>,
         <span>last modified:{{ element.timestamp | date }}</span>
         <span></span>
@@ -41,7 +43,9 @@
         </button>
       </div>
     </div>
-      <div class="filecontainer"  *ngFor="let element of fileElements.files" (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
+  </ng-container>
+  <ng-container *ngIf="element.type === 'file'">
+      <div class="filecontainer"  (dblclick)="navigate(element)" (click)="rotate($event,'filecontainer',element)"
         (contextmenu)="onContextMenu($event,element)">
         <div class="file-image" >
           <div class='image' [ngStyle]="{'background-image': 'url(' + getfileicons(element.extension) + ')'}">
@@ -57,8 +61,8 @@
           </button>
         </div>
       </div>
-
-
+    </ng-container>
+    </ng-container>
     </div>
     <context-menu>
       <ng-template contextMenuItem (execute) ="navigate($event.item)">

@@ -28,7 +28,8 @@ export interface Tile {
         display: 'none',
       })),
       transition('open <=> closed', [
-        animate('1000ms ease-in')
+        animate('1000ms ease-in'),
+        animate('1000ms ease-out'),
       ]),
 
     ]),

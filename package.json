@@ -103,6 +103,7 @@
     "@ng-select/ng-select": "5.0.8",
     "acorn": "7.3.1",
     "angular-split": "4.0.0",
+    "electron-context-menu": "2.5.0",
     "electron-tray-window": "1.2.5",
     "highcharts": "8.2.2",
     "highcharts-angular": "2.8.0",
@@ -113,6 +114,7 @@
     "ng-image-slider": "2.6.4",
     "ng-pick-datetime": "7.0.0",
     "ng-snotify": "9.0.1",
+    "ng-terminal": "3.0.2",
     "ng2-pdf-viewer": "6.3.2",
     "ngx-contextmenu": "5.4.0",
     "ngx-moment": "5.0.0",
@@ -121,6 +123,7 @@
     "quill-emoji": "0.1.7",
     "quill-image-resize-module": "3.0.0",
     "quill-mention": "3.0.2",
-    "uuid": "8.3.0"
+    "uuid": "8.3.0",
+    "xterm": "4.11.0"
   }
 }

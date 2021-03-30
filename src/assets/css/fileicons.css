@@ -22,3 +22,19 @@
   content: ' ';
   background-image: url(../fileicons/html.svg);
 }
+.file-ext-php::before {
+  content: ' ';
+  background-image: url(../fileicons/php.svg);
+}
+.file-ext-png::before,.file-ext-jpg::before,.file-ext-webp::before {
+  content: ' ';
+  background-image: url(../fileicons/image.svg);
+}
+.file-ext-cpp::before {
+  content: ' ';
+  background-image: url(../fileicons/cpp.svg);
+}
+.file-ext-sql::before {
+  content: ' ';
+  background-image: url(../fileicons/sql.svg);
+}

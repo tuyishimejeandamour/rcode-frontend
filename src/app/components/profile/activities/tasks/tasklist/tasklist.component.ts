@@ -113,7 +113,10 @@ export class TasklistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.updateRowData(result.data);
+      if (result) {
+        this.updateRowData(result.data);
+
+      }
 
     });
   }
@@ -152,7 +155,7 @@ export interface ContentDetails {
   selector: 'task-edit-dialog',
   templateUrl: 'task-edit-dialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialog implements OnInit{
   local_data:any;
   groups:Groups[] = [];
   constructor(
@@ -161,6 +164,11 @@ export class DialogOverviewExampleDialog {
     private user:JerwisService,
     private Httpact:HttpactivitiesService,) {
     this.local_data = {...data};
+  }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.getgroups()
   }
 
   onNoClick(): void {
@@ -178,5 +186,6 @@ export class DialogOverviewExampleDialog {
   handlethergroups(data:Groups[]):void{
     this.groups = data;
   }
+
 }
 

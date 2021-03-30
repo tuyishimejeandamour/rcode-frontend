@@ -28,7 +28,7 @@ export interface FolderFile{
 })
 export class FileExplorerComponent implements OnInit {
 
-  public fileElements: any;
+  public fileElements: any[];
   @ViewChild(ExplorerComponent) private explorer:ExplorerComponent;
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
 
@@ -82,7 +82,7 @@ export class FileExplorerComponent implements OnInit {
   }
   gethome():void{
     this.filehttp.getAllFiles().subscribe(
-      data => this.fileElements = data,
+      data => {this.fileElements = data;console.log(this.fileElements)},
       error => this.notify.error(`ok enought${<string>error.message}`)
     );
     this.currentPath=[];
@@ -96,7 +96,7 @@ export class FileExplorerComponent implements OnInit {
   }
 
   navigateToFolder(element:FolderFile):void {
-    this.filehttp. getfilesinpath(element.path).subscribe(
+    this.filehttp.getfilesinpath(element.path).subscribe(
       data => this.fileElements = data,
       error => this.notify.error(`ok enought${<string>error.message}`
       ));

@@ -15,12 +15,12 @@ import { GivemarksComponent } from './givemarks/givemarks.component';
 import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QuillModule } from 'ngx-quill';
-import { ImageViewerComponent } from './image-viewer/image-viewer.component';
-import { NgImageSliderModule } from 'ng-image-slider';
+import { TerminalViewerComponent } from './terminal/terminal-viewer.component';
+import { NgTerminalModule } from 'ng-terminal';
 
 @NgModule({
 
-  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, ImageViewerComponent],
+  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, TerminalViewerComponent],
   imports: [
     CommonModule,
     MarktaskRoutingModule,
@@ -32,7 +32,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     MaterialModule,
     ReactiveFormsModule,
     PdfViewerModule,
-    NgImageSliderModule,
+    NgTerminalModule,
     QuillModule.forRoot()
   ],
   entryComponents:[GivemarksComponent],

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { TasksComponent } from './tasks.component';
-import { NewtaskComponent } from './newtask/newtask.component';
 import { TasklistComponent, DialogOverviewExampleDialog } from './tasklist/tasklist.component';
 import { MaterialModule } from 'app/material/material.module';
 import { FormsModule} from '@angular/forms';
@@ -19,7 +18,7 @@ export const MY_NATIVE_FORMATS = {
   monthYearA11yLabel: {year: 'numeric', month: 'long'},
 };
 @NgModule({
-  declarations: [TasksComponent, NewtaskComponent, TasklistComponent, DialogOverviewExampleDialog],
+  declarations: [TasksComponent, TasklistComponent, DialogOverviewExampleDialog],
   imports: [
     CommonModule,
     TasksRoutingModule,

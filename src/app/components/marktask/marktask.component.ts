@@ -207,6 +207,10 @@ export class MarktaskComponent implements OnInit {
     const num = this.filearrays.indexOf(data, 1)
     if (num < 0) {
       this.filearrays.push(data);
+      if(this.play){
+        this.play=false;
+      }
+
       return true;
     } else {
       return false
@@ -224,7 +228,7 @@ export class MarktaskComponent implements OnInit {
   }
 
   addFile(data: TreeData): void {
-    if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc") {
+    if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png") {
       this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
         data => this.codes.push(data),
         error => console.log(error)
@@ -234,18 +238,29 @@ export class MarktaskComponent implements OnInit {
       const pathname =
       {
         path:data.path,
-        code:null
+        code:new TextEncoder().encode(`sorry this pdf was not able to load`)
       };
-
+      this.codes.push(pathname)
       this.markeditor.getpdfdata(this.user.getUser().id,data.path).subscribe(
-        data =>{ pathname.code = new Uint8Array(data); this.codes.push(pathname)},
+        data =>{ this.changethecode(pathname.path,data);},
+        error => console.log(error)
+      );
+    }else if(!this.getiffileopened(data) && data.extension == "jpg" || data.extension == "png" || data.extension == "web"){
+      const pathname =
+      {
+        path:data.path,
+        code:"https://i.giphy.com/media/3o7bu3XilJ5BOiSGic/giphy.webp"
+      };
+      this.codes.push(pathname);
+      this.markeditor.getimagedata(this.user.getUser().id,data.path).subscribe(
+        data =>{this.changethecode(pathname.path,data);},
         error => console.log(error)
       );
     }
     if (this.setcode(data)) {
       this.activeindex = this.filearrays.indexOf(data, 1);
     }
-    if (this.filearrays.length == 0) {
+    if (this.filearrays.length == 1) {
       this.activeindex = 0;
     }
   }
@@ -340,7 +355,7 @@ export class MarktaskComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if(result !== undefined){
-          console.log(result);
+          //console.log(result);
           this.markstudent(result.mark);
           if(result.text.length>0){
             this.givefeedback(result.mark.user_id,result.text)
@@ -389,28 +404,11 @@ export class MarktaskComponent implements OnInit {
     });
   }
 
-  data: Array<any> = [{
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
-    title: 'Hummingbirds are amazing creatures'
-  }, {
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg'
-  }, {
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
-    title: 'Example with title.'
-  },{
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
-    title: 'Hummingbirds are amazing creatures'
-  }, {
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg'
-  }, {
-    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
-    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
-    title: 'Example two with title.'
+  changethecode(path:string,code:string):void{
+    this.codes.forEach(element => {
+      if (element.path == path) {
+        element.code = code;
+      }
+    });
   }
-  ];
 }

@@ -30,5 +30,4 @@ export class AppComponent  implements AfterContentInit  {
       console.log('Run in browser');
     }
   }
- 
 }
