@@ -21,6 +21,7 @@ export class MarktaskComponent implements OnInit {
   treeData: TreeData[] =  [];
   reserved: TreeData[];
   codes: any[] = [];
+  showReview = false;
   @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
   students = [{
     id: null,

@@ -75,11 +75,12 @@
       <as-split-area [size]="sizes.percent.area2">
         <as-split class="split-examplecode" unit="percent" direction="vertical" (dragEnd)="drag2End($event)">
           <as-split-area [size]="sizes.percent2.area1" [visible]="!play">
+            <div style="position: relative;height: 100%;">
             <div class="directory_header">
               <div class="tabsmarks">
                 <div draggable="true" tabindex="{{i}}" role="tab" *ngFor="let item of filearrays;let i = index"
                   [ngClass]="{'tabinactive': i!=activeindex, 'tabactive': i==activeindex || filearrays.length == 0 }"
-                  (click)="activeindex=i" class="tab close-button-right sizing-fit has-icon dirty active"
+                  (click)="activeindex=i;showReview=false" class="tab close-button-right sizing-fit has-icon dirty active"
                   title="{{item.path}}" aria-selected="true"
                   style="border-right: 1px solid rgb(37, 37, 38); left: auto; background-color: rgb(30, 30, 30); color: rgb(255, 255, 255);">
                   <div class="tab-border-top-container"></div>
@@ -101,13 +102,16 @@
               </div>
               <div class="tabactions">
                 <button class="runbutton" (click)="play=true">
-                  <mat-icon>play_arrow</mat-icon>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.376 12.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832z" fill="rgba(255,255,255,1)"/></svg>
+                </button>
+                <button class="runbutton" (click)="showReview= !showReview">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm4.591 8.809a3.508 3.508 0 0 1 0-1.622l-.991-.572 1-1.732.991.573a3.495 3.495 0 0 1 1.404-.812V8.5h2v1.144c.532.159 1.01.44 1.403.812l.992-.573 1 1.731-.991.573a3.508 3.508 0 0 1 0 1.622l.991.572-1 1.731-.991-.572a3.495 3.495 0 0 1-1.404.811v1.145h-2V16.35a3.495 3.495 0 0 1-1.404-.811l-.991.572-1-1.73.991-.573zm3.404.688a1.5 1.5 0 1 0 0-2.998 1.5 1.5 0 0 0 0 2.998z" fill="rgba(255,255,255,1)"/></svg>
                 </button>
                 <button class="runbutton" (click)="terminal=true">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 12l-7.071 7.071-1.414-1.414L8.172 12 2.515 6.343 3.929 4.93 11 12zm0 7h10v2H11v-2z" fill="rgba(255,255,255,1)"/></svg>
                 </button>
                 <button class="runbutton" (click)="opendialogy()">
-                  <mat-icon>check</mat-icon>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.602 13.76l1.412 1.412 8.466-8.466 1.414 1.414-9.88 9.88-6.364-6.364 1.414-1.414 2.125 2.125 1.413 1.412zm.002-2.828l4.952-4.953 1.41 1.41-4.952 4.953-1.41-1.41zm-2.827 5.655L7.364 18 1 11.636l1.414-1.414 1.413 1.413-.001.001 4.951 4.951z" fill="rgba(255,255,255,1)"/></svg>
                 </button>
               </div>
             </div>
@@ -151,6 +155,10 @@
                 </div>
               </div>
             </div>
+            <div class="codereview" *ngIf="showReview">
+              <app-code-review></app-code-review>
+            </div>
+          </div>
           </as-split-area>
           <as-split-area [size]="sizes.percent2.area2" [visible]="!play && terminal">
             <div class="termianal">
@@ -242,7 +250,7 @@
               </div>
             </div>
             <div class="codediveditor iframbackground">
-              <iframe src="https://angular-lazy-loading-simple.stackblitz.io" title="W3Schools Free Online Web Tutorials" width="100%" height="100%"></iframe>
+              <iframe src="https://www.freecodecamp.org/news/8-things-i-learned-from-4000-rust-developers/" title="W3Schools Free Online Web Tutorials" width="100%" height="100%"></iframe>
             </div>
           </as-split-area>
         </as-split>

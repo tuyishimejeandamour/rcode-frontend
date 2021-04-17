@@ -38,12 +38,12 @@
   .tabactions {
     display: flex;
     justify-content: center;
-    width: 90px;
+    width: 100px;
     height: 35px;
 
     .runbutton {
-      margin-top: 5px;
-      height: 25px;
+      margin-top: 8px;
+      height: 22px;
       width: 30px;
       border-radius: 3px;
       border: none;
@@ -51,6 +51,10 @@
       color: white;
       background: transparent;
       cursor: pointer;
+      svg{
+        width: 20px;
+        height: 20px;
+      }
 
       &:hover {
         background:  rgb(51, 103, 214);
@@ -137,6 +141,15 @@
       color: rgb(22, 22, 26);
     }
   }
+}
+.codereview{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 35px);
+  background: rgb(30, 30, 30);;
+  overflow-y: auto;
+  z-index: 200;
+  top: 35px;
 }
 .iframbackground{
   background: rgb(255, 255, 255);

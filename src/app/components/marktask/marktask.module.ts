@@ -17,10 +17,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QuillModule } from 'ngx-quill';
 import { TerminalViewerComponent } from './terminal/terminal-viewer.component';
 import { NgTerminalModule } from 'ng-terminal';
+import { CodeReviewComponent } from './code-review/code-review.component';
 
 @NgModule({
 
-  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, TerminalViewerComponent],
+  declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, TerminalViewerComponent, CodeReviewComponent],
   imports: [
     CommonModule,
     MarktaskRoutingModule,
