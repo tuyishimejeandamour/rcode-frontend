@@ -447,10 +447,6 @@ form {
   height: 16px;
 }
 
-.monaco-icon-label::before {
-  content: ' ';
-  background-image: url(../../../assets/fileicons/angular-component.svg);
-}
 
 .monaco-icon-label:before {
   background-size: 16px;

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class HttpprofileService {
+export class CompilecodeService {
   private baseurl= AppConfig.apiHost;
   private headerDict = {
     'Content-Type': 'application/json',
@@ -26,7 +26,11 @@ export class HttpprofileService {
   getinspiration(id:number):Observable<any>{
     return this.http.get(`${this.baseurl}/inspiration/${id}`);
   }
-  getcodelanguages():Observable<any>{
-    return this.http.get('https://judge0-ce.p.rapidapi.com/languages',this.requestOptions)
+
+  compilecode(data:{source_code: string, language_id: number,stdin:string}):Observable<any>{
+    return this.http.post('https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&fields=*',data,this.requestOptions)
+  }
+  runcode(token:string):Observable<any>{
+    return this.http.get(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`,this.requestOptions)
   }
 }

@@ -1,15 +1,19 @@
-<div class="codereview_container">
+<!-- <div class="codereview_container">
   <div class="classes">
-    <div class="wrapper">
+    <div class="wrapper"> -->
       <div class="accordion_wrap accordion_1">
-        <div class="accordion_header">
-          America
+        <div class="accordion_header" [ngClass]="{show: show}" (click)="toggle()">
+          {{title.title}}
         </div>
         <div class="accordion_body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus culpa ducimus amet unde consequatur ullam ipsum repellendus eligendi quo nisi!</p>
+          <div class="coderiew">
+          <ngx-monaco-editor [options]="{theme: 'vs-dark', language:'html'}"
+          [(ngModel)]="title.content">
+        </ngx-monaco-editor>
+      </div>
         </div>
       </div>
-      <div class="accordion_wrap accordion_2">
+     <!-- <div class="accordion_wrap accordion_2">
         <div class="accordion_header">
           Germany
         </div>
@@ -131,4 +135,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+<!-- <div class="header" (click)="toggle()">
+  {{title}}
+  </div>
+  <div class="content" [ngClass]="{show: show}">
+    <ng-content></ng-content>
+  </div> -->

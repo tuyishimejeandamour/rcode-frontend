@@ -1,3 +1,4 @@
+
 import { Component, OnInit, HostListener } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +10,7 @@ import { ContentChange } from 'ngx-quill';
 import { HttpprofileService } from 'app/core/services/profile/httpprofile.service';
 import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
+import { CompilecodeService } from 'app/core/services';
 
 @Component({
   selector: 'app-assignments',
@@ -40,6 +42,7 @@ export class AssignmentsComponent implements OnInit {
   editorOptions2 = { theme: 'vs-dark', language: 'javascript'};
   code = 'function x() {\nconsole.log("Hello world!");\n}';
   result: any = null;
+  timeStart:any = null;
   languages: any = null;
   sourcecode: any = null;
   codetoexecute ={
@@ -52,7 +55,7 @@ export class AssignmentsComponent implements OnInit {
     public snackBar: MatSnackBar,
     public httpservice: HttpprofileService,
     private monacoLoaderService: MonacoEditorLoaderService,
-
+    private editor:CompilecodeService,
     private mailboxService: QuickhelpService) { }
   isOpen = false;
   public Form = {
@@ -225,20 +228,19 @@ export class AssignmentsComponent implements OnInit {
   }
 
   compiletherusercode(code: { source_code: string, language_id: any,stdin:string}): void {
+    this.timeStart = performance.now();
     this.sourcecode = code;
-    console.log(code.language_id)
-    this.sourcecode.langauge_id = code.language_id.id;
-    this.sourcecode.code = btoa(code.source_code);
-    this.sourcecode.stdin = btoa(code.stdin);
-    this.httpservice.compilecode(this.sourcecode).subscribe(
-      data => this.runtherusercode(data.token),
+    this.sourcecode.langauge_id = code.language_id;
+    this.sourcecode.code =  this.encode(code.source_code);
+    this.sourcecode.stdin = this.encode(code.stdin);
+    this.editor.compilecode(this.sourcecode).subscribe(
+      data => {this.runtherusercode(data.token);},
       error => console.log(error)
     )
   }
   runtherusercode(token: string): void {
-
-    this.httpservice.runcode(token).subscribe(
-      data => this.result = data,
+    this.editor.runcode(token).subscribe(
+      data => {this.result = data;this.decode(data.compile_output)},
       error=>console.error(error)
     )
   }
@@ -248,19 +250,72 @@ export class AssignmentsComponent implements OnInit {
     )
   }
   checkifequal(item:{id:number,name:string}):any{
-
-    if (item.id == this.codetoexecute.language_id) {
+    if (item.id == this.codetoexecute.language_id){
       return item;
     }
-
   }
   changelanguage():void{
-    const name = this.languages.filter(item => item.id == this.codetoexecute.language_id);
     this.monacoLoaderService.isMonacoLoaded$.pipe(
       filter(isLoaded => isLoaded),
       take(1),
     ).subscribe(() => {
-      monaco.editor.setModelLanguage( monaco.editor.getModels()[0],'javascript')
+      monaco.editor.setModelLanguage(monaco.editor.getModels()[0],'javascript')
     });
+  }
+  encode(str:string):string {
+    return btoa(unescape(encodeURIComponent(str || "")));
+  }
+  decode(bytes:string):string {
+    const escaped = escape(atob(decodeURIComponent(bytes || "")));
+    try {
+      return decodeURIComponent(escaped);
+    } catch {
+      return unescape(escaped);
+    }
+  }
+  handleResult(data:any):void {
+    const timeEnd = performance.now();
+    console.log("It took " + <string><unknown>(timeEnd - this.timeStart) + " ms to get submission result.");
+
+    const status = data.status;
+    const stdout = this.decode(data.stdout);
+    const stderr = this.decode(data.stderr);
+    const compile_output = this.decode(data.compile_output);
+    const sandbox_message = this.decode(data.message);
+    const time = (data.time === null ? "-" : <string>data.time + "s");
+    const memory = (data.memory === null ? "-" : <string>data.memory + "KB");
+
+    //$statusLine.html(`${<string><unknown>status.description}, ${time}, ${memory}`);
+
+    // stdoutEditor.setValue(stdout);
+    // stderrEditor.setValue(stderr);
+    // compileOutputEditor.setValue(compile_output);
+    // sandboxMessageEditor.setValue(sandbox_message);
+
+    if (stdout !== "") {
+      const dot = document.getElementById("stdout-dot");
+      if (!dot.parentElement.classList.contains("lm_active")) {
+        dot.hidden = false;
+      }
+    }
+    if (stderr !== "") {
+      const dot = document.getElementById("stderr-dot");
+      if (!dot.parentElement.classList.contains("lm_active")) {
+        dot.hidden = false;
+      }
+    }
+    if (compile_output !== "") {
+      const dot = document.getElementById("compile-output-dot");
+      if (!dot.parentElement.classList.contains("lm_active")) {
+        dot.hidden = false;
+      }
+    }
+    if (sandbox_message !== "") {
+      const dot = document.getElementById("sandbox-message-dot");
+      if (!dot.parentElement.classList.contains("lm_active")) {
+        dot.hidden = false;
+      }
+    }
+
   }
 }

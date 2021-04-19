@@ -3,26 +3,26 @@ $clouds: #ecf0f1;
 *{
   box-sizing: border-box;
 }
-.codereview_container{
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0);
-  justify-content: space-around;
-  .classes,
-  .functions,
-  .valiables{
-    margin-top: 10px;
-    width: 30%;
-    min-height:auto;
-    box-shadow: 1px 4px 12px rgb(28, 28, 29);
-    //background: rgb(37, 37, 38);
-    .wrapper{
-      width: 100%;
+// .codereview_container{
+//   display: flex;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(255, 255, 255, 0);
+//   justify-content: space-around;
+//   .classes,
+//   .functions,
+//   .valiables{
+//     margin-top: 10px;
+//     width: 30%;
+//     min-height:auto;
+//     box-shadow: 1px 4px 12px rgb(28, 28, 29);
+//     //background: rgb(37, 37, 38);
+//     .wrapper{
+//       width: 100%;
 
-    }
+//     }
 
-    .wrapper .accordion_wrap .accordion_header{
+     .accordion_wrap .accordion_header{
       width: 100%;
       height: 40px;
       background: rgb(38, 38, 39);
@@ -34,23 +34,23 @@ $clouds: #ecf0f1;
       cursor: pointer;
     }
 
-    .wrapper .accordion_wrap:first-child .accordion_header{
+     .accordion_wrap:first-child .accordion_header{
       border-top-left-radius: 3px;
       border-top-right-radius: 3px;
     }
 
-    .wrapper .accordion_wrap:last-child .accordion_header{
+     .accordion_wrap:last-child .accordion_header{
       border-bottom: 2px solid transparent;
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
     }
 
-    .wrapper .accordion_wrap:last-child .accordion_header:hover{
+     .accordion_wrap:last-child .accordion_header:hover{
       border-bottom: 2px solid transparent;
     }
 
-    .wrapper .accordion_wrap .accordion_header:before,
-    .wrapper .accordion_wrap .accordion_header:after{
+     .accordion_wrap .accordion_header:before,
+     .accordion_wrap .accordion_header:after{
       content: "";
       position: absolute;
       top: 50%;
@@ -61,22 +61,22 @@ $clouds: #ecf0f1;
       background: rgb(227, 231, 247);
     }
 
-    .wrapper .accordion_wrap .accordion_header:hover{
+     .accordion_wrap .accordion_header:hover{
       color: white;
       border-left: 2px solid rgba(21, 57, 175, 0.856);
     }
 
-    .wrapper .accordion_wrap .accordion_header:hover:before,
-    .wrapper .accordion_wrap .accordion_header:hover:after{
+     .accordion_wrap .accordion_header:hover:before,
+     .accordion_wrap .accordion_header:hover:after{
       background: rgba(21, 57, 175, 0.856);
     }
 
-    .wrapper .accordion_wrap .accordion_header:after{
+     .accordion_wrap .accordion_header:after{
       transform: rotate(-90deg);
       transition: all 0.5s ease;
     }
 
-    .wrapper .accordion_wrap .accordion_body{
+     .accordion_wrap .accordion_body{
       width: 100%;
       height: 0px;
       transition: all 0.5s ease;
@@ -84,35 +84,50 @@ $clouds: #ecf0f1;
       overflow: hidden;
     }
 
-    .wrapper .accordion_wrap .accordion_body p{
-      padding: 15px;
-      font-size: 15px;
-      line-height: 22px;
-      color: #fff;
+     .accordion_wrap .accordion_body .coderiew{
+      position: relative;
+      width: 100%;
+
     }
 
-    .wrapper .accordion_wrap .accordion_header.active{
+     .accordion_wrap .accordion_header.show {
       color: #01645d;
       border-color: #01645d;
     }
 
-    .wrapper .accordion_wrap:last-child .accordion_header.active{
+     .accordion_wrap:last-child .accordion_header.show {
       border-bottom: 2px solid #01645d;
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
     }
 
-    .wrapper .accordion_wrap .accordion_header.active:before,
-    .wrapper .accordion_wrap .accordion_header.active:after{
+     .accordion_wrap .accordion_header.show :before,
+     .accordion_wrap .accordion_header.show :after{
       background: #01645d;
     }
 
-    .wrapper .accordion_wrap .accordion_header.active:after{
+     .accordion_wrap .accordion_header.show :after{
       transform: rotate(0deg);
     }
 
-    .wrapper .accordion_wrap .accordion_header.active + .accordion_body{
+     .accordion_wrap .accordion_header.show  + .accordion_body{
       height: 180px;
     }
-  }
-}
+//   }
+// }
+
+// .header {
+//   border: 1px solid black;
+//   padding: 10px;
+//   background: #ccc;
+// }
+
+// .content {
+//   border: 1px solid red;
+//   color: red;
+//   display: none;
+//   padding: 10px;
+// }
+// .content.show {
+//   display: block;
+// }

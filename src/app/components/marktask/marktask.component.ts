@@ -126,7 +126,11 @@ export class MarktaskComponent implements OnInit {
   ngAfterViewInit(): void {
 
   }
-
+  getfileextension(value: string): string {
+    const ext = value.split('.').pop();
+    const fileclass = "file-ext-" + ext;
+    return fileclass;
+  }
   /**
    * sidebar functions
    */
