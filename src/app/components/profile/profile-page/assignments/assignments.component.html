@@ -121,7 +121,8 @@
           </div>
           <div class="code-body questioncode">
             <mat-divider></mat-divider>
-            <div class="container">
+            <div class="container" >
+              <div class="full" [ngClass]="{editor_full:fullscreenmode}">
               <div *ngIf="!answer">
                 <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
               </div>
@@ -130,9 +131,10 @@
                   (dragEnd)="dragEnd($event)">
                   <as-split-area size="55">
                     <div class="directory_header">
-                      <!-- <button mat-mini-fab color="primary" class="mat-button-editor" style="margin: 2px 10px 0 10px;">
-                        <mat-icon>save</mat-icon>
-                      </button> -->
+                      <button mat-mini-fab color="primary" class="mat-button-editor" (click)="fullscreenmode = !fullscreenmode" style="margin: 2px 10px 0 10px;">
+                        <mat-icon *ngIf="!fullscreenmode">fullscreen</mat-icon>
+                        <mat-icon *ngIf="fullscreenmode">fullscreen_exit</mat-icon>
+                      </button>
                       <button mat-mini-fab color="primary" class="mat-button-editor" [matMenuTriggerFor]="menu"
                         #menuTrigger="matMenuTrigger" (click)="menuTrigger.openMenu()">
                         <mat-icon>settings</mat-icon>
@@ -187,6 +189,7 @@
                 <mat-icon>edit</mat-icon>
               </button>
             </div>
+          </div>
           </div>
         </div>
         <div *ngIf="!mail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">

@@ -9,16 +9,22 @@ import { Observable } from 'rxjs';
 export class CompilecodeService {
   private baseurl= AppConfig.apiHost;
   private headerDict = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'x-rapidapi-key': '27dd7f29c0msh321da58a9347d0dp1ad8dajsn32ddd44769d1',
-    'x-rapidapi-host': 'judge0-ce.p.rapidapi.com',
-    'useQueryString': 'true'
+    "content-type": "application/json",
+    "x-rapidapi-key": "27dd7f29c0msh321da58a9347d0dp1ad8dajsn32ddd44769d1",
+    "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+    "useQueryString": 'true'
+  }
+  private headerDictresult = {
+    "x-rapidapi-key": "27dd7f29c0msh321da58a9347d0dp1ad8dajsn32ddd44769d1",
+    "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
+    "useQueryString": 'true'
   }
 
   private requestOptions = {
     headers: new HttpHeaders(this.headerDict)
+  };
+  private requestOptionsresult = {
+    headers: new HttpHeaders(this.headerDictresult)
   };
 
   constructor(private http:HttpClient) { }
@@ -28,9 +34,9 @@ export class CompilecodeService {
   }
 
   compilecode(data:{source_code: string, language_id: number,stdin:string}):Observable<any>{
-    return this.http.post('https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&fields=*',data,this.requestOptions)
+    return this.http.post('https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&fields=*',JSON.stringify(data),this.requestOptions)
   }
   runcode(token:string):Observable<any>{
-    return this.http.get(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`,this.requestOptions)
+    return this.http.get(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`,this.requestOptionsresult)
   }
 }

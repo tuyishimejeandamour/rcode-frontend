@@ -45,6 +45,7 @@ export class AssignmentsComponent implements OnInit {
   timeStart:any = null;
   languages: any = null;
   sourcecode: any = null;
+  fullscreenmode = false;
   codetoexecute ={
     language_id:null,
     source_code:'function x() {\nconsole.log("Hello world!");\n}',
@@ -230,17 +231,16 @@ export class AssignmentsComponent implements OnInit {
   compiletherusercode(code: { source_code: string, language_id: any,stdin:string}): void {
     this.timeStart = performance.now();
     this.sourcecode = code;
-    this.sourcecode.langauge_id = code.language_id;
-    this.sourcecode.code =  this.encode(code.source_code);
-    this.sourcecode.stdin = this.encode(code.stdin);
+    this.sourcecode.source_code = this.encode_val(this.sourcecode.source_code );
+    this.sourcecode.stdin =  this.encode_val(this.sourcecode.stdin);
     this.editor.compilecode(this.sourcecode).subscribe(
-      data => {this.runtherusercode(data.token);},
+      data => {this.runtherusercode(data.token);console.error(data.token)},
       error => console.log(error)
     )
   }
   runtherusercode(token: string): void {
     this.editor.runcode(token).subscribe(
-      data => {this.result = data;this.decode(data.compile_output)},
+      data => {this.result = data;console.log(this.decode(data.stdout))},
       error=>console.error(error)
     )
   }
@@ -262,11 +262,12 @@ export class AssignmentsComponent implements OnInit {
       monaco.editor.setModelLanguage(monaco.editor.getModels()[0],'javascript')
     });
   }
-  encode(str:string):string {
+  encode_val(str:string):string {
     return btoa(unescape(encodeURIComponent(str || "")));
   }
+
   decode(bytes:string):string {
-    const escaped = escape(atob(decodeURIComponent(bytes || "")));
+    const escaped = escape(atob(bytes || ""));
     try {
       return decodeURIComponent(escaped);
     } catch {
