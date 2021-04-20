@@ -47,13 +47,23 @@
 
         </div>
         <div id="left-sidebar">
-          <div id="sidebar-1" class="tabcontent">
-            <div class="sidebar-top-title">
-              <p>Explorer</p>
+          <div id="sidebar-1" class="tabcontent ">
+            <div class="filexplorer">
+              <div class="sidebar-top-title">
+                <p>Explorer</p>
+              </div>
+              <div class="select_student">
+                <app-selectstudent [TaskFolder]="treeData" (filtertreedata)="filterTree($event)"></app-selectstudent>
+              </div>
+              <div class="filetree">
+                <app-filetree [Studentfolder]="treeData" [Students]="students" (elementadd)="addFile($event)"
+                  (activestudent)="activatestudent($event)"></app-filetree>
+              </div>
+              <div class="input_stdin">
+                <textarea name="stdin" id="stdin" [(ngModel)]="stdin" placeholder="command line agruments"></textarea>
+              </div>
             </div>
-            <app-selectstudent [TaskFolder]="treeData" (filtertreedata)="filterTree($event)"></app-selectstudent>
-            <app-filetree [Studentfolder]="treeData" [Students]="students" (elementadd)="addFile($event)"
-              (activestudent)="activatestudent($event)"></app-filetree>
+
           </div>
           <div id="sidebar-2" class="tabcontent">
             <div class="sidebar-top-title">
@@ -102,7 +112,7 @@
                   </div>
                 </div>
                 <div class="tabactions">
-                  <button class="runbutton" (click)="play=true">
+                  <button class="runbutton" (click)="compiletherusercode()">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path
@@ -118,7 +128,7 @@
                         fill="rgba(255,255,255,1)" />
                     </svg>
                   </button>
-                  <button class="runbutton" (click)="terminal=true">
+                  <button class="runbutton" (click)="terminal= !terminal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                       <path fill="none" d="M0 0h24v24H0z" />
                       <path d="M11 12l-7.071 7.071-1.414-1.414L8.172 12 2.515 6.343 3.929 4.93 11 12zm0 7h10v2H11v-2z"
@@ -139,10 +149,10 @@
                 [ngClass]="{'hideeditor': i!=activeindex && filearrays.length != 0, 'showeditor': i==activeindex || filearrays.length == 0 }">
                 <div *ngIf="codes[i] && item.extension != 'pdf'&& item.extension != 'jpg' && item.extension != 'png'">
                   <ngx-monaco-editor [options]="{theme: 'vs-dark', language: item.extension}"
-                    [(ngModel)]="codes[i].code">
+                    [(ngModel)]="codes[i].code" (init)="initeditor($event)">
                   </ngx-monaco-editor>
                 </div>
-                <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'">
+                <div *ngIf="item.extension === 'pdf' || item.extension === 'doc'" style="height: 100%;">
                   <div class="pdf-editor">
                     <div class="left_toool_bar"></div>
                     <div class="search_tool_bar">
@@ -154,10 +164,12 @@
                     </div>
 
                   </div>
-                  <pdf-viewer [src]="codes[i].code" [render-text]="true" [page]="page" [original-size]="fitpage"
-                    [zoom]="zoom" [external-link-target]="'blank'" (after-load-complete)="afterLoadComplete($event)"
-                    style="display: block;">
-                  </pdf-viewer>
+                  <div class="pdfcontainer">
+                    <pdf-viewer [src]="codes[i].code" [render-text]="true" [page]="page" [original-size]="fitpage"
+                      [zoom]="zoom" [external-link-target]="'blank'" (after-load-complete)="afterLoadComplete($event)"
+                      style="display: block;">
+                    </pdf-viewer>
+                  </div>
                   <div class="font_manager">
                     <button mat-mini-fab (click)="fitpage = !fitpage">
                       <mat-icon>fullscreen</mat-icon>
@@ -187,15 +199,21 @@
                 <div class="switchcontainer">
                   <ul class="actions-container" role="toolbar">
                     <li class="action-tab active" role="tab" draggable="true" tabindex="0"><a class="action-label"
-                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'terminal')"
-                        id="defaultopen">terminal</a>
+                        (click)="openCity($event, 'terminal')" id="defaultopen">terminal</a>
                     </li>
                     <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
-                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'debug')">debug</a>
+                        id="stdout-dot" (click)="openCity($event, 'debug')">output</a>
                     </li>
                     <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
-                        style="color: rgba(231, 231, 231, 0.6);" (click)="openCity($event, 'mark')">mark</a>
+                        id="stderr-dot" (click)="openCity($event, 'error')">error</a>
                     </li>
+                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                        id="compile-output-dot" (click)="openCity($event, 'complied')">compiled output</a>
+                    </li>
+                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                        id="message-dot" (click)="openCity($event, 'message')">message</a>
+                    </li>
+
                   </ul>
                 </div>
                 <div class="panelaction"></div>
@@ -205,11 +223,17 @@
               </div>
 
               <div id="debug" class="tabcontentM">
-                <h1 style="color: white;">comming soon</h1>
+                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="result.output"></ngx-monaco-editor>
               </div>
 
-              <div id="mark" class="tabcontentM">
-
+              <div id="complied" class="tabcontentM">
+                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="result.compliedoutput"></ngx-monaco-editor>
+              </div>
+              <div id="message" class="tabcontentM">
+                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="result.message"></ngx-monaco-editor>
+              </div>
+              <div id="error" class="tabcontentM">
+                <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="result.error"></ngx-monaco-editor>
               </div>
             </div>
           </as-split-area>
@@ -220,21 +244,32 @@
                   <button class="UrlBar-controlBtn" disabled="">
                     <svg viewBox="0 0 512 512" width="1em" height="1em" class="action-icon">
                       <path
-                        d="M427 234.625H167.296l119.702-119.702L256 85 85 256l171 171 29.922-29.924-118.626-119.701H427v-42.75z">
+                        d="M427 234.625H167.296l119.702-119.702L256 85 85 256l171 171 29.922-29.924-118.626-119.701H427v-42.75z"
+                        fill="rgba(255,255,255,1)">
                       </path>
                     </svg></button>
                   <button class="UrlBar-controlBtn" disabled=""><svg viewBox="0 0 512 512" width="1em" height="1em"
                       class="action-icon">
                       <path
-                        d="M85 277.375h259.704L225.002 397.077 256 427l171-171L256 85l-29.922 29.924 118.626 119.701H85v42.75z">
+                        d="M85 277.375h259.704L225.002 397.077 256 427l171-171L256 85l-29.922 29.924 118.626 119.701H85v42.75z"
+                        fill="rgba(255,255,255,1)">
                       </path>
                     </svg></button>
-                  <button class="UrlBar-controlBtn"><svg viewBox="0 0 512 512" width="1em" height="1em"
-                      class="action-icon">
+                  <button class="UrlBar-controlBtn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                      width="20" height="20">
+                      <path fill="none" d="M0 0h24v24H0z" />
                       <path
-                        d="M256 388c-72.597 0-132-59.405-132-132 0-72.601 59.403-132 132-132 36.3 0 69.299 15.4 92.406 39.601L278 234h154V80l-51.698 51.702C348.406 99.798 304.406 80 256 80c-96.797 0-176 79.203-176 176s78.094 176 176 176c81.045 0 148.287-54.134 169.401-128H378.85c-18.745 49.561-67.138 84-122.85 84z">
-                      </path>
+                        d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"
+                        fill="rgba(255,255,255,1)" />
                     </svg></button>
+                  <button class="UrlBar-controlBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"
+                        fill="rgba(255,255,255,1)" />
+                    </svg>
+                  </button>
                 </div>
                 <div class="UrlBar-searchWrapper">
                   <div class="BrowserUrlField-wrapper">
@@ -271,8 +306,10 @@
               </div>
             </div>
             <div class="codediveditor iframbackground">
-              <iframe src="https://www.freecodecamp.org/news/8-things-i-learned-from-4000-rust-developers/"
-                title="W3Schools Free Online Web Tutorials" width="100%" height="100%"></iframe>
+              <div *ngIf="activeindex >= 0 && play" style="height:100%">
+                <iframe [attr.srcDoc]="codes[activeindex].code | noSanitize" title="rcode display code" frameborder="0"
+                  border="0" cellspacing="0" style="border-style: none; height: 100%;width:100%"></iframe>
+              </div>
             </div>
           </as-split-area>
         </as-split>

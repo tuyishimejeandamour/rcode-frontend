@@ -18,12 +18,14 @@ import { QuillModule } from 'ngx-quill';
 import { TerminalViewerComponent } from './terminal/terminal-viewer.component';
 import { NgTerminalModule } from 'ng-terminal';
 import { AccordionContent, CodeReviewComponent, PanelContent } from './code-review/code-review.component';
+import { CoreModule } from 'app/core/core.module';
 
 @NgModule({
 
   declarations: [MarktaskComponent, SelectstudentComponent, FiletreeComponent, GivemarksComponent, TerminalViewerComponent, CodeReviewComponent, PanelContent, AccordionContent],
   imports: [
     CommonModule,
+    CoreModule,
     MarktaskRoutingModule,
     SharedModule,
     AngularSplitModule,

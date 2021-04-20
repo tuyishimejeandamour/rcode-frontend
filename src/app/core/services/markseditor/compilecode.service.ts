@@ -39,4 +39,16 @@ export class CompilecodeService {
   runcode(token:string):Observable<any>{
     return this.http.get(`https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`,this.requestOptionsresult)
   }
+  encode_val(str:string):string {
+    return btoa(unescape(encodeURIComponent(str || "")));
+  }
+
+  decode(bytes:string):string {
+    const escaped = escape(atob(bytes || ""));
+    try {
+      return decodeURIComponent(escaped);
+    } catch {
+      return unescape(escaped);
+    }
+  }
 }

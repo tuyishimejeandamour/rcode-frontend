@@ -1,7 +1,8 @@
+import { CompilecodeService } from './../../core/services/markseditor/compilecode.service';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { FiletreeService, TreeData } from 'app/Service/filetree.service';
-import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorConstructionOptions, MonacoEditorLoaderService, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { HttpactivitiesService, HttpexplorerService, HttpmarkeditorService, HttpmarksService, JerwisService } from 'app/core/services';
@@ -12,6 +13,10 @@ import { FilenamePipe } from 'app/core/pipes/filename.pipe';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { SnotifyService } from 'ng-snotify';
 
+export interface Codes{
+  code:any;
+  path:string
+}
 @Component({
   selector: 'app-marktask',
   templateUrl: './marktask.component.html',
@@ -20,8 +25,14 @@ import { SnotifyService } from 'ng-snotify';
 export class MarktaskComponent implements OnInit {
   treeData: TreeData[] =  [];
   reserved: TreeData[];
-  codes: any[] = [];
+  codes: Codes[] = [];
   showReview = false;
+  result:any ={
+    outout:null,
+    compliedoutput:null,
+    message:null,
+    error:null
+  };
   @ViewChild(PdfViewerComponent) private pdfComponent: PdfViewerComponent;
   students = [{
     id: null,
@@ -47,6 +58,9 @@ export class MarktaskComponent implements OnInit {
   fileCounter = 1;
   heroId: string;
   pdfdata:any;
+  sourcecode:any;
+  stdin:string = null;
+  urltohtmlfile = "";
   task: TasksDetails = {
     id: null,
     taskname: null,
@@ -66,6 +80,15 @@ export class MarktaskComponent implements OnInit {
     marks: null
   }
 
+  editorOptions: MonacoEditorConstructionOptions = {
+    theme: "vs-dark",
+    language: "html",
+    minimap: {
+      enabled: false
+    },
+    lineNumbers: "off",
+    automaticLayout: true
+  };
   constructor(treedata: FiletreeService,
               private monacoLoaderService: MonacoEditorLoaderService,
               private route: ActivatedRoute,
@@ -76,7 +99,8 @@ export class MarktaskComponent implements OnInit {
               private markeditor: HttpmarkeditorService,
               private extension: FilenamePipe,
               private filetree:HttpexplorerService,
-              private notify:SnotifyService
+              private notify:SnotifyService,
+              private compile:CompilecodeService
   ) {
 
   }
@@ -114,6 +138,7 @@ export class MarktaskComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('left-nav-button-1').click();
+    document.getElementById('defaultopen').click();
     this.reserved = this.treeData;
     this.heroId = this.route.snapshot.paramMap.get('id');
     this.gettasktomark(<number><unknown>this.heroId);
@@ -122,6 +147,7 @@ export class MarktaskComponent implements OnInit {
       data => {this.treeData = data; this.reserved = data},
       error => console.error(error)
     );
+    //this.getlaguages();
   }
   ngAfterViewInit(): void {
 
@@ -130,6 +156,9 @@ export class MarktaskComponent implements OnInit {
     const ext = value.split('.').pop();
     const fileclass = "file-ext-" + ext;
     return fileclass;
+  }
+  initeditor(editor: MonacoStandaloneCodeEditor):void{
+    console.log(editor)
   }
   /**
    * sidebar functions
@@ -206,8 +235,13 @@ export class MarktaskComponent implements OnInit {
    * @type rcode editor
    */
   filearrays: TreeData[] = [];
-  activeindex: number;
-
+  activeindex = -1;
+  activelanguage:number = null;
+  codetoexecute ={
+    language_id:null,
+    source_code: null,
+    stdin:null
+  }
   setcode(data: TreeData): boolean {
     const num = this.filearrays.indexOf(data, 1)
     if (num < 0) {
@@ -215,7 +249,10 @@ export class MarktaskComponent implements OnInit {
       if(this.play){
         this.play=false;
       }
-
+      this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]
+      console.info(this.activelanguage)
+      console.info(this.fileTypes[this.extension.transform(data.path)])
+      console.info(this.extension.transform(data.path))
       return true;
     } else {
       return false
@@ -235,7 +272,7 @@ export class MarktaskComponent implements OnInit {
   addFile(data: TreeData): void {
     if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png") {
       this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
-        data => this.codes.push(data),
+        data => {this.codes.push(data);},
         error => console.log(error)
       );
     } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
@@ -264,6 +301,7 @@ export class MarktaskComponent implements OnInit {
     }
     if (this.setcode(data)) {
       this.activeindex = this.filearrays.indexOf(data, 1);
+
     }
     if (this.filearrays.length == 1) {
       this.activeindex = 0;
@@ -284,7 +322,8 @@ export class MarktaskComponent implements OnInit {
         monaco.editor.getModels()[index - 1],
         this.fileTypes[this.extension.transform(data.path)]
       );
-
+      this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]];
+      console.info(this.activelanguage)
     });
   }
   closetab(index: number): void {
@@ -373,15 +412,85 @@ export class MarktaskComponent implements OnInit {
       this.notify.info("select the student to marks");
     }
   }
-  fileTypes: {
+  fileTypes= {
     css: 'css',
-    js: 'json',
+    js: 'javascript',
     json:'json',
     md: 'markdown',
     mjs: 'javascript',
     ts: 'typescript',
-    csv:'csv'
+    csv:'csv',
+    cpp:'c++',
+    c:'c',
+    php:'php',
+    sql:'sql'
   }
+  sources = {
+    assembly:45,
+    bash:46,
+    basic:47,
+    c:48,
+    "c++":50
+    // 51   'csharp',
+    // 52   'cpp',
+    // 53   'cpp',
+    // 54   'cpp',
+    // 55   'lisp',
+    // 56   'd',
+    // 57   'elixir',
+    // 58   'erlang',
+    // 44   'executable',
+    // 59   'fortran',
+    // 60   'go',
+    // 61   'haskell',
+    // 62   'java',
+    // 63   'javaScript',
+    // 64   'lua',
+    // 65   'ocaml',
+    // 66   'octave',
+    // 67   'pascal',
+    // 68   'php',
+    // 43   'plainText',
+    // 69   'prolog',
+    // 70   'python',
+    // 71   'python',
+    // 72   'ruby',
+    // 73   'rust',
+    // 74   'typescript',
+    // 75   'c',
+    // 76   'cpp',
+    // 77   'cobol',
+    // 78   'kotlin',
+    // 79   'objectiveC',
+    // 80   'r',
+    // 81   'scala',
+    // 82   'sqlite',
+    // 83   'swift',
+    // 84   'vb',
+    // 85   'perl',
+    // 86   'clojure',
+    // 87   'fsharp',
+    // 88:   'groovy',
+    // 1001: 'c',
+    // 1002: 'cpp',
+    // 1003: 'c3',
+    // 1004: 'java',
+    // 1005: 'javaTest',
+    // 1006: 'mpicc',
+    // 1007: 'mpicxx',
+    // 1008: 'mpipy',
+    // 1009: 'nim',
+    // 1010: 'pythonForMl',
+    // 1011: 'bosque',
+    // 1012: 'cppTest',
+    // 1013: 'c',
+    // 1014: 'cpp',
+    // 1015: 'cppTest',
+    // 1021: 'csharp',
+    // 1022: 'csharp',
+    // 1023: 'csharpTest',
+    // 1024: 'fsharp'
+  };
   /**
    * pdf staffs
    */
@@ -416,4 +525,71 @@ export class MarktaskComponent implements OnInit {
       }
     });
   }
+  /**
+   * code to compile the output
+   */
+  // getlaguages(): void {
+  //   this.httpservice.getcodelanguages().subscribe(
+  //     data => this.languages = data
+  //   )
+  // }
+  compiletherusercode(): void {
+    if(this.extension.transform(this.filearrays[this.activeindex].path) == "html"){
+      this.play = true;
+      this.urltohtmlfile = "";
+      return;
+    }
+    if(this.extension.transform(this.filearrays[this.activeindex].path) == "css"){
+
+      return;
+    }
+    this.codetoexecute.language_id = this.activelanguage;
+    this.codetoexecute.source_code = this.compile.encode_val(this.codes[this.activeindex].code);
+    this.codetoexecute.stdin =  this.compile.encode_val(this.stdin);
+    console.log(this.codetoexecute);
+    this.compile.compilecode(this.codetoexecute).subscribe(
+      data => {this.runtherusercode(data.token);console.error(data.token)},
+      error => console.log(error)
+    )
+  }
+  runtherusercode(token: string): void {
+    this.compile.runcode(token).subscribe(
+      data => {this.handleResult(data);},
+      error=>console.error(error)
+    )
+  }
+  handleResult(data:any):void {
+
+    this.result.output = this.compile.decode(data.stdout);
+    this.result.error = this.compile.decode(data.stderr);
+    this.result.compiledoutput = this.compile.decode(data.compile_output);
+    this.result.message = this.compile.decode(data.message);
+
+    if (this.result.output !== "") {
+      const dot = document.getElementById("stdout-dot");
+      if (!dot.parentElement.classList.contains("active")) {
+        dot.hidden = false;
+      }
+    }
+    if (this.result.error !== "") {
+      const dot = document.getElementById("stderr-dot");
+      if (!dot.parentElement.classList.contains("active")) {
+        dot.hidden = false;
+      }
+    }
+    if (this.result.compiledoutput !== "") {
+      const dot = document.getElementById("compile-output-dot");
+      if (!dot.parentElement.classList.contains("active")) {
+        dot.hidden = false;
+      }
+    }
+    if (this.result.message !== "") {
+      const dot = document.getElementById("message-dot");
+      if (!dot.parentElement.classList.contains("active")) {
+        dot.hidden = false;
+      }
+    }
+
+  }
+
 }

@@ -8,7 +8,7 @@ import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContentChange } from 'ngx-quill';
 import { HttpprofileService } from 'app/core/services/profile/httpprofile.service';
-import { MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
+import { MonacoEditorConstructionOptions, MonacoEditorLoaderService } from '@materia-ui/ngx-monaco-editor';
 import { filter, take } from 'rxjs/operators';
 import { CompilecodeService } from 'app/core/services';
 
@@ -38,7 +38,16 @@ import { CompilecodeService } from 'app/core/services';
 })
 export class AssignmentsComponent implements OnInit {
   language ='javascript'
-  editorOptions = { theme: 'vs-dark', language: this.language };
+  editorOptions: MonacoEditorConstructionOptions = {
+    theme: "vs-dark",
+    language: this.language,
+    minimap: {
+      enabled: false
+    },
+    lineNumbers: "off",
+    automaticLayout: true
+  };
+
   editorOptions2 = { theme: 'vs-dark', language: 'javascript'};
   code = 'function x() {\nconsole.log("Hello world!");\n}';
   result: any = null;
@@ -231,8 +240,8 @@ export class AssignmentsComponent implements OnInit {
   compiletherusercode(code: { source_code: string, language_id: any,stdin:string}): void {
     this.timeStart = performance.now();
     this.sourcecode = code;
-    this.sourcecode.source_code = this.encode_val(this.sourcecode.source_code );
-    this.sourcecode.stdin =  this.encode_val(this.sourcecode.stdin);
+    this.sourcecode.source_code = this.editor.encode_val(this.sourcecode.source_code );
+    this.sourcecode.stdin =  this.editor.encode_val(this.sourcecode.stdin);
     this.editor.compilecode(this.sourcecode).subscribe(
       data => {this.runtherusercode(data.token);console.error(data.token)},
       error => console.log(error)
@@ -240,7 +249,7 @@ export class AssignmentsComponent implements OnInit {
   }
   runtherusercode(token: string): void {
     this.editor.runcode(token).subscribe(
-      data => {this.result = data;console.log(this.decode(data.stdout))},
+      data => {this.result = data;console.log(this.editor.decode(data.stdout))},
       error=>console.error(error)
     )
   }
@@ -262,27 +271,16 @@ export class AssignmentsComponent implements OnInit {
       monaco.editor.setModelLanguage(monaco.editor.getModels()[0],'javascript')
     });
   }
-  encode_val(str:string):string {
-    return btoa(unescape(encodeURIComponent(str || "")));
-  }
 
-  decode(bytes:string):string {
-    const escaped = escape(atob(bytes || ""));
-    try {
-      return decodeURIComponent(escaped);
-    } catch {
-      return unescape(escaped);
-    }
-  }
   handleResult(data:any):void {
     const timeEnd = performance.now();
     console.log("It took " + <string><unknown>(timeEnd - this.timeStart) + " ms to get submission result.");
 
     const status = data.status;
-    const stdout = this.decode(data.stdout);
-    const stderr = this.decode(data.stderr);
-    const compile_output = this.decode(data.compile_output);
-    const sandbox_message = this.decode(data.message);
+    this.result.output = this.editor.decode(data.stdout);
+    this.result.error = this.editor.decode(data.stderr);
+    this.result.compiledoutput = this.editor.decode(data.compile_output);
+    this.result.message = this.editor.decode(data.message);
     const time = (data.time === null ? "-" : <string>data.time + "s");
     const memory = (data.memory === null ? "-" : <string>data.memory + "KB");
 
@@ -293,25 +291,25 @@ export class AssignmentsComponent implements OnInit {
     // compileOutputEditor.setValue(compile_output);
     // sandboxMessageEditor.setValue(sandbox_message);
 
-    if (stdout !== "") {
+    if (this.result.output !== "") {
       const dot = document.getElementById("stdout-dot");
       if (!dot.parentElement.classList.contains("lm_active")) {
         dot.hidden = false;
       }
     }
-    if (stderr !== "") {
+    if (this.result.error !== "") {
       const dot = document.getElementById("stderr-dot");
       if (!dot.parentElement.classList.contains("lm_active")) {
         dot.hidden = false;
       }
     }
-    if (compile_output !== "") {
+    if (this.result.compiledoutput !== "") {
       const dot = document.getElementById("compile-output-dot");
       if (!dot.parentElement.classList.contains("lm_active")) {
         dot.hidden = false;
       }
     }
-    if (sandbox_message !== "") {
+    if (this.result.message !== "") {
       const dot = document.getElementById("sandbox-message-dot");
       if (!dot.parentElement.classList.contains("lm_active")) {
         dot.hidden = false;
