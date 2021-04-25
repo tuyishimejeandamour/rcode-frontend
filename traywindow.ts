@@ -1,4 +1,4 @@
-import { BrowserWindow, nativeImage, Tray } from 'electron';
+import { BrowserWindow, Menu, nativeImage, Tray } from 'electron';
 import * as trayWindow from 'electron-tray-window';
 import * as path from 'path';
 import * as url from 'url';
@@ -7,10 +7,11 @@ let MainTray:Tray| undefined;
 let TrayWindow: BrowserWindow | undefined;
 
 
-export function InitTray(){
+export function InitTray(contextMenu){
   const iconName = './src/assets/icons/logo.ico';
   const iconPath = path.join(__dirname, iconName);
   MainTray = new Tray(nativeImage.createFromPath(iconPath));
+  MainTray.setContextMenu(contextMenu)
   TrayWindow = new BrowserWindow({
     show:false,
     frame:false,
@@ -35,5 +36,6 @@ export function InitTray(){
     margin_y : -5
 
 });
+
 }
 

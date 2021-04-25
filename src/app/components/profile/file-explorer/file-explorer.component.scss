@@ -137,7 +137,7 @@
     height: 55px;
     margin-left:10px;
     margin-top:5px;
-    &:hover {
+    &:hover:not(.activetask) {
       border-radius: 5px;
       cursor: pointer;
       background: rgb(255, 255, 255);
@@ -152,6 +152,21 @@
         }
       }
 
+    }
+    &.activetask{
+      border-radius: 5px;
+      cursor: pointer;
+      background: rgb(225, 236, 243);
+
+      .file-semidetails {
+        .foldername {
+          color: rgb(35, 63, 187);
+        }
+
+        button {
+          display: block;
+        }
+      }
     }
 
     .file-image {

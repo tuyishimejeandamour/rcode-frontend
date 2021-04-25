@@ -72,10 +72,10 @@
   <div class="whole_container">
   <div class="tasks" [hidden]="taskstoworkon">
     <div class="commmoncontainer">
-      <div class="recentupload" [hidden]="tooglebetweetask.all" >
+      <div class="recentupload" *ngIf="!tooglebetweetask.all" >
         <p class="title" style="margin-left:0%;">all tasks given</p>
         <div class="assinment_div">
-          <div class="filecontainer" *ngFor="let task of tasks " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+          <div class="filecontainer taskcontainer" *ngFor="let task of tasks | async " (click)="activatetask($event,'taskcontainer')" (contextmenu)="onContextMenu($event,task);activatetask($event,'taskcontainer')">
             <div class="file-image">
               <div class='image'>
                 <span>{{task.lesson | short:3}}</span>
@@ -84,8 +84,8 @@
             </div>
             <div class="file-semidetails">
               <span class="foldername">{{task.taskname}}</span>
-              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <span><app-time-display [time]="task.updated_at"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.givenat | date:"MM/dd/yy' at ' HH:mm"}}</span>
               <button mat-icon-button (click)="onContextMenu($event,task)" >
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -94,10 +94,10 @@
           </div>
         </div>
       </div>
-      <div class="recentupload" [hidden]="tooglebetweetask.thisweek">
+      <div class="recentupload" *ngIf="!tooglebetweetask.thisweek">
         <p class="title" style="margin-left:0%;">task in this week</p>
         <div class="assinment_div">
-          <div class="filecontainer" *ngFor="let task of taskInThisWeek " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+          <div class="filecontainer taskcontainer" *ngFor="let task of taskInThisWeek | async  " (click)="activatetask($event,'taskcontainer')" (contextmenu)="onContextMenu($event,task);activatetask($event,'taskcontainer')" >
             <div class="file-image">
               <div class='image'>
                 <span>{{task.lesson | short:3}}</span>
@@ -106,8 +106,8 @@
             </div>
             <div class="file-semidetails">
               <span class="foldername">{{task.taskname}}</span>
-              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <span><app-time-display [time]="task.endat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.givenat | date:"MM/dd/yy 'at' HH:mm"}}</span>
               <button mat-icon-button (click)="onContextMenu($event,task)" >
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -116,10 +116,10 @@
           </div>
         </div>
       </div>
-      <div class="recentupload"[hidden]="tooglebetweetask.otherweek">
+      <div class="recentupload"*ngIf="!tooglebetweetask.otherweek">
         <p class="title" style="margin-left:0%;">task in coming weeks</p>
         <div class="assinment_div">
-          <div class="filecontainer" *ngFor="let task of taskInotherweek " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+          <div class="filecontainer taskcontainer" *ngFor="let task of taskInotherweek  | async " (click)="activatetask($event,'taskcontainer')" (contextmenu)="onContextMenu($event,task);activatetask($event,'taskcontainer')" >
             <div class="file-image">
               <div class='image'>
                 <span>{{task.lesson | short:3}}</span>
@@ -128,8 +128,8 @@
             </div>
             <div class="file-semidetails">
               <span class="foldername">{{task.taskname}}</span>
-              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <span><app-time-display [time]="task.endat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.givenat | date:"MM/dd/yy'at' HH:mm"}}</span>
               <button mat-icon-button (click)="onContextMenu($event,task)" >
                 <mat-icon>more_vert</mat-icon>
               </button>
@@ -138,10 +138,10 @@
           </div>
         </div>
       </div>
-      <div class="recentupload"[hidden]="tooglebetweetask.lastweek">
+      <div class="recentupload"*ngIf="!tooglebetweetask.lastweek">
         <p class="title" style="margin-left:0%;">Unsubmitted tasks</p>
         <div class="assinment_div">
-          <div class="filecontainer" *ngFor="let task of tasklatesubmits " (contextmenu)="onContextMenu($event,task)" (contextmenu)="onContextMenu($event,task)">
+          <div class="filecontainer taskcontainer" *ngFor="let task of tasklatesubmits | async  " (click)="activatetask($event,'taskcontainer')" (contextmenu)="onContextMenu($event,task);activatetask($event,'taskcontainer')">
             <div class="file-image">
               <div class='image'>
                 <span>{{task.lesson | short:3}}</span>
@@ -150,8 +150,8 @@
             </div>
             <div class="file-semidetails">
               <span class="foldername">{{task.taskname}}</span>
-              <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-              <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+              <span><app-time-display [time]="task.endat"></app-time-display> </span>
+              <span style="margin-left:10px">{{task.givenat| date:"MM/dd/yy'at' HH:mm"}}</span>
               <button mat-icon-button (click)="onContextMenu($event,task)" >
                 <mat-icon>more_vert</mat-icon>
               </button>

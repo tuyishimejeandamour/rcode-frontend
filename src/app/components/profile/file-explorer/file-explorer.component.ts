@@ -1,3 +1,5 @@
+
+import { RemainingTimeService } from './../../../core/services';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {  Breadcrumb } from 'app/Service/path.service';
 import { ExplorerComponent } from './explorer/explorer.component';
@@ -10,6 +12,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
 import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 export interface FolderFile{
   type:string;
@@ -25,7 +28,8 @@ export interface FolderFile{
 @Component({
   selector: 'app-file-explorer',
   templateUrl: './file-explorer.component.html',
-  styleUrls: ['./file-explorer.component.scss']
+  styleUrls: ['./file-explorer.component.scss'],
+  providers:[RemainingTimeService]
 })
 export class FileExplorerComponent implements OnInit {
 
@@ -40,6 +44,7 @@ export class FileExplorerComponent implements OnInit {
     private contextMenuService: ContextMenuService,
     private gettasks:HttptaskService,
     private user:JerwisService,
+    private timeremain:RemainingTimeService
   ) {}
 
   currentRoot:FolderFile;
@@ -63,10 +68,10 @@ export class FileExplorerComponent implements OnInit {
     all:false
   }
   currentselectedtask:TaskYouHave = null;
-  tasks:TaskYouHave[];
-  taskInThisWeek:TaskYouHave[];
-  tasklatesubmits:TaskYouHave[];
-  taskInotherweek:TaskYouHave[];
+  tasks:Observable<TaskYouHave[]>;
+  taskInThisWeek:Observable<TaskYouHave[]>;
+  tasklatesubmits:Observable<TaskYouHave[]>;
+  taskInotherweek:Observable<TaskYouHave[]>;
 
   ngOnInit():void {
     this.gethome();
@@ -120,7 +125,14 @@ export class FileExplorerComponent implements OnInit {
   renameElement(element: FolderFile):void {
     element
   }
+  activatetask(event: any, classname: string): void{
+    const tablinks = document.getElementsByClassName(classname);
+    for (let i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace("activetask", "");
+    }
+    event.currentTarget.className += " activetask";
 
+  }
 
   pushToPath(element:FolderFile):void{
     this.addnavpath({element: element });
@@ -210,13 +222,14 @@ export class FileExplorerComponent implements OnInit {
   }
   HandleResponse(data:TaskYouHave[],choice:number):void{
     if (choice == 1) {
-      this.tasks = data;
+
+      this.tasks = this.timeremain.countdown(data);
     }else if(choice == 2){
-      this.taskInThisWeek = data;
+      this.taskInThisWeek = this.timeremain.countdown(data);
     }else if(choice == 3){
-      this.taskInotherweek = data;
+      this.taskInotherweek = this.timeremain.countdown(data);
     }else if(choice == 4){
-      this.tasklatesubmits = data;
+      this.tasklatesubmits = this.timeremain.countdown(data);
 
     }
   }
@@ -285,15 +298,11 @@ export class newReminderComponent {
   onSubmit():void{
     this.Remainder.taskid = this.data;
     const date = new Date(this.selectedtime.dateset).toLocaleDateString();
-    // const month = date.getUTCMonth() + 1; //months from 1-12
-    // const day = date.getUTCDate();
-    // const year = date.getUTCFullYear();
-    // // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    // const newdate = year + "/" + month + "/" + day;
     const time = new Date(this.selectedtime.timeset).toLocaleTimeString();
-    // const form = this.datepipe.transform(this.selectedtime.timeset, 'yyyy-MM-dd hh:mm:ss')
     console.log(date+"T"+time);
     console.log(time);
+    this.Remainder.setedtime = date+"T"+time;
+    console.log(this.Remainder)
     this.gettask.setreminder(this.Remainder).subscribe(
       ()=>{this.notify.success('succefull set');this.onNoClick()},
       error=> this.notify.error(error.error.error)

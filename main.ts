@@ -1,8 +1,9 @@
-import { app, BrowserWindow, Menu, nativeImage, screen, shell, Tray } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, screen, shell } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { InitTray } from './traywindow';
 import * as contextMenu from 'electron-context-menu'
+import { appendFileSync } from 'fs';
 
 let win: BrowserWindow = null;
 let deeplinkingUrl;
@@ -32,10 +33,6 @@ const args = process.argv.slice(1),
   contextMenu({
     prepend: (defaultActions, parameters, browserWindow) => [
       {
-        label: 'Rainbow',
-        visible: parameters.mediaType === 'image'
-      },
-      {
         label: 'Search Google for “{selection}”',
         visible: parameters.selectionText.trim().length > 0,
         click: () => {
@@ -44,6 +41,13 @@ const args = process.argv.slice(1),
       }
     ]
   });
+
+  function logEverywhere(s) {
+    console.log(s)
+    if (win && win.webContents) {
+      win.webContents.executeJavaScript(`console.log("${s}")`)
+    }
+  }
 function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
@@ -111,20 +115,43 @@ try {
   // Some APIs can only be used after this event occurs.
   // Added 400 ms to fix the black background issue while using transparent window. More detais at https://github.com/electron/electron/issues/15947
   let tray= null;
+  const contextMenu = Menu.buildFromTemplate([
+    {
+        label: 'Open', click: function () {
+            win.show()
+        }
+    },
+    {
+        label: 'Quit', click: function () {
+            app.quit()
+        }
+    }
+  ])
   app.on('ready', () =>{
      setTimeout(createWindow, 400);
-     InitTray()
+     InitTray(contextMenu)
     }
     );
 
   // Quit when all windows are closed.
-  app.on('window-all-closed', () => {
+  app.on('window-all-closed', (event) => {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
-      app.quit();
+        win.hide();
     }
   });
+ app.on('quit',(event)=>{
+    event.preventDefault();
+    win.hide();
+});
+//  app.on('quit',(event)=>{
+//     event.preventDefault();
+//     app.hide();
+// });
+
+
+
 
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
@@ -151,11 +178,6 @@ app.on('will-finish-launching', function() {
     logEverywhere('open-url# ' + deeplinkingUrl)
   })
 })
-
-// Log both at dev console and at running node console instance
-function logEverywhere(s) {
-  console.log(s)
-  if (win && win.webContents) {
-    win.webContents.executeJavaScript(`console.log("${s}")`)
-  }
-}
+ipcMain.on('newWindow', function (e, filenName) {
+  alert("ok to go with this function");
+});

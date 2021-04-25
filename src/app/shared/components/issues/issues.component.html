@@ -1,50 +1,70 @@
-<div id="mainDiv" *ngFor="let comment of talks">
-    <mat-list  class="p-0" >
+<div class="chat-history">
+  <ul>
+    <li class="clearfix" *ngFor="let comment of talks">
+      <div class="message-data align-right">
+        <span class="message-data-time">{{comment.date | date :'dd-MMM-yy h:mm:ss a '}}, Today</span> &nbsp; &nbsp;
+        <span class="message-data-name">{{comment.author}}</span>
+        <mat-icon>circle</mat-icon>
+      </div>
+      <div class="message other-message float-right" [innerHTML]="comment.text">
+
+      </div>
+      <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
+      <mat-icon>favorite</mat-icon>
+
+      <div *ngIf="comment.relyOpen " class="writerelydiv">
+        <quill-editor customToolbarPosition="bottom" [(ngModel)]="text" name="message" [style]="{width:'100%'}">
+          <div quill-editor-toolbar>
+            <span class="ql-formats">
+              <button class="ql-bold" [title]="'Bold'"></button>
+              <button class="ql-italic" [title]="'Italic'"></button>
+              <button class="ql-underline" [title]="'Underline'"></button>
+              <button class="ql-strike" [title]="'Strike'"></button>
+            </span>
+            <span class="ql-formats">
+              <select class="ql-align" [title]="'Aligment'">
+                <option selected></option>
+                <option value="center"></option>
+                <option value="right"></option>
+                <option value="justify"></option>
+              </select>
+            </span>
+            <span class="ql-formats">
+              <button type="button" class="ql-list" value="ordered"></button>
+              <button type="button" class="ql-list" value="bullet"></button>
+              <button type="button" class="ql-script" value="sub"></button>
+            </span>
+            <span class="ql-formats">
+              <button type="button" class="ql-image"></button>
+              <button type="button" class="ql-video"></button>
+            </span>
+            <button type="button" class="emoji"></button>
+          </div>
+        </quill-editor>
+        <button (click)="addComment(comment)" mat-raised-button color="primary" class="savebutton">reply</button>
+      </div>
+      <app-issues [talks]="comment.relys" [task]="task_id">
+      </app-issues>
+    </li>
+  </ul>
+  <!-- <mat-list  class="p-0" >
                     <mat-list-item  class="talk-item">
                         <img matListAvatar [src]="comment.image">
-                        <p matLine class="message mail-body">
+                        <div matLine class="message mail-body">
                           <span class="header">{{comment.author}}</span><br>
-                          <quill-editor matLine class="message"  [(ngModel)]="comment.text" name="message"  [disabled]="true"  [style]="{width:'100%'}">
-                          </quill-editor>
-                        </p>
+                          <div class="ql-container ql-snow ql-disabled">
+                            <div class="ql-editor" [innerHTML]="comment.text"></div>
+
+                          </div>
+
+                        </div>
+
                         <p matLine class="message-date">
                         <small>{{comment.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
                         <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
                         <mat-icon>favorite</mat-icon>
                         </p>
                     </mat-list-item>
-                </mat-list>
-    <div *ngIf="comment.relyOpen " class="writerelydiv">
-        <quill-editor customToolbarPosition="bottom" [(ngModel)]="text" name="message"  [style]="{width:'100%'}">
-            <div quill-editor-toolbar>
-              <span class="ql-formats">
-                <button class="ql-bold" [title]="'Bold'"></button>
-                <button class="ql-italic" [title]="'Italic'"></button>
-                <button class="ql-underline" [title]="'Underline'"></button>
-                <button class="ql-strike" [title]="'Strike'"></button>
-              </span>
-              <span class="ql-formats">
-                <select class="ql-align" [title]="'Aligment'">
-                  <option selected></option>
-                  <option value="center"></option>
-                  <option value="right"></option>
-                  <option value="justify"></option>
-                </select>
-              </span>
-              <span class="ql-formats">
-              <button type="button" class="ql-list" value="ordered"></button>
-              <button type="button" class="ql-list" value="bullet"></button>
-              <button type="button" class="ql-script" value="sub"></button>
-              </span>
-              <span class="ql-formats">
-              <button type="button" class="ql-image"></button>
-              <button type="button" class="ql-video"></button>
-             </span>
-             <button type="button" class="emoji"></button>
-            </div>
-        </quill-editor>
-      <button (click)="addComment(comment)" mat-raised-button color="primary" class="savebutton">reply</button>
-    </div>
-    <app-issues [talks]="comment.relys" [task]="task_id">
-    </app-issues>
-  </div>
+                </mat-list> -->
+
+</div>

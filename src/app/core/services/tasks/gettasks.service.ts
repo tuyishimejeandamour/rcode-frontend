@@ -4,14 +4,14 @@ import { map, takeWhile } from 'rxjs/operators';
 export interface TaskYouHave{
   class: string;
   created_at: Date;
-  endat: Date;
+  endat: Date | string;
   givenat: Date;
   lesson: string;
   long:string;
   short: string;
   id: number;
   taskname: string;
-  updated_at: Date;
+  updated_at: Date |string;
   user_id: number
 }
 export interface Submittedfiles{

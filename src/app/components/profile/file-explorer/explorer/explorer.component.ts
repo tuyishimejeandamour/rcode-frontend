@@ -101,7 +101,6 @@ export class ExplorerComponent implements OnChanges {
     $event.preventDefault();
     $event.stopPropagation();
     this.rotate($event, 'filecontainer',item)
-
   }
   rotate(event: any, classname: string,item: FolderFile): void{
     const tablinks = document.getElementsByClassName(classname);

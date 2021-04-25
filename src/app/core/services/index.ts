@@ -1,3 +1,4 @@
+export { RemainingTimeService } from './tasks/remaining-time.service';
 export * from './electron/electron.service';
 export { JerwisService, User , ContentShow } from './auth/jerwis.service';
 export { TokenService } from './auth/token.service';
@@ -13,3 +14,4 @@ export { HttpexplorerService}  from './fileexplorer/httpexplorer.service'
 export { HttpmarkeditorService } from './markseditor/httpmarkeditor.service'
 export { CommentsService, Message  } from './tasks/comments.service'
 export { CompilecodeService } from './markseditor/compilecode.service'
+

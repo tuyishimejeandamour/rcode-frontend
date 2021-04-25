@@ -18,6 +18,7 @@
   },
   "files": [
     "main.ts"
+
   ],
   "exclude": [
     "node_modules",

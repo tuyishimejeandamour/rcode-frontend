@@ -6,10 +6,11 @@ var trayWindow = require("electron-tray-window");
 var path = require("path");
 var MainTray;
 var TrayWindow;
-function InitTray() {
+function InitTray(contextMenu) {
     var iconName = './src/assets/icons/logo.ico';
     var iconPath = path.join(__dirname, iconName);
     MainTray = new electron_1.Tray(electron_1.nativeImage.createFromPath(iconPath));
+    MainTray.setContextMenu(contextMenu);
     TrayWindow = new electron_1.BrowserWindow({
         show: false,
         frame: false,

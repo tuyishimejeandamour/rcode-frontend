@@ -87,6 +87,7 @@ export class MarktaskComponent implements OnInit {
       enabled: false
     },
     lineNumbers: "off",
+    readOnly: true,
     automaticLayout: true
   };
   constructor(treedata: FiletreeService,
@@ -242,25 +243,9 @@ export class MarktaskComponent implements OnInit {
     source_code: null,
     stdin:null
   }
-  setcode(data: TreeData): boolean {
-    const num = this.filearrays.indexOf(data, 1)
-    if (num < 0) {
-      this.filearrays.push(data);
-      if(this.play){
-        this.play=false;
-      }
-      this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]
-      console.info(this.activelanguage)
-      console.info(this.fileTypes[this.extension.transform(data.path)])
-      console.info(this.extension.transform(data.path))
-      return true;
-    } else {
-      return false
-    }
-  }
   getiffileopened(data: TreeData): boolean {
     if (this.codes.length > 0) {
-      const file = this.codes.filter((code) => code.path === data.path)
+      const file = this.codes.filter((code) => code.path == data.path)
       return file.length > 0 ? true : false;
     } else {
       return false;
@@ -269,14 +254,36 @@ export class MarktaskComponent implements OnInit {
 
   }
 
+  setcode(data: TreeData): boolean {
+
+    const num = this.filearrays.indexOf(data, 1)
+    if (num < 0) {
+      this.filearrays.push(data);
+      if(this.play){
+        this.play=false;
+      }
+      return true;
+    } else {
+      return false
+    }
+
+    this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]
+  }
+
   addFile(data: TreeData): void {
     if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png") {
+      if (this.setcode(data)) {
+        this.activeindex = this.filearrays.indexOf(data, 1);
+      }
       this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
         data => {this.codes.push(data);},
         error => console.log(error)
       );
     } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
+      if (this.setcode(data)) {
+        this.activeindex = this.filearrays.indexOf(data, 1);
 
+      }
       const pathname =
       {
         path:data.path,
@@ -288,6 +295,10 @@ export class MarktaskComponent implements OnInit {
         error => console.log(error)
       );
     }else if(!this.getiffileopened(data) && data.extension == "jpg" || data.extension == "png" || data.extension == "web"){
+      if (this.setcode(data)) {
+        this.activeindex = this.filearrays.indexOf(data, 1);
+
+      }
       const pathname =
       {
         path:data.path,
@@ -299,10 +310,7 @@ export class MarktaskComponent implements OnInit {
         error => console.log(error)
       );
     }
-    if (this.setcode(data)) {
-      this.activeindex = this.filearrays.indexOf(data, 1);
 
-    }
     if (this.filearrays.length == 1) {
       this.activeindex = 0;
     }
@@ -323,7 +331,6 @@ export class MarktaskComponent implements OnInit {
         this.fileTypes[this.extension.transform(data.path)]
       );
       this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]];
-      console.info(this.activelanguage)
     });
   }
   closetab(index: number): void {
@@ -430,66 +437,51 @@ export class MarktaskComponent implements OnInit {
     bash:46,
     basic:47,
     c:48,
-    "c++":50
-    // 51   'csharp',
-    // 52   'cpp',
-    // 53   'cpp',
-    // 54   'cpp',
-    // 55   'lisp',
-    // 56   'd',
-    // 57   'elixir',
-    // 58   'erlang',
-    // 44   'executable',
-    // 59   'fortran',
-    // 60   'go',
-    // 61   'haskell',
-    // 62   'java',
-    // 63   'javaScript',
-    // 64   'lua',
-    // 65   'ocaml',
-    // 66   'octave',
-    // 67   'pascal',
-    // 68   'php',
-    // 43   'plainText',
-    // 69   'prolog',
-    // 70   'python',
-    // 71   'python',
-    // 72   'ruby',
-    // 73   'rust',
-    // 74   'typescript',
-    // 75   'c',
-    // 76   'cpp',
-    // 77   'cobol',
-    // 78   'kotlin',
-    // 79   'objectiveC',
-    // 80   'r',
-    // 81   'scala',
-    // 82   'sqlite',
-    // 83   'swift',
-    // 84   'vb',
-    // 85   'perl',
-    // 86   'clojure',
-    // 87   'fsharp',
-    // 88:   'groovy',
-    // 1001: 'c',
-    // 1002: 'cpp',
-    // 1003: 'c3',
-    // 1004: 'java',
-    // 1005: 'javaTest',
-    // 1006: 'mpicc',
-    // 1007: 'mpicxx',
-    // 1008: 'mpipy',
-    // 1009: 'nim',
-    // 1010: 'pythonForMl',
-    // 1011: 'bosque',
-    // 1012: 'cppTest',
-    // 1013: 'c',
-    // 1014: 'cpp',
-    // 1015: 'cppTest',
-    // 1021: 'csharp',
-    // 1022: 'csharp',
-    // 1023: 'csharpTest',
-    // 1024: 'fsharp'
+    "c++":52,
+    csharp:51,
+    'lisp':55,
+    'd':56,
+    'elixir':57,
+    'erlang':58,
+    'executable':44,
+    'fortran':59,
+    'go':60,
+    'haskell':61,
+    'java': 62,
+    'javaScript':63,
+    'lua':64,
+    'ocaml':65,
+    'octave':66,
+    'pascal':67,
+    'php':68,
+    'plainText':43,
+    'prolog':69,
+    'python':70,
+    'ruby':72,
+    'rust':73,
+    'typescript':74,
+    'cobol':77,
+    'kotlin':78,
+    'objectivec':79,
+    'r':80,
+    'scala':81,
+    'sqlite':82,
+    'swift':83,
+    'vb':84,
+    'perl':85,
+    'clojure':86,
+    'fsharp':87,
+    'groovy':88,
+    'c3':1003,
+    'javaTest':1005,
+    'mpicc':1006,
+    'mpicxx':1007,
+    'mpipy':1008,
+    'nim':1009,
+    'pythonForMl':1010,
+    'bosque':1011,
+    'cppTest':1012,
+    'csharpTest':1023,
   };
   /**
    * pdf staffs
@@ -499,7 +491,8 @@ export class MarktaskComponent implements OnInit {
   isLoaded = false;
   fitpage= true;
   zoom = 1;
-
+  isHtml = true;
+  phpoutput = "";
   afterLoadComplete(pdfData: any):void {
     this.totalPages = pdfData.numPages;
     this.isLoaded = true;
@@ -536,6 +529,7 @@ export class MarktaskComponent implements OnInit {
   compiletherusercode(): void {
     if(this.extension.transform(this.filearrays[this.activeindex].path) == "html"){
       this.play = true;
+      this.isHtml = true;
       this.urltohtmlfile = "";
       return;
     }
@@ -543,14 +537,23 @@ export class MarktaskComponent implements OnInit {
 
       return;
     }
-    this.codetoexecute.language_id = this.activelanguage;
-    this.codetoexecute.source_code = this.compile.encode_val(this.codes[this.activeindex].code);
-    this.codetoexecute.stdin =  this.compile.encode_val(this.stdin);
-    console.log(this.codetoexecute);
-    this.compile.compilecode(this.codetoexecute).subscribe(
-      data => {this.runtherusercode(data.token);console.error(data.token)},
-      error => console.log(error)
-    )
+    if(this.activelanguage){
+      if(this.codes[this.activeindex].code.trim() ==""){
+        this.notify.info("you can't run imput code");
+        return;
+      }
+      this.codetoexecute.language_id = this.activelanguage;
+      this.codetoexecute.source_code = this.compile.encode_val(this.codes[this.activeindex].code);
+      this.codetoexecute.stdin =  this.compile.encode_val(this.stdin);
+      console.log(this.codetoexecute);
+      this.notify.info("compiling .....");
+      this.compile.compilecode(this.codetoexecute).subscribe(
+        data => {this.runtherusercode(data.token);},
+        error => this.notify.error("error occured  please try again")
+      )
+    }else{
+      this.notify.info("unable to choose language");
+    }
   }
   runtherusercode(token: string): void {
     this.compile.runcode(token).subscribe(
@@ -559,37 +562,19 @@ export class MarktaskComponent implements OnInit {
     )
   }
   handleResult(data:any):void {
-
+    if(!this.terminal){
+      this.terminal = true
+    }
+    if(data.language.id == 68){
+      this.play = true;
+      this.isHtml = false;
+      this.phpoutput = this.compile.decode(data.stdout);
+      return;
+    }
     this.result.output = this.compile.decode(data.stdout);
     this.result.error = this.compile.decode(data.stderr);
-    this.result.compiledoutput = this.compile.decode(data.compile_output);
+    this.result.compliedoutput = this.compile.decode(data.compile_output);
     this.result.message = this.compile.decode(data.message);
-
-    if (this.result.output !== "") {
-      const dot = document.getElementById("stdout-dot");
-      if (!dot.parentElement.classList.contains("active")) {
-        dot.hidden = false;
-      }
-    }
-    if (this.result.error !== "") {
-      const dot = document.getElementById("stderr-dot");
-      if (!dot.parentElement.classList.contains("active")) {
-        dot.hidden = false;
-      }
-    }
-    if (this.result.compiledoutput !== "") {
-      const dot = document.getElementById("compile-output-dot");
-      if (!dot.parentElement.classList.contains("active")) {
-        dot.hidden = false;
-      }
-    }
-    if (this.result.message !== "") {
-      const dot = document.getElementById("message-dot");
-      if (!dot.parentElement.classList.contains("active")) {
-        dot.hidden = false;
-      }
-    }
-
   }
 
 }

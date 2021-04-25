@@ -198,19 +198,19 @@
               <div class="header">
                 <div class="switchcontainer">
                   <ul class="actions-container" role="toolbar">
-                    <li class="action-tab active" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                    <li class="action-tab active" role="tab"  draggable="true" tabindex="0"><a class="action-label"
                         (click)="openCity($event, 'terminal')" id="defaultopen">terminal</a>
                     </li>
-                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                    <li class="action-tab" role="tab" *ngIf="result.output" draggable="true" tabindex="0"><a class="action-label"
                         id="stdout-dot" (click)="openCity($event, 'debug')">output</a>
                     </li>
-                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                    <li class="action-tab" role="tab" *ngIf="result.error" draggable="true" tabindex="0"><a class="action-label"
                         id="stderr-dot" (click)="openCity($event, 'error')">error</a>
                     </li>
-                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
-                        id="compile-output-dot" (click)="openCity($event, 'complied')">compiled output</a>
+                    <li class="action-tab" role="tab" *ngIf="result.compliedoutput" draggable="true" tabindex="0"><a class="action-label"
+                        id="compile-output-dot" (click)="openCity($event, 'complied')">compiled error</a>
                     </li>
-                    <li class="action-tab" role="tab" draggable="true" tabindex="0"><a class="action-label"
+                    <li class="action-tab" role="tab" *ngIf="result.message" draggable="true" tabindex="0"><a class="action-label"
                         id="message-dot" (click)="openCity($event, 'message')">message</a>
                     </li>
 
@@ -307,9 +307,17 @@
             </div>
             <div class="codediveditor iframbackground">
               <div *ngIf="activeindex >= 0 && play" style="height:100%">
-                <iframe [attr.srcDoc]="codes[activeindex].code | noSanitize" title="rcode display code" frameborder="0"
+                <div *ngIf="isHtml" style="height:100%">
+                  <iframe src='https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fieee802%2Eorg%3A80%2Fsecmail%2FdocIZSEwEqHFr%2Edoc' width='100%' height='100%' frameborder='0'>This is an embedded <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by <a target='_blank' href='http://office.com/webapps'>Office Online</a>.</iframe>
+                <!-- <iframe  [attr.srcDoc]="codes[activeindex].code | noSanitize" title="rcode display code" frameborder="0"
+                  border="0" cellspacing="0" style="border-style: none; height: 100%;width:100%"></iframe> -->
+                </div>
+                <div *ngIf="!isHtml" style="height:100%">
+                  <iframe  [attr.srcDoc]="phpoutput | noSanitize" title="rcode display code" frameborder="0"
                   border="0" cellspacing="0" style="border-style: none; height: 100%;width:100%"></iframe>
-              </div>
+                <!-- </div> -->
+                </div>
+                </div>
             </div>
           </as-split-area>
         </as-split>
