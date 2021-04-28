@@ -271,13 +271,20 @@ export class MarktaskComponent implements OnInit {
   }
 
   addFile(data: TreeData): void {
-    if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png") {
+    if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png" && data.extension != "jpeg") {
       if (this.setcode(data)) {
         this.activeindex = this.filearrays.indexOf(data, 1);
       }
+      //console.log("ok this is where i pass")
+      const pathname =
+      {
+        path:data.path,
+        code:`loading .......`
+      };
+      this.codes.push(pathname)
       this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
-        data => {this.codes.push(data);},
-        error => console.log(error)
+        data => {this.changethecode(pathname.path,data.code);},
+        error => {console.log(error),this.closetab(this.activeindex)}
       );
     } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
       if (this.setcode(data)) {
@@ -294,7 +301,7 @@ export class MarktaskComponent implements OnInit {
         data =>{ this.changethecode(pathname.path,data);},
         error => console.log(error)
       );
-    }else if(!this.getiffileopened(data) && data.extension == "jpg" || data.extension == "png" || data.extension == "web"){
+    }else if(!this.getiffileopened(data) && data.extension == "jpg" || data.extension == "png" || data.extension == "jpeg"){
       if (this.setcode(data)) {
         this.activeindex = this.filearrays.indexOf(data, 1);
 

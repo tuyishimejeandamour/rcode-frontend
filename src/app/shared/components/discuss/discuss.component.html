@@ -16,32 +16,69 @@
   </mat-tab>
   <mat-tab label="issues">
     <div class="example-small-box ">
-        <div class="messages">
-          <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
-            <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
-            </app-issues>
-              <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
-                  <mat-icon>chat</mat-icon>
-                  <p>no issue with this task yet</p>
-              </div>
-          </div>
-          <mat-divider></mat-divider>
-          <div *ngIf="talks" class="chat-actions">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
-              <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
-              <img class="writecommentimage" *ngIf="image" [src]="image">
-                <div class="w-100 writerelydiv" style="width:60%">
-                  <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
-                </quill-editor>
+      <mat-sidenav-container fullscreen>
+        <mat-sidenav #sidenav  mode="side" class="example-sidenav" position="end"   >
+          <div class="messages">
+            <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
+              <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
+              </app-issues>
+                <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                    <mat-icon>chat</mat-icon>
+                    <p>no issue with this task yet</p>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
-                    <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
-                        <mat-icon>send</mat-icon>
-                    </button>
+            </div>
+            <mat-divider></mat-divider>
+            <div *ngIf="talks" class="chat-actions">
+              <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
+                <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
+                <img class="writecommentimage" *ngIf="image" [src]="image">
+                  <div class="w-100 writerelydiv" style="width:60%">
+                    <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
+                  </quill-editor>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
+                      <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
+                          <mat-icon>send</mat-icon>
+                      </button>
+                  </div>
+                  </div>
+         </div>
+        </div>
+        </mat-sidenav>
+
+        <div class="example-sidenav-content" style="height:100%;width:100%">
+          <div class="messages">
+            <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
+              <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
+              </app-issues>
+                <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+                    <mat-icon>chat</mat-icon>
+                    <p>no issue with this task yet</p>
                 </div>
-                </div>
-       </div>
-      </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div *ngIf="talks" class="chat-actions">
+              <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
+                <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
+                <img class="writecommentimage" (click)="sidenav.toggle()" *ngIf="image" [src]="image">
+                  <div class="w-100 writerelydiv" style="width:60%">
+                    <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
+                  </quill-editor>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
+                      <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
+                          <mat-icon>send</mat-icon>
+                      </button>
+                  </div>
+                  </div>
+         </div>
+        </div>
+
+        </div>
+
+
+      </mat-sidenav-container>
+
       </div>
 
   </mat-tab>

@@ -44,11 +44,10 @@ export class DiscussComponent implements OnInit{
       'emoji-textarea': true,
       'emoji-toolbar': true,
       'toolbar': [
-        ['bold', 'italic', 'underline', 'strike'],
+        ['bold', 'underline', 'strike'],
         ['code-block'],
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-        ['image', 'video'],
-        ['emoji'],
+
 
       ],
       imageResize: true

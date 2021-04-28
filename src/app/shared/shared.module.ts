@@ -21,6 +21,7 @@ import { DiscussComponent } from './components/discuss/discuss.component';
 import { AssessimentComponent } from './components/assessiment/assessiment.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { AngularSplitModule } from 'angular-split';
+import { CoreModule } from 'app/core/core.module';
 export const MY_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'},
   datePickerInput: {year: 'numeric', month: 'numeric', day: 'numeric'},
@@ -34,7 +35,7 @@ export const MY_NATIVE_FORMATS = {
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, AuthHeatherComponent, CommonFooterComponent, DashHeaderComponent, MainNavComponent, FooterMenuComponent, TimeDisplayComponent, ProfilepictureComponent,IssuesComponent, DiscussComponent,AssessimentComponent],
   imports: [CommonModule, TranslateModule, FormsModule,MaterialModule , AngularSplitModule, RouterModule,QuillModule.forRoot(),OwlDateTimeModule,
-    OwlNativeDateTimeModule ],
+    OwlNativeDateTimeModule, CoreModule ],
   exports: [TranslateModule, WebviewDirective, FormsModule, AuthHeatherComponent,CommonFooterComponent,DashHeaderComponent, MainNavComponent, FooterMenuComponent,TimeDisplayComponent,ProfilepictureComponent,IssuesComponent, DiscussComponent,AssessimentComponent],
   providers: [
     DatePipe,

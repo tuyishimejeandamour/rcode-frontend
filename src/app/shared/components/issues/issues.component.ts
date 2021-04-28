@@ -10,6 +10,7 @@ export class IssuesComponent implements OnInit {
   task_id:number;
   @Input()
   talks:Message[] = [];
+  relys:Message[] = [];
   @Input('task')
   set value(v : number) {
     this.task_id = v;
@@ -68,6 +69,9 @@ export class IssuesComponent implements OnInit {
   remove(comment:Message):void{
     const index = this.talks.indexOf(comment);
     this.talks = this.talks.splice(index,1);
+  }
+  viewreplys(data:Message[]):void{
+    this.relys = data;
   }
 
 }

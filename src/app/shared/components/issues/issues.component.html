@@ -1,53 +1,5 @@
 <div class="chat-history">
-  <ul>
-    <li class="clearfix" *ngFor="let comment of talks">
-      <div class="message-data align-right">
-        <span class="message-data-time">{{comment.date | date :'dd-MMM-yy h:mm:ss a '}}, Today</span> &nbsp; &nbsp;
-        <span class="message-data-name">{{comment.author}}</span>
-        <mat-icon>circle</mat-icon>
-      </div>
-      <div class="message other-message float-right" [innerHTML]="comment.text">
-
-      </div>
-      <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
-      <mat-icon>favorite</mat-icon>
-
-      <div *ngIf="comment.relyOpen " class="writerelydiv">
-        <quill-editor customToolbarPosition="bottom" [(ngModel)]="text" name="message" [style]="{width:'100%'}">
-          <div quill-editor-toolbar>
-            <span class="ql-formats">
-              <button class="ql-bold" [title]="'Bold'"></button>
-              <button class="ql-italic" [title]="'Italic'"></button>
-              <button class="ql-underline" [title]="'Underline'"></button>
-              <button class="ql-strike" [title]="'Strike'"></button>
-            </span>
-            <span class="ql-formats">
-              <select class="ql-align" [title]="'Aligment'">
-                <option selected></option>
-                <option value="center"></option>
-                <option value="right"></option>
-                <option value="justify"></option>
-              </select>
-            </span>
-            <span class="ql-formats">
-              <button type="button" class="ql-list" value="ordered"></button>
-              <button type="button" class="ql-list" value="bullet"></button>
-              <button type="button" class="ql-script" value="sub"></button>
-            </span>
-            <span class="ql-formats">
-              <button type="button" class="ql-image"></button>
-              <button type="button" class="ql-video"></button>
-            </span>
-            <button type="button" class="emoji"></button>
-          </div>
-        </quill-editor>
-        <button (click)="addComment(comment)" mat-raised-button color="primary" class="savebutton">reply</button>
-      </div>
-      <app-issues [talks]="comment.relys" [task]="task_id">
-      </app-issues>
-    </li>
-  </ul>
-  <!-- <mat-list  class="p-0" >
+ <!-- <mat-list  class="p-0" >
                     <mat-list-item  class="talk-item">
                         <img matListAvatar [src]="comment.image">
                         <div matLine class="message mail-body">
@@ -67,4 +19,73 @@
                     </mat-list-item>
                 </mat-list> -->
 
+  <div class="example-card" *ngIf="talks">
+      <div aria-expanded="false" class="c-virtual_list__item" tabindex="-1" role="listitem" id="1619014212.001300"
+        data-qa="virtual-list-item" style="top: 727.297px;" *ngFor="let comment of talks">
+        <div role="document" class="c-message_kit__background p-message_pane_message__message c-message_kit__message"
+          data-qa="message_container" data-qa-unprocessed="false" data-qa-placeholder="false">
+          <div role="document" class="c-message_kit__hover" data-qa-hover="true">
+            <div class="c-message_kit__actions c-message_kit__actions--default" style="position: relative;">
+              <div class="c-message_kit__labels__offscreen_message" aria-live="assertive"></div>
+              <div class="c-message_kit__gutter">
+                <div class="c-message_kit__gutter__left" data-stringify-ignore="true"><button
+                    class="c-button-unstyled c-message_kit__avatar c-avatar c-avatar--interactive " aria-hidden="true"
+                    aria-label="View Isaac Mugisha’s Profile" tabindex="-1" aria-haspopup="menu" aria-expanded="false"
+                    type="button" style="height: 36px; width: 36px;"><img [src]="comment.image"
+                      class="c-base_icon c-base_icon--image" aria-hidden="true" role="img" alt=""
+                      style="height: 36px; width: 36px;"></button></div>
+                <div class="c-message_kit__gutter__right" data-qa="message_content"><span
+                    class="c-message__sender c-message_kit__sender" data-qa="message_sender"
+                    data-stringify-type="replace" data-stringify-text="Isaac Mugisha"><a target="_blank"
+                      rel="noopener noreferrer" data-message-sender="UJX3TGKTJ" data-qa="message_sender_name"
+                      aria-haspopup="menu" aria-expanded="false" class="c-link c-message__sender_link "
+                      href="#">{{comment.author}}<span aria-label="(opens in new tab)"></span></a></span>&nbsp;&nbsp;<a
+                    data-stringify-type="replace" data-stringify-text="[4:10 PM]"
+                    data-stringify-requires-siblings="true" data-ts="1619014212.001300" delay="300"
+                    data-sk="tooltip_parent" class="c-link c-timestamp"
+                    href="https://rcagroupworkspace.slack.com/archives/GSBGU3AEP/p1619014212001300"><span
+                      class="c-timestamp__label">{{comment.date | date:"HH:mm a"}}</span></a><br>
+                  <div class="c-message_kit__blocks c-message_kit__blocks--rich_text">
+                    <div class="c-message__message_blocks c-message__message_blocks--rich_text">
+                      <div class="p-block_kit_renderer" data-qa="block-kit-renderer">
+                        <div class="p-block_kit_renderer__block_wrapper p-block_kit_renderer__block_wrapper--first">
+                          <div class="p-rich_text_block" dir="auto">
+                            <div class="p-rich_text_section" [innerHTML]="comment.text | noSanitize">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div role="presentation" *ngIf="comment.relys"
+                    (click)="viewreplys(comment.relys)"
+                    class="c-message__reply_bar c-message_kit__thread_replies" data-qa="reply_bar"
+                    data-stringify-ignore="true">
+                    <button *ngFor="let item of comment.relys | slice:0:2; let i=index"
+                      class="c-button-unstyled c-avatar c-avatar--interactive "
+                      [attr.aria-label]="'View' + item.author+'’s Profile'" tabindex="0" aria-haspopup="menu"
+                      aria-expanded="false" type="button" style="height: 24px; width: 24px;">
+                      <img [src]="comment.image" class="c-base_icon c-base_icon--image" aria-hidden="true" role="img"
+                        alt="" style="height: 24px; width: 24px; margin-right: 3px;">
+                    </button>
+                    <a target="_blank" rel="noopener noreferrer" class="c-link c-message__reply_count"
+                      href="">{{comment.relys.length}}  replies<span aria-label="(opens in new tab)"></span></a>
+                    <div class="c-message__reply_bar_description"><span class="c-message__reply_bar_view_thread">View
+                        thread</span></div><span style="margin-top:6px"
+                      class="c-deprecated-icon c-message__reply_bar_arrow c-icon--chevron-right c-deprecated-icon--vertical-align-baseline"
+                      type="chevron_right" aria-hidden="true">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>

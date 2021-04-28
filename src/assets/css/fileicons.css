@@ -26,7 +26,7 @@
   content: ' ';
   background-image: url(../fileicons/php.svg);
 }
-.file-ext-png::before,.file-ext-jpg::before,.file-ext-webp::before {
+.file-ext-png::before,.file-ext-jpg::before,.file-ext-webp::before,.file-ext-jpeg::before {
   content: ' ';
   background-image: url(../fileicons/image.svg);
 }
@@ -37,4 +37,12 @@
 .file-ext-sql::before {
   content: ' ';
   background-image: url(../fileicons/sql.svg);
+}
+.file-ext-java::before {
+  content: ' ';
+  background-image: url(../fileicons/java.svg);
+}
+.file-ext-xml::before {
+  content: ' ';
+  background-image: url(../fileicons/xml.svg);
 }

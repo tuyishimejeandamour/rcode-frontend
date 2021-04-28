@@ -362,3 +362,24 @@ border: none !important;
 .mention>span {
   margin: 0 3px;
 }
+.mat-dialog-container {
+  overflow: hidden !important;
+}
+
+.p-rich_text_section p img{
+  max-width: 300px;
+  max-height: 400px;
+}
+.p-rich_text_section .ql-syntax{
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;white-space: pre-wrap;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+
+.mat-drawer-content {
+  overflow-y: hidden !important;
+}
