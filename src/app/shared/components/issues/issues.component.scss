@@ -5,7 +5,15 @@
   height: 100%;
 }
 .c-message_kit__message {
+      position: relative;
       line-height: 1.46668;
+      &:hover{
+        background: rgba(224, 229, 235, 0.664);
+        border-radius: 4px;
+        .c-message__actions{
+          display: inline-flex;
+        }
+      }
   }
 .c-message_kit__message {
       font-size: 15px;
@@ -181,4 +189,56 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.c-message__actions {
+    position: absolute;
+    top: -10px;
+    right: 17px;
+    display: none;
+    z-index: 1;
+
+
+}
+.c-message_actions__group {
+  background: rgba(var(--sk_primary_background,255,255,255),1);
+  line-height: 1;
+  margin-left: 8px;
+  border: unset;
+  box-shadow: unset;
+  --saf-0: rgba(var(--sk_foreground_low,29,28,29),0.13);
+  box-shadow: 0 0 0 1px var(--saf-0),0 1px 3px 0 rgba(0,0,0,.08);
+  display: flex;
+  padding: 2px;
+  border-radius: .375em;
+}
+.c-message_actions__button {
+  color: rgba(var(--sk_foreground_max,29,28,29),.1);
+  height: 25px;
+  width: 25px;
+  border-radius: 3px;
+  &:active{
+    background: rgba(230, 230, 230, 0.356);
+  }
+}
+
+.c-icon_button {
+  align-items: center;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+
+}
+.c-button-unstyled {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  line-height: inherit;
+  overflow: initial;
+  padding: 0;
+  text-align: initial;
+  vertical-align: initial;
+  cursor: pointer;
 }

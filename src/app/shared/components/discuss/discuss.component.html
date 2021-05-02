@@ -17,10 +17,16 @@
   <mat-tab label="issues">
     <div class="example-small-box ">
       <mat-sidenav-container fullscreen>
-        <mat-sidenav #sidenav  mode="side" class="example-sidenav" position="end"   >
-          <div class="messages">
+        <mat-sidenav #sidenav  mode="side" [opened]="sideopened" class="example-sidenav" position="end">
+          <div class="title_replys">
+           <div class="title_title"></div>
+           <div class="close_relys">
+             <button (click)="sidenav.toggle()"><svg class="c-icon " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg></button>
+           </div>
+          </div>
+          <div class="messages" style="height: calc(100% - 50px);">
             <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
-              <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
+              <app-issues *ngIf="Replys" [talks]="Replys" [task]="data.taskid">
               </app-issues>
                 <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                     <mat-icon>chat</mat-icon>
@@ -28,16 +34,16 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
-            <div *ngIf="talks" class="chat-actions">
+            <div class="chat-actions">
               <div fxLayout="row" fxLayoutAlign="space-between center" class="write_message">
-                <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
-                <img class="writecommentimage" *ngIf="image" [src]="image">
+                <!-- <img class="writecommentimage" *ngIf="!image" src="../../../../../assets/tuy.png">
+                <img class="writecommentimage" *ngIf="image" [src]="image"> -->
                   <div class="w-100 writerelydiv" style="width:60%">
-                    <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="newMessage" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
+                    <quill-editor customToolbarPosition="bottom" [modules]="modules"  (onEditorCreated)="addBindingCreated($event)" [(ngModel)]="replyissue" name="message"  [style]="{width:'100%',display:'flex',flexDirection:'column-reverse'}">
                   </quill-editor>
                   </div>
                   <div fxLayout="row" fxLayoutAlign="center center" style="margin-left:20px">
-                      <button mat-mini-fab color="primary" type="button" (click)="sendMessage()">
+                      <button mat-mini-fab color="primary" type="button" (click)="sendReply()">
                           <mat-icon>send</mat-icon>
                       </button>
                   </div>
@@ -49,7 +55,7 @@
         <div class="example-sidenav-content" style="height:100%;width:100%">
           <div class="messages">
             <div class="chat-content showtools"  [class.actions-visible]="talks" perfectScrollbar>
-              <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid">
+              <app-issues *ngIf="talks"[talks]="talks" [task]="data.taskid" (toggleSidebar) ="openreply($event)">
               </app-issues>
                 <div *ngIf="!talks" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
                     <mat-icon>chat</mat-icon>

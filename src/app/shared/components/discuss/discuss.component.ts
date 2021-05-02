@@ -28,9 +28,13 @@ export interface taskReview{
 })
 export class DiscussComponent implements OnInit{
   public talks: Message[];
+  public Replys:Message[] = [];
+  public issue:Message = null;
   newMessage: string;
   modules:any;
-  image:string
+  image:string;
+  sideopened = false;
+  replyissue = null;
   constructor(
     public dialogRef: MatDialogRef<DiscussComponent>,
     public message:CommentsService,
@@ -138,7 +142,39 @@ export class DiscussComponent implements OnInit{
 
 
   }
+  sendReply():void{
+    this.addAnwser();
+    this.replyissue="";
+  }
+  addAnwser():void{
+    if(this.replyissue){
+      this.Replys.push(
+        {
+          issue_id:this.issue.id,
+          image:'../../../assets/tuy.png',
+          author:'Emilio Verdines',
+          authorStatus:'online',
+          text:this.replyissue,
+          date:new Date(),
+          relys:[],
+          relyOpen:false,
+        });
+      console.error(this.issue.id);
+      const comment={
+        task_id:this.data.taskid,
+        issue_id: this.issue.id,
+        user_id:this.user.getUser().id,
+        comment:this.replyissue
+      }
+      // newComment.relyOpen = false;
+      this.message.reporttaskissues(comment).subscribe(
+        data=> console.log(data),
+        error=>this.notify.error(error)
+      )
 
+    }
+
+  }
   ngOnDestroy():void{
 
   }
@@ -171,6 +207,11 @@ export class DiscussComponent implements OnInit{
       alert('ok');
       console.log('KEYBINDING SHIFT + B', range, context)
     })
+  }
+  openreply(data:Message):void{
+    this.Replys = data.relys;
+    this.issue = data;
+    this.sideopened = true;
   }
 }
 
