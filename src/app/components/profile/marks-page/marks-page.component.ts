@@ -43,7 +43,7 @@ export class MarksPageComponent implements OnInit,AfterViewInit {
     this.dataSource.sort = this.sort;
   }
   getYourClasses():void{
-    this.marks.getmarks(this.user.getUser().id).subscribe(
+    this.marks.getAllYouClass(this.user.getUser().id).subscribe(
       data=> this.dataclasses = data,
       error=> this.notify.error(error.error.error)
 
@@ -62,7 +62,8 @@ export class MarksPageComponent implements OnInit,AfterViewInit {
     });
   }
   getmarks(t:number):void{
-    this.marks.getmarks(t).subscribe(
+    const id = this.user.getUser().id;
+    this.marks.getmarks(id,t).subscribe(
       data=> this.dataSource.data=data,
       error=> this.notify.error(error.error.error)
     )

@@ -3,7 +3,7 @@
       your marks
   </div>
   <div class="float-pro">
-    <a (click)="getmarks(classname.name)" #intialselect  *ngFor=" let classname of dataclasses ;let i =index;" [id]="'loc_' +i" routerLinkActive="active"><mat-icon>filter_1</mat-icon><span>term1</span></a>
+    <a (click)="getmarks(classname.id)" #intialselect  *ngFor=" let classname of dataclasses ;let i =index;" [id]="'loc_' +i" routerLinkActive="active"><mat-icon>filter_1</mat-icon><span>{{classname.name}}</span></a>
   </div>
 </div>
 <div class="directory_marks">

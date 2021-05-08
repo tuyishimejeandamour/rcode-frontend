@@ -11,8 +11,8 @@ export class HttpmarksService {
   private baseurl = AppConfig.apiHost;
 
   constructor(private http: HttpClient) { }
-  getmarks(term1: number): Observable<any> {
-    return this.http.get(`${this.baseurl}/marks/${term1}`);
+  getmarks(id: number,classid: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/marks/${id}/${classid}`);
   }
 
   givemarks(data: { user_id: number, marks: number, task_id: number }): Observable<any> {
