@@ -26,7 +26,10 @@ export class HttpmarksService {
     return this.http.post(`${this.baseurl}/feedbacks`, data);
   }
   setfeedback(savefeedback: { task_id: number; sender_id: number; reciever_id: any; feedback: any; }): Observable<any> {
-    alert("ok");
     return this.http.post(`${this.baseurl}/feedback`, savefeedback);
+  }
+  getAllYouClass(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/classes/${id}`)
+
   }
 }

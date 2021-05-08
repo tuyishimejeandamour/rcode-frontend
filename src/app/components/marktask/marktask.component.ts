@@ -262,18 +262,20 @@ export class MarktaskComponent implements OnInit {
       if(this.play){
         this.play=false;
       }
+      this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]
       return true;
     } else {
       return false
     }
 
-    this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]
+
   }
 
   addFile(data: TreeData): void {
     if (!this.getiffileopened(data) && data.extension != "pdf" && data.extension != "doc"&& data.extension != "jpg"&& data.extension != "png" && data.extension != "jpeg") {
       if (this.setcode(data)) {
         this.activeindex = this.filearrays.indexOf(data, 1);
+        this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]];
       }
       //console.log("ok this is where i pass")
       const pathname =
@@ -283,7 +285,7 @@ export class MarktaskComponent implements OnInit {
       };
       this.codes.push(pathname)
       this.markeditor.getcode(data.path, this.user.getUser().id).subscribe(
-        data => {this.changethecode(pathname.path,data.code);},
+        data => {this.changethecode(pathname.path,data.code);this.activelanguage = this.sources[this.fileTypes[this.extension.transform(data.path)]]},
         error => {console.log(error),this.closetab(this.activeindex)}
       );
     } else if (!this.getiffileopened(data) && data.extension == "pdf" || data.extension == "doc") {
@@ -351,6 +353,7 @@ export class MarktaskComponent implements OnInit {
       }
     } else if (index < this.activeindex) {
       this.activeindex -= 1;
+
     }
   }
   openCity(evt, cityName: string): void {
@@ -383,7 +386,7 @@ export class MarktaskComponent implements OnInit {
         error => console.log(error)
       )
     }else{
-      alert(<number><unknown>this.heroId);
+      this.notify.error("task_id not found");
     }
   }
   givefeedback(user_id:number,text:string):void{
@@ -444,7 +447,7 @@ export class MarktaskComponent implements OnInit {
     bash:46,
     basic:47,
     c:48,
-    "c++":52,
+    'c++':52,
     csharp:51,
     'lisp':55,
     'd':56,
@@ -552,11 +555,12 @@ export class MarktaskComponent implements OnInit {
       this.codetoexecute.language_id = this.activelanguage;
       this.codetoexecute.source_code = this.compile.encode_val(this.codes[this.activeindex].code);
       this.codetoexecute.stdin =  this.compile.encode_val(this.stdin);
-      console.log(this.codetoexecute);
-      this.notify.info("compiling .....");
+      this.notify.info('compiling .....',{
+        closeOnClick: true
+      });
       this.compile.compilecode(this.codetoexecute).subscribe(
-        data => {this.runtherusercode(data.token);},
-        error => this.notify.error("error occured  please try again")
+        data => {this.runtherusercode(data.token);this.clearToasts()},
+        error =>{this.clearToasts();this.notify.error("error occured  please try again")}
       )
     }else{
       this.notify.info("unable to choose language");
@@ -582,6 +586,9 @@ export class MarktaskComponent implements OnInit {
     this.result.error = this.compile.decode(data.stderr);
     this.result.compliedoutput = this.compile.decode(data.compile_output);
     this.result.message = this.compile.decode(data.message);
+  }
+  clearToasts():void {
+    this.notify.clear();
   }
 
 }

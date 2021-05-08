@@ -57,6 +57,7 @@ export class FileExplorerComponent implements OnInit {
   selectedFiles: any;
   selectedpath:any;
   zipedfiles:any[]=[]
+  filesize = 0;
   currentFile: File;
   progress = 0;
   message = '';
@@ -64,6 +65,7 @@ export class FileExplorerComponent implements OnInit {
   taskstoworkon = false;
   uploadedtasks = true;
   uploadtasks = true;
+  contentLoaded = false;
   tooglebetweetask ={
     thisweek:true,
     lastweek:true,
@@ -77,6 +79,9 @@ export class FileExplorerComponent implements OnInit {
   taskInotherweek:Observable<TaskYouHave[]>;
 
   ngOnInit():void {
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2000);
     this.gethome();
     this.filtertasks(1);
   }
@@ -249,6 +254,8 @@ export class FileExplorerComponent implements OnInit {
   }
   uploadfolder(event: { target: { files: any; }; }):void{
     this.selectedFiles = event.target.files[0];
+    const fsize = this.selectedFiles.size;
+    this.filesize = Math.round((fsize / 1024));
     const reader = new FileReader();
     reader.readAsBinaryString(this.selectedFiles);
 

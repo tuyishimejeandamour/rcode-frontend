@@ -3,13 +3,48 @@
       your marks
   </div>
   <div class="float-pro">
-    <a [routerLink]="'term1'" #intialselect  routerLinkActive="active"><mat-icon>filter_1</mat-icon><span>term1</span></a>
-
-    <a [routerLink]="'term2'" routerLinkActive="active"> <mat-icon>filter_2</mat-icon><span>term2</span></a>
-
-    <a [routerLink]="'term3'" routerLinkActive="active"><mat-icon>filter_3</mat-icon><span>term3</span></a>
+    <a (click)="getmarks(classname.name)" #intialselect  *ngFor=" let classname of dataclasses ;let i =index;" [id]="'loc_' +i" routerLinkActive="active"><mat-icon>filter_1</mat-icon><span>term1</span></a>
   </div>
 </div>
 <div class="directory_marks">
-<router-outlet></router-outlet>
+  <div class="directory_header">
+    <img style="width: 30px;height:30px;margin-left:20px;margin-top:5px"
+        src="../../../../assets/others/term.png" alt="">
+    <span style="position: absolute;top:10px;left:50%;font-size:14px;font-weight:600">Term 1</span>
+  </div>
+  <div class="directory_show">
+    <div class="mat-elevation-z1" >
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position" >
+          <mat-header-cell  *matHeaderCellDef> No. </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{dataSource.data.indexOf(element)+1}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="marks">
+          <mat-header-cell *matHeaderCellDef> marks </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.marks}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="review">
+          <mat-header-cell *matHeaderCellDef> review </mat-header-cell>
+          <mat-cell *matCellDef="let element"><button (click)="viewtaskremarks(element.task_id,element.user_id)"mat-raised-button>review</button></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </table>
+
+      <mat-paginator color="primary" [pageSizeOptions]="[5,9,20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
 </div>

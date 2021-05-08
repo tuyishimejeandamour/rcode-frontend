@@ -40,6 +40,7 @@ import { StudentTaskService } from './Service/student-task.service';
 
 
 
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

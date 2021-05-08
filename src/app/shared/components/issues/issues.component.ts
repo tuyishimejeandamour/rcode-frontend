@@ -8,6 +8,7 @@ import { SnotifyService } from 'ng-snotify';
 })
 export class IssuesComponent implements OnInit {
   task_id:number;
+  contentLoaded = false;
   @Input()
   talks:Message[] = [];
   relys:Message[] = [];
@@ -19,13 +20,13 @@ export class IssuesComponent implements OnInit {
   text:string;
 
   constructor(
-    private user:JerwisService,
-    public message:CommentsService,
-    private notify:SnotifyService
+    public message:CommentsService
   ){}
 
   ngOnInit():void{
-
+    setTimeout(() => {
+      this.contentLoaded = true;
+    }, 2000);
   }
 
 

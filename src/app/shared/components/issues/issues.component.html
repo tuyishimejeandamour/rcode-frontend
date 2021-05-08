@@ -1,24 +1,5 @@
-<div class="chat-history">
- <!-- <mat-list  class="p-0" >
-                    <mat-list-item  class="talk-item">
-                        <img matListAvatar [src]="comment.image">
-                        <div matLine class="message mail-body">
-                          <span class="header">{{comment.author}}</span><br>
-                          <div class="ql-container ql-snow ql-disabled">
-                            <div class="ql-editor" [innerHTML]="comment.text"></div>
 
-                          </div>
-
-                        </div>
-
-                        <p matLine class="message-date">
-                        <small>{{comment.date | date:"dd MMMM, yyyy 'at' HH:mm"}}</small>
-                        <mat-icon (click)="openCommentText(comment)">reply</mat-icon>
-                        <mat-icon>favorite</mat-icon>
-                        </p>
-                    </mat-list-item>
-                </mat-list> -->
-
+<div class="chat-history" style="padding-top: 12px;">
   <div class="example-card" *ngIf="talks">
       <div aria-expanded="false" class="c-virtual_list__item" tabindex="-1" role="listitem" id="1619014212.001300"
         data-qa="virtual-list-item" style="top: 727.297px;" *ngFor="let comment of talks">

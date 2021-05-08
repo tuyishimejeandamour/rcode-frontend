@@ -60,9 +60,10 @@
 
   }
   .messages{
-    display:flex;
+    display: flex;
     flex-direction: column;
     height: calc(100% - 2px);
+    background: white;
     .chat-actions{
       min-height: 84px;
       position: relative;
@@ -94,10 +95,11 @@
   }
   .download-button{
     position: absolute;
-    width: 20%;
-    height:47px;
+    width: 15%;
+    height: 47px;
     right: -24px;
-    z-index:200;
+    z-index: 200;
+    top: -5px;
     button{
       margin-right: 10px;
     }
