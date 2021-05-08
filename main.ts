@@ -4,6 +4,8 @@ import * as url from 'url';
 import { InitTray } from './traywindow';
 import * as contextMenu from 'electron-context-menu'
 import { appendFileSync } from 'fs';
+import * as fs from 'fs'
+import * as os from 'os'
 
 let win: BrowserWindow = null;
 let deeplinkingUrl;
@@ -109,6 +111,7 @@ function createWindow(): BrowserWindow {
   return win;
 }
 
+
 try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
@@ -178,6 +181,22 @@ app.on('will-finish-launching', function() {
     logEverywhere('open-url# ' + deeplinkingUrl)
   })
 })
-ipcMain.on('newWindow', function (e, filenName) {
-  alert("ok to go with this function");
+ipcMain.on('newWindow',  e => {
+  console.log("new is to be created"+e)
+});
+ipcMain.on('print-to-pdf', event => {
+  const name = new Date().toString()+"homework.pdf"
+  const pdfPath = path.join(os.tmpdir(), name);
+  const win = BrowserWindow.fromWebContents(event.sender);
+
+  win.webContents.printToPDF({marginsType: 1, pageSize:'Tabloid'}).then( (data)=>{
+    fs.writeFile(pdfPath, data, err => {
+      if (err) return console.log(err.message);
+      shell.openExternal('file://' + pdfPath);
+      event.sender.send('wrote-pdf', pdfPath);
+    })
+
+  }).catch((error) => {
+    throw error;
+ })
 });

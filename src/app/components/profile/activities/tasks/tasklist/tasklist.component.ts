@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { Groups } from '../../students/students.component';
 import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class TasklistComponent implements OnInit {
     private activity:HttpactivitiesService,
     private contextMenuService: ContextMenuService,
     private dialog:  MatDialog,
-    private route:Router
+    private route:Router,
+    public datepipe: DatePipe,
 
   ){
 
@@ -114,8 +116,9 @@ export class TasklistComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.data.givenat = this.datepipe.transform(result.data.givenat, 'yyyy-MM-dd hh:mm:ss')
+        result.data.endat = this.datepipe.transform(result.data.endat, 'yyyy-MM-dd hh:mm:ss')
         this.updateRowData(result.data);
-
       }
 
     });
@@ -128,7 +131,7 @@ export class TasklistComponent implements OnInit {
 
   }
   updateRowData(obj:TasksDetails):void{
-    this.jerwis.updatetask(obj,obj.id).subscribe(
+    this.jerwis.updatetask(obj).subscribe(
       (data)=> {console.log(data)},
       (error)=>this.errorhandler(error)
     )
@@ -163,7 +166,6 @@ export class DialogOverviewExampleDialog implements OnInit{
     @Inject(MAT_DIALOG_DATA) public data:TasksDetails,
     private user:JerwisService,
     private Httpact:HttpactivitiesService,) {
-    this.local_data = {...data};
   }
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -175,7 +177,7 @@ export class DialogOverviewExampleDialog implements OnInit{
     this.dialogRef.close();
   }
   doAction(): void{
-    this.dialogRef.close({data:this.local_data})
+    this.dialogRef.close({data:this.data})
   }
   getgroups():void{
     this.Httpact.getgroups(this.user.getUser().id).subscribe(

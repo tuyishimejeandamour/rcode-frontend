@@ -13,6 +13,8 @@ import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { DiscussComponent } from 'app/shared/components/discuss/discuss.component';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import * as JSUnzip  from '../../../../assets/js/JsUnzip'
+import * as JSZip from 'jszip';
 
 export interface FolderFile{
   type:string;
@@ -54,6 +56,7 @@ export class FileExplorerComponent implements OnInit {
   currenttask:TaskYouHave;
   selectedFiles: any;
   selectedpath:any;
+  zipedfiles:any[]=[]
   currentFile: File;
   progress = 0;
   message = '';
@@ -236,9 +239,47 @@ export class FileExplorerComponent implements OnInit {
   /**
    * uploading functionlities
    */
+  isfolder(data:string):boolean{
+    const lastChar = data.substr(data.length - 1);
+    if (lastChar == '/' || lastChar == '\\') {
+      return true;
+    }
+    return false;
 
+  }
   uploadfolder(event: { target: { files: any; }; }):void{
     this.selectedFiles = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsBinaryString(this.selectedFiles);
+
+    reader.onloadend = (e)=>{
+      const myZip = e.target.result;
+      const zip = new JSZip();
+      let test = {
+        name:null,
+        folder:false
+      };
+      zip.loadAsync(myZip).then(contents=> {
+        Object.keys(contents.files).map((filename)=>{
+
+
+          const dest ={
+            name:filename,
+            folder:filename.substr(filename.length - 1) == '/' ? true:false
+          };
+          if (test.folder && dest.folder) {
+            test = dest
+          }else{
+            test = dest
+            this.zipedfiles.push(dest);
+          }
+
+          console.log(dest);
+
+        });
+      });
+    }
+
     this.selectedpath = { value: 0, name: this.selectedFiles.name,file:this.selectedFiles};
 
   }
@@ -279,9 +320,10 @@ export class newReminderComponent {
     timeset:null,
   }
   Remainder={
-    taskid:null,
-    setedtime:null,
-    comment:null
+    task_id:null,
+    user_id:null,
+    deadline:null,
+    description:null
   }
 
   constructor(
@@ -289,6 +331,7 @@ export class newReminderComponent {
     @Inject(MAT_DIALOG_DATA) public data: number,
     private gettask:HttptaskService,
     public datepipe: DatePipe,
+    public user:JerwisService,
     private notify:SnotifyService
   ) {}
 
@@ -296,13 +339,9 @@ export class newReminderComponent {
     this.dialogRef.close();
   }
   onSubmit():void{
-    this.Remainder.taskid = this.data;
-    const date = new Date(this.selectedtime.dateset).toLocaleDateString();
-    const time = new Date(this.selectedtime.timeset).toLocaleTimeString();
-    console.log(date+"T"+time);
-    console.log(time);
-    this.Remainder.setedtime = date+"T"+time;
-    console.log(this.Remainder)
+    this.Remainder.task_id = this.data;
+    this.Remainder.user_id = this.user.getUser().id;
+    this.Remainder.deadline = this.datepipe.transform(new Date( new Date(this.selectedtime.dateset).toLocaleDateString()+" "+new Date(this.selectedtime.timeset).toLocaleTimeString()),'yyyy-MM-dd hh:mm:ss');
     this.gettask.setreminder(this.Remainder).subscribe(
       ()=>{this.notify.success('succefull set');this.onNoClick()},
       error=> this.notify.error(error.error.error)

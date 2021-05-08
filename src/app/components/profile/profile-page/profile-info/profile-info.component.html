@@ -178,11 +178,10 @@
                 </div>
                 <div matLine style="display: flex;justify-content: space-between;">
                   <h6 class="text-truncate sender">{{task.taskname}}</h6>
-                  <!-- <small>{{mail.date}}</small> -->
                 </div>
                 <p matLine class="text-truncate subject" style="margin-top: 4px;">
-                  <span><app-time-display [time]="task.givenat"></app-time-display> </span>
-                  <span style="margin-left:10px">{{task.endat | date:"MM/dd/yy'at' HH:mm"}}</span>
+                  <span><app-time-display [time]="task.endat"></app-time-display> </span>
+                  <span style="margin-left:10px">{{task.givenat | date:"MM/dd/yy'at' HH:mm"}}</span>
                 </p>
               </mat-list-item>
               <mat-divider></mat-divider>
@@ -216,21 +215,19 @@
         <mat-divider></mat-divider>
         <mat-card-content>
           <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
-            <div *ngFor="let mail of mails " (click)="viewDetail(mail)">
-              <mat-list-item [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+            <div *ngFor="let remainder of remainders " (click)="viewDetail(mail)">
+              <mat-list-item >
                 <div class="file-image" matListAvatar>
                   <div class='image'>
-                    <span>js</span>
+                    <span>{{remainder.task_id | short:3}}</span>
                   </div>
                 </div>
                 <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
-                  <h6 class="text-truncate sender">{{mail.sender}}</h6>
-                  <small>{{mail.date}}</small>
+                  <h6 class="text-truncate sender">{{remainder.task_id}}</h6>
+                  <small><app-time-display [time]="remainder.deadline"></app-time-display></small>
                 </div>
-                <p matLine class="text-truncate subject">{{mail.subject}}</p>
-                <div class="time-remain">
+                <p matLine class="text-truncate subject">{{remainder.description}}</p>
 
-                </div>
               </mat-list-item>
 
               <mat-divider></mat-divider>

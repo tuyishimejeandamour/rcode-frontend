@@ -8,7 +8,7 @@
       position: relative;
       line-height: 1.46668;
       &:hover{
-        background: rgba(224, 229, 235, 0.664);
+        background: rgba(233, 233, 233, 0.116);
         border-radius: 4px;
         .c-message__actions{
           display: inline-flex;
@@ -142,7 +142,7 @@
     height: 21px;
     &:hover{
       box-shadow: 2px 4px 9px #dde;
-
+      background: rgba(242, 245, 248, 0.959);
     }
 }
 .c-message__reply_bar {

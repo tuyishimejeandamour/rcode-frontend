@@ -189,13 +189,13 @@
     </app-explorer>
   </div>
   <div class="upload-file" *ngIf="!uploadtasks">
-    <div class="side_bar_left_with_img">
+    <!-- <div class="side_bar_left_with_img">
       <div class="header">
       <h4>short instruction</h4>
       <mat-divider></mat-divider>
       <code >{{currentselectedtask.short}}</code>
       </div>
-    </div>
+    </div> -->
     <div class="profile_content_right">
       <mat-card class="example-card">
         <mat-card-header>
@@ -231,6 +231,35 @@
                     <div class="progress">{{ selectedpath.value }}%</div>
                   </div>
                 </li>
+              </ul>
+              <div class="intro_zipped" *ngIf="ischanged">
+                <h2>all files</h2>
+            </div>
+              <ul id="pathlist" style="margin-top: 12px;" >
+                <ng-container *ngFor="let file of zipedfiles">
+                  <li *ngIf="!file.folder">
+                    <div class="div-overay"
+                    role="progressbar"
+                    attr.aria-valuenow="{{ selectedpath.value }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [ngStyle]="{ width: selectedpath.value + '%' }"
+                    >
+                     </div>
+                    <div class="fileuploaded">
+                      <div class="log-file">{{file.name | extension}}</div>
+                      <div class="file_content">
+                       <span>{{file.name}}</span> <br>
+                      </div>
+                      <div class="progress">{{ selectedpath.value }}%</div>
+                    </div>
+                  </li>
+                  <div  class="folder_name" *ngIf="file.folder" style="margin-top: 10px;margin-bottom: 10px;">
+                       <span>{{file.name}}</span> <br>
+                  </div>
+                </ng-container>
+
+
               </ul>
             </div>
 

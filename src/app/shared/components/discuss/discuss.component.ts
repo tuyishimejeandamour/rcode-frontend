@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttptaskService } from 'app/core/services/tasks/httptask.service';
 import { SnotifyService } from 'ng-snotify';
-import { CommentsService,JerwisService,Message } from 'app/core/services';
+import { CommentsService,ElectronService,JerwisService,Message } from 'app/core/services';
 import 'quill-emoji/dist/quill-emoji.js'
 import * as QuillNamespace from 'quill';
 const Quill = QuillNamespace;
@@ -26,7 +26,7 @@ export interface taskReview{
   templateUrl: './discuss.component.html',
   styleUrls: ['./discuss.component.scss']
 })
-export class DiscussComponent implements OnInit{
+export class DiscussComponent implements OnInit,AfterViewInit{
   public talks: Message[];
   public Replys:Message[] = [];
   public issue:Message = null;
@@ -38,6 +38,7 @@ export class DiscussComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<DiscussComponent>,
     public message:CommentsService,
+    private electron: ElectronService,
     public httptask:HttptaskService,
     public user:JerwisService,
     public notify:SnotifyService,
@@ -66,7 +67,16 @@ export class DiscussComponent implements OnInit{
     this.getissues(this.data.taskid);
     this.gettaskcontent();
     this.image = this.user.getUser().profileImage;
-
+    this.electron.ipcRenderer.on('wrote-pdf', (event, path) => {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      const message = `Wrote pdf to : ${path}`;
+      console.log(message);
+    })
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    this.addclassquill()
   }
   getissues(id:number):void{
     if(this.talks){
@@ -151,8 +161,8 @@ export class DiscussComponent implements OnInit{
       this.Replys.push(
         {
           issue_id:this.issue.id,
-          image:'../../../assets/tuy.png',
-          author:'Emilio Verdines',
+          image:this.user.getUser().profileImage,
+          author:this.user.getUser().firstname+" "+this.user.getUser().lastname,
           authorStatus:'online',
           text:this.replyissue,
           date:new Date(),
@@ -212,6 +222,11 @@ export class DiscussComponent implements OnInit{
     this.Replys = data.relys;
     this.issue = data;
     this.sideopened = true;
+  }
+
+  printpdf():void{
+    const content = this.taskreviewcontent.long;
+    this.electron.ipcRenderer.send('printPDF',content);
   }
 }
 

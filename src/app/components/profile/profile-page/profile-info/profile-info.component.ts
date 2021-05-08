@@ -44,6 +44,7 @@ export class ProfileInfoComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   taskInThisWeek:TaskYouHave[];
+  remainders:any[];
   currentuser: User;
   public profileinfo = {
     filepath: '../.././../../../assets/profile_picture/41594424503.png',
@@ -64,6 +65,7 @@ export class ProfileInfoComponent implements OnInit {
     this.geitprogileinfo();
     this.getMails();
     this.gettask();
+    this.getremainder();
     this.chats = this.chatService.getChats();
     if (window.innerWidth <= 768) {
       this.sidenavOpen = false;
@@ -131,6 +133,12 @@ export class ProfileInfoComponent implements OnInit {
       error=> console.log(error)
     )
   }
+  getremainder():void{
+    this.gettasks.getreminder(this.user.getUser().id).subscribe(
+      data=>this.remainders = data,
+      error=> console.log(error)
+    )
+  }
   clicktoupload(): void {
     const ele = document.getElementById('fileinput');
     ele.click();
@@ -172,30 +180,6 @@ export class ProfileInfoComponent implements OnInit {
     }
   }
 
-  sendMessage($event: { which: number; }): void {
-    if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if (this.talks) {
-        this.talks.push(
-          new Chat(
-            '../../../assets/tuy.png',
-            'Emilio Verdines',
-            'online',
-            this.newMessage,
-            new Date(),
-            true)
-        )
-        this.newMessage = '';
-        const chatContainer = document.querySelector('.chat-content');
-        if (chatContainer) {
-          setTimeout(() => {
-            const nodes = chatContainer.querySelectorAll('.mat-list-item');
-            const newChatTextHeight = nodes[nodes.length - 1];
-            chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
-          });
-        }
-      }
-    }
-  }
   toggle(): void {
     this.isOpen = !this.isOpen;
   }

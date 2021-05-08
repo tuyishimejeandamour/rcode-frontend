@@ -20,7 +20,10 @@ export class HttptaskService {
     return this.http.get(`${this.baseurl}/gettask/${data}`);
   }
   setreminder(data:unknown):any{
-    return this.http.post(`${this.baseurl}/setreminder`,data);
+    return this.http.post(`${this.baseurl}/remainder`,data);
+  }
+  getreminder(id:number):any{
+    return this.http.get(`${this.baseurl}/remainder/${id}`);
   }
 
   gettaskcontent(id:number): Observable<any> {

@@ -39,8 +39,8 @@ export class JerwisService {
   getaskcontent(value: number) {
     return this.http.get(`${this.baseurl}/taskcontent/${value}`);
   }
-  updatetask(values, id: number) {
-    return this.http.put(`${this.baseurl}/updatetask/${id}`, values)
+  updatetask(values) {
+    return this.http.put(`${this.baseurl}/updatetask`, values)
   }
   findusers(values: string): Observable<any> {
     const stringsearch = `{"email_or_name":"${values}"}`;

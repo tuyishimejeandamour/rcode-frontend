@@ -177,11 +177,11 @@
         display:flex;
        justify-content: center;
        align-items: center;
-        margin: 5px 3px 0 2px;
-        width: 45px;
-        height: 45px;
+        margin: 5px 5px 0 5px;
+        width: 40px;
+        height: 40px;
         background: rgb(23, 202, 38);
-        border-radius: 50%;
+        border-radius: 4px;
         text-align: center;
         span{
           font-size: 20px;
@@ -314,33 +314,33 @@
 .upload-file{
     display: flex;
 
-  .side_bar_left_with_img {
-    position: relative;
-    width: 30%;
-    height: calc(100%);
-    background:rgb(255, 255, 255);
-    .header{
-      max-height:calc(100% - 55px);
-      h4{
-        text-align: center;
-        font-size:18px;
-        margin-top:10px;
-        margin-bottom: 5px;
-        color: rgb(209, 212, 212)
-      }
-     ol,ul{
-       margin-left: 10px;
-     }
+  // .side_bar_left_with_img {
+  //   position: relative;
+  //   width: 30%;
+  //   height: calc(100%);
+  //   background:rgb(255, 255, 255);
+  //   .header{
+  //     max-height:calc(100% - 55px);
+  //     h4{
+  //       text-align: center;
+  //       font-size:18px;
+  //       margin-top:10px;
+  //       margin-bottom: 5px;
+  //       color: rgb(209, 212, 212)
+  //     }
+  //    ol,ul{
+  //      margin-left: 10px;
+  //    }
 
-    }
-    .content_header{
-      position:absolute;
-      width:100%;
-      bottom: 50px;
-      text-align:center;
-    }
+  //   }
+  //   .content_header{
+  //     position:absolute;
+  //     width:100%;
+  //     bottom: 50px;
+  //     text-align:center;
+  //   }
 
-  }
+  // }
   .profile_content_right{
     flex:1;
     height: calc(100%);
@@ -381,6 +381,20 @@
             color:white;
           }
         }
+        .intro_zipped{
+          font-size: 14px;
+          line-height: 23px;
+         text-align: center;
+    width: 100%;
+    margin-top: 12px;
+    max-width: 220px;
+    /* position: absolute; */
+    margin: 0 auto;
+    left: 35%;
+    h2{
+      margin-top: 22px;
+     }
+   }
         .uploaded{
           width: 100%;
           ul{
@@ -408,7 +422,7 @@
                 position: relative;
                 display: flex;
                 .log-file{
-                  width: 40px;
+                 min-width: 40px;
                   height: 40px;
                   text-align: center;
                   vertical-align: middle;
@@ -436,6 +450,18 @@
                 }
               }
 
+            }
+            .folder_name{
+              width: 90%;
+              position: relative;
+              height: 20px;
+              margin-top: 3px;
+              margin: 2px 5%;
+
+             span{
+               font-size: 12px;
+               color: rgba(70, 67, 67, 0.959);
+             }
             }
           }
         }
